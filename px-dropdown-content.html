@@ -11,22 +11,24 @@ Element providing solution to no problem in particular. As a simple, increments 
 
 ##### Usage
 
-    <px-dropdown-content counter-value="1">Hi</px-dropdown-content>
+    <px-dropdown-content class="px-dropdown-content" items='[{"key":"one", "val": "One", "checked": true}, {"key":"two", "val": "Two", "checked": false}]'>
 
 @element px-dropdown-content
-@blurb Element providing solution to no problem in particular.
+@blurb Element to contain content of a dropdown menu.
 @homepage index.html
 @demo demo.html
 -->
 <dom-module id="px-dropdown-content">
   <link rel="import" type="css" href="css/px-dropdown-content.css" />
   <template>
-    <ul hidden$="{{!menuOpen}}" class="px-dropdown--list list-ui list-ui--tiny">
-      <template is="dom-repeat" items="{{items}}">
-        <li class="px-dropdown--listitem">
-          <input id="{{item.key}}" class="u-ml- u-mr-" checked="{{item.checked}}" type="checkbox">{{item.val}}</li>
-      </template>
-    </ul>
+    <div hidden$="{{!menuOpen}}" >
+      <ul class="px-dropdown--list list-ui list-ui--tiny">
+        <template is="dom-repeat" items="{{items}}">
+          <li class="px-dropdown--listitem">
+            <input id="{{item.key}}" class="u-ml- u-mr-" checked="{{item.checked}}" type="checkbox">{{item.val}}</li>
+        </template>
+      </ul>
+    </div>
   </template>
 </dom-module>
 
@@ -58,13 +60,18 @@ Element providing solution to no problem in particular. As a simple, increments 
     },
 
     /**
-     * Watches for this.items changing.
+     * Open dropdown menu content
      *
-     * @method _itemsChanged
+     * @method open
      */
     open: function() {
       this.menuOpen = true;
     },
+    /**
+     * Clone dropdown menu content
+     *
+     * @method close
+     */
     close: function() {
       this.menuOpen = false;
     },

@@ -1005,6 +1005,9 @@ button.btn {
 .list-ui.list-ui--huge > li {
   padding: 2rem; }
 
+.px-dropdown--list {
+  display: inline-block; }
+
 /*------------------------------------*    #CLEARFIX
 \*------------------------------------*/
 /**
@@ -1544,7 +1547,6 @@ button.btn {
             flex: none !important; } }
 
 .px-dropdown--list {
-  width: 200px;
   border: 1px solid #b1b1bc;
   background-color: #f7f7fc; }
 

@@ -992,6 +992,9 @@ button.btn {
 .list-ui.list-ui--huge > li {
   padding: 2rem; }
 
+.px-dropdown--list {
+  display: inline-block; }
+
 /*------------------------------------*    #CLEARFIX
 \*------------------------------------*/
 /**

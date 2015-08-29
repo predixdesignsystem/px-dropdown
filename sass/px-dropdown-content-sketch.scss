@@ -42,6 +42,12 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 $inuit-enable-list-ui--tiny             : true;
 @import "px-list-ui-design/_objects.list-ui.scss";
 
+// Component
+
+.px-dropdown--list {
+  display: inline-block;
+}
+
 // Trumps
 @import "inuit-clearfix/_trumps.clearfix.scss";
 
