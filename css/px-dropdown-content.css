@@ -1548,7 +1548,8 @@ button.btn {
 
 .px-dropdown--list {
   border: 1px solid #b1b1bc;
-  background-color: #f7f7fc; }
+  background-color: #f7f7fc;
+  border-radius: 3px; }
 
 .px-dropdown--listitem:hover {
   background-color: #3e87e8;

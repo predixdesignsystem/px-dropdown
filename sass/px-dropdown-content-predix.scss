@@ -27,6 +27,8 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 .px-dropdown--list {
   border: 1px solid $gray5;
   background-color: $gray1;
+  border-radius: 3px;
+
 }
 
 .px-dropdown--listitem:hover {
