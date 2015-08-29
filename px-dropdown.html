@@ -1,0 +1,56 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
+    'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
+    See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
+-->
+<link rel="import" href="../polymer/polymer.html" />
+
+<!--
+Element providing solution to no problem in particular. As a simple, increments a counter when clicked.
+
+##### Usage
+
+    <px-dropdown counter-value="1">Hi</px-dropdown>
+
+@element px-dropdown
+@blurb Element providing solution to no problem in particular.
+@homepage index.html
+@demo demo.html
+-->
+
+<dom-module id="px-dropdown">
+  <template>
+    <div id="trigger" on-tap="triggerClicked">
+      <content select=".px-dropdown-trigger"></content>
+    </div>
+    <content select=".px-dropdown-content"></content>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'px-dropdown',
+    /**
+     * True if the menu is open.
+     */
+    properties:{
+      opened:{
+        type: Boolean,
+        notify: true,
+        value: false,
+        observer: '_openChanged'
+      }
+    },
+    _openChanged: function(evt){
+      // this.set('open', !this.open);
+    },
+    triggerClicked: function(evt) {
+      if(!this.opened){
+        Polymer.dom(this).querySelector(".px-dropdown-content").open();
+      }else{
+        Polymer.dom(this).querySelector(".px-dropdown-content").close();
+      }
+      this.set('opened', !this.opened);
+    }
+  });
+</script>

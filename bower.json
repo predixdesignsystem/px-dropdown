@@ -1,0 +1,29 @@
+{
+  "name": "px-dropdown",
+  "version": "0.0.1",
+  "main": [
+    "px-dropdown.html"
+  ],
+  "ignore": [
+    ".*",
+    "npm-debug.log",
+    "Gruntfile.js",
+    "sass",
+    "bower_components",
+    "node_modules",
+    "test"
+  ],
+  "dependencies": {
+    "polymer": "~1.1.1",
+    "px-list-ui-design": "https://github.build.ge.com/PXd/px-list-ui-design.git#~0.3.6",
+    "px-theme": "https://github.build.ge.com/PXc/px-theme.git#~0.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#~v1.0.0",
+    "px-forms-design": "https://github.build.ge.com/PXd/px-forms-design.git#~0.3.0",
+    "px-list-ui-design": "https://github.build.ge.com/PXd/px-list-ui-design.git#~0.3.6",
+    "px-meta-buttons-design": "https://github.build.ge.com/PXd/px-meta-buttons-design.git#~0.4.0",
+    "px-meta-lists-design": "https://github.build.ge.com/PXd/px-meta-lists-design.git#~0.2.0",
+    "px-starter-kit-design": "https://github.build.ge.com/PXd/px-starter-kit-design.git#~0.4.0"
+  }
+}
