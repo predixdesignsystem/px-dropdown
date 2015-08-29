@@ -21,10 +21,10 @@ Element providing solution to no problem in particular. As a simple, increments 
 <dom-module id="px-dropdown-content">
   <link rel="import" type="css" href="css/px-dropdown-content.css" />
   <template>
-    <ul hidden$="{{!menuOpen}}" class="px-dropdown-content--list list-ui list-ui--tiny">
+    <ul hidden$="{{!menuOpen}}" class="px-dropdown--list list-ui list-ui--tiny">
       <template is="dom-repeat" items="{{items}}">
-        <li>
-          <input id="{{item.key}}" class="u-ml++" checked="{{item.checked}}" type="checkbox">{{item.val}}</li>
+        <li class="px-dropdown--listitem">
+          <input id="{{item.key}}" class="u-ml- u-mr-" checked="{{item.checked}}" type="checkbox">{{item.val}}</li>
       </template>
     </ul>
   </template>
