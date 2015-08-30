@@ -992,7 +992,7 @@ button.btn {
 .list-ui.list-ui--huge > li {
   padding: 2rem; }
 
-.px-dropdown--list {
+.px-dropdown--content {
   display: inline-block; }
 
 /*------------------------------------*    #CLEARFIX
@@ -1044,6 +1044,34 @@ button.btn {
 .u-mv- {
   margin-top: 0.6666666667rem !important;
   margin-bottom: 0.6666666667rem !important; }
+
+/**
+     * Padding helper classes.
+     *
+     * Add paddings.
+     */
+.u-p {
+  padding: 1rem !important; }
+
+.u-pt {
+  padding-top: 1rem !important; }
+
+.u-pr {
+  padding-right: 1rem !important; }
+
+.u-pb {
+  padding-bottom: 1rem !important; }
+
+.u-pl {
+  padding-left: 1rem !important; }
+
+.u-ph {
+  padding-right: 1rem !important;
+  padding-left: 1rem !important; }
+
+.u-pv {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important; }
 
 /**
  * A series of width helper classes that you can use to size things like grid

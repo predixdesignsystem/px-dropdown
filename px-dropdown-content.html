@@ -21,13 +21,17 @@ Element providing solution to no problem in particular. As a simple, increments 
 <dom-module id="px-dropdown-content">
   <link rel="import" type="css" href="css/px-dropdown-content.css" />
   <template>
-    <div hidden$="{{!menuOpen}}" >
-      <ul class="px-dropdown--list list-ui list-ui--tiny">
-        <template is="dom-repeat" items="{{items}}">
-          <li class="px-dropdown--listitem">
-            <input id="{{item.key}}" class="u-ml- u-mr-" checked="{{item.checked}}" type="checkbox">{{item.val}}</li>
-        </template>
-      </ul>
+    <div hidden$="{{!menuOpen}}">
+      <div class="u-pl px-dropdown--content">
+        <content select=".px-dropdown-content--header"></content>
+        <ul class="px-dropdown--list list-ui list-ui--tiny">
+          <template is="dom-repeat" items="{{items}}">
+            <li class="px-dropdown--listitem">
+              <input id="{{item.key}}" class="u-ml- u-mr-" checked="{{item.checked}}" type="checkbox">{{item.val}}</li>
+          </template>
+        </ul>
+        <content select=".px-dropdown-content--footer"></content>
+      </div>
     </div>
   </template>
 </dom-module>
@@ -68,12 +72,32 @@ Element providing solution to no problem in particular. As a simple, increments 
       this.menuOpen = true;
     },
     /**
-     * Clone dropdown menu content
+     * Close dropdown menu content
      *
      * @method close
      */
     close: function() {
       this.menuOpen = false;
+    },
+    /**
+     *  Deselect all dropdown checkboxes
+     *
+     * @method deselectAll
+     */
+    deselectAll: function() {
+      this.items.forEach(function(){
+        this.checked = false;
+      });
+    },
+    /**
+     *  Select all dropdown checkboxes
+     *
+     * @method selectAll
+     */
+    selectAll: function() {
+      this.items.forEach(function(){
+        this.checked = true;
+      });
     },
   });
 </script>
