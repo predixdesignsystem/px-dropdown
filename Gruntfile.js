@@ -21,11 +21,17 @@ module.exports = function (grunt) {
                   bower: true
                 }
             },
-            dist: {
-                files: {
-                    'css/noprefix/px-dropdown-content-sketch.css': 'sass/px-dropdown-content-sketch.scss',
-                    'css/noprefix/px-dropdown-content.css': 'sass/px-dropdown-content-predix.scss'
-                }
+            content: {
+              files:{
+                'css/noprefix/px-dropdown-content-sketch.css': 'sass/px-dropdown-content-sketch.scss',
+                'css/noprefix/px-dropdown-content.css': 'sass/px-dropdown-content-predix.scss'
+              }
+            },
+            button: {
+              files:{
+                'css/noprefix/px-dropdown-button-sketch.css': 'sass/px-dropdown-button-sketch.scss',
+                'css/noprefix/px-dropdown-button.css': 'sass/px-dropdown-button-predix.scss'
+              }
             }
         },
 

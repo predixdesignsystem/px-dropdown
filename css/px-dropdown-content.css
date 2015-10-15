@@ -248,6 +248,30 @@ html {
  * A lot of these classes carry `!important` as you will always want them to win
  * out over other selectors.
  */
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+a {
+  background-color: transparent;
+  /**
+ * Default link colors
+ */
+  /**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */ }
+  a:link,
+  a:visited {
+    color: #3e87e8; }
+  a:hover {
+    color: #3573c5; }
+  a:active {
+    color: #2b5ea2; }
+  a:active,
+  a:hover {
+    outline: 0; }
+
 /**
  * Add/remove floats
  */
@@ -562,17 +586,10 @@ html {
           align-self: baseline; }
 
 .viewport {
-  width: 98%;
+  width: 100%;
   max-width: 80rem;
   margin-right: auto;
-  margin-left: auto;
-  padding-right: 1%;
-  padding-left: 1%; }
-  @media screen and (min-width: 80rem) {
-    .viewport {
-      width: 100%;
-      padding-right: 0;
-      padding-left: 0; } }
+  margin-left: auto; }
 
 .viewport--full-height {
   min-height: 100vh; }
@@ -746,18 +763,12 @@ textarea {
   .list-inline > li {
     display: inline-block; }
 
-/**
-     * Pipe delimited list to semantically mark up lists of tags, etc.
-     *
-     */
-.list-inline--delimited > li + li:before {
-  content: " | "; }
-
 /*------------------------------------*    #PX-META-BUTTONS-DESIGN
 \*------------------------------------*/
 .btn {
   display: inline-block;
   overflow: visible;
+  height: 2em;
   margin: 0;
   border: 1px solid #b1b1bc;
   border-radius: 3px;
@@ -776,11 +787,9 @@ textarea {
   .btn:link,
   .btn:visited,
   .btn:hover,
-  .btn:focus,
   .btn:active {
     color: black; }
-  .btn:hover,
-  .btn:focus {
+  .btn:hover {
     border-color: #9999a3;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
     background-color: #b1b1bc; }
@@ -788,8 +797,7 @@ textarea {
     border-color: #7c7c84;
     box-shadow: none;
     background-color: #9999a3; }
-  .btn:active,
-  .btn:focus {
+  .btn:active {
     outline: none; }
 
 button.btn {
@@ -800,127 +808,6 @@ button.btn {
 */
 .btn + .btn {
   margin-left: 0.6666666667rem; }
-
-/**
-   * Buttons with no styles (good a11y practice to use <button> for actions rather than <a>).
-   */
-.btn--bare {
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  line-height: inherit; }
-  .btn--bare,
-  .btn--bare:link,
-  .btn--bare:visited,
-  .btn--bare:hover,
-  .btn--bare:active,
-  .btn--bare:focus {
-    box-shadow: none;
-    background: none;
-    color: inherit; }
-
-/**
-   * Change button colors for primary buttons
-   */
-.btn--primary {
-  border-color: #2b5ea2;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-  background-color: #3e87e8; }
-  .btn--primary,
-  .btn--primary:link,
-  .btn--primary:visited,
-  .btn--primary:hover,
-  .btn--primary:focus,
-  .btn--primary:active {
-    color: white; }
-  .btn--primary:hover,
-  .btn--primary:focus {
-    border-color: transparent;
-    background-color: #3573c5; }
-  .btn--primary:active {
-    border-color: transparent;
-    background-color: #2b5ea2; }
-
-/**
-   * Change button colors for tertiary buttons
-   */
-.btn--tertiary {
-  border-color: #b1b1bc;
-  box-shadow: none;
-  background-color: white; }
-  .btn--tertiary,
-  .btn--tertiary:link,
-  .btn--tertiary:visited,
-  .btn--tertiary:hover,
-  .btn--tertiary:focus,
-  .btn--tertiary:active {
-    color: #3e87e8; }
-  .btn--tertiary:hover,
-  .btn--tertiary:focus {
-    border-color: #9999a3;
-    box-shadow: none;
-    background-color: #e4e4ea; }
-  .btn--tertiary:active {
-    border-color: #7c7c84;
-    box-shadow: none;
-    background-color: #b1b1bc; }
-
-/**
-   * Change button colors for disabled buttons
-   */
-.btn--disabled,
-.btn--disabled:link,
-.btn--disabled:visited,
-.btn--disabled:hover,
-.btn--disabled:active,
-.btn--disabled:focus,
-.btn[disabled],
-.btn[disabled]:link,
-.btn[disabled]:visited,
-.btn[disabled]:hover,
-.btn[disabled]:active,
-.btn[disabled]:focus {
-  border-color: #d1d0d8;
-  box-shadow: none;
-  cursor: not-allowed;
-  background-color: white;
-  color: #d1d0d8; }
-
-/**
-   * Small buttons.
-   */
-.btn--small {
-  font-size: 0.8rem;
-  line-height: calc(1.6666666667em - 2px); }
-
-/**
-   * Large buttons.
-   */
-.btn--large {
-  font-size: 1.3333333333rem; }
-
-/**
-   * Call-to-action buttons.
-   */
-.btn--huge {
-  font-size: 2rem; }
-
-/**
-   * Full-width buttons.
-   */
-.btn--full {
-  width: 100%; }
-
-/**
-   * Round-ended buttons.
-   *
-   * 1. Overly-large value to ensure the radius rounds the whole end of the
-   *    button.
-   */
-.btn--icon {
-  width: 2em;
-  border-radius: 6.6666666667em;
-  padding: 1px 0 0 1px; }
 
 .btn-group {
   display: -webkit-flex;
@@ -983,27 +870,6 @@ button.btn {
 .list-ui--tiny > .list-ui__item,
 .list-ui.list-ui--tiny > li {
   padding: 0.3333333333rem; }
-
-/**
-   * Small list-uis.
-   */
-.list-ui--small > .list-ui__item,
-.list-ui.list-ui--small > li {
-  padding: 0.6666666667rem; }
-
-/**
-   * Large list-uis.
-   */
-.list-ui--large > .list-ui__item,
-.list-ui.list-ui--large > li {
-  padding: 1.3333333333rem; }
-
-/**
-   * Huge list-uis.
-   */
-.list-ui--huge > .list-ui__item,
-.list-ui.list-ui--huge > li {
-  padding: 2rem; }
 
 .px-dropdown--content {
   display: inline-block; }
@@ -1338,7 +1204,7 @@ button.btn {
         -ms-flex: none !important;
             flex: none !important; } }
 
-@media screen and (max-width: 68.204166667rem) {
+@media screen and (max-width: 68.2rem) {
   .u-1\/1-portable {
     width: 100% !important; }
   .u-1\/2-portable {

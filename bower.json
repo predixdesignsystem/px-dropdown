@@ -14,16 +14,15 @@
     "test"
   ],
   "dependencies": {
-    "polymer": "~1.1.1",
-    "px-list-ui-design": "https://github.build.ge.com/PXd/px-list-ui-design.git#~0.3.6",
-    "px-theme": "https://github.build.ge.com/PXc/px-theme.git#~0.2.0"
+    "polymer": "~1.1.4",
+    "px-theme": "https://github.com/predixDev/px-theme.git#~0.3.15"
   },
   "devDependencies": {
+    "px-list-ui-design": "https://github.com/predixDev/px-list-ui-design.git#~0.3.8",
     "iron-component-page": "PolymerElements/iron-component-page#~v1.0.0",
-    "px-forms-design": "https://github.build.ge.com/PXd/px-forms-design.git#~0.3.0",
-    "px-list-ui-design": "https://github.build.ge.com/PXd/px-list-ui-design.git#~0.3.6",
-    "px-meta-buttons-design": "https://github.build.ge.com/PXd/px-meta-buttons-design.git#~0.4.0",
-    "px-meta-lists-design": "https://github.build.ge.com/PXd/px-meta-lists-design.git#~0.2.0",
-    "px-starter-kit-design": "https://github.build.ge.com/PXd/px-starter-kit-design.git#~0.4.0"
+    "px-forms-design": "https://github.com/predixDev/px-forms-design.git#~0.3.11",
+    "px-meta-buttons-design": "https://github.com/predixDev/px-meta-buttons-design.git#~0.5.2",
+    "px-meta-lists-design": "https://github.com/predixDev/px-meta-lists-design.git#~0.3.2",
+    "px-starter-kit-design": "https://github.com/predixDev/px-starter-kit-design.git#~0.4.9"
   }
 }
