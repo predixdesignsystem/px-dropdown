@@ -32,10 +32,6 @@ module.exports = function (grunt) {
                 'css/noprefix/px-dropdown-chevron-sketch.css': 'sass/px-dropdown-chevron-sketch.scss',
                 'css/noprefix/px-dropdown-chevron.css': 'sass/px-dropdown-chevron-predix.scss'
               }
-            },
-            dropdown: {
-              'css/noprefix/px-dropdown-sketch.css': 'sass/px-dropdown-sketch.scss',
-              'css/noprefix/px-dropdown.css': 'sass/px-dropdown-predix.scss'
             }
         },
 

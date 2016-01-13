@@ -11,7 +11,11 @@ Element providing a dropdown solution, currently inside the data table.
 
 ##### Usage
 
-    <px-dropdown>Hi</px-dropdown>
+      <px-dropdown>
+        <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10" width="100" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+        </px-dropdown-content>
+        <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
+      </px-dropdown>
 
 @element px-dropdown
 @blurb Element providing a dropdown solution.
@@ -20,7 +24,6 @@ Element providing a dropdown solution, currently inside the data table.
 -->
 
 <dom-module id="px-dropdown">
-  <link rel="import" type="css" href="css/px-dropdown.css" />
   <template>
     <span on-tap="triggerClicked">
       <div id="trigger" >
@@ -34,13 +37,21 @@ Element providing a dropdown solution, currently inside the data table.
   Polymer({
 
     is: 'px-dropdown',
+    properties: {
+
+    },
+       /* This function is called when the dropdown trigger/chevron is clicked, and
+       * it either opens or closes the content.
+       *
+       * @attribute evt
+       * @type Object
+       */
     triggerClicked: function(evt) {
       if(!this.opened){
         Polymer.dom(this).querySelector(".px-dropdown-content").open();
       }else{
         Polymer.dom(this).querySelector(".px-dropdown-content").close();
       }
-      this.set('opened', !this.opened);
     }
   });
 </script>
