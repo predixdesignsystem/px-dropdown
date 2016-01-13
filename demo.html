@@ -10,10 +10,16 @@
       <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
     <link rel="import" href="../polymer/polymer.html" />
     <link rel="import" href="px-dropdown.html" />
-    <link rel="import" href="px-dropdown-button.html" />
+    <link rel="import" href="px-dropdown-chevron.html" />
     <link rel="import" href="px-dropdown-content.html" />
     <link rel="import" href="../px-theme/px-theme.html" />
-
+    <style>
+    .cont {
+      width: 100px;
+      text-align: right;
+      background-color: #f7f7fc;
+    }
+    </style>
   </head>
 
   <body unresolved>
@@ -27,15 +33,13 @@
     <p>
       Also see the <a href="index.html">documentation</a> and the <a href="test/fixture.html">UI test fixture</a>.
     </p>
-
-    <px-dropdown>
-      <px-dropdown-button class="px-dropdown-trigger"></px-dropdown-button>
-      <px-dropdown-content class="px-dropdown-content" items='[{"key":"one", "val": "One", "checked": true}, {"key":"two", "val": "Two", "checked": false}, {"key":"three", "val": "Three", "checked": true}, {"key":"four", "val": "How now brown cow", "checked": true}]'>
-        <span class="px-dropdown-content--header">Filter By</span>
-        <span class="px-dropdown-content--footer">Clear</span>
-      </px-dropdown-content>
-    </px-dropdown>
-
+    <div class="cont">
+      <px-dropdown>
+        <px-dropdown-content class="px-dropdown-content" max-column-character-width="10" width="100" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+        </px-dropdown-content>
+        <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
+      </px-dropdown>
+    </div>
   </body>
 
 </html>

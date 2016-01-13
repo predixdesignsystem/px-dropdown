@@ -39,19 +39,13 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 @import "px-meta-buttons-design/_meta.buttons.scss";
 
 // Objects
-$inuit-enable-list-ui--tiny             : true;
-@import "px-list-ui-design/_objects.list-ui.scss";
+@import "px-list-bare-design/_objects.list-bare.scss";
 
-// Component
 
-.px-dropdown--content {
-  display: inline-block;
-}
 
 // Trumps
 @import "inuit-clearfix/_trumps.clearfix.scss";
 
-$inuit-enable-margins--small             : true;
-$inuit-enable-paddings                   : true;
-@import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
-@import "px-widths-responsive-design/_trumps.widths-responsive.scss";
+
+$inuit-enable-paddings--tiny             : true;
+@import "px-spacing-design/_trumps.spacing.scss";

@@ -24,14 +24,29 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 
 @import 'px-dropdown-content-sketch.scss';
 
+// Component
+
+
+
 .px-dropdown--content{
-  border: 1px solid $gray5;
   background-color: $gray1;
-  border-radius: 3px;
-
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid $gray6;
+  text-align: left;
 }
-
+.px-dropdown-content {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .px-dropdown--listitem:hover {
-  background-color: $primary-blue;
+  background-color: $select-blue-default;
   color: $white;
+}
+.px-dropdown--listitem:first-child {
+  border-radius: 4px 4px 0 0;
+}
+.px-dropdown--listitem:last-child {
+  border-radius: 0 0 4px 4px;
 }

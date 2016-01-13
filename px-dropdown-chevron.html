@@ -19,16 +19,18 @@ Element providing solution to no problem in particular. As a simple, increments 
 @demo demo.html
 -->
 
-<dom-module id="px-dropdown-button">
-  <link rel="import" type="css" href="css/px-dropdown-button.css" />
+<dom-module id="px-dropdown-chevron">
+  <link rel="import" type="css" href="css/px-dropdown-chevron.css" />
   <template>
-    <button class="btn btn--small">Dropdown</button>
+    <span class="chevron u-ph--">
+      <i class="fa fa-chevron-down"></i>
+    </span>
   </template>
 </dom-module>
 
 <script>
   Polymer({
-    is: 'px-dropdown-button',
+    is: 'px-dropdown-chevron',
     properties:{
       clicked:{
         type: Boolean,

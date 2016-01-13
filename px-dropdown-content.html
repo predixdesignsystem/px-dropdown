@@ -5,7 +5,7 @@
     See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
 -->
 <link rel="import" href="../polymer/polymer.html" />
-
+<link rel="import" href="../px-tooltip/px-tooltip.html" />
 <!--
 Element providing solution to no problem in particular. As a simple, increments a counter when clicked.
 
@@ -21,18 +21,17 @@ Element providing solution to no problem in particular. As a simple, increments 
 <dom-module id="px-dropdown-content">
   <link rel="import" type="css" href="css/px-dropdown-content.css" />
   <template>
-    <div hidden$="{{!menuOpen}}">
-      <div class="u-pl px-dropdown--content">
-        <content select=".px-dropdown-content--header"></content>
-        <ul class="px-dropdown--list list-ui list-ui--tiny">
+      <div class="px-dropdown--content" id="dropdown"  hidden$="{{!menuOpen}}">
+        <ul class="px-dropdown--list list-bare">
           <template is="dom-repeat" items="{{items}}">
-            <li class="px-dropdown--listitem">
-              <input id="{{item.key}}" class="u-ml- u-mr-" checked="{{item.checked}}" type="checkbox">{{item.val}}</li>
+            <li class="px-dropdown--listitem u-ph-- u-pt--">{{item.val}}
+              <template is="dom-if" if="{{_includeTooltip(item.val)}}">
+                <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
+              </template>
+            </li>
           </template>
         </ul>
-        <content select=".px-dropdown-content--footer"></content>
       </div>
-    </div>
   </template>
 </dom-module>
 
@@ -60,9 +59,24 @@ Element providing solution to no problem in particular. As a simple, increments 
         type: Boolean,
         notify: true,
         value: false
+      },
+      width: {
+        type: Number,
+        value: 0,
+        observer: '_setWidth'
+      },
+      /**
+       * Maximum number of characters in a container.  Optional.
+       *
+       *      <px-dropdown max-column-character-width="10" ...></px-dropdown>
+       *
+       * @default no maximum, will be used to calculate whether the dropdown will have a tooltip and ellipsis
+       */
+      maxColumnCharacterWidth: {
+        type: Number,
+        value: 0
       }
     },
-
     /**
      * Open dropdown menu content
      *
@@ -99,5 +113,20 @@ Element providing solution to no problem in particular. As a simple, increments 
         this.checked = true;
       });
     },
+    _setWidth: function() {
+      this.$.dropdown.style.width = (this.width + 15) + 'px';
+    },
+    _includeTooltip: function(value) {
+      console.log('value = ', value);
+      //find the container max character passed in
+      var maxContWidth = this.maxColumnCharacterWidth;
+      if(value === null || value === undefined || typeof value === 'string' && value.trim().length === 0) {
+        return false;
+      }
+      console.log('made it past first check');
+      console.log('checking... ', (value.length > maxContWidth));
+      //find out if the character count in the passed value is higher than the allowed max. if it is, we show the tooltip.
+      return (maxContWidth !== undefined && maxContWidth !== null && maxContWidth !== 0) ? (value.length > maxContWidth) : false;
+    }
   });
 </script>

@@ -20,11 +20,14 @@ Element providing solution to no problem in particular. As a simple, increments 
 -->
 
 <dom-module id="px-dropdown">
+  <link rel="import" type="css" href="css/px-dropdown.css" />
   <template>
-    <div id="trigger" on-tap="triggerClicked">
-      <content select=".px-dropdown-trigger"></content>
-    </div>
-    <content select=".px-dropdown-content"></content>
+    <span on-tap="triggerClicked">
+      <div id="trigger" >
+        <content select=".px-dropdown-trigger"></content>
+      </div>
+      <content select=".px-dropdown-content"></content>
+    </span>
   </template>
 </dom-module>
 <script>
