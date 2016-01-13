@@ -436,7 +436,7 @@ a {
 .invisible {
   visibility: hidden !important; }
 
-.flex {
+.flex, :host {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex; }
@@ -589,6 +589,9 @@ a {
 
 .viewport--full-height {
   min-height: 100vh; }
+
+:host {
+  width: 30px; }
 
 /*------------------------------------*    #CLEARFIX
 \*------------------------------------*/

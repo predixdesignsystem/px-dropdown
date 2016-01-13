@@ -7,14 +7,14 @@
 <link rel="import" href="../polymer/polymer.html" />
 
 <!--
-Element providing solution to no problem in particular. As a simple, increments a counter when clicked.
+Element providing a trigger for the px-dropdown element.
 
 ##### Usage
 
-    <px-dropdown-button counter-value="1">Hi</px-dropdown-button>
+    <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
 
-@element px-dropdown-button
-@blurb Element providing solution to no problem in particular.
+@element px-dropdown-chevron
+@blurb Element which, when clicked, opens the px-dropdown element.
 @homepage index.html
 @demo demo.html
 -->
@@ -37,9 +37,6 @@ Element providing solution to no problem in particular. As a simple, increments 
         reflect: true,
         value: false
       }
-    },
-    // _buttonClicked: function(evt){
-    //   this.set('clicked', !this.clicked);
-    // }
+    }
   });
 </script>

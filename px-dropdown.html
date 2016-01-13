@@ -7,14 +7,14 @@
 <link rel="import" href="../polymer/polymer.html" />
 
 <!--
-Element providing solution to no problem in particular. As a simple, increments a counter when clicked.
+Element providing a dropdown solution, currently inside the data table.
 
 ##### Usage
 
-    <px-dropdown counter-value="1">Hi</px-dropdown>
+    <px-dropdown>Hi</px-dropdown>
 
 @element px-dropdown
-@blurb Element providing solution to no problem in particular.
+@blurb Element providing a dropdown solution.
 @homepage index.html
 @demo demo.html
 -->
@@ -32,21 +32,8 @@ Element providing solution to no problem in particular. As a simple, increments 
 </dom-module>
 <script>
   Polymer({
+
     is: 'px-dropdown',
-    /**
-     * True if the menu is open.
-     */
-    properties:{
-      opened:{
-        type: Boolean,
-        notify: true,
-        value: false,
-        observer: '_openChanged'
-      }
-    },
-    _openChanged: function(evt){
-      // this.set('open', !this.open);
-    },
     triggerClicked: function(evt) {
       if(!this.opened){
         Polymer.dom(this).querySelector(".px-dropdown-content").open();
