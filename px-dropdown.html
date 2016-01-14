@@ -5,7 +5,8 @@
     See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
 -->
 <link rel="import" href="../polymer/polymer.html" />
-
+<link rel="import" href="../px-dropdown-content.html" />
+<link rel="import" href="../px-dropdown-chevron.html" />
 <!--
 Element providing a dropdown solution, currently inside the data table.
 
@@ -38,20 +39,32 @@ Element providing a dropdown solution, currently inside the data table.
 
     is: 'px-dropdown',
     properties: {
-
+      /*
+      * a flag which checks is the dropdown trigger has been clicked on not.
+      *
+      * @notify true
+      * @type Boolean
+      * @default false
+      */
+      opened:{
+        type: Boolean,
+        notify: true,
+        value: false
+      }
     },
-       /* This function is called when the dropdown trigger/chevron is clicked, and
-       * it either opens or closes the content.
-       *
-       * @attribute evt
-       * @type Object
-       */
+   /* This function is called when the dropdown trigger/chevron is clicked, and
+   * it either opens or closes the content.
+   *
+   * @attribute evt
+   * @type Object
+   */
     triggerClicked: function(evt) {
       if(!this.opened){
         Polymer.dom(this).querySelector(".px-dropdown-content").open();
       }else{
         Polymer.dom(this).querySelector(".px-dropdown-content").close();
       }
+      this.opened = !this.opened;
     }
   });
 </script>

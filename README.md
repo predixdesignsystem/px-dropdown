@@ -49,7 +49,7 @@ Finally, use the component in your application:
 
 *Type:* **Number** - (*Optional*) - *Default:* "0"
 
-a number which represents the longest string allowed in the dropdown before the string is clipped, and has an ellipsis added to the end of it. Clipping a string means a px-tooltip component appear on hover with the full - unclipped - string in it.
+a number which represents the number of characters allowed in the dropdown before the string is clipped, and has an ellipsis added to the end of it. Clipping a string means a px-tooltip component appears on hover with the full - unclipped - string in it.
 
 
 ```
@@ -76,7 +76,7 @@ An attribute which determines the size of the container px-dropdown sits in. Thi
 
 #### items
 
-*Type:* **Object** - (*required*) - *Default:* ""
+*Type:* **Object** - (*Required*) - *Default:* ""
 
 an object Literal which holds the list of items that should appear in the dropdown.
 
