@@ -5,32 +5,37 @@
     See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
 -->
 <link rel="import" href="../polymer/polymer.html" />
-
 <!--
-Element providing a trigger for the px-dropdown element.
+Element providing the text for the px-dropdown element
 
 ##### Usage
 
-    <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
+    <px-dropdown-text class="px-dropdown-text"></px-dropdown-text>
 
-@element px-dropdown-chevron
-@blurb Element which, when clicked, opens the px-dropdown element.
+@element px-dropdown-text
+@blurb Element to contain clickable text of a dropdown menu.
 @homepage index.html
 @demo demo.html
 -->
-
-<dom-module id="px-dropdown-chevron">
-  <link rel="import" type="css" href="css/px-dropdown-chevron.css" />
+<dom-module id="px-dropdown-text">
+  <link rel="import" type="css" href="css/px-dropdown-text.css" />
   <template>
-    <span class="px-dropdown-chevron u-ph--" id="trigger">
-      <i class="fa fa-chevron-down"></i>
-    </span>
+      <span class="flex__item px-dropdown-text u-ph--"><content></content></span>
   </template>
 </dom-module>
-
 <script>
   Polymer({
-    is: 'px-dropdown-chevron',
-    properties:{}
+
+    is: 'px-dropdown-text',
+
+    /**
+     * Properties block, expose attribute values to the DOM via 'reflect'
+     *
+     * @property properties
+     * @type Object
+     */
+    properties: {
+
+    }
   });
 </script>

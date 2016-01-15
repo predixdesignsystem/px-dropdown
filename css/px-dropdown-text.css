@@ -10,7 +10,7 @@
  */
 /*
 THIS FILE SHOULD CONTAIN ONLY RULES SPECIFIC TO PREDIX BRANDING
-common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
+common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 */
 /*------------------------------------*    #PX-COLORS-DESIGN
 \*------------------------------------*/
@@ -745,15 +745,14 @@ textarea {
   line-height: inherit;
   color: #7c7c84; }
 
-.px-dropdown--content {
-  text-align: left;
-  width: 100%;
-  width: calc(100% + 15px); }
-
-.px-dropdown-content {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden; }
+:host {
+  -webkit-align-self: flex-start;
+      -ms-flex-item-align: start;
+          align-self: flex-start;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  cursor: pointer; }
 
 /*------------------------------------*    #PX-META-LISTS-DESIGN
 \*------------------------------------*/
@@ -828,19 +827,3 @@ textarea {
 .u-pv-- {
   padding-top: 0.3333333333rem !important;
   padding-bottom: 0.3333333333rem !important; }
-
-.px-dropdown--content {
-  background-color: #f7f7fc;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 1px solid #b1b1bc; }
-
-.px-dropdown--listitem:hover {
-  background-color: #0a9ec1;
-  color: white; }
-
-.px-dropdown--listitem:first-child {
-  border-radius: 4px 4px 0 0; }
-
-.px-dropdown--listitem:last-child {
-  border-radius: 0 0 4px 4px; }

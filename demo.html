@@ -15,10 +15,10 @@
     <style>
     .cont {
       width: 100px;
-      text-align: right;
       background-color: #f7f7fc;
-      display: flex;
+      margin-left: 30px;
     }
+    
     </style>
   </head>
   <body unresolved>
@@ -31,9 +31,10 @@
     </p>
     <div class="cont">
       <px-dropdown>
-        <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10" width="100" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+        <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
+        <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
+        <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
         </px-dropdown-content>
-        <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
       </px-dropdown>
     </div>
   </body>

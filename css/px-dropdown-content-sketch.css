@@ -733,7 +733,9 @@ textarea {
   color: #7c7c84; }
 
 .px-dropdown--content {
-  text-align: left; }
+  text-align: left;
+  width: 100%;
+  width: calc(100% + 15px); }
 
 .px-dropdown-content {
   white-space: nowrap;

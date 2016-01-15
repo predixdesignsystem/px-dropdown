@@ -19,37 +19,12 @@ THIS FILE SHOULD CONTAIN ONLY ABSTRACT/'SKETCH' THEME RULES, NOT SPECIFIC TO PRE
 Predix branding rules go in px-dropdown-predix.scss, not in this file.
 */
 
-// Generic
-@import "px-normalize-design/_generic.normalize.scss";
-@import "px-box-sizing-design/_generic.box-sizing.scss";
-@import "px-helpers-design/_generic.helpers.scss";
 
 // Base
 @import "px-flexbox-design/_base.flexbox.scss";
 @import "px-viewport-design/_base.viewport.scss";
 
-@import "px-forms-design/_base.forms.scss";
-
-.px-dropdown--content{
-  text-align: left;
-  width: 100%;
-  width: calc(100% + 15px);
-}
-.px-dropdown-content {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-// Meta
-@import "px-meta-lists-design/_meta.lists.scss";
-
-// Objects
-@import "px-list-bare-design/_objects.list-bare.scss";
-
 
 
 // Trumps
 @import "inuit-clearfix/_trumps.clearfix.scss";
-
-$inuit-enable-paddings--tiny             : true;
-@import "px-spacing-design/_trumps.spacing.scss";

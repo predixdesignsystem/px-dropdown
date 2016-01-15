@@ -7,6 +7,7 @@
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../px-dropdown-content.html" />
 <link rel="import" href="../px-dropdown-chevron.html" />
+<link rel="import" href="../px-dropdown-text.html" />
 <!--
 Element providing a dropdown solution, currently inside the data table.
 
@@ -25,13 +26,15 @@ Element providing a dropdown solution, currently inside the data table.
 -->
 
 <dom-module id="px-dropdown">
+  <link rel="import" type="css" href="css/px-dropdown.css" />
   <template>
-    <span on-tap="triggerClicked">
-      <div id="trigger" >
-        <content select=".px-dropdown-trigger"></content>
-      </div>
-      <content select=".px-dropdown-content"></content>
-    </span>
+    <div>
+      <span on-tap="triggerClicked" class="flex" id="dropcell">
+        <content select=".px-dropdown-text"></content>
+        <content select=".px-dropdown-chevron"></content>
+      </span>
+    </div>
+    <content select=".px-dropdown-content"></content>
   </template>
 </dom-module>
 <script>

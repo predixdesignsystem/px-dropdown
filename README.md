@@ -34,9 +34,10 @@ Finally, use the component in your application:
 
 ```
 <px-dropdown>
-  <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10" width="100" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+  <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
+  <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
+  <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
   </px-dropdown-content>
-  <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
 </px-dropdown>
 ```
 
@@ -59,19 +60,6 @@ a number which represents the number of characters allowed in the dropdown befor
 ....
 </px-dropdown-content>
 
-```
-#### width
-
-*Type:* **Number** - (*Required*) - *Default:* ""
-
-An attribute which determines the size of the container px-dropdown sits in. This item is a number only, (no 'px'), and represents pixels.
-
-```
-<px-dropdown-content  
-  width="100"
-  .... >
-....
-</px-dropdown-content>
 ```
 
 #### items
