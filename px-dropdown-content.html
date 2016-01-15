@@ -79,6 +79,18 @@ Element providing the content for the px-dropdown element
       maxContCharacterWidth: {
         type: Number,
         value: 0
+      },
+      extendDropdown: {
+        type: Boolean,
+        value: false,
+      },
+      extendDropdownBy: {
+        type: Number,
+        value: 15,
+      },
+      extended : {
+        type: Boolean,
+        value: false
       }
     },
     /**
@@ -88,6 +100,7 @@ Element providing the content for the px-dropdown element
      */
     open: function() {
       this.menuOpen = true;
+      this._extendDropdown();
     },
     /**
      * Close dropdown menu content
@@ -131,6 +144,25 @@ Element providing the content for the px-dropdown element
      */
     _clickFire: function(evt) {
       this.fire('px-dropdown-click', evt);
+    },
+    /**
+     * This allows for the dropdown to be extended to make sure it's more distinguishable
+     * from its environment
+     *
+     * @method _extendDropdown
+     */
+    _extendDropdown: function() {
+      if (!this.extended && this.extendDropdown) {
+        //get the width of the dropdown, and how much to extend it by.
+        var width = getComputedStyle(this.$.dropdown).width,
+            extendBy = this.extendDropdownBy;
+        //remove the px string from it, and convert it into an int
+        width = parseInt(width.substring(0, width.length-2));
+
+        //set the flag that we've extended the dropdown. without this, it'll keep extending.
+        this.extended = true;
+        this.$.dropdown.style.width = String(width + extendBy) + 'px';
+      }
     }
   });
 </script>

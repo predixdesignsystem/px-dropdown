@@ -636,7 +636,4 @@ a {
 
 .px-dropdown-chevron {
   background-color: #f7f7fc;
-  cursor: pointer;
-  -webkit-flex-basis: 15px;
-      -ms-flex-preferred-size: 15px;
-          flex-basis: 15px; }
+  cursor: pointer; }

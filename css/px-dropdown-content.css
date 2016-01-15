@@ -747,8 +747,7 @@ textarea {
 
 .px-dropdown--content {
   text-align: left;
-  width: 100%;
-  width: calc(100% + 15px); }
+  width: 100%; }
 
 .px-dropdown-content {
   white-space: nowrap;
