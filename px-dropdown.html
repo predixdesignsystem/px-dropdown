@@ -9,15 +9,16 @@
 <link rel="import" href="px-dropdown-chevron.html" />
 <link rel="import" href="px-dropdown-text.html" />
 <!--
-Element providing a dropdown solution, currently inside the data table.
+Element providing a dropdown solution.
 
 ##### Usage
 
-      <px-dropdown>
-        <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
-        </px-dropdown-content>
-        <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
-      </px-dropdown>
+<px-dropdown>
+  <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
+  <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
+  <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="15" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+  </px-dropdown-content>
+</px-dropdown>
 
 @element px-dropdown
 @blurb Element providing a dropdown solution.
@@ -43,7 +44,7 @@ Element providing a dropdown solution, currently inside the data table.
     is: 'px-dropdown',
     properties: {
       /*
-      * a flag which checks is the dropdown trigger has been clicked on not.
+      * A flag which checks if the dropdown trigger has been clicked or not.
       *
       * @notify true
       * @type Boolean
@@ -56,7 +57,7 @@ Element providing a dropdown solution, currently inside the data table.
       }
     },
    /* This function is called when the dropdown trigger/chevron is clicked, and
-   * it either opens or closes the content.
+   * it either opens or closes (shows/hides) the content.
    *
    * @attribute evt
    * @type Object

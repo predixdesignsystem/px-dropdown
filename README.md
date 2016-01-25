@@ -36,7 +36,8 @@ Finally, use the component in your application:
 <px-dropdown>
   <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
   <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
-  <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+  <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10"
+  extend-dropdown="true" extend-dropdown-by="15" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
   </px-dropdown-content>
 </px-dropdown>
 ```
@@ -44,13 +45,13 @@ Finally, use the component in your application:
 <br />
 <hr />
 
-## Attributes
+## Attributes (on px-dropdown-content)
 
 #### max-cont-character-width
 
 *Type:* **Number** - (*Optional*) - *Default:* "0"
 
-a number which represents the number of characters allowed in the dropdown before the string is clipped, and has an ellipsis added to the end of it. Clipping a string means a px-tooltip component appears on hover with the full - unclipped - string in it.
+A number which represents the number of characters allowed in the dropdown before the string is clipped, and has an ellipsis added to the end of it. Clipping a string means a px-tooltip component appears on hover with the full - unclipped - string in it.
 
 
 ```
@@ -66,13 +67,38 @@ a number which represents the number of characters allowed in the dropdown befor
 
 *Type:* **Object** - (*Required*) - *Default:* ""
 
-an object Literal which holds the list of items that should appear in the dropdown.
+An object Literal which holds the list of items that should appear in the dropdown.
 
 ```
 <px-dropdown-content
 ...
  items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
 </px-dropdown-content>
+```
+
+#### extend-dropdown
+
+*Type:* **Boolean** - (*Optional*) - *Default:* "false"
+
+An attribute which specifies whether the dropdown should extend beyond the container it's in.
+
+```
+<px-dropdown-content
+...
+  extend-dropdown="true">
+</px-dropdown--content>
+```
+#### extend-dropdown-by
+
+*Type:* **Number** - (*Optional*) - *Default:* "15"
+
+An attribute which specifies the amount -in pixels - that the dropdown should extend in width.
+```
+<px-dropdown-content
+...
+  extend-dropdown="true"
+  extend-dropdown-by="15">
+</px-dropdown--content>
 ```
 
 <br />

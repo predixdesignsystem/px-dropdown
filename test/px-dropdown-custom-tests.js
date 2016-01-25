@@ -89,7 +89,6 @@ function runCustomTests() {
          var maxChar = px_dropdown_content.maxContCharacterWidth;
          if (maxChar && li.textContent.trim().length > maxChar) {
            var pxTooltip = Polymer.dom(px_dropdown_content).querySelector('px-tooltip');
-           console.log('inside li loop, maxChar = true');
            assert.isTrue(pxTooltip !== null);
            done();
          }
@@ -108,7 +107,6 @@ function runCustomTests() {
        dropdown_li = Polymer.dom(dropdown).querySelector('li');
 
     var li_click = function(e) {
-      console.dir(e.detail);
       //assert.equal(e.detail.srcElement, dropdown_li);
       done();
     };
@@ -127,7 +125,6 @@ function(done) {
      dropdown = px_dropdown_content.$$('#dropdown'),
      items = Polymer.dom(document).querySelector('px-dropdown-content').items,
      LIs = dropdown.querySelectorAll('li');
-     console.log(LIs);
 
      Array.prototype.forEach.call(LIs,function(li, index) {
        assert.equal(li.firstChild.textContent.trim(), items[index].val);
