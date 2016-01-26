@@ -56,6 +56,9 @@ Element providing a dropdown solution.
         value: false
       }
     },
+    ready: function() {
+      this.addEventListener('dropdown_flip', _flipOpened);
+    },
    /* This function is called when the dropdown trigger/chevron is clicked, and
    * it either opens or closes (shows/hides) the content.
    *
@@ -68,6 +71,9 @@ Element providing a dropdown solution.
       }else{
         Polymer.dom(this).querySelector(".px-dropdown-content").close();
       }
+      this._flipOpened();
+    },
+    _flipOpened: function() {
       this.opened = !this.opened;
     }
   });

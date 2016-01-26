@@ -156,7 +156,8 @@ Element providing the content for the px-dropdown element
     _clickItem: function(evt) {
       this._clickFire(evt);
       this.close();
-      this.parentNode.opened = !this.parentNode.opened;
+      this.fire('dropdown_flip');
+      //this.parentNode.opened = !this.parentNode.opened;
     },
     /**
      * This fires a notification that happens on click, allowing the evt to be
