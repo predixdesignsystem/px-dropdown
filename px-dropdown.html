@@ -30,7 +30,12 @@ Element providing a dropdown solution.
   <link rel="import" type="css" href="css/px-dropdown.css" />
   <template>
     <div>
-      <span on-tap="triggerClicked" class="flex" id="dropcell">
+      <span
+      on-tap="triggerClicked"
+      on-mouseover="_hover"
+      on-mouseout="_hover"
+      class$="{{_chevronClass(opened, hover)}}"
+      id="dropcell">
         <content select=".px-dropdown-text"></content>
         <content select=".px-dropdown-chevron"></content>
       </span>
@@ -54,6 +59,11 @@ Element providing a dropdown solution.
         type: Boolean,
         notify: true,
         value: false
+      },
+      hover: {
+        type: Boolean,
+        notify: true,
+        value: false
       }
     },
     ready: function() {
@@ -73,8 +83,27 @@ Element providing a dropdown solution.
       }
       this._flipOpened();
     },
+    /*
+    * This function flips the opened property
+    *
+    *
+    */
     _flipOpened: function() {
+      Polymer.dom(this).querySelector('px-dropdown-chevron').fire('opened');
       this.opened = !this.opened;
+    },
+    _chevronClass: function(opened, hover) {
+      var returnClass = 'flex ';
+      if (this.opened) {
+        returnClass += 'opened';
+      } else if (this.hover) {
+        returnClass += 'hover';
+      }
+      return returnClass;
+    },
+    _hover: function() {
+      Polymer.dom(this).querySelector('px-dropdown-chevron').fire('hover');
+      this.hover = !this.hover;
     }
   });
 </script>

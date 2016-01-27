@@ -20,3 +20,11 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 */
 
 @import 'px-dropdown-sketch.scss';
+
+.hover {
+  background-color: $gray5;
+}
+
+.opened {
+  background-color: $gray6;
+}

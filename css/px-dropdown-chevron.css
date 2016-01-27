@@ -637,3 +637,9 @@ a {
 .px-dropdown-chevron {
   background-color: #f7f7fc;
   cursor: pointer; }
+
+.hover {
+  background-color: #b1b1bc; }
+
+.opened {
+  background-color: #9999a3; }

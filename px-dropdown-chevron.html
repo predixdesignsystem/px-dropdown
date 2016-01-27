@@ -22,8 +22,8 @@ Element providing a trigger for the px-dropdown element.
 <dom-module id="px-dropdown-chevron">
   <link rel="import" type="css" href="css/px-dropdown-chevron.css" />
   <template>
-    <span class="px-dropdown-chevron u-ph--" id="trigger">
-      <i class="fa fa-chevron-down"></i>
+    <span class$="{{_chevronClass('px-dropdown-chevron u-ph-- ', hover, opened)}}" id="trigger">
+      <i class$="{{_chevronClass('fa fa-chevron-down ', hover, opened)}}"></i>
     </span>
   </template>
 </dom-module>
@@ -31,6 +31,83 @@ Element providing a trigger for the px-dropdown element.
 <script>
   Polymer({
     is: 'px-dropdown-chevron',
-    properties:{}
+    properties:{
+      hover: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      opened: {
+        type: Boolean,
+        value: false,
+        notify: true
+      }
+    },
+    ready: function() {
+      this.addEventListener('hover', this._manipulateHover);
+      this.addEventListener('opened', this._manipulateOpened);
+    },
+    /**
+     * this function flips the opened flag, and changes the class for the component
+     *
+     *
+     * @method _manipulateOpened
+     */
+    _manipulateOpened: function() {
+      this.opened = !this.opened;
+      this._manipulateClass();
+    },
+    /**
+     * this function flips the hover flag, and changes the class for the component
+     *
+     *
+     * @method _manipulateHover
+     */
+    _manipulateHover: function() {
+      this.hover = !this.hover;
+      this._manipulateClass();
+    },
+    /**
+     * this function adds or removes the hover and opened classes
+     *
+     *
+     * @method _manipulateClass
+     */
+    _manipulateClass: function() {
+      var classList = this.classList;
+      if (this.opened) {
+        if (!classList.contains('opened')) {
+          classList.add('opened');
+        }
+      } else {
+        if (classList.contains('opened')) {
+          classList.remove('opened');
+        }
+      }
+
+      if (this.hover) {
+        if (!classList.contains('hover') && !classList.contains('opened')) {
+          classList.add('hover');
+        }
+      } else {
+        if (classList.contains('hover')) {
+          classList.remove('hover');
+        }
+      }
+    },
+    /**
+     * This method add either the opened or hover class.
+     *
+     *
+     * @method _chevronClass
+     */
+    _chevronClass: function(base) {
+      if (this.opened) {
+        base += "opened";
+      } else if (this.hover) {
+        base +="hover";
+      }
+      return base;
+    }
   });
 </script>
