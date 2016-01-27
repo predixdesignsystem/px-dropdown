@@ -156,7 +156,7 @@ Element providing the content for the px-dropdown element
     _clickItem: function(evt) {
       this._clickFire(evt);
       this.close();
-      this.fire('dropdown_flip');
+      this.fire('dropdown_flip', true);
       //this.parentNode.opened = !this.parentNode.opened;
     },
     /**
