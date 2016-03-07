@@ -832,7 +832,9 @@ textarea {
   background-color: #f7f7fc;
   cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #b1b1bc; }
+  border: 1px solid #b1b1bc; 
+  max-height: 200px;
+  overflow-y: auto; }
 
 .px-dropdown--listitem:hover {
   background-color: #0a9ec1;
