@@ -2,7 +2,6 @@
     Relative paths assume component is being run from inside an app or another component, where dependencies are flat
     siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
-    See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
 -->
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="px-dropdown-content.html" />
@@ -15,7 +14,6 @@ Element providing a dropdown solution.
 
 <px-dropdown>
   <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
-  <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
   <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="15" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
   </px-dropdown-content>
 </px-dropdown>
@@ -34,10 +32,10 @@ Element providing a dropdown solution.
       on-tap="triggerClicked"
       on-mouseover="_hover"
       on-mouseout="_hover"
-      class$="{{_chevronClass(opened, hover)}}"
+      class$="{{_dropcellClass(opened, hover)}}"
       id="dropcell">
         <content select=".px-dropdown-text"></content>
-        <content select=".px-dropdown-chevron"></content>
+        <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
       </span>
     </div>
     <content select=".px-dropdown-content"></content>
@@ -60,14 +58,33 @@ Element providing a dropdown solution.
         notify: true,
         value: false
       },
+      /*
+      * A flag which reflects whether the dropdown is being hovered over.
+      *
+      * @notify true
+      * @type Boolean
+      * @default false
+      */
       hover: {
         type: Boolean,
         notify: true,
+        value: false
+      },
+      /*
+      * A flag which reflects whether the content is showing above
+      * the dropcell.
+      * @notify false
+      * @type Boolean
+      * @default false
+      */
+      above: {
+        type: Boolean,
         value: false
       }
     },
     ready: function() {
       this.addEventListener('dropdown_flip', this._flipOpened);
+      this.addEventListener("resize",  this._reset);
     },
    /* This function is called when the dropdown trigger/chevron is clicked, and
    * it either opens or closes (shows/hides) the content.
@@ -76,23 +93,29 @@ Element providing a dropdown solution.
    * @type Object
    */
     triggerClicked: function(evt) {
-      if(!this.opened){
+      if (!this.opened) {
         Polymer.dom(this).querySelector(".px-dropdown-content").open();
-      }else{
+        this._setPosition();
+      } else {
         Polymer.dom(this).querySelector(".px-dropdown-content").close();
+        this._reset();
       }
       this._flipOpened();
     },
     /*
     * This function flips the opened property
     *
-    *
     */
     _flipOpened: function() {
-      Polymer.dom(this).querySelector('px-dropdown-chevron').fire('opened');
+      Polymer.dom(this.root).querySelector('px-dropdown-chevron').fire('opened');
       this.opened = !this.opened;
     },
-    _chevronClass: function(opened, hover) {
+    /*
+    * This function returns the correct class for the chevron
+    * depending on the state of the component
+    * @method _dropcellClass
+    */
+    _dropcellClass: function(opened, hover) {
       var returnClass = 'flex ';
       if (this.opened) {
         returnClass += 'opened';
@@ -101,9 +124,63 @@ Element providing a dropdown solution.
       }
       return returnClass;
     },
+    /*
+    * This function fires off a hover event which px-dropdown-chevron
+    * picks up, and flips the hover property.
+    * @method _hover
+    */
     _hover: function() {
-      Polymer.dom(this).querySelector('px-dropdown-chevron').fire('hover');
+      Polymer.dom(this.root).querySelector('px-dropdown-chevron').fire('hover');
       this.hover = !this.hover;
+    },
+    /*
+    * This function resets the above property as well as set
+    * the position property to static and the top property to empty.
+    * @method _reset
+    */
+    _reset: function() {
+      var content = Polymer.dom(this).querySelector('px-dropdown-content');
+      this.above = false;
+      content.style.position = 'static';
+      content.style.top = '';
+    },
+    /*
+    * This function changes the position of the dropdown content
+    * if the content area goes under the viewport
+    * @method _setPosition
+    */
+    _setPosition: function() {
+      if (this._isoffScreenOnBottom()) {
+        this._setTopPosition();
+      }
+    },
+    /*
+    * This function figures out whether the content area is
+    * under the viewport
+    * @method _isoffScreenOnBottom
+    */
+    _isoffScreenOnBottom: function() {
+      var content = Polymer.dom(this).querySelector('px-dropdown-content'),
+          contentRect = content.getBoundingClientRect(),
+          dropdownBottomPoint = contentRect.bottom;
+      return dropdownBottomPoint > window.innerHeight;
+    },
+    /*
+    * This function changes the position of the content area to be above
+    * the dropcell, instead of the default below.
+    * @method _setTopPosition
+    */
+    _setTopPosition: function() {
+      var content = Polymer.dom(this).querySelector('px-dropdown-content'),
+          contentRect = content.getBoundingClientRect(),
+          dropcell = this.$.dropcell,
+          dropcellRect = dropcell.getBoundingClientRect(),
+          newTop = 0;
+
+      content.style.position = 'absolute';
+      newTop = (content.offsetTop - contentRect.height - dropcellRect.height) + 'px';
+      content.style.top = newTop;
+      this.above = true;
     }
   });
 </script>

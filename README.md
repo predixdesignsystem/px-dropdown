@@ -1,6 +1,6 @@
 # Px-dropdown
 
-Px-dropdown is a select component.
+Px-dropdown is a select component in the Predix UI platform.
 
 ## Overview
 
@@ -35,7 +35,6 @@ Finally, use the component in your application:
 ```
 <px-dropdown>
   <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
-  <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
   <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10"
   extend-dropdown="true" extend-dropdown-by="15" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
   </px-dropdown-content>

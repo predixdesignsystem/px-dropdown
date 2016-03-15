@@ -27,7 +27,9 @@ common/abstract rules go in px-dropdown-text-sketch.scss, not in this file.
 .px-dropdown-chevron {
   background-color: $gray1;
   cursor: pointer;
-
+  border-radius: 0 3px 3px 0;
+  display: flex;
+  margin-left:auto;
 }
 .hover {
   background-color: $gray5;
@@ -35,4 +37,7 @@ common/abstract rules go in px-dropdown-text-sketch.scss, not in this file.
 
 .opened {
   background-color: $gray6;
+}
+.fa-angle-down {
+  padding-top: 0.4rem;
 }

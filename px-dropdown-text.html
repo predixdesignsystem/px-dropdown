@@ -2,7 +2,6 @@
     Relative paths assume component is being run from inside an app or another component, where dependencies are flat
     siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
-    See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
 -->
 <link rel="import" href="../polymer/polymer.html" />
 <!--
@@ -20,7 +19,7 @@ Element providing the text for the px-dropdown element
 <dom-module id="px-dropdown-text">
   <link rel="import" type="css" href="css/px-dropdown-text.css" />
   <template>
-      <span class="flex__item px-dropdown-text u-ph--"><content></content></span>
+      <div class="flex__item px-dropdown-text u-p--"><content></content></div>
   </template>
 </dom-module>
 <script>

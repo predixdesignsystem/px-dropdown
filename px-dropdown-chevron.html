@@ -2,7 +2,6 @@
     Relative paths assume component is being run from inside an app or another component, where dependencies are flat
     siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
-    See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
 -->
 <link rel="import" href="../polymer/polymer.html" />
 
@@ -23,7 +22,7 @@ Element providing a trigger for the px-dropdown element.
   <link rel="import" type="css" href="css/px-dropdown-chevron.css" />
   <template>
     <span class$="{{_chevronClass('px-dropdown-chevron u-ph-- ', hover, opened)}}" id="trigger">
-      <i class$="{{_chevronClass('fa fa-chevron-down ', hover, opened)}}"></i>
+      <i class$="{{_chevronClass('fa fa-angle-down ', hover, opened)}}"></i>
     </span>
   </template>
 </dom-module>
@@ -32,11 +31,25 @@ Element providing a trigger for the px-dropdown element.
   Polymer({
     is: 'px-dropdown-chevron',
     properties:{
+      /**
+       * Boolean which reflects whether the chevron is being hovered over.
+       *
+       * @type Boolean
+       * @default false
+       * @notify true
+       */
       hover: {
         type: Boolean,
         value: false,
         notify: true
       },
+      /**
+       * Boolean which reflects whether the menu is open.
+       *
+       * @type Boolean
+       * @default false
+       * @notify true
+       */
       opened: {
         type: Boolean,
         value: false,
@@ -60,7 +73,6 @@ Element providing a trigger for the px-dropdown element.
     /**
      * this function flips the hover flag, and changes the class for the component
      *
-     *
      * @method _manipulateHover
      */
     _manipulateHover: function() {
@@ -69,7 +81,6 @@ Element providing a trigger for the px-dropdown element.
     },
     /**
      * this function adds or removes the hover and opened classes
-     *
      *
      * @method _manipulateClass
      */
@@ -97,7 +108,6 @@ Element providing a trigger for the px-dropdown element.
     },
     /**
      * This method add either the opened or hover class.
-     *
      *
      * @method _chevronClass
      */

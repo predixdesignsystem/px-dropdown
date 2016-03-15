@@ -636,10 +636,18 @@ a {
 
 .px-dropdown-chevron {
   background-color: #f7f7fc;
-  cursor: pointer; }
+  cursor: pointer;
+  border-radius: 0 3px 3px 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto; }
 
 .hover {
   background-color: #b1b1bc; }
 
 .opened {
   background-color: #9999a3; }
+
+.fa-angle-down {
+  padding-top: 0.4rem; }

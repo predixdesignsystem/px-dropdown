@@ -29,8 +29,10 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
 .px-dropdown--content{
   background-color: $gray1;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 3px;
   border: 1px solid $gray5;
+  max-height: 222px;
+  overflow-y: auto;
 }
 .px-dropdown--listitem:hover {
   background-color: $select-blue-default;

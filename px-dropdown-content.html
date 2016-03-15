@@ -2,7 +2,6 @@
     Relative paths assume component is being run from inside an app or another component, where dependencies are flat
     siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
-    See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
 -->
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../px-tooltip/px-tooltip.html" />
@@ -24,7 +23,7 @@ Element providing the content for the px-dropdown element
       <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
         <ul class="px-dropdown--list list-bare">
           <template is="dom-repeat" items="{{items}}">
-            <li class="px-dropdown--listitem u-ph-- u-pt--" on-tap="_clickItem">{{item.val}}
+            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">{{item.val}}
               <template is="dom-if" if="{{_includeTooltip(item.val)}}">
                 <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
               </template>
@@ -176,15 +175,15 @@ Element providing the content for the px-dropdown element
      */
     _extendDropdown: function() {
       if (!this.extended && this.extendDropdown) {
-        //get the width of the dropdown, and how much to extend it by.
-        var width = getComputedStyle(this.$.dropdown).width,
+        //get the width of the dropcell, and how much to extend it by.
+        var parent = this.parentNode,
+            dropcell = parent.$.dropcell,
+            width = getComputedStyle(dropcell).width.replace('px',''),
             extendBy = this.extendDropdownBy;
-        //remove the px string from it, and convert it into an int
-        width = parseInt(width.substring(0, width.length-2));
 
         //set the flag that we've extended the dropdown. without this, it'll keep extending.
         this.extended = true;
-        this.$.dropdown.style.width = String(width + extendBy) + 'px';
+        this.$.dropdown.style.width = parseInt(width) + parseInt(extendBy) + 'px';
       }
     }
   });

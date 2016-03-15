@@ -1,3 +1,9 @@
+v0.1.0
+==================
+* added smart orientation which detects if the dropdown will show below the viewport, and display the dropdown above the element clicked.
+* Updated styles/spacing/chevron
+* removed the need to call px-dropdown-chevron - it's baked into the component now.
+
 v0.0.3
 ==================
 * Updated License
