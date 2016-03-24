@@ -31,7 +31,7 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
   cursor: pointer;
   border-radius: 3px;
   border: 1px solid $gray5;
-  max-height: 222px;
+  max-height: calculateRem(222px);
   overflow-y: auto;
 }
 .px-dropdown--listitem:hover {

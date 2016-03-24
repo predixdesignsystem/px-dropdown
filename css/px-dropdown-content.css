@@ -766,7 +766,7 @@ textarea {
   position: relative; }
 
 #dropdown {
-  top: 0px;
+  top: 0;
   left: 0;
   position: absolute;
   height: auto; }
@@ -850,7 +850,7 @@ textarea {
   cursor: pointer;
   border-radius: 3px;
   border: 1px solid #b1b1bc;
-  max-height: 222px;
+  max-height: 14.8rem;
   overflow-y: auto; }
 
 .px-dropdown--listitem:hover {
