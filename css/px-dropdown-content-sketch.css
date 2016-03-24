@@ -749,7 +749,14 @@ textarea {
 .px-dropdown-content {
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden; }
+  overflow: hidden;
+  position: relative; }
+
+#dropdown {
+  top: 0px;
+  left: 0;
+  position: absolute;
+  height: auto; }
 
 /*------------------------------------*    #PX-META-LISTS-DESIGN
 \*------------------------------------*/

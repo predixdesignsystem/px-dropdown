@@ -22,7 +22,7 @@ Element providing the content for the px-dropdown element
   <template>
       <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
         <ul class="px-dropdown--list list-bare">
-          <template is="dom-repeat" items="{{items}}">
+          <template is="dom-repeat" items={{computedItems}}>
             <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">{{item.val}}
               <template is="dom-if" if="{{_includeTooltip(item.val)}}">
                 <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
@@ -57,6 +57,30 @@ Element providing the content for the px-dropdown element
         value: function() {
           return [];
         }
+      },
+      /**
+       * This property stores the items array, after it's been
+       * changed over to be an array of objects.
+       *
+       * @type Array
+       * @default []
+       */
+      computedItems: {
+        type: Array,
+        value: function() {return [];},
+        computed: '_computedItems(items)'
+      },
+      /**
+       * The initial selected value (if any) of an item in the dropdown
+       * @type String
+       * @default ''
+       * @notify true
+       */
+      selectedValue: {
+        type: String,
+        notify: true,
+        value: '',
+        observer: '_updateSelectedItem'
       },
       /**
        * Used to check if the dropdown is currently open or closed.
@@ -136,6 +160,7 @@ Element providing the content for the px-dropdown element
      * If it is, px-tooltip is included with the component.
      *
      * @method _includeTooltip
+     * @param value
      */
     _includeTooltip: function(value) {
       //find the container max character passed in
@@ -156,7 +181,7 @@ Element providing the content for the px-dropdown element
       this._clickFire(evt);
       this.close();
       this.fire('dropdown_flip', true);
-      //this.parentNode.opened = !this.parentNode.opened;
+      this.set('selectedValue', evt.srcElement.firstChild.textContent);
     },
     /**
      * This fires a notification that happens on click, allowing the evt to be
@@ -178,13 +203,41 @@ Element providing the content for the px-dropdown element
         //get the width of the dropcell, and how much to extend it by.
         var parent = this.parentNode,
             dropcell = parent.$.dropcell,
-            width = getComputedStyle(dropcell).width.replace('px',''),
+            width = dropcell.getBoundingClientRect().width,
             extendBy = this.extendDropdownBy;
-
         //set the flag that we've extended the dropdown. without this, it'll keep extending.
         this.extended = true;
         this.$.dropdown.style.width = parseInt(width) + parseInt(extendBy) + 'px';
       }
-    }
+    },
+    /**
+     * This function finds out whether the passed items array is
+     * an array of objects, or an array of strings. if it is strings
+     * they are converted to objects.
+     * @method _computedItems
+     * @param items (Array)
+     */
+    _computedItems: function(items) {
+      if (typeof this.items[0] === 'string') {
+        var len = items.length,
+            i = 0,
+            computedItemsArr = [];
+
+            for (i; i < len; i++) {
+              computedItemsArr.push({val:items[i]});
+            }
+            return computedItemsArr;
+      } else {
+        return this.items;
+      }
+    },
+    _updateSelectedItem: function() {
+      var parent = this.parentNode,
+          text = Polymer.dom(parent).querySelector('px-dropdown-text');
+          if (text && this.selectedValue) {
+            //console.log('this.selectedValue = '  +this.selectedValue);
+            text.set('displayValue', this.selectedValue);
+          }
+        }
   });
 </script>

@@ -38,6 +38,13 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  position: relative;
+}
+#dropdown {
+  top: 0px;
+  left: 0;
+  position: absolute;
+  height: auto;
 }
 // Meta
 @import "px-meta-lists-design/_meta.lists.scss";

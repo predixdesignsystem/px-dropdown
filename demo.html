@@ -18,6 +18,10 @@
       width: 100px;
       margin-left: 30px;
     }
+    .tallDiv {
+      min-height: 300px;
+
+    }
 
     </style>
   </head>
@@ -29,12 +33,37 @@
     <p>
       Also see the <a href="index.html">documentation</a> and the <a href="test/fixture.html">UI test fixture</a>.
     </p>
+    <h1>Regular dropdown</h1>
     <div class="cont">
       <px-dropdown>
-        <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
-        <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}, {"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+        <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
+        <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
         </px-dropdown-content>
       </px-dropdown>
+    </div>
+    <br />
+    <br />
+    <br />
+    <h1>dropdown with no chevron</h1>
+    <div class="cont">
+      <px-dropdown hide-chevron="true">
+        <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
+        <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+        </px-dropdown-content>
+      </px-dropdown>
+    </div>
+    <div class="tallDiv"></div>
+    <h1>Smart Orientation dropdown</h1>
+    Align the bottom of your window just below the dropdown.
+    <br />
+    <br />
+      <div class="cont">
+        <px-dropdown>
+          <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
+          <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items='["dog", "cat", "bear","tiger"]'>
+          </px-dropdown-content>
+        </px-dropdown>
+      </div>
     </div>
   </body>
 </html>

@@ -46,35 +46,6 @@ Finally, use the component in your application:
 
 ## Attributes (on px-dropdown-content)
 
-#### max-cont-character-width
-
-*Type:* **Number** - (*Optional*) - *Default:* "0"
-
-A number which represents the number of characters allowed in the dropdown before the string is clipped, and has an ellipsis added to the end of it. Clipping a string means a px-tooltip component appears on hover with the full - unclipped - string in it.
-
-
-```
-<px-dropdown-content  
-  max-cont-character-width="10"
-  .... >
-....
-</px-dropdown-content>
-
-```
-
-#### items
-
-*Type:* **Object** - (*Required*) - *Default:* ""
-
-An object Literal which holds the list of items that should appear in the dropdown.
-
-```
-<px-dropdown-content
-...
- items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
-</px-dropdown-content>
-```
-
 #### extend-dropdown
 
 *Type:* **Boolean** - (*Optional*) - *Default:* "false"
@@ -100,7 +71,51 @@ An attribute which specifies the amount -in pixels - that the dropdown should ex
 </px-dropdown--content>
 ```
 
+#### items
+
+*Type:* **Object** - (*Required*) - *Default:* ""
+
+An object Literal which holds the list of items that should appear in the dropdown.
+
+```
+<px-dropdown-content
+...
+ items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+</px-dropdown-content>
+```
+
+#### max-cont-character-width
+
+*Type:* **Number** - (*Optional*) - *Default:* "0"
+
+A number which represents the number of characters allowed in the dropdown before the string is clipped, and has an ellipsis added to the end of it. Clipping a string means a px-tooltip component appears on hover with the full - unclipped - string in it.
+
+
+```
+<px-dropdown-content  
+  max-cont-character-width="10"
+  .... >
+....
+</px-dropdown-content>
+
+```
 <br />
+
+## Attributes (on px-dropdown)
+
+#### hide-chevron
+
+*Type:* **Boolean** - (*Optional*) - *Default*: false
+
+an attribute that allows you to hide the chevron.
+
+```
+<px-dropdown hide-chevron="true">
+  ...
+</px-dropdown>
+
+```
+
 <hr />
 
 

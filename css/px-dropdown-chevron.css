@@ -635,7 +635,7 @@ a {
   padding-bottom: 0.3333333333rem !important; }
 
 .px-dropdown-chevron {
-  background-color: #f7f7fc;
+  background-color: var(dropdown_bg_default, #f7f7fc);
   cursor: pointer;
   border-radius: 0 3px 3px 0;
   display: -webkit-flex;
@@ -644,10 +644,10 @@ a {
   margin-left: auto; }
 
 .hover {
-  background-color: #b1b1bc; }
+  background-color: var(dropdown_bg_hover, #b1b1bc); }
 
 .opened {
-  background-color: #9999a3; }
+  background-color: var(dropdown_bg_opened, #9999a3); }
 
 .fa-angle-down {
   padding-top: 0.4rem; }

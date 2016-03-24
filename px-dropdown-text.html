@@ -19,18 +19,29 @@ Element providing the text for the px-dropdown element
 <dom-module id="px-dropdown-text">
   <link rel="import" type="css" href="css/px-dropdown-text.css" />
   <template>
-      <div class="flex__item px-dropdown-text u-p--"><content></content></div>
+      <div class="flex__item px-dropdown-text u-p--">{{displayValue}}</div>
   </template>
 </dom-module>
 <script>
   Polymer({
     is: 'px-dropdown-text',
     /**
-     * Properties block, expose attribute values to the DOM via 'reflect'
+     * Properties block,
      *
      * @property properties
      * @type Object
      */
-    properties: {}
+    properties: {
+      displayValue: {
+        type: String,
+        notify: true,
+        value: ''
+      }
+    },
+    attached: function() {
+      var dropcell = this.parentNode,
+          dropcellRect = dropcell.getBoundingClientRect();
+          this.style.width = dropcellRect.width + 'px';
+    }
   });
 </script>

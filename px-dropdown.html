@@ -80,11 +80,34 @@ Element providing a dropdown solution.
       above: {
         type: Boolean,
         value: false
+      },
+      /*
+      * A flag which reflects whether the chevron is hidden
+      *
+      * @observer _hideChevron
+      * @type Boolean
+      * @default false
+      */
+      hideChevron: {
+        type: Boolean,
+        value: false,
+        observer: '_hideChevron'
       }
     },
     ready: function() {
       this.addEventListener('dropdown_flip', this._flipOpened);
       this.addEventListener("resize",  this._reset);
+    },
+    /* This function is called when the user specifies they would like
+    * the chevron to be hidden.
+    *
+    * @method _hideChevron
+    *
+    */
+    _hideChevron: function() {
+      if (this.hideChevron) {
+        this.$$('px-dropdown-chevron').style.display = 'none';
+      }
     },
    /* This function is called when the dropdown trigger/chevron is clicked, and
    * it either opens or closes (shows/hides) the content.
@@ -103,17 +126,26 @@ Element providing a dropdown solution.
       this._flipOpened();
     },
     /*
-    * This function flips the opened property
+    * This function flips the "opened" property
     *
+    * @method _flipOpened
     */
     _flipOpened: function() {
-      Polymer.dom(this.root).querySelector('px-dropdown-chevron').fire('opened');
+      this.fireChevron('opened');
       this.opened = !this.opened;
+    },
+    fireChevron: function(fireEvent) {
+      var chevron = Polymer.dom(this.root).querySelector('px-dropdown-chevron');
+      if (chevron) {
+        chevron.fire(fireEvent);
+      }
     },
     /*
     * This function returns the correct class for the chevron
     * depending on the state of the component
     * @method _dropcellClass
+    * @param opened
+    * @param hover
     */
     _dropcellClass: function(opened, hover) {
       var returnClass = 'flex ';
@@ -130,7 +162,7 @@ Element providing a dropdown solution.
     * @method _hover
     */
     _hover: function() {
-      Polymer.dom(this.root).querySelector('px-dropdown-chevron').fire('hover');
+      this.fireChevron('hover');
       this.hover = !this.hover;
     },
     /*
@@ -141,7 +173,7 @@ Element providing a dropdown solution.
     _reset: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content');
       this.above = false;
-      content.style.position = 'static';
+      content.style.position = 'relative';
       content.style.top = '';
     },
     /*
@@ -161,8 +193,10 @@ Element providing a dropdown solution.
     */
     _isoffScreenOnBottom: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
+          dropdown = content.$.dropdown,
+          dropdownRect = dropdown.getBoundingClientRect(),
           contentRect = content.getBoundingClientRect(),
-          dropdownBottomPoint = contentRect.bottom;
+          dropdownBottomPoint = dropdownRect.bottom;
       return dropdownBottomPoint > window.innerHeight;
     },
     /*
@@ -172,13 +206,12 @@ Element providing a dropdown solution.
     */
     _setTopPosition: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
-          contentRect = content.getBoundingClientRect(),
+          dropdown = content.$.dropdown,
+          dropdownRect = dropdown.getBoundingClientRect(),
           dropcell = this.$.dropcell,
           dropcellRect = dropcell.getBoundingClientRect(),
-          newTop = 0;
+          newTop = (dropdown.offsetTop - dropdownRect.height - dropcellRect.height) + 'px';
 
-      content.style.position = 'absolute';
-      newTop = (content.offsetTop - contentRect.height - dropcellRect.height) + 'px';
       content.style.top = newTop;
       this.above = true;
     }
