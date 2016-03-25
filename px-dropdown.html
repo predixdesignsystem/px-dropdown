@@ -124,6 +124,7 @@ Element providing a dropdown solution.
         this._reset();
       }
       this._flipOpened();
+      this.fire('dropdownOpen', evt);
     },
     /*
     * This function flips the "opened" property
@@ -183,7 +184,7 @@ Element providing a dropdown solution.
     */
     _setPosition: function() {
       if (this._isoffScreenOnBottom()) {
-        this._setTopPosition();
+        this.setTopPosition();
       }
     },
     /*
@@ -202,17 +203,20 @@ Element providing a dropdown solution.
     /*
     * This function changes the position of the content area to be above
     * the dropcell, instead of the default below.
-    * @method _setTopPosition
+    * @method setTopPosition
     */
-    _setTopPosition: function() {
+    setTopPosition: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
           dropdown = content.$.dropdown,
-          dropdownRect = dropdown.getBoundingClientRect(),
+          dropdownRect = dropdown.getClientRects()[0],
           dropcell = this.$.dropcell,
-          dropcellRect = dropcell.getBoundingClientRect(),
-          newTop = (dropdown.offsetTop - dropdownRect.height - dropcellRect.height) + 'px';
+          dropcellRect = dropcell.getClientRects()[0],
+          newTop = (parseInt(dropdown.offsetTop) - parseInt(dropdownRect.height) - parseInt(dropcellRect.height)) + 'px';
 
-      content.style.top = newTop;
+      console.log('dropdown.offsetTop = ' + parseInt(dropdown.offsetTop));
+      console.log('dropdownRect.height = '  + parseInt(dropdownRect.height));
+      console.log('dropcellRect.height = ' + parseInt(dropcellRect.height));
+      dropdown.style.top = newTop;
       this.above = true;
     }
   });
