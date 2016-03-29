@@ -4,6 +4,7 @@
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
 -->
 <link rel="import" href="../polymer/polymer.html" />
+<link rel="import" href="../iron-scroll-target-behavior/iron-scroll-target-behavior.html" />
 <link rel="import" href="px-dropdown-content.html" />
 <link rel="import" href="px-dropdown-chevron.html" />
 <link rel="import" href="px-dropdown-text.html" />
@@ -28,7 +29,7 @@ Element providing a dropdown solution.
   <link rel="import" type="css" href="css/px-dropdown.css" />
   <template>
     <div>
-      <span
+      <div
       on-tap="triggerClicked"
       on-mouseover="_hover"
       on-mouseout="_hover"
@@ -36,7 +37,7 @@ Element providing a dropdown solution.
       id="dropcell">
         <content select=".px-dropdown-text"></content>
         <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
-      </span>
+      </div>
     </div>
     <content select=".px-dropdown-content"></content>
   </template>
@@ -94,9 +95,20 @@ Element providing a dropdown solution.
         observer: '_hideChevron'
       }
     },
+
+    behaviors: [
+      Polymer.IronScrollTargetBehavior
+    ],
+
     ready: function() {
       this.addEventListener('dropdown_flip', this._flipOpened);
       this.addEventListener("resize",  this._reset);
+    },
+
+    _scrollHandler: function(event) {
+      if(this.opened) {
+        event.cancelBubble = true;
+      }
     },
     /* This function is called when the user specifies they would like
     * the chevron to be hidden.

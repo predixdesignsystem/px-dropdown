@@ -17,7 +17,8 @@
     "polymer": "~1.2.3",
     "px-theme": "https://github.com/predixDev/px-theme.git#~0.4.2",
     "px-tooltip": "https://github.com/PredixDev/px-tooltip.git#~0.2.0",
-    "px-spacing-design": "https://github.com/PredixDev/px-spacing-design.git#~0.3.7"
+    "px-spacing-design": "https://github.com/PredixDev/px-spacing-design.git#~0.3.7",
+    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#~v1.0.6"
   },
   "devDependencies": {
     "px-list-ui-design": "https://github.com/predixDev/px-list-ui-design.git#~v0.3.8",
