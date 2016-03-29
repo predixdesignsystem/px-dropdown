@@ -34,13 +34,16 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
   max-height: calculateRem(222px);
   overflow-y: auto;
 }
-.px-dropdown--listitem:hover {
-  background-color: $select-blue-default;
-  color: $white;
-}
-.px-dropdown--listitem:first-child {
-  border-radius: 4px 4px 0 0;
-}
-.px-dropdown--listitem:last-child {
-  border-radius: 0 0 4px 4px;
+.px-dropdown--listitem {
+  overflow-y: visible;
+  &:hover {
+    background-color: $select-blue-default;
+    color: $white;
+  }
+&:first-child {
+    border-radius: 4px 4px 0 0;
+  }
+  :last-child {
+    border-radius: 0 0 4px 4px;
+  }
 }

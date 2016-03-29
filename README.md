@@ -1,10 +1,10 @@
 # Px-dropdown
 
-Px-dropdown is a select component in the Predix UI platform.
+Px-dropdown is a select-like component in the Predix UI platform.
 
 ## Overview
 
-px-dropdown is an element which can be placed in any elements, and opens a customizable dropdown list.
+px-dropdown is an element which can be placed in any element, and opens a customizable dropdown list.
 
 ## Usage
 
@@ -34,7 +34,7 @@ Finally, use the component in your application:
 
 ```
 <px-dropdown>
-  <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
+  <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
   <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10"
   extend-dropdown="true" extend-dropdown-by="15" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
   </px-dropdown-content>
@@ -113,6 +113,19 @@ an attribute that allows you to hide the chevron.
 <px-dropdown hide-chevron="true">
   ...
 </px-dropdown>
+
+```
+
+## Attributes (on px-dropdown-text)
+
+#### display-value
+
+*Type:* **String** - (*Optional*) - *Default*: ''
+
+An attribute that is used to display the initial text showing up in the dropdown.
+
+```
+<px-dropdown-text display-value="Text"></px-dropdown-text>
 
 ```
 

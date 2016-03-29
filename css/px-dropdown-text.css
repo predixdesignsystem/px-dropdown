@@ -762,7 +762,8 @@ textarea {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  cursor: pointer; }
+  cursor: pointer;
+  overflow: hidden; }
 
 div {
   white-space: nowrap;
