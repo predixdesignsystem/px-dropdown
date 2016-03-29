@@ -135,6 +135,16 @@ Element providing the content for the px-dropdown element
       extended : {
         type: Boolean,
         value: false
+      },
+      /**
+       * An attribute which specifies whether the dropdown has been opened at
+       * least once
+       * @type Boolean
+       * @default: false
+       */
+      _hasBeenOpened : {
+        type: Boolean,
+        value: false
       }
     },
     /**
@@ -144,7 +154,14 @@ Element providing the content for the px-dropdown element
      */
     open: function() {
       this.menuOpen = true;
-      this._extendDropdown();
+
+      if(!this._hasBeenOpened) {
+
+        //do first adjustments we wont need ot do in the future
+        this._adjustHeight();
+        this._extendDropdown();
+      }
+      this._hasBeenOpened = true;
     },
     /**
      * Closes the dropdown menu
@@ -208,6 +225,26 @@ Element providing the content for the px-dropdown element
         //set the flag that we've extended the dropdown. without this, it'll keep extending.
         this.extended = true;
         this.$.dropdown.style.width = parseInt(width) + parseInt(extendBy) + 'px';
+      }
+    },
+    /**
+     * This allows for the dropdown height to be adjusted by reducing it by half
+     * an item's height if the dropdown has scrollbars so it's more obvious we
+     * can scroll
+     * @method _adjustHeight
+     */
+    _adjustHeight: function() {
+      var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height);
+
+      //do we have a scrollbar?
+      if(currentHeight < this.$.dropdown.scrollHeight) {
+
+        //reduce height by half the size of an item 
+        var parent = this.parentNode,
+            dropcell = parent.$.dropcell,
+            reduceBy = parseInt(dropcell.getBoundingClientRect().height/2);
+
+        this.$.dropdown.style.height = currentHeight - reduceBy + 'px';
       }
     },
     /**
