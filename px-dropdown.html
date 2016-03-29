@@ -95,6 +95,7 @@ Element providing a dropdown solution.
         observer: '_hideChevron'
       }
     },
+<<<<<<< HEAD
 
     behaviors: [
       Polymer.IronScrollTargetBehavior
@@ -109,6 +110,15 @@ Element providing a dropdown solution.
       if(this.opened) {
         event.cancelBubble = true;
       }
+=======
+    attached: function() {
+      this.addEventListener('dropdown_flip', this._flipOpened);
+      this.addEventListener("resize",  this._reset);
+    },
+    detached: function() {
+      this.removeEventListener('dropdown_flip');
+      this.removeEventListener("resize");
+>>>>>>> master
     },
     /* This function is called when the user specifies they would like
     * the chevron to be hidden.
@@ -144,10 +154,15 @@ Element providing a dropdown solution.
     * @method _flipOpened
     */
     _flipOpened: function() {
-      this.fireChevron('opened');
+      this._fireChevron('opened');
       this.opened = !this.opened;
     },
-    fireChevron: function(fireEvent) {
+    /*
+    * This function flips the "opened" property
+    *
+    * @method _fireChevron
+    */
+    _fireChevron: function(fireEvent) {
       var chevron = Polymer.dom(this.root).querySelector('px-dropdown-chevron');
       if (chevron) {
         chevron.fire(fireEvent);
@@ -175,7 +190,7 @@ Element providing a dropdown solution.
     * @method _hover
     */
     _hover: function() {
-      this.fireChevron('hover');
+      this._fireChevron('hover');
       this.hover = !this.hover;
     },
     /*
@@ -225,9 +240,6 @@ Element providing a dropdown solution.
           dropcellRect = dropcell.getClientRects()[0],
           newTop = (parseInt(dropdown.offsetTop) - parseInt(dropdownRect.height) - parseInt(dropcellRect.height)) + 'px';
 
-      console.log('dropdown.offsetTop = ' + parseInt(dropdown.offsetTop));
-      console.log('dropdownRect.height = '  + parseInt(dropdownRect.height));
-      console.log('dropcellRect.height = ' + parseInt(dropcellRect.height));
       dropdown.style.top = newTop;
       this.above = true;
     }

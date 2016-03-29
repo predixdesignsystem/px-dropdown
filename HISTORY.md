@@ -1,6 +1,13 @@
-v0.1.1
+v0.2.1
 ==================
 * make it more obvious it is possible to scroll by reducing the height of the dropdown by half an item's height if the dropdown has scrollbars
+
+v0.2.0
+==================
+* changed the way the initial text is passed in (added attribute display-value)
+* added a hide-chevron attribute
+* Updated styles
+* max container character count now also applies to the px-text portion of the component.
 
 v0.1.0
 ==================

@@ -20,6 +20,9 @@ Element providing the text for the px-dropdown element
   <link rel="import" type="css" href="css/px-dropdown-text.css" />
   <template>
       <div class="flex__item px-dropdown-text u-p--">{{displayValue}}</div>
+      <template is="dom-if" if="{{_includeTooltip(displayValue)}}">
+          <px-tooltip tooltip-message="{{displayValue}}" orientation="left"></px-tooltip>
+      </template>
   </template>
 </dom-module>
 <script>
@@ -32,6 +35,11 @@ Element providing the text for the px-dropdown element
      * @type Object
      */
     properties: {
+      /**
+       * @property displayValue
+       * @type String
+       * @default ''
+       */
       displayValue: {
         type: String,
         notify: true,
@@ -39,9 +47,32 @@ Element providing the text for the px-dropdown element
       }
     },
     attached: function() {
-      var dropcell = this.parentNode,
-          dropcellRect = dropcell.getBoundingClientRect();
-          this.style.width = dropcellRect.width + 'px';
+      // if we don't set the width, the container will stretch to whatever the size of the text is.
+      this.style.width = this.getBoundingClientRect().width;
+      this.addEventListener('maxContCharacterWidth', this._setMaxChar);
+    },
+    detached: function() {
+      this.removeEventListener('maxContCharacterWidth');
+    },
+    /**
+     * @method _includeTooltip
+     *
+     * This method is called when the display value is calculated, to check if
+     * we need to display the tooltip or not.
+     */
+    _includeTooltip: function() {
+      return (this.displayValue.length > this.maxContCharacterWidth);
+    },
+    /**
+     * @method _setMaxChar
+     *
+     * This method is called when the event listener receives an update with
+     * the new maxContCharacterWidth.
+     * @param value
+     * @type evt
+     */
+    _setMaxChar: function(value) {
+      this.set('maxContCharacterWidth', value.detail.maxContCharacterWidth);
     }
   });
 </script>

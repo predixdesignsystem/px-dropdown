@@ -25,11 +25,10 @@ Element providing the content for the px-dropdown element
           <template is="dom-repeat" items={{computedItems}}>
             <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">{{item.val}}
               <template is="dom-if" if="{{_includeTooltip(item.val)}}">
-                <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
+                  <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
               </template>
             </li>
           </template>
-        </ul>
       </div>
   </template>
 </dom-module>
@@ -146,6 +145,21 @@ Element providing the content for the px-dropdown element
         type: Boolean,
         value: false
       }
+    },
+    attached: function() {
+      if (this.maxContCharacterWidth > 0) {
+        this._fireMaxChar();
+      }
+    },
+    /**
+     * Fire an event that has a maxContCharacterWidth into px-text
+     *
+     * @method _fireMaxChar
+     */
+    _fireMaxChar: function() {
+      var parent = this.parentNode,
+          px_text = Polymer.dom(parent).querySelector('px-dropdown-text');
+      px_text.fire('maxContCharacterWidth', {maxContCharacterWidth : this.maxContCharacterWidth});
     },
     /**
      * Opens the dropdown menu
@@ -268,6 +282,11 @@ Element providing the content for the px-dropdown element
         return this.items;
       }
     },
+    /**
+     * This function updates the displayed text on the visible portion of the closed dropdown.
+     * @method _updateSelectedItem
+     *
+     */
     _updateSelectedItem: function() {
       var parent = this.parentNode,
           text = Polymer.dom(parent).querySelector('px-dropdown-text');

@@ -853,12 +853,12 @@ textarea {
   max-height: 14.8rem;
   overflow-y: auto; }
 
-.px-dropdown--listitem:hover {
-  background-color: #0a9ec1;
-  color: white; }
-
-.px-dropdown--listitem:first-child {
-  border-radius: 4px 4px 0 0; }
-
-.px-dropdown--listitem:last-child {
-  border-radius: 0 0 4px 4px; }
+.px-dropdown--listitem {
+  overflow-y: visible; }
+  .px-dropdown--listitem:hover {
+    background-color: #0a9ec1;
+    color: white; }
+  .px-dropdown--listitem:first-child {
+    border-radius: 4px 4px 0 0; }
+  .px-dropdown--listitem :last-child {
+    border-radius: 0 0 4px 4px; }

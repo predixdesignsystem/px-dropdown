@@ -138,24 +138,14 @@ function runCustomTests() {
        });
       done();
     });
-    test('checks if dropdown resets on close',
+    test('checks if Hide Chevron actaully hides the chevron',
      function(done){
-       var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          px_dropcell = px_dropdown.$$('#dropcell');
+       var px_dropdown = Polymer.dom(document).querySelector('px-dropdown');
+      px_dropdown.set('hideChevron', true);
+      assert.isTrue(px_dropdown.$$('px-dropdown-chevron').style.display === 'none');
+      done();
 
-      var clickHandle = function() {
-         if (px_dropdown.opened) {
-           assert.isTrue(px_dropdown_content.style.position === 'static');
-           done();
-         }
-       };
-
-       px_dropcell.addEventListener('click', clickHandle);
-       px_dropcell.dispatchEvent(new Event('click'));
-       px_dropcell.dispatchEvent(new Event('click'));
-       px_dropcell.removeEventListener('click',clickHandle);
      }
-  );
- });
+    );
+  });
 }
