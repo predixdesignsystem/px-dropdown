@@ -1,3 +1,7 @@
+v0.1.1
+==================
+* make it more obvious it is possible to scroll by reducing the height of the dropdown by half an item's height if the dropdown has scrollbars
+
 v0.1.0
 ==================
 * added smart orientation which detects if the dropdown will show below the viewport, and display the dropdown above the element clicked.
