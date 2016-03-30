@@ -57,11 +57,13 @@ Element providing a trigger for the px-dropdown element.
       }
     },
     attached: function() {
-      this.addEventListener('hover', this._manipulateHover);
+      this.addEventListener('hoverOff', this._manipulateHoverOff);
+      this.addEventListener('hoverOn', this._manipulateHoverOn);
       this.addEventListener('opened', this._manipulateOpened);
     },
     detached: function() {
-      this.removeEventListener('hover',this._manipulateHover);
+      this.removeEventListener('hoverOn',this._manipulateHoverOn);
+      this.removeEventListener('hoverOff',this._manipulateHoverOff);
       this.removeEventListener('opened',this._manipulateOpened);
     },
     /**
@@ -79,8 +81,12 @@ Element providing a trigger for the px-dropdown element.
      *
      * @method _manipulateHover
      */
-    _manipulateHover: function() {
-      this.hover = !this.hover;
+    _manipulateHoverOff: function() {
+      this.hover = false;
+      this._manipulateClass();
+    },
+    _manipulateHoverOn: function() {
+      this.hover = true;
       this._manipulateClass();
     },
     /**

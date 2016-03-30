@@ -30,8 +30,8 @@ Element providing a dropdown solution.
     <div>
       <span
       on-tap="triggerClicked"
-      on-mouseover="_hover"
-      on-mouseout="_hover"
+      on-mouseover="_hoverOn"
+      on-mouseout="_hoverOff"
       class$="{{_dropcellClass(opened, hover)}}"
       id="dropcell">
         <content select=".px-dropdown-text"></content>
@@ -187,13 +187,33 @@ Element providing a dropdown solution.
       return returnClass;
     },
     /*
-    * This function fires off a hover event which px-dropdown-chevron
-    * picks up, and flips the hover property.
-    * @method _hover
+    * This function fires off a hoverOn event which px-dropdown-chevron
+    * picks up, and sets the hover property to true.
+    * normally, I would have 1 for both on and off, and just flip the value of hover
+    * but IE10 was having issues keeping up with it, so I split it into 2 functions.
+    * @method _hoverOn
     */
-    _hover: function() {
-      this._fireChevron('hover');
-      this.hover = !this.hover;
+    _hoverOn: function() {
+      /*
+      normally, i would have 1 function for both on and off states, and just flip the value of hover
+      but IE10 was having issues keeping up with it, so I split it into 2 functions.
+      */
+      this._fireChevron('hoverOn');
+      this.hover = true;
+    },
+    /*
+    * This function fires off a hoverOff event which px-dropdown-chevron
+    * picks up, and sets the hover property to false.
+    *
+    * @method _hoverOff
+    */
+    _hoverOff: function() {
+      /*
+      normally, I would have 1 function for both on and off states, and just flip the value of hover
+      but IE10 was having issues keeping up with it, so I split it into 2 functions.
+      */
+      this._fireChevron('hoverOff');
+      this.hover = false;
     },
     /*
     * This function resets the above property as well as set
