@@ -21,7 +21,7 @@ Element providing the text for the px-dropdown element
   <template>
       <div class="flex__item px-dropdown-text u-p--">{{displayValue}}</div>
       <template is="dom-if" if="{{_includeTooltip(displayValue)}}">
-          <px-tooltip tooltip-message="{{displayValue}}" orientation="left"></px-tooltip>
+          <px-tooltip tooltip-message="{{displayValue}}" orientation="top"></px-tooltip>
       </template>
   </template>
 </dom-module>
@@ -47,12 +47,10 @@ Element providing the text for the px-dropdown element
       }
     },
     attached: function() {
-      // if we don't set the width, the container will stretch to whatever the size of the text is.
-      this.style.width = this.getBoundingClientRect().width;
       this.addEventListener('maxContCharacterWidth', this._setMaxChar);
     },
     detached: function() {
-      this.removeEventListener('maxContCharacterWidth');
+      this.removeEventListener('maxContCharacterWidth', this._setMaxChar);
     },
     /**
      * @method _includeTooltip

@@ -61,8 +61,8 @@ Element providing a trigger for the px-dropdown element.
       this.addEventListener('opened', this._manipulateOpened);
     },
     detached: function() {
-      this.removeEventListener('hover');
-      this.removeEventListener('opened');
+      this.removeEventListener('hover',this._manipulateHover);
+      this.removeEventListener('opened',this._manipulateOpened);
     },
     /**
      * this function flips the opened flag, and changes the class for the component
