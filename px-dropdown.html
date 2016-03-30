@@ -100,11 +100,11 @@ Element providing a dropdown solution.
     },
     attached: function() {
       this.addEventListener('dropdown_flip', this._flipOpened);
-      this.addEventListener("resize",  this._reset);
+      this.addEventListener('resize',  this._reset);
     },
     detached: function() {
       this.removeEventListener('dropdown_flip', this._flipOpened);
-      this.removeEventListener("resize", this._reset);
+      this.removeEventListener('resize', this._reset);
     },
     /* This function is called when the user specifies they would like
     * the chevron to be hidden.
@@ -129,6 +129,7 @@ Element providing a dropdown solution.
         this._setPosition();
       } else {
         Polymer.dom(this).querySelector(".px-dropdown-content").close();
+        console.log('calling reset');
         this._reset();
       }
       this._flipOpened();
@@ -201,10 +202,10 @@ Element providing a dropdown solution.
     * @method _reset
     */
     _reset: function() {
-      var content = Polymer.dom(this).querySelector('px-dropdown-content');
+      var content = Polymer.dom(this).querySelector('px-dropdown-content'),
+          dropdown = content.$.dropdown;
       this.above = false;
-      content.style.position = 'relative';
-      content.style.top = '';
+      dropdown.style.top = '';
     },
     /*
     * This function changes the position of the dropdown content
@@ -213,6 +214,7 @@ Element providing a dropdown solution.
     */
     _setPosition: function() {
       if (this._isoffScreenOnBottom()) {
+        console.log('is off screen');
         this.setTopPosition();
       }
     },
@@ -227,6 +229,9 @@ Element providing a dropdown solution.
           dropdownRect = dropdown.getBoundingClientRect(),
           contentRect = content.getBoundingClientRect(),
           dropdownBottomPoint = dropdownRect.bottom;
+          console.log('dropdownBottomPoint = ' + dropdownBottomPoint);
+          console.log('window.innerHeight = ' + window.innerHeight);
+          console.log('hitting it');
       return dropdownBottomPoint > window.innerHeight;
     },
     /*
