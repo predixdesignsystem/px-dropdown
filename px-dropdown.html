@@ -92,6 +92,10 @@ Element providing a dropdown solution.
         type: Boolean,
         value: false,
         observer: '_hideChevron'
+      },
+      _isTextWidthSet: {
+        type: Boolean,
+        value: false
       }
     },
     attached: function() {
@@ -128,7 +132,23 @@ Element providing a dropdown solution.
         this._reset();
       }
       this._flipOpened();
+      this._setDivWidth();
       this.fire('dropdownOpen', evt);
+    },
+    /*
+    * This function sets the width of the div inside the px-dropdown-text component.
+    * Without doing this,
+    *
+    * @method _flipOpened
+    */
+    _setDivWidth: function() {
+      if (!this._isWidthSet) {
+        var text = Polymer.dom(this).querySelector('px-dropdown-text'),
+          div = Polymer.dom(text.root).querySelector('div'),
+          dropcell = this.$.dropcell;
+        div.style.width = (div.getBoundingClientRect().width - 10) + 'px';
+        this.set('_isTextWidthSet', true);
+      }
     },
     /*
     * This function flips the "opened" property

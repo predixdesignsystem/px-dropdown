@@ -766,7 +766,6 @@ textarea {
   position: relative; }
 
 #dropdown {
-  top: 0;
   left: 0;
   position: absolute;
   height: auto; }
