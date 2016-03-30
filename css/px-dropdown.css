@@ -233,8 +233,7 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 
 #dropcell {
   background-color: var(--dropdown_bg_default, #f7f7fc);
-  border-radius: 3px;
-  min-width: 6.6666666667rem; }
+  border-radius: 3px; }
 
 #dropcell.hover {
   background-color: var(--dropdown_bg_hover, #b1b1bc); }
