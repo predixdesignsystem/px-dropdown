@@ -129,7 +129,6 @@ Element providing a dropdown solution.
         this._setPosition();
       } else {
         Polymer.dom(this).querySelector(".px-dropdown-content").close();
-        console.log('calling reset');
         this._reset();
       }
       this._flipOpened();
@@ -143,7 +142,7 @@ Element providing a dropdown solution.
     * @method _flipOpened
     */
     _setDivWidth: function() {
-      if (!this._isWidthSet) {
+      if (!this._isTextWidthSet) {
         var text = Polymer.dom(this).querySelector('px-dropdown-text'),
           div = Polymer.dom(text.root).querySelector('div'),
           dropcell = this.$.dropcell;
@@ -214,7 +213,6 @@ Element providing a dropdown solution.
     */
     _setPosition: function() {
       if (this._isoffScreenOnBottom()) {
-        console.log('is off screen');
         this.setTopPosition();
       }
     },
@@ -229,9 +227,6 @@ Element providing a dropdown solution.
           dropdownRect = dropdown.getBoundingClientRect(),
           contentRect = content.getBoundingClientRect(),
           dropdownBottomPoint = dropdownRect.bottom;
-          console.log('dropdownBottomPoint = ' + dropdownBottomPoint);
-          console.log('window.innerHeight = ' + window.innerHeight);
-          console.log('hitting it');
       return dropdownBottomPoint > window.innerHeight;
     },
     /*
