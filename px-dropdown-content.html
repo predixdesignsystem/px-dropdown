@@ -199,8 +199,9 @@ Element providing the content for the px-dropdown element
       if(currentHeight > maxHeight) {
         this.$.dropdown.style.height = maxHeight + 'px';
       }
-
-      this.adjustHeight();
+      else {
+        this.adjustHeight();
+      }
     },
     /**
      * reset the height of the content

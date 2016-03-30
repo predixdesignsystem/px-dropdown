@@ -116,6 +116,29 @@ an attribute that allows you to hide the chevron.
 
 ```
 
+#### bound-target
+
+*Type:* **HTMLElement** - (*Optional*) - *Default*: null
+
+if this attribute is set its bounds will be used to contain the dropdown, meaning that the dropdown will resize and position itself to always be within those bounds.
+This is typically a reference to an element, but it can also just be an element id.
+
+```
+<div id="someContainer">
+  <px-dropdown bound-target="someContainer">
+    ...
+  </px-dropdown>
+</div>
+
+```
+
+```
+
+dropdown.boundTarget = document.querySelector('#boundingContainer');
+
+```
+
+
 ## Attributes (on px-dropdown-text)
 
 #### display-value

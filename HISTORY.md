@@ -1,6 +1,7 @@
-v0.2.1
+v0.3.0
 ==================
 * make it more obvious it is possible to scroll by reducing the height of the dropdown by half an item's height if the dropdown has scrollbars
+* added bound-target attribute: if set the dropdown will always try to fit within this HTMLElement 
 
 v0.2.0
 ==================

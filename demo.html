@@ -22,6 +22,11 @@
       min-height: 300px;
 
     }
+    .bound {
+      height: 120px;
+      width:300px;
+      background-color: black;
+    }
 
     </style>
   </head>
@@ -62,6 +67,19 @@
         <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "four"}, {"key":"five", "val": "five"}, {"key":"six", "val": "six"}, {"key":"seven", "val": "seven"}, {"key":"height", "val": "eight"}, {"key":"nine", "val": "nine"}, {"key":"ten", "val": "ten"}]'>
         </px-dropdown-content>
       </px-dropdown>
+    </div>
+    <br />
+    <br />
+    <br />
+    <h1>dropdown within bounds</h1>
+    <div id="bounding" class="bound">
+      <div class="cont">
+        <px-dropdown bound-target="bounding">
+          <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
+          <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "four"}, {"key":"five", "val": "five"}, {"key":"six", "val": "six"}, {"key":"seven", "val": "seven"}, {"key":"height", "val": "eight"}, {"key":"nine", "val": "nine"}, {"key":"ten", "val": "ten"}]'>
+          </px-dropdown-content>
+        </px-dropdown>
+      </div>
     </div>
     <div class="tallDiv"></div>
     <h1>Smart Orientation dropdown</h1>
