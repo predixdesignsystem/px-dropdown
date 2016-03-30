@@ -103,8 +103,8 @@ Element providing a dropdown solution.
       this.addEventListener("resize",  this._reset);
     },
     detached: function() {
-      this.removeEventListener('dropdown_flip');
-      this.removeEventListener("resize");
+      this.removeEventListener('dropdown_flip', this._flipOpened);
+      this.removeEventListener("resize", this._reset);
     },
     /* This function is called when the user specifies they would like
     * the chevron to be hidden.

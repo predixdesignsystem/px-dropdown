@@ -50,7 +50,7 @@ Element providing the text for the px-dropdown element
       this.addEventListener('maxContCharacterWidth', this._setMaxChar);
     },
     detached: function() {
-      this.removeEventListener('maxContCharacterWidth');
+      this.removeEventListener('maxContCharacterWidth', this._setMaxChar);
     },
     /**
      * @method _includeTooltip
