@@ -195,7 +195,7 @@ Element providing a dropdown solution.
     */
     _setPosition: function() {
       if (this._isoffScreenOnBottom()) {
-        this.setTopPosition();
+        this._setTopPosition();
       }
     },
     /*
@@ -212,11 +212,54 @@ Element providing a dropdown solution.
       return dropdownBottomPoint > window.innerHeight;
     },
     /*
+    * This function appropriately position the dropdown within the bounds given
+    * @method positionWithinBounds
+    * @param parentBoundingRect
+    */
+    positionWithinBounds: function(parentBoundingRect) {
+      var content = Polymer.dom(this).querySelector('px-dropdown-content'),
+          dropdown = content.$.dropdown,
+          dropcell = this.$.dropcell,
+          dropcellRect = dropcell.getClientRects()[0],
+          dropdownRect,
+          dropdownBottomPoint,
+          sizeAbove,
+          sizeBelow;
+
+      //reset content size and get some values
+      this._reset();
+      content.resetHeight();
+      dropdownRect = dropdown.getBoundingClientRect();
+      dropdownBottomPoint = dropdownRect.bottom,
+      sizeAbove = dropdownRect.top - parentBoundingRect.top - parseInt(dropcellRect.height),
+      sizeBelow = parentBoundingRect.bottom - dropdownRect.top;
+
+      //if we can't fit it below
+      if(dropdownBottomPoint > parentBoundingRect.bottom) {
+
+        //can we fit it above ?
+        if(sizeAbove > dropdownRect.height) {
+          content._adjustHeight();
+          this._setTopPosition();
+        } else {
+
+          //fit it where we have the most space
+          if(sizeAbove > sizeBelow) {
+            content.sizeHeight(sizeAbove - 2);
+            this._setTopPosition();
+          }
+          else {
+            content.sizeHeight(sizeBelow - 2);
+          }
+        }
+      }
+    },
+    /*
     * This function changes the position of the content area to be above
     * the dropcell, instead of the default below.
     * @method setTopPosition
     */
-    setTopPosition: function() {
+    _setTopPosition: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
           dropdown = content.$.dropdown,
           dropdownRect = dropdown.getClientRects()[0],

@@ -172,10 +172,10 @@ Element providing the content for the px-dropdown element
       if(!this._hasBeenOpened) {
 
         //do first adjustments we wont need ot do in the future
-        this._adjustHeight();
+        this.adjustHeight();
         this._extendDropdown();
       }
-      this._hasBeenOpened = true;
+      this.set('_hasBeenOpened', true);
     },
     /**
      * Closes the dropdown menu
@@ -184,6 +184,31 @@ Element providing the content for the px-dropdown element
      */
     close: function() {
       this.menuOpen = false;
+    },
+    /**
+     * size the content to height to fit maxHeight and do the height adjustments
+     * for scrolling
+     *
+     * @method sizeHeight
+     * @param maxHeight
+     */
+    sizeHeight: function(maxHeight) {
+      var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height);
+
+      //limit height
+      if(currentHeight > maxHeight) {
+        this.$.dropdown.style.height = maxHeight + 'px';
+      }
+
+      this.adjustHeight();
+    },
+    /**
+     * reset the height of the content
+     *
+     * @method resetHeight
+     */
+    resetHeight: function() {
+      this.$.dropdown.style.height = '';
     },
     /**
      * Checks if the length of the value in the dropdown list is longer than
@@ -245,9 +270,9 @@ Element providing the content for the px-dropdown element
      * This allows for the dropdown height to be adjusted by reducing it by half
      * an item's height if the dropdown has scrollbars so it's more obvious we
      * can scroll
-     * @method _adjustHeight
+     * @method adjustHeight
      */
-    _adjustHeight: function() {
+    adjustHeight: function() {
       var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height);
 
       //do we have a scrollbar?
