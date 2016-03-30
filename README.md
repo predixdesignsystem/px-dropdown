@@ -75,7 +75,8 @@ An attribute which specifies the amount -in pixels - that the dropdown should ex
 
 *Type:* **Object** - (*Required*) - *Default:* ""
 
-An object Literal which holds the list of items that should appear in the dropdown.
+This is an array that holds either an object literal with a list of items, or an array of strings.
+Please note that if you pass in an array of items, the value *key* must be set to **'val'**.
 
 ```
 <px-dropdown-content
@@ -120,7 +121,7 @@ an attribute that allows you to hide the chevron.
 
 *Type:* **HTMLElement** - (*Optional*) - *Default*: null
 
-if this attribute is set its bounds will be used to contain the dropdown, meaning that the dropdown will resize and position itself to always be within those bounds.
+If this attribute is set, its bounds will be used to contain the dropdown. The dropdown will resize and position itself to always be within those bounds.
 This is typically a reference to an element, but it can also just be an element id.
 
 ```
@@ -131,13 +132,6 @@ This is typically a reference to an element, but it can also just be an element 
 </div>
 
 ```
-
-```
-
-dropdown.boundTarget = document.querySelector('#boundingContainer');
-
-```
-
 
 ## Attributes (on px-dropdown-text)
 
