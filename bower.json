@@ -16,7 +16,7 @@
   "dependencies": {
     "polymer": "~1.2.3",
     "px-theme": "https://github.com/predixDev/px-theme.git#~0.4.2",
-    "px-tooltip": "https://github.com/PredixDev/px-tooltip.git#~0.2.0",
+    "px-tooltip": "https://github.com/PredixDev/px-tooltip.git#~0.4.0",
     "px-spacing-design": "https://github.com/PredixDev/px-spacing-design.git#~0.3.7"
   },
   "devDependencies": {
