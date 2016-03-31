@@ -24,8 +24,12 @@
   <body>
     <h3>Web Component Test : Fixture for px-dropdown</h3>
     <px-dropdown id="px_dropdown_1">
-      <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
-      <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
+      <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
+        <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="20" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+      </px-dropdown-content>
+    </px-dropdown>
+    <px-dropdown id="px_dropdown_2" hide-chevron="true">
+      <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
         <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="20" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
       </px-dropdown-content>
     </px-dropdown>

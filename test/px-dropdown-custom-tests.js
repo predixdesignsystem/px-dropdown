@@ -1,4 +1,7 @@
 // This is the wrapper for custom tests, called upon web components ready state
+var getStyle = function (el, style){
+  return window.getComputedStyle( el, null ).getPropertyValue( style );
+};
 function runCustomTests() {
   // Place any setup steps like variable declaration and initialization here
 
@@ -33,7 +36,7 @@ function runCustomTests() {
          done();
        };
        dropcell.addEventListener('click', clickHandle);
-       dropcell.dispatchEvent(new Event('click'));
+       dropcell.click();
        dropcell.removeEventListener('click',clickHandle);
      }
    );
@@ -59,7 +62,7 @@ function runCustomTests() {
          };
 
          dropcell.addEventListener('click', clickHandle);
-         dropcell.dispatchEvent(new Event('click'));
+         dropcell.click();
          dropcell.removeEventListener('click',clickHandle);
       }
     );
@@ -73,35 +76,34 @@ function runCustomTests() {
                assert.isTrue(dropdown.hidden);
                done();
            };
-        dropcell.dispatchEvent(new Event('click'));
+        dropcell.click();
         dropcell.addEventListener('click', clickHandle);
-        dropcell.dispatchEvent(new Event('click'));
+        dropcell.click();
         dropcell.removeEventListener('click', clickHandle);
       }
     );
 
-  //   test('check if max-cont-character-width has a value, and if so, is there an ellipsis, and px-tooltip?',
-  //    function(done){
-  //      var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-  //         px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-  //         dropcell = px_dropdown.$$('#dropcell'),
-  //         dropdown = px_dropdown_content.$$('#dropdown');
-   //
-  //      dropcell.addEventListener('click', function() {
-  //        var elemList = Polymer.dom(px_dropdown_content.root).querySelectorAll('.px-dropdown--listitem');
-  //        Array.prototype.forEach.call(elemList, function(li) {
-  //          var maxChar = px_dropdown_content.maxContCharacterWidth;
-  //          if (maxChar && li.textContent.trim().length > maxChar) {
-  //            var pxTooltip = Polymer.dom(px_dropdown_content).querySelector('px-tooltip');
-  //            assert.isTrue(pxTooltip !== null);
-  //            done();
-  //          }
-  //        });
-   //
-  //      });
-  //      dropcell.dispatchEvent(new Event('click'));
-  //    }
-  //  );
+    test('check if max-cont-character-width has a value, and if so, is there a px-tooltip?',
+     function(done){
+       var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
+          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
+          dropcell = px_dropdown.$$('#dropcell'),
+          dropdown = px_dropdown_content.$$('#dropdown');
+
+       dropcell.addEventListener('click', function() {
+         var elemList = Polymer.dom(px_dropdown_content.root).querySelectorAll('.px-dropdown--listitem');
+         Array.prototype.forEach.call(elemList, function(li) {
+           var maxChar = px_dropdown_content.maxContCharacterWidth;
+           if (maxChar && li.textContent.trim().length > maxChar) {
+             var pxTooltip = Polymer.dom(li).querySelector('px-tooltip');
+             expect(pxTooltip).to.not.be.null;
+           }
+         });
+        done();
+       });
+       dropcell.click();
+     }
+   );
 
      test('check that element fires off click event',
       function(done) {
@@ -115,10 +117,8 @@ function runCustomTests() {
           //assert.equal(e.detail.srcElement, dropdown_li);
           done();
         };
-
-        //dropcell.dispatchEvent(new Event('click'));
         px_dropdown.addEventListener('px-dropdown-click', li_click);
-        dropdown_li.dispatchEvent(new Event('click'));
+        dropdown_li.click();
         px_dropdown.removeEventListener('px-dropdown-click', li_click);
       });
 
@@ -138,13 +138,22 @@ function runCustomTests() {
        });
       done();
     });
+    test('check that the passed text is what is showing up in px-dropdown-text',
+    function(done) {
+      var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
+         px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
+         px_dropdown_text = Polymer.dom(px_dropdown).querySelector('px-dropdown-text'),
+         text_div = Polymer.dom(px_dropdown_text.root).querySelector('div');
+
+       assert.equal(text_div.textContent, px_dropdown_text.displayValue);
+      done();
+    });
     test('checks if Hide Chevron actaully hides the chevron',
      function(done){
-       var px_dropdown = Polymer.dom(document).querySelector('px-dropdown');
-      px_dropdown.set('hideChevron', true);
-      assert.isTrue(px_dropdown.$$('px-dropdown-chevron').style.display === 'none');
+      var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
+          chevron = px_dropdown.$$('px-dropdown-chevron');
+      expect(chevron).to.be.null;
       done();
-
      }
     );
   });

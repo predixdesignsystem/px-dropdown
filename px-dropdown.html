@@ -193,7 +193,7 @@ Element providing a dropdown solution.
       if (!this._isTextWidthSet) {
         var text = Polymer.dom(this).querySelector('px-dropdown-text'),
             div = Polymer.dom(text.root).querySelector('div');
-            
+
         div.style.width = div.style.width = window.getComputedStyle(div, null).getPropertyValue('width'); + 'px';
         this.set('_isTextWidthSet', true);
       }
