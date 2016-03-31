@@ -127,11 +127,12 @@ Element providing a dropdown solution.
     observers: [
       '_boundTargetChanged(boundTarget, isAttached)'
     ],
+    ready: function() {
 
+    },
     attached: function() {
       this.addEventListener('dropdown_flip', this._flipOpened);
       this.addEventListener('resize',  this._reset);
-      this._setDivWidth();
     },
     detached: function() {
       this.removeEventListener('dropdown_flip', this._flipOpened);
@@ -174,6 +175,7 @@ Element providing a dropdown solution.
       if (!this.opened) {
         Polymer.dom(this).querySelector(".px-dropdown-content").open();
         this._setPosition();
+        this._setDivWidth();
       } else {
         Polymer.dom(this).querySelector(".px-dropdown-content").close();
         this._reset();
@@ -190,9 +192,9 @@ Element providing a dropdown solution.
     _setDivWidth: function() {
       if (!this._isTextWidthSet) {
         var text = Polymer.dom(this).querySelector('px-dropdown-text'),
-          div = Polymer.dom(text.root).querySelector('div'),
-          dropcell = this.$.dropcell;
-        div.style.width = (div.getBoundingClientRect().width - 10) + 'px';
+            div = Polymer.dom(text.root).querySelector('div');
+            
+        div.style.width = div.style.width = window.getComputedStyle(div, null).getPropertyValue('width'); + 'px';
         this.set('_isTextWidthSet', true);
       }
     },
