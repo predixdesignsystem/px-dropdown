@@ -634,7 +634,7 @@ a {
   padding-top: 0.3333333333rem !important;
   padding-bottom: 0.3333333333rem !important; }
 
-.px-dropdown-chevron {
+:host {
   background-color: var(--dropdown_bg_default, #f7f7fc);
   cursor: pointer;
   border-radius: 0 3px 3px 0;
@@ -644,7 +644,8 @@ a {
   margin-left: auto; }
 
 .hover {
-  background-color: var(--dropdown_bg_hover, #b1b1bc); }
+  background-color: var(--dropdown_bg_hover, #b1b1bc);
+  border-radius: 0 3px 3px 0; }
 
 .opened {
   background-color: var(--dropdown_bg_opened, #9999a3); }

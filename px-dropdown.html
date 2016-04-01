@@ -98,8 +98,7 @@ Element providing a dropdown solution.
       */
       hideChevron: {
         type: Boolean,
-        value: false,
-        observer: '_hideChevron'
+        value: false
       },
       /**
        * An attribute which specifies the bounding target the dropdown will be
@@ -173,7 +172,7 @@ Element providing a dropdown solution.
     * @method _hideChevron
     *
     */
-    _hideChevron: function() {
+    _hideChevron: function(newValue, oldValue) {
       return (!this.hideChevron);
     },
     /**
@@ -237,8 +236,8 @@ Element providing a dropdown solution.
     triggerClicked: function(evt) {
       var content = Polymer.dom(this).querySelector(".px-dropdown-content");
       if (!this.opened) {
-        this._calculateWidths();
         content.open();
+        this._setDivWidth();
         this._setPosition();
       } else {
         content.close();
@@ -246,17 +245,6 @@ Element providing a dropdown solution.
       }
       this._flipOpened();
       this.fire('dropdownOpen', evt);
-    },
-    _calculateWidths: function() {
-              this._getDropcellWidth();
-              this._setDivWidth();
-    },
-    _getDropcellWidth: function() {
-      var dropcell = this.$.dropcell,
-      dropcellWidth = dropcell.getBoundingClientRect().width,
-      px_content;
-
-
     },
     /**
     * This function sets the width of the div inside the px-dropdown-text component.

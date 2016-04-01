@@ -5,7 +5,7 @@
 -->
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../px-tooltip/px-tooltip.html" />
-<link rel="import" href="../iron-dropdown/iron-dropdown-scroll-manager.html" />
+
 <!--
 Element providing the content for the px-dropdown element
 
@@ -194,9 +194,8 @@ Element providing the content for the px-dropdown element
 
       if(!this._hasBeenOpened) {
 
-        //do first adjustments we wont need ot do in the future
+        //do first adjustments we wont need to do in the future
         this.fire('dropdown-content-request-size', {pxContent: this});
-      //  this._extendDropdown();
       }
 
       this.set('_hasBeenOpened', true);
