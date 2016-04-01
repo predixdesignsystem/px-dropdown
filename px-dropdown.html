@@ -39,7 +39,9 @@ Element providing a dropdown solution.
         </template>
       </div>
     </div>
-    <content select=".px-dropdown-content"></content>
+    <div style="position:relative;">
+      <content select=".px-dropdown-content"></content>
+    </div>
   </template>
 </dom-module>
 <script>
@@ -151,10 +153,18 @@ Element providing a dropdown solution.
     attached: function() {
       this.addEventListener('dropdown_flip', this._flipOpened);
       this.addEventListener('resize',  this._reset);
+      this.addEventListener('dropdown-content-request-size',  this._requestCellWidth);
     },
     detached: function() {
       this.removeEventListener('dropdown_flip', this._flipOpened);
       this.removeEventListener('resize', this._reset);
+    },
+    _requestCellWidth: function(evt, content) {
+      var dropcell = this.$.dropcell,
+          rect = dropcell.getBoundingClientRect();
+
+      evt.detail.pxContent.dropCellWidth = rect.width;
+      evt.detail.pxContent.dropCellHeight = rect.height;
     },
     /**
     * This function checks whether the chevron should be visible or
@@ -227,26 +237,26 @@ Element providing a dropdown solution.
     triggerClicked: function(evt) {
       var content = Polymer.dom(this).querySelector(".px-dropdown-content");
       if (!this.opened) {
+        this._calculateWidths();
         content.open();
         this._setPosition();
-        this._setDivWidth();
-
-       /*setTimeout(function() {
-          var prev = content.style.left;
-          content.style.left = '1px';
-          setTimeout(function() {
-            content.style.left = prev;
-          },10);
-
-        //  content.style.left = prev;
-      },10);*/
-
       } else {
         content.close();
         this._reset();
       }
       this._flipOpened();
       this.fire('dropdownOpen', evt);
+    },
+    _calculateWidths: function() {
+              this._getDropcellWidth();
+              this._setDivWidth();
+    },
+    _getDropcellWidth: function() {
+      var dropcell = this.$.dropcell,
+      dropcellWidth = dropcell.getBoundingClientRect().width,
+      px_content;
+
+
     },
     /**
     * This function sets the width of the div inside the px-dropdown-text component.

@@ -1,7 +1,6 @@
 v0.4.0
 ==================
 * new attribute on px-dropdown: prevent-close-on-outside-click. Default to false and dropdown now automatically closes on outside clicks
-* new attribute on px-dropdown-content: allow-outside-scrolling. Default to false and dropdown now prevents scrolling outside itself when opened
 
 v0.3.0
 ==================

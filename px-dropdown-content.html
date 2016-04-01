@@ -21,6 +21,7 @@ Element providing the content for the px-dropdown element
 <dom-module id="px-dropdown-content">
   <link rel="import" type="css" href="css/px-dropdown-content.css" />
   <template>
+
       <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
         <ul class="px-dropdown--list list-bare">
           <template is="dom-repeat" items={{computedItems}}>
@@ -31,6 +32,7 @@ Element providing the content for the px-dropdown element
             </li>
           </template>
       </div>
+
   </template>
 </dom-module>
 <script>
@@ -137,16 +139,24 @@ Element providing the content for the px-dropdown element
         value: false
       },
       /**
-       * An attribute which specifies whether to allow scrolling outside the
-       * dropdown when it is opened
        *
-       * @param allowOutsideScrolling
-       * @type Boolean
-       * @default false
+       * @type Number
+       * @default: 0
        */
-      allowOutsideScrolling: {
-        type: Boolean,
-        value: false
+      dropCellWidth: {
+        type: Number,
+        value: 0,
+        observer: '_dropCellWidthChanged'
+      },
+      /**
+       *
+       * @type Number
+       * @default: 0
+       */
+      dropCellHeight: {
+        type: Number,
+        value: 0,
+        observer: '_dropCellHeightChanged'
       },
       /**
        * An attribute which specifies whether the dropdown has been opened at
@@ -170,7 +180,7 @@ Element providing the content for the px-dropdown element
      * @method _fireMaxChar
      */
     _fireMaxChar: function() {
-      var parent = this.parentNode,
+      var parent = this.parentNode.parentNode,
           px_text = Polymer.dom(parent).querySelector('px-dropdown-text');
       px_text.fire('maxContCharacterWidth', {maxContCharacterWidth : this.maxContCharacterWidth});
     },
@@ -181,19 +191,26 @@ Element providing the content for the px-dropdown element
      */
     open: function() {
       this.menuOpen = true;
-      
+
       if(!this._hasBeenOpened) {
 
         //do first adjustments we wont need ot do in the future
-        this.adjustHeight();
-        this._extendDropdown();
-      }
-
-      if(!this.allowOutsideScrolling) {
-        Polymer.IronDropdownScrollManager.pushScrollLock(this);
+        this.fire('dropdown-content-request-size', {pxContent: this});
+      //  this._extendDropdown();
       }
 
       this.set('_hasBeenOpened', true);
+    },
+    _dropCellWidthChanged: function(newValue, oldValue) {
+      if(newValue) {
+        this._extendDropdown();
+      }
+    },
+    _dropCellHeightChanged: function(newValue, oldValue) {
+      if(newValue) {
+
+        this.adjustHeight();
+      }
     },
     /**
      * Closes the dropdown menu
@@ -202,7 +219,6 @@ Element providing the content for the px-dropdown element
      */
     close: function() {
       this.menuOpen = false;
-      Polymer.IronDropdownScrollManager.removeScrollLock(this);
     },
     /**
      * size the content to height to fit maxHeight and do the height adjustments
@@ -277,13 +293,11 @@ Element providing the content for the px-dropdown element
     _extendDropdown: function() {
       if (!this.extended && this.extendDropdown) {
         //get the width of the dropcell, and how much to extend it by.
-        var parent = this.parentNode,
-            dropcell = parent.$.dropcell,
-            width = dropcell.getBoundingClientRect().width,
-            extendBy = this.extendDropdownBy;
+
+        var extendBy = this.extendDropdownBy;
         //set the flag that we've extended the dropdown. without this, it'll keep extending.
         this.extended = true;
-        this.$.dropdown.style.width = parseInt(width) + parseInt(extendBy) + 'px';
+        this.$.dropdown.style.width = this.dropCellWidth + parseInt(extendBy) + 'px';
       }
     },
     /**
@@ -299,9 +313,7 @@ Element providing the content for the px-dropdown element
       if(currentHeight < this.$.dropdown.scrollHeight) {
 
         //reduce height by half the size of an item
-        var parent = this.parentNode,
-            dropcell = parent.$.dropcell,
-            reduceBy = parseInt(dropcell.getBoundingClientRect().height/2);
+        var reduceBy = parseInt(this.dropCellHeight/2);
 
         this.$.dropdown.style.height = currentHeight - reduceBy + 'px';
       }

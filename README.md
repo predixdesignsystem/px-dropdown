@@ -101,22 +101,6 @@ A number which represents the number of characters allowed in the dropdown befor
 
 ```
 
-#### allow-outside-scrolling
-
-*Type:* **Boolean** - (*Optional*) - *Default:* "false"
-
-By default, the dropdown will constrain scrolling on the page to itself when opened. Set to true in order to prevent scroll from being constrained to the dropdown when it opens.
-
-
-```
-<px-dropdown-content  
-  allow-outside-scrolling="true"
-  .... >
-....
-</px-dropdown-content>
-
-```
-
 <br />
 
 ## Attributes (on px-dropdown)
