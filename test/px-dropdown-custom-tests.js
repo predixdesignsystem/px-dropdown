@@ -159,11 +159,13 @@ function runCustomTests() {
     test('check if dropdown closes on outside click',
      function(done){
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_3'),
+        px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
+        dropdown = px_dropdown_content.$$('#dropdown'),
         dropcell = px_dropdown.$$('#dropcell'),
         title = Polymer.dom(document).querySelector('#title');
 
       clickHandle = function() {
-          assert.isTrue(px_dropdown.hidden);
+          assert.isTrue(dropdown.hidden);
           done();
       };
 
@@ -177,13 +179,15 @@ function runCustomTests() {
     test('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
       function(done){
        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_3'),
-         dropcell = px_dropdown.$$('#dropcell'),
-         title = Polymer.dom(document).querySelector('#title');
+          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
+          dropdown = px_dropdown_content.$$('#dropdown'),
+          dropcell = px_dropdown.$$('#dropcell'),
+          title = Polymer.dom(document).querySelector('#title');
 
        px_dropdown.preventCloseOnOutsideClick = true;
 
        clickHandle = function() {
-           assert.isFalse(px_dropdown.hidden);
+           assert.isFalse(dropdown.hidden);
            done();
        };
 
