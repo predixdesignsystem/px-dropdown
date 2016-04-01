@@ -156,5 +156,43 @@ function runCustomTests() {
       done();
      }
     );
+    test('check if dropdown closes on outside click',
+     function(done){
+      var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_3'),
+        dropcell = px_dropdown.$$('#dropcell'),
+        title = Polymer.dom(document).querySelector('#title');
+
+      clickHandle = function() {
+          assert.isTrue(px_dropdown.hidden);
+          done();
+      };
+
+      //open dropdown
+      dropcell.click();
+      title.addEventListener('click', clickHandle);
+      title.click();
+      title.removeEventListener('click', clickHandle);
+     }
+    );
+    test('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
+      function(done){
+       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_3'),
+         dropcell = px_dropdown.$$('#dropcell'),
+         title = Polymer.dom(document).querySelector('#title');
+
+       px_dropdown.preventCloseOnOutsideClick = true;
+
+       clickHandle = function() {
+           assert.isFalse(px_dropdown.hidden);
+           done();
+       };
+
+       //open dropdown
+       dropcell.click();
+       title.addEventListener('click', clickHandle);
+       title.click();
+       title.removeEventListener('click', clickHandle);
+      }
+    );
   });
 }

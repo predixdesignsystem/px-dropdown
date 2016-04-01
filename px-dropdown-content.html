@@ -181,7 +181,7 @@ Element providing the content for the px-dropdown element
      */
     open: function() {
       this.menuOpen = true;
-
+      
       if(!this._hasBeenOpened) {
 
         //do first adjustments we wont need ot do in the future
@@ -192,6 +192,7 @@ Element providing the content for the px-dropdown element
       if(!this.allowOutsideScrolling) {
         Polymer.IronDropdownScrollManager.pushScrollLock(this);
       }
+
       this.set('_hasBeenOpened', true);
     },
     /**

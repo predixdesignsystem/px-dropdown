@@ -191,7 +191,7 @@ Element providing a dropdown solution.
       // - not on ourselves
       // - we're currently open
       if(!this.preventCloseOnOutsideClick &&
-         !this._selfInPath(Polymer.dom(event).path) &&
+         !this._selfInPath(Polymer.dom(evt).path) &&
          this.opened) {
 
         var content = Polymer.dom(this).querySelector(".px-dropdown-content");
@@ -225,12 +225,24 @@ Element providing a dropdown solution.
    * @type Object
    */
     triggerClicked: function(evt) {
+      var content = Polymer.dom(this).querySelector(".px-dropdown-content");
       if (!this.opened) {
-        Polymer.dom(this).querySelector(".px-dropdown-content").open();
+        content.open();
         this._setPosition();
         this._setDivWidth();
+
+       /*setTimeout(function() {
+          var prev = content.style.left;
+          content.style.left = '1px';
+          setTimeout(function() {
+            content.style.left = prev;
+          },10);
+
+        //  content.style.left = prev;
+      },10);*/
+
       } else {
-        Polymer.dom(this).querySelector(".px-dropdown-content").close();
+        content.close();
         this._reset();
       }
       this._flipOpened();

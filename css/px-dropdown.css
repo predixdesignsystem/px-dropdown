@@ -178,6 +178,9 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 .viewport--full-height {
   min-height: 100vh; }
 
+:host {
+  max-height: 2.0666666667rem; }
+
 /*------------------------------------*    #PX-COLORS-DESIGN
 \*------------------------------------*/
 /**
