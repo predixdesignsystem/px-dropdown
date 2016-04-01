@@ -112,6 +112,18 @@ Element providing a dropdown solution.
         value: null
       },
       /**
+       * An attribute which specifies whether the dropdown will close when
+       * outside it. Set to true to prevent dropdown from closing
+       *
+       * @param preventCloseOnOutsideClick
+       * @type Boolean
+       * @default false
+       */
+      preventCloseOnOutsideClick: {
+        type: Boolean,
+        value: false
+      },
+      /**
        * A parameter which specifies whether the width has been set on the
        * px-dropdown text div.
        *
@@ -178,7 +190,9 @@ Element providing a dropdown solution.
       //We're only interested in clicks:
       // - not on ourselves
       // - we're currently open
-      if(!this._selfInPath(Polymer.dom(event).path) && this.opened) {
+      if(!this.preventCloseOnOutsideClick &&
+         !this._selfInPath(Polymer.dom(event).path) &&
+         this.opened) {
 
         var content = Polymer.dom(this).querySelector(".px-dropdown-content");
         this.opened = false;
