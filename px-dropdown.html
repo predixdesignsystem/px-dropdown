@@ -128,7 +128,13 @@ Element providing a dropdown solution.
       '_boundTargetChanged(boundTarget, isAttached)'
     ],
     ready: function() {
-
+      //capture all clicks so that we can close the dropdown if the user
+      //clicks anywhere outside the dropdown
+      // Enable document-wide tap recognizer.
+      Polymer.Gestures.add(document, 'tap', null);
+      // We should be using only 'tap', but this would be a breaking change.
+      var tapEvent = ('ontouchstart' in window) ? 'tap' : 'click';
+      document.addEventListener(tapEvent, this._onCaptureClick.bind(this), true);
     },
     attached: function() {
       this.addEventListener('dropdown_flip', this._flipOpened);
@@ -147,6 +153,39 @@ Element providing a dropdown solution.
     */
     _hideChevron: function() {
       return (!this.hideChevron);
+    },
+    /**
+     * Returns whether this dropdown is within the path
+     * @param {?Array<Element>} path
+     * @return {Element|undefined}
+     * @private
+     */
+    _selfInPath: function(path) {
+      path = path || [];
+      for (var i = 0; i < path.length; i++) {
+        if (path[i] === this) {
+          return this;
+        }
+      }
+    },
+    /**
+     * called whenever a click happens
+     * @param {!Event} evt
+     * @private
+     */
+    _onCaptureClick: function(evt) {
+
+      //We're only interested in clicks:
+      // - not on ourselves
+      // - we're currently open
+      if(!this._selfInPath(Polymer.dom(event).path) && this.opened) {
+
+        var content = Polymer.dom(this).querySelector(".px-dropdown-content");
+        this.opened = false;
+        content.close();
+        this._reset();
+        this._fireChevron('opened');
+      }
     },
     /**
     * This function is called when the bound target has changed
