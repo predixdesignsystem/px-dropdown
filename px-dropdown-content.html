@@ -81,8 +81,7 @@ Element providing the content for the px-dropdown element
       selectedValue: {
         type: String,
         notify: true,
-        value: '',
-        observer: '_updateSelectedItem'
+        value: ''
       },
       /**
        * Used to check if the dropdown is currently open or closed.
@@ -170,19 +169,9 @@ Element providing the content for the px-dropdown element
       }
     },
     attached: function() {
-      if (this.maxContCharacterWidth > 0) {
-        this._fireMaxChar();
+      if (this.maxContCharacterWidth) {
+        this.fire('maxContCharacterWidth', {maxContCharacterWidth : this.maxContCharacterWidth});
       }
-    },
-    /**
-     * Fire an event that has a maxContCharacterWidth into px-text
-     *
-     * @method _fireMaxChar
-     */
-    _fireMaxChar: function() {
-      var parent = this.parentNode.parentNode,
-          px_text = Polymer.dom(parent).querySelector('px-dropdown-text');
-      px_text.fire('maxContCharacterWidth', {maxContCharacterWidth : this.maxContCharacterWidth});
     },
     /**
      * Opens the dropdown menu
@@ -195,7 +184,7 @@ Element providing the content for the px-dropdown element
       if(!this._hasBeenOpened) {
 
         //do first adjustments we wont need to do in the future
-        this.fire('dropdown-content-request-size', {pxContent: this});
+        this.fire('dropdown_content_request_size', {pxContent: this});
       }
 
       this.set('_hasBeenOpened', true);
@@ -273,6 +262,7 @@ Element providing the content for the px-dropdown element
       this.close();
       this.fire('dropdown_flip', true);
       this.set('selectedValue', evt.target.firstChild.textContent);
+      this.fire('dropdown_content_value_changed', {textValue: evt.target.firstChild.textContent});
     },
     /**
      * This fires a notification that happens on click, allowing the evt to be
@@ -337,18 +327,6 @@ Element providing the content for the px-dropdown element
       } else {
         return this.items;
       }
-    },
-    /**
-     * This function updates the displayed text on the visible portion of the closed dropdown.
-     * @method _updateSelectedItem
-     *
-     */
-    _updateSelectedItem: function() {
-      var parent = this.parentNode,
-          text = Polymer.dom(parent).querySelector('px-dropdown-text');
-          if (text && this.selectedValue) {
-            text.set('displayValue', this.selectedValue);
-          }
-        }
+    }
   });
 </script>

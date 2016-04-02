@@ -19,7 +19,7 @@ Element providing the text for the px-dropdown element
 <dom-module id="px-dropdown-text">
   <link rel="import" type="css" href="css/px-dropdown-text.css" />
   <template>
-      <div class="flex__item px-dropdown-text u-p--">{{displayValue}}</div>
+      <div id="textWrap" class="flex__item px-dropdown-text u-p--">{{displayValue}}</div>
       <template is="dom-if" if="{{_includeTooltip(displayValue)}}">
           <px-tooltip tooltip-message="{{displayValue}}" orientation="top"></px-tooltip>
       </template>
@@ -44,13 +44,31 @@ Element providing the text for the px-dropdown element
         type: String,
         notify: true,
         value: ''
-      }
-    },
-    attached: function() {
-      this.addEventListener('maxContCharacterWidth', this._setMaxChar);
-    },
-    detached: function() {
-      this.removeEventListener('maxContCharacterWidth', this._setMaxChar);
+      },
+      /**
+       * @property maxContCharacterWidth
+       * @type Number
+       * @default 0
+       */
+      maxContCharacterWidth: {
+        type: Number,
+        notify: true,
+        value: 0
+      },
+      /**
+      * A flag which checks if the dropdown trigger has been clicked or not.
+      *
+      * @param opened
+      * @notify true
+      * @type Boolean
+      * @default false
+      */
+      opened:{
+        type: Boolean,
+        notify: true,
+        value: false,
+        observer: '_openedChanged'
+      },
     },
     /**
      * @method _includeTooltip
@@ -62,15 +80,17 @@ Element providing the text for the px-dropdown element
       return (this.displayValue.length > this.maxContCharacterWidth);
     },
     /**
-     * @method _setMaxChar
+     * @method _forceWidthChanged
      *
-     * This method is called when the event listener receives an update with
-     * the new maxContCharacterWidth.
-     * @param value
-     * @type evt
+     * called when forceWidth is changed
      */
-    _setMaxChar: function(value) {
-      this.set('maxContCharacterWidth', value.detail.maxContCharacterWidth);
+    _openedChanged: function(newValue, oldValue) {
+      if(newValue) {
+
+        //prevent IE10 bug
+        var div = this.$$('div');
+        div.style.width = window.getComputedStyle(div, null).getPropertyValue('width') + 'px';
+      }
     }
   });
 </script>
