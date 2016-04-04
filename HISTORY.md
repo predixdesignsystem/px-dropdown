@@ -1,3 +1,8 @@
+v0.4.1
+==================
+* fixed Shadow Dom support
+* fixed IE10 selected value bug
+
 v0.4.0
 ==================
 * new attribute on px-dropdown: prevent-close-on-outside-click. Default to false and dropdown now automatically closes on outside clicks
