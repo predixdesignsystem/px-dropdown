@@ -33,18 +33,21 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 .px-dropdown--content{
   text-align: left;
   width: 100%;
-}
-.px-dropdown-content {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  position: relative;
-}
-#dropdown {
   left: 0;
   position: absolute;
   height: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  z-index: 1006;
 }
+:host {
+  // white-space: nowrap;
+  // text-overflow: ellipsis;
+  // overflow: hidden;
+  position: relative;
+}
+
 // Meta
 @import "px-meta-lists-design/_meta.lists.scss";
 

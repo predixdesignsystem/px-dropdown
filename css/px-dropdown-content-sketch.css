@@ -213,6 +213,9 @@ html {
  * Monochromatic (gray10 is darkest, gray1 is lightest)
  */
 /**
+ * Define grey = gray to avoid dev typos
+ */
+/**
  * Buttons
  */
 /**
@@ -744,18 +747,17 @@ textarea {
 
 .px-dropdown--content {
   text-align: left;
-  width: 100%; }
-
-.px-dropdown-content {
+  width: 100%;
+  left: 0;
+  position: absolute;
+  height: auto;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  position: relative; }
+  z-index: 1006; }
 
-#dropdown {
-  left: 0;
-  position: absolute;
-  height: auto; }
+:host {
+  position: relative; }
 
 /*------------------------------------*    #PX-META-LISTS-DESIGN
 \*------------------------------------*/
