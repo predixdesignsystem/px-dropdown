@@ -31,23 +31,24 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 @import "px-forms-design/_base.forms.scss";
 
 .px-dropdown--content{
-  text-align: left;
   width: 100%;
   left: 0;
   position: absolute;
   height: auto;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  z-index: 1006;
+  z-index: 1;
+  max-height: calculateRem(222px);
+  overflow-y: auto;
+  cursor: pointer;
 }
 :host {
-  // white-space: nowrap;
-  // text-overflow: ellipsis;
-  // overflow: hidden;
   position: relative;
 }
 
+.px-dropdown--listitem {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 // Meta
 @import "px-meta-lists-design/_meta.lists.scss";
 

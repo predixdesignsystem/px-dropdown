@@ -87,9 +87,11 @@ Element providing the text for the px-dropdown element
     _openedChanged: function(newValue, oldValue) {
       if(newValue) {
 
-        //prevent IE10 bug
-        var div = this.$$('div');
-        div.style.width = window.getComputedStyle(div, null).getPropertyValue('width') + 'px';
+        //prevent IE10 bug that extended the dropdown to the character length
+        var div = Polymer.dom(this.root).querySelector('#textWrap');
+        var width = div.offsetWidth;
+        //ie10 returns a number that is much smaller than all other browsers, setting min width of 80px to be safe.
+        div.style.width =  (width < 80) ? '80px': width + 'px';
       }
     }
   });

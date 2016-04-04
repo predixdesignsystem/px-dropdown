@@ -593,6 +593,14 @@ a {
 .viewport--full-height {
   min-height: 100vh; }
 
+.chevronContainer {
+  width: 1.2666666667rem;
+  height: 1.2666666667rem; }
+
+iron-icon {
+  width: 100%;
+  height: 100%; }
+
 /*------------------------------------*    #CLEARFIX
 \*------------------------------------*/
 /**
@@ -644,7 +652,8 @@ a {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: auto; }
+  margin-left: auto;
+  max-height: 2.0666666667rem; }
 
 .hover {
   background-color: var(--dropdown_bg_hover, #b1b1bc);
@@ -655,4 +664,4 @@ a {
   border-radius: 0 3px 3px 0; }
 
 .angle-down {
-  padding-top: 0.1rem; }
+  padding-top: 0.25rem; }

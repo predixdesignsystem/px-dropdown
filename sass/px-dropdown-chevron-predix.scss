@@ -30,6 +30,7 @@ common/abstract rules go in px-dropdown-text-sketch.scss, not in this file.
   border-radius: 0 3px 3px 0;
   display: flex;
   margin-left:auto;
+  max-height: calculateRem(31px);
 }
 .hover {
   background-color: var(--dropdown_bg_hover,$gray5);
@@ -41,5 +42,5 @@ common/abstract rules go in px-dropdown-text-sketch.scss, not in this file.
   border-radius: 0 3px 3px 0;
 }
 .angle-down {
-  padding-top: 0.1rem;
+  padding-top: 0.25rem;
 }

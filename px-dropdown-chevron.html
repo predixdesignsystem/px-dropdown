@@ -23,10 +23,11 @@ Element providing a trigger for the px-dropdown element.
 <dom-module id="px-dropdown-chevron">
   <link rel="import" type="css" href="css/px-dropdown-chevron.css" />
   <template>
-    <span class$="{{_chevronClass('px-dropdown-chevron u-ph-- ', hover, opened)}}" id="trigger">
+    <div class$="{{_chevronClass('px-dropdown-chevron ', hover, opened)}}" id="trigger">
+      <div class="chevronContainer">
        <iron-icon icon="polymer-font-awesome:fa-angle-down" class$="{{_chevronClass('angle-down ', hover, opened)}}"></iron-icon>
-      <!-- <i ></i> -->
-    </span>
+       </div>
+    </div>
   </template>
 </dom-module>
 

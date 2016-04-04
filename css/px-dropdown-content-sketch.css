@@ -746,18 +746,22 @@ textarea {
   color: #7c7c84; }
 
 .px-dropdown--content {
-  text-align: left;
   width: 100%;
   left: 0;
   position: absolute;
   height: auto;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  z-index: 1006; }
+  z-index: 1;
+  max-height: 14.8rem;
+  overflow-y: auto;
+  cursor: pointer; }
 
 :host {
   position: relative; }
+
+.px-dropdown--listitem {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 /*------------------------------------*    #PX-META-LISTS-DESIGN
 \*------------------------------------*/
