@@ -1,3 +1,7 @@
+v0.5.0
+==================
+* px-dropdown-text now already included in px-dropdown. Use display-value attribute on px-dropdown to set its text
+
 v0.4.1
 ==================
 * fixed Shadow Dom support

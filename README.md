@@ -33,8 +33,7 @@ Second, import the component to your application with the following tag in your 
 Finally, use the component in your application:
 
 ```
-<px-dropdown>
-  <px-dropdown-text class="px-dropdown-text" display-value="Text"></px-dropdown-text>
+<px-dropdown display-value="Text">
   <px-dropdown-content class="px-dropdown-content" max-cont-character-width="10"
   extend-dropdown="true" extend-dropdown-by="15" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
   </px-dropdown-content>
@@ -146,6 +145,19 @@ Set to true to disable closing the dropdown by clicking outside it.
 </px-dropdown>
 
 ```
+
+#### display-value
+
+*Type:* **String** - (*Optional*) - *Default*: ''
+
+An attribute that is propagated to px-dropdown-text to display the initial text showing up in the dropdown.
+
+```
+<px-dropdown display-value="Text"></px-dropdown>
+
+```
+
+<hr />
 
 ## Attributes (on px-dropdown-text)
 

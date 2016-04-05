@@ -181,6 +181,8 @@ Element providing a dropdown solution.
       this.removeEventListener('dropdown_flip', this._flipOpened);
       this.removeEventListener('resize', this._reset);
       this.removeEventListener('dropdown_content_request_size', this._provideCellSize);
+      this.removeEventListener('dropdown_content_value_changed', this._newTextValue);
+      this.removeEventListener('maxContCharacterWidth', this._newMaxContCharWidth);
     },
     /**
     * This function is called when we have a newly selected value
@@ -286,6 +288,10 @@ Element providing a dropdown solution.
       var content = Polymer.dom(this).querySelector(".px-dropdown-content");
       if (!this.opened) {
         content.open();
+        if(!this._isTextWidthSet) {
+          this.$$('px-dropdown-text').forceSetWidth();
+          this.set('_isTextWidthSet', true);
+        }
         this._setPosition();
       } else {
         content.close();
