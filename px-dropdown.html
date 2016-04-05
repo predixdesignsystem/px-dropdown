@@ -172,6 +172,13 @@ Element providing a dropdown solution.
     observers: [
       '_boundTargetChanged(boundTarget, isAttached)'
     ],
+    listeners: {
+      'dropdown_flip': '_flipOpened',
+      'resize':  '_reset',
+      'dropdown_content_request_size':  '_provideCellSize',
+      'dropdown_content_value_changed': '_newTextValue',
+      'maxContCharacterWidth': '_newMaxContCharWidth'
+    },
     ready: function() {
       //capture all clicks so that we can close the dropdown if the user
       //clicks anywhere outside the dropdown
@@ -180,20 +187,6 @@ Element providing a dropdown solution.
       // We should be using only 'tap', but this would be a breaking change.
       var tapEvent = ('ontouchstart' in window) ? 'tap' : 'click';
       document.addEventListener(tapEvent, this._onCaptureClick.bind(this), true);
-    },
-    attached: function() {
-      this.addEventListener('dropdown_flip', this._flipOpened);
-      this.addEventListener('resize',  this._reset);
-      this.addEventListener('dropdown_content_request_size',  this._provideCellSize);
-      this.addEventListener('dropdown_content_value_changed', this._newTextValue);
-      this.addEventListener('maxContCharacterWidth', this._newMaxContCharWidth);
-    },
-    detached: function() {
-      this.removeEventListener('dropdown_flip', this._flipOpened);
-      this.removeEventListener('resize', this._reset);
-      this.removeEventListener('dropdown_content_request_size', this._provideCellSize);
-      this.removeEventListener('dropdown_content_value_changed', this._newTextValue);
-      this.removeEventListener('maxContCharacterWidth', this._newMaxContCharWidth);
     },
     /**
     * This function is called when we have a newly selected value
