@@ -31,9 +31,9 @@ Element providing a dropdown solution.
       on-tap="triggerClicked"
       on-mouseover="_hoverOn"
       on-mouseout="_hoverOff"
-      class$="{{_dropcellClass(opened, hover)}}"
+      class$="{{_dropcellClass(opened, hover)}} flex"
       id="dropcell">
-        <px-dropdown-text display-value={{displayValue}} max-cont-character-width={{_maxCharWidth}} opened={{opened}}></px-dropdown-text>
+        <px-dropdown-text display-value={{displayValue}} max-cont-character-width={{_maxCharWidth}} max-width={{_test}}></px-dropdown-text>
         <template is="dom-if" if="{{_hideChevron(hideChevron)}}">
           <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
         </template>
@@ -156,6 +156,17 @@ Element providing a dropdown solution.
         type: Number,
         notify: true,
         value: 0
+      },
+      /**
+       * An attribute which specifies the anchor element the content will use to
+       * position itself. Won't be used if null
+       * @param contentAnchor
+       * @type HTMLElement
+       * @default null
+       */
+      contentAnchor: {
+        type: HTMLElement,
+        value: function() { return null;}
       }
     },
     observers: [
@@ -210,7 +221,7 @@ Element providing a dropdown solution.
     *
     */
     _provideCellSize: function(evt) {
-      var dropcell = this.$.dropcell,
+      var dropcell = this.contentAnchor ? this.contentAnchor : this.$.dropcell,
           rect = dropcell.getBoundingClientRect();
 
       evt.detail.pxContent.dropCellWidth = rect.width;
@@ -374,7 +385,6 @@ Element providing a dropdown solution.
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
           dropdown = content.$.dropdown;
       this.above = false;
-      dropdown.style.top = '';
     },
     /**
     * This function changes the position of the dropdown content
@@ -382,11 +392,28 @@ Element providing a dropdown solution.
     * @method _setPosition
     */
     _setPosition: function() {
+      this._positionOnContentAnchor();
 
       if(this.boundTarget !== null) {
           this.positionWithinBounds(this.boundTarget.getBoundingClientRect());
       } else if (this._isoffScreenOnBottom()) {
         this._setTopPosition();
+      }
+    },
+    /**
+    * This function changes the position of the dropdown content
+    * to be next to this.contentAnchor rather than the dropcell
+    * @method _positionOnContentAnchor
+    */
+    _positionOnContentAnchor: function() {
+      if(this.contentAnchor) {
+        var content = Polymer.dom(this).querySelector('px-dropdown-content'),
+            dropdown = content.$.dropdown,
+            anchorRect = this.contentAnchor.getBoundingClientRect(),
+            dropcellRect = this.$.dropcell.getBoundingClientRect();
+
+        dropdown.style.left = (anchorRect.left - dropcellRect.left) + 'px';
+        dropdown.style.top = (anchorRect.bottom - dropcellRect.bottom) + 'px';
       }
     },
     /**
@@ -410,7 +437,7 @@ Element providing a dropdown solution.
     positionWithinBounds: function(parentBoundingRect) {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
           dropdown = content.$.dropdown,
-          dropcell = this.$.dropcell,
+          dropcell = this.contentAnchor ? this.contentAnchor : this.$.dropcell,
           dropcellRect = dropcell.getClientRects()[0],
           dropdownRect,
           dropdownBottomPoint,
@@ -453,7 +480,7 @@ Element providing a dropdown solution.
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
           dropdown = content.$.dropdown,
           dropdownRect = dropdown.getClientRects()[0],
-          dropcell = this.$.dropcell,
+          dropcell = this.contentAnchor ? this.contentAnchor : this.$.dropcell,
           dropcellRect = dropcell.getClientRects()[0],
           newTop = (parseInt(dropdown.offsetTop) - parseInt(dropdownRect.height) - parseInt(dropcellRect.height)) + 'px';
 

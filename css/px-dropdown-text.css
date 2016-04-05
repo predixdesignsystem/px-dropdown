@@ -762,9 +762,9 @@ textarea {
   -webkit-align-self: flex-start;
       -ms-flex-item-align: start;
           align-self: flex-start;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -webkit-flex: 1 1 content;
+      -ms-flex: 1 1 content;
+          flex: 1 1 content;
   cursor: pointer;
   overflow: hidden; }
 

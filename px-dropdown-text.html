@@ -54,21 +54,7 @@ Element providing the text for the px-dropdown element
         type: Number,
         notify: true,
         value: 0
-      },
-      /**
-      * A flag which checks if the dropdown trigger has been clicked or not.
-      *
-      * @param opened
-      * @notify true
-      * @type Boolean
-      * @default false
-      */
-      opened:{
-        type: Boolean,
-        notify: true,
-        value: false,
-        observer: '_openedChanged'
-      },
+      }
     },
     /**
      * @method _includeTooltip
@@ -85,10 +71,11 @@ Element providing the text for the px-dropdown element
      * 'lock' the width on the dropdown text
      */
     forceSetWidth: function() {
-      var div = this.$$('div'),
-          width = window.getComputedStyle(div, null).getPropertyValue('width');
+      var div = this.$.textWrap,
+          width = window.getComputedStyle(this, null).getPropertyValue('width');
 
-      div.style.width = width;
+
+      div.style['max-width'] = width;
     }
   });
 </script>

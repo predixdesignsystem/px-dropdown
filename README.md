@@ -157,7 +157,11 @@ An attribute that is propagated to px-dropdown-text to display the initial text 
 
 ```
 
-<hr />
+#### content-anchor
+
+*Type:* **HTMLElement** - (*Optional*) - *Default*: null
+
+An attribute which specifies the anchor element the content will use to position itself (below or above). Won't be used if null
 
 ## Attributes (on px-dropdown-text)
 
