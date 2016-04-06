@@ -72,10 +72,10 @@ Element providing the text for the px-dropdown element
      */
     forceSetWidth: function() {
       var div = this.$.textWrap,
-          width = window.getComputedStyle(this, null).getPropertyValue('width');
+          width = window.getComputedStyle(div, null).getPropertyValue('width');
 
-
-      div.style['max-width'] = width;
+      this.style['flex-basis'] = 'content';
+      div.style.width = width;
     }
   });
 </script>
