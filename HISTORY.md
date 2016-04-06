@@ -1,3 +1,8 @@
+v0.6.0
+=================
+* fix firefox positioning bug
+* added allow-outside-scroll attribute on px-dropdown-content. By default lock scrolling on the dropdown when open and prevent scrolling everywhere else.
+
 v0.5.0
 ==================
 * px-dropdown-text now already included in px-dropdown. Use display-value attribute on px-dropdown to set its text
