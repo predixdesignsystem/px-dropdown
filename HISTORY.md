@@ -1,3 +1,7 @@
+v0.6.1
+================
+* fix bug when embedded in data-table
+
 v0.6.0
 =================
 * fix firefox positioning bug

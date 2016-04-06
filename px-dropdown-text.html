@@ -75,7 +75,7 @@ Element providing the text for the px-dropdown element
           width = window.getComputedStyle(div, null).getPropertyValue('width');
 
       this.style['flex-basis'] = 'content';
-      div.style.width = width;
+      div.style['max-width'] = width;
     }
   });
 </script>
