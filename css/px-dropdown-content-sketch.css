@@ -755,9 +755,6 @@ textarea {
   overflow-y: auto;
   cursor: pointer; }
 
-:host {
-  position: relative; }
-
 .px-dropdown--listitem {
   overflow-x: hidden;
   text-overflow: ellipsis;
