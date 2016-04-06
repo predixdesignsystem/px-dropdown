@@ -163,6 +163,17 @@ An attribute that is propagated to px-dropdown-text to display the initial text 
 
 An attribute which specifies the anchor element the content will use to position itself (below or above). Won't be used if null
 
+#### allow-outside-scroll
+
+*Type:* **Boolean** - (*Optional*) - *Default*: false
+
+By default, the dropdown will constrain scrolling on the page to itself when opened. Set to true in order to prevent scroll from being constrained to the dropdown when it opens.
+
+```
+<px-dropdown allow-outside-scroll="true"></px-dropdown>
+
+```
+
 ## Attributes (on px-dropdown-text)
 
 #### display-value

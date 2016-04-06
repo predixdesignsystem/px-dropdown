@@ -5,6 +5,7 @@
 -->
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../px-tooltip/px-tooltip.html" />
+<link rel="import" href="../iron-dropdown/iron-dropdown-scroll-manager.html" />
 
 <!--
 Element providing the content for the px-dropdown element
@@ -159,6 +160,16 @@ Element providing the content for the px-dropdown element
         observer: '_dropCellHeightChanged'
       },
       /**
+       * By default, the dropdown will constrain scrolling on the page
+       * to itself when opened.
+       * Set to true in order to prevent scroll from being constrained
+       * to the dropdown when it opens.
+       */
+      allowOutsideScroll: {
+        type: Boolean,
+        value: false
+      },
+      /**
        * An attribute which specifies whether the dropdown has been opened at
        * least once
        * @type Boolean
@@ -180,6 +191,9 @@ Element providing the content for the px-dropdown element
      * @method open
      */
     open: function() {
+      if(!this.allowOutsideScroll) {
+        Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
+      }
       this.menuOpen = true;
 
       if(!this._hasBeenOpened) {
@@ -187,6 +201,8 @@ Element providing the content for the px-dropdown element
         //do first adjustments we wont need to do in the future
         this.fire('dropdown_content_request_size', {pxContent: this});
       }
+
+
 
       this.set('_hasBeenOpened', true);
     },
@@ -208,6 +224,7 @@ Element providing the content for the px-dropdown element
      */
     close: function() {
       this.menuOpen = false;
+      Polymer.IronDropdownScrollManager.removeScrollLock(this.$.dropdown);
     },
     /**
      * size the content to height to fit maxHeight and do the height adjustments
