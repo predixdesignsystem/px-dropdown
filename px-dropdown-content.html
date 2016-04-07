@@ -22,7 +22,6 @@ Element providing the content for the px-dropdown element
 <dom-module id="px-dropdown-content">
   <link rel="import" type="css" href="css/px-dropdown-content.css" />
   <template>
-
       <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
         <ul class="px-dropdown--list list-bare">
           <template is="dom-repeat" items={{computedItems}}>
@@ -34,7 +33,6 @@ Element providing the content for the px-dropdown element
           </template>
         </ul>
       </div>
-
   </template>
 </dom-module>
 <script>
@@ -192,7 +190,7 @@ Element providing the content for the px-dropdown element
      */
     open: function() {
       if(!this.allowOutsideScroll) {
-        Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
+    //    Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
       }
       this.menuOpen = true;
 
@@ -224,7 +222,7 @@ Element providing the content for the px-dropdown element
      */
     close: function() {
       this.menuOpen = false;
-      Polymer.IronDropdownScrollManager.removeScrollLock(this.$.dropdown);
+    //  Polymer.IronDropdownScrollManager.removeScrollLock(this.$.dropdown);
     },
     /**
      * size the content to height to fit maxHeight and do the height adjustments

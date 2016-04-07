@@ -29,7 +29,6 @@ common/abstract rules go in px-dropdown-text-sketch.scss, not in this file.
   cursor: pointer;
   border-radius: 0 3px 3px 0;
   display: flex;
-  margin-left:auto;
   max-height: calculateRem(31px);
 }
 .hover {

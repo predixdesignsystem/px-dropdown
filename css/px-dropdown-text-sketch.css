@@ -746,14 +746,27 @@ textarea {
   color: #7c7c84; }
 
 :host {
-  -webkit-align-self: flex-start;
-      -ms-flex-item-align: start;
-          align-self: flex-start;
+  cursor: pointer;
+  overflow: hidden;
   -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  cursor: pointer;
-  overflow: hidden; }
+          flex: 1 1 auto; }
+
+:host(.cust_flex_grow:host) {
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-flex-shrink: 1;
+      -ms-flex-negative: 1;
+          flex-shrink: 1; }
+
+:host(.cust_flex_fixed:host) {
+  -webkit-flex-grow: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -webkit-flex-shrink: 1;
+      -ms-flex-negative: 1;
+          flex-shrink: 1; }
 
 div {
   white-space: nowrap;

@@ -31,10 +31,20 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 @import "px-forms-design/_base.forms.scss";
 
 :host {
-  align-self: flex-start;
-  flex: 1 1 auto;
+  //align-self: flex-start;
   cursor: pointer;
   overflow: hidden;
+  flex: 1 1 auto;
+}
+
+:host(.cust_flex_grow:host) {
+  flex-grow: 1;
+  flex-shrink:1;
+}
+
+:host(.cust_flex_fixed:host) {
+  flex-grow: 0;
+  flex-shrink:1;
 }
 
 div {
@@ -42,6 +52,7 @@ div {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
 // Meta
 @import "px-meta-lists-design/_meta.lists.scss";
 
