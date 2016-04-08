@@ -54,16 +54,7 @@ Element providing the text for the px-dropdown element
         type: Number,
         notify: true,
         value: 0
-      },
-      availableWidth: {
-        type: Number,
-        value: 0,
-        observer: '_availableWidthChanged'
       }
-    },
-    ready: function() {
-//this.toggleClass('cust_flex_grow', true);
-//this.style['flex-grow'] = '1';
     },
     /**
      * @method _includeTooltip
@@ -74,13 +65,6 @@ Element providing the text for the px-dropdown element
     _includeTooltip: function() {
       return (this.displayValue.length > this.maxContCharacterWidth);
     },
-    _availableWidthChanged: function(newe, old) {
-      if(newe) {
-        this.$.textWrap.style['maxWidth'] = newe + 'px';
-        this.$.textWrap.style['max-width'] = newe+ 'px';
-        this.$.textWrap.style.width = newe+ 'px';
-      }
-    },
     /**
      * @method forceSetWidth
      *
@@ -90,21 +74,7 @@ Element providing the text for the px-dropdown element
       var div = this.$.textWrap,
           width = window.getComputedStyle(div, null).getPropertyValue('width');
 
-
-        //  this.toggleClass('cust_flex_grow', false);
-        //  this.toggleClass('cust_flex_fixed', true);
-
-      //   this.fire('text_request_size', {pxText: this});
-/*this.style['flex-grow'] = '0';
-        this.style['flex-basis'] = 'content';*/
-
-
-        // div.style['maxWidth'] = width;
-        // div.style['max-width'] = width;
         div.style.width = width;
-      //  this.fire('text_request_size', {pxText: this});
-
-
     }
   });
 </script>

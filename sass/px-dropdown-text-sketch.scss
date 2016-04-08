@@ -37,16 +37,6 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   flex: 1 1 auto;
 }
 
-:host(.cust_flex_grow:host) {
-  flex-grow: 1;
-  flex-shrink:1;
-}
-
-:host(.cust_flex_fixed:host) {
-  flex-grow: 0;
-  flex-shrink:1;
-}
-
 div {
   white-space: nowrap;
   text-overflow: ellipsis;
