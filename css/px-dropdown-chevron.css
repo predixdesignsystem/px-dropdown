@@ -652,7 +652,6 @@ iron-icon {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: auto;
   max-height: 2.0666666667rem; }
 
 .hover {

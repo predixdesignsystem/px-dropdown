@@ -759,14 +759,11 @@ textarea {
   color: #7c7c84; }
 
 :host {
-  -webkit-align-self: flex-start;
-      -ms-flex-item-align: start;
-          align-self: flex-start;
+  cursor: pointer;
+  overflow: hidden;
   -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  cursor: pointer;
-  overflow: hidden; }
+          flex: 1 1 auto; }
 
 div {
   white-space: nowrap;

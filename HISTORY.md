@@ -1,3 +1,7 @@
+v0.6.2
+================
+* more data-table fixes. Fire px-dropdown-lock-width event when requiring a container to lock its width to the dropdown width.
+
 v0.6.1
 ================
 * fix bug when embedded in data-table
