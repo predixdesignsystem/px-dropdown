@@ -43,7 +43,7 @@ Finally, use the component in your application:
 <br />
 <hr />
 
-Read the full API and view the demo [here](https://predixdev.github.com/px-dropdown).
+Read the full API and view the demo [here](https://predixdev.github.io/px-dropdown).
 
 ## Attributes (on px-dropdown-content)
 
