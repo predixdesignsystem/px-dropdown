@@ -392,6 +392,7 @@ Element providing a dropdown solution.
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
           dropdown = content.$.dropdown;
       this.above = false;
+      dropdown.style.top = '';
     },
     /**
     * This function changes the position of the dropdown content
@@ -399,6 +400,7 @@ Element providing a dropdown solution.
     * @method _setPosition
     */
     _setPosition: function() {
+      this._reset();
       this._positionOnContentAnchor();
 
       if(this.boundTarget !== null) {
@@ -452,7 +454,6 @@ Element providing a dropdown solution.
           sizeBelow;
 
       //reset content size and get some values
-      this._reset();
       content.resetHeight();
       dropdownRect = dropdown.getBoundingClientRect();
       dropdownBottomPoint = dropdownRect.bottom,
