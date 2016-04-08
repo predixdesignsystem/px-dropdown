@@ -12,11 +12,12 @@ Element providing a dropdown solution.
 
 ##### Usage
 
-<px-dropdown>
-  <px-dropdown-text class="px-dropdown-text">Text</px-dropdown-text>
-  <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="15" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
+```
+<px-dropdown display-value="Text">
+  <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}, {"key":"three", "val": "Three"}, {"key":"four", "val": "How now brown cow"}]'>
   </px-dropdown-content>
 </px-dropdown>
+```
 
 @element px-dropdown
 @blurb Element providing a dropdown solution.
@@ -30,9 +31,9 @@ Element providing a dropdown solution.
     on-tap="triggerClicked"
     on-mouseover="_hoverOn"
     on-mouseout="_hoverOff"
-    class$="{{_dropcellClass(opened, hover)}}"
+    class$="{{_dropcellClass(opened, hover)}} flex"
     id="dropcell">
-      <px-dropdown-text display-value={{displayValue}} max-cont-character-width={{_maxCharWidth}}></px-dropdown-text>
+      <px-dropdown-text display-value="{{displayValue}}" max-cont-character-width="{{_maxCharWidth}}"></px-dropdown-text>
       <template is="dom-if" if="{{_hideChevron(hideChevron)}}">
         <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
       </template>
@@ -134,18 +135,6 @@ Element providing a dropdown solution.
         value: ''
       },
       /**
-       * A parameter which specifies whether the width has been set on the
-       * px-dropdown text div.
-       *
-       * @param _isTextWidthSet
-       * @type Boolean
-       * @default false
-       */
-      _isTextWidthSet: {
-        type: Boolean,
-        value: false
-      },
-      /**
        * @property _maxCharWidth
        * @type Number
        * @default 0
@@ -197,7 +186,6 @@ Element providing a dropdown solution.
     *
     */
     _newTextValue: function(evt) {
-
       this.set('displayValue',evt.detail.textValue);
     },
     /**
@@ -229,7 +217,7 @@ Element providing a dropdown solution.
     * @method _hideChevron
     *
     */
-    _hideChevron: function(newValue, oldValue) {
+    _hideChevron: function(newValue) {
       return (!this.hideChevron);
     },
     /**
@@ -261,10 +249,9 @@ Element providing a dropdown solution.
          this.opened) {
 
         var content = Polymer.dom(this).querySelector(".px-dropdown-content");
-        this.opened = false;
+        this._flipOpened();
         content.close();
         this._reset();
-        this._fireChevron('opened');
       }
     },
     /**
@@ -294,10 +281,10 @@ Element providing a dropdown solution.
       var content = Polymer.dom(this).querySelector(".px-dropdown-content");
       if (!this.opened) {
         content.open();
-          var width = this.getBoundingClientRect().width;
-          //require container to lock width if necessary
-          this.fire('px-dropdown-lock-width', {currentWidth: width});
-          this.$$('px-dropdown-text').forceSetWidth();
+        var width = this.getBoundingClientRect().width;
+        //require container to lock width if necessary
+        this.fire('px-dropdown-lock-width', {currentWidth: width});
+        this.$$('px-dropdown-text').forceSetWidth();
         this._setPosition();
       } else {
         content.close();
@@ -322,7 +309,7 @@ Element providing a dropdown solution.
     * @method _fireChevron
     */
     _fireChevron: function(fireEvent) {
-      var chevron = Polymer.dom(this.root).querySelector('px-dropdown-chevron');
+      var chevron = this.$$('px-dropdown-chevron');
       if (chevron) {
         chevron.fire(fireEvent);
       }
@@ -335,13 +322,11 @@ Element providing a dropdown solution.
     * @param hover
     */
     _dropcellClass: function(opened, hover) {
-      var returnClass = 'flex ';
       if (this.opened) {
-        returnClass += 'opened';
+        return 'opened';
       } else if (this.hover) {
-        returnClass += 'hover';
+        return 'hover';
       }
-      return returnClass;
     },
     /**
     * This function fires off a hoverOn event which px-dropdown-chevron

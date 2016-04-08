@@ -43,7 +43,14 @@ Finally, use the component in your application:
 <br />
 <hr />
 
+Read the full API and view the demo (here)[https://predixdev.github.com/px-dropdown].
+
 ## Attributes (on px-dropdown-content)
+
+#### selection-occured
+*Type:* **boolean** - (*Optional, Read Only* ) - *Default:* ""
+
+A read only attribute that can be used to find out whether the user has selected anything from the dropdown. Should be used programmatically, and NOT on HTML tag itself.
 
 #### extend-dropdown
 
@@ -153,7 +160,9 @@ Set to true to disable closing the dropdown by clicking outside it.
 An attribute that is propagated to px-dropdown-text to display the initial text showing up in the dropdown.
 
 ```
-<px-dropdown display-value="Text"></px-dropdown>
+<px-dropdown display-value="Text">
+  ...
+</px-dropdown>
 
 ```
 
@@ -170,7 +179,9 @@ An attribute which specifies the anchor element the content will use to position
 By default, the dropdown will constrain scrolling on the page to itself when opened. Set to true in order to prevent scroll from being constrained to the dropdown when it opens.
 
 ```
-<px-dropdown allow-outside-scroll="true"></px-dropdown>
+<px-dropdown allow-outside-scroll="true">
+  ...
+</px-dropdown>
 
 ```
 
@@ -183,7 +194,9 @@ By default, the dropdown will constrain scrolling on the page to itself when ope
 An attribute that is used to display the initial text showing up in the dropdown.
 
 ```
-<px-dropdown-text display-value="Text"></px-dropdown-text>
+<px-dropdown-text display-value="Text">
+  ...
+</px-dropdown-text>
 
 ```
 

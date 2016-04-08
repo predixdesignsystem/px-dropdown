@@ -8,14 +8,16 @@
 
 
 <!--
-Element providing a trigger for the px-dropdown element.
+Element providing a chevron for the px-dropdown element.
 
 ##### Usage
 
-    <px-dropdown-chevron class="px-dropdown-trigger"></px-dropdown-chevron>
+```
+    <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
+```
 
 @element px-dropdown-chevron
-@blurb Element which, when clicked, opens the px-dropdown element.
+@blurb Element which, when clicked, opens the px-dropdown-content element.
 @homepage index.html
 @demo demo.html
 -->
@@ -23,9 +25,9 @@ Element providing a trigger for the px-dropdown element.
 <dom-module id="px-dropdown-chevron">
   <link rel="import" type="css" href="css/px-dropdown-chevron.css" />
   <template>
-    <div class$="{{_chevronClass('px-dropdown-chevron ', hover, opened)}}" id="trigger">
+    <div class$="{{_chevronClass(hover, opened)}} px-dropdown-chevron" id="trigger">
       <div class="chevronContainer">
-       <iron-icon icon="polymer-font-awesome:fa-angle-down" class$="{{_chevronClass('angle-down ', hover, opened)}}"></iron-icon>
+       <iron-icon icon="polymer-font-awesome:fa-angle-down" class$="{{_chevronClass(hover, opened)}} angle-down"></iron-icon>
        </div>
     </div>
   </template>
@@ -38,6 +40,7 @@ Element providing a trigger for the px-dropdown element.
       /**
        * Boolean which reflects whether the chevron is being hovered over.
        *
+       * @prop hover
        * @type Boolean
        * @default false
        * @notify true
@@ -50,6 +53,7 @@ Element providing a trigger for the px-dropdown element.
       /**
        * Boolean which reflects whether the menu is open.
        *
+       * @prop opened
        * @type Boolean
        * @default false
        * @notify true
@@ -60,15 +64,10 @@ Element providing a trigger for the px-dropdown element.
         notify: true
       }
     },
-    attached: function() {
-      this.addEventListener('hoverOff', this._manipulateHoverOff);
-      this.addEventListener('hoverOn', this._manipulateHoverOn);
-      this.addEventListener('opened', this._manipulateOpened);
-    },
-    detached: function() {
-      this.removeEventListener('hoverOn',this._manipulateHoverOn);
-      this.removeEventListener('hoverOff',this._manipulateHoverOff);
-      this.removeEventListener('opened',this._manipulateOpened);
+    listeners: {
+      'hoverOff': '_manipulateHoverOff',
+      'hoverOn': '_manipulateHoverOn',
+      'opened': '_manipulateOpened'
     },
     /**
      * this function flips the opened flag, and changes the class for the component
@@ -78,60 +77,34 @@ Element providing a trigger for the px-dropdown element.
      */
     _manipulateOpened: function() {
       this.opened = !this.opened;
-      this._manipulateClass();
     },
     /**
-     * this function flips the hover flag, and changes the class for the component
+     * this function sets the hover flag to false, and changes the class for the component
      *
-     * @method _manipulateHover
+     * @method _manipulateHoverOff
      */
     _manipulateHoverOff: function() {
       this.hover = false;
-      this._manipulateClass();
-    },
-    _manipulateHoverOn: function() {
-      this.hover = true;
-      this._manipulateClass();
     },
     /**
-     * this function adds or removes the hover and opened classes
+     * this function sets the hover flag to true, and changes the class for the component
      *
-     * @method _manipulateClass
+     * @method _manipulateHoverOn
      */
-    _manipulateClass: function() {
-      var classList = this.classList;
-      if (this.opened) {
-        if (!classList.contains('opened')) {
-          classList.add('opened');
-        }
-      } else {
-        if (classList.contains('opened')) {
-          classList.remove('opened');
-        }
-      }
-
-      if (this.hover) {
-        if (!classList.contains('hover') && !classList.contains('opened')) {
-          classList.add('hover');
-        }
-      } else {
-        if (classList.contains('hover')) {
-          classList.remove('hover');
-        }
-      }
+    _manipulateHoverOn: function() {
+      this.hover = true;
     },
     /**
      * This method add either the opened or hover class.
      *
      * @method _chevronClass
      */
-    _chevronClass: function(base) {
+    _chevronClass: function() {
       if (this.opened) {
-        base += "opened";
+        return "opened";
       } else if (this.hover) {
-        base +="hover";
+        return "hover";
       }
-      return base;
     }
   });
 </script>

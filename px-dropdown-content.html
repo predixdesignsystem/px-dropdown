@@ -12,7 +12,9 @@ Element providing the content for the px-dropdown element
 
 ##### Usage
 
+```
     <px-dropdown-content class="px-dropdown-content" extend-dropdown="true" extend-dropdown-by="40" items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}]'>
+```
 
 @element px-dropdown-content
 @blurb Element to contain contents of a dropdown menu.
@@ -56,9 +58,7 @@ Element providing the content for the px-dropdown element
       items: {
         type: Array,
         notify: true,
-        value: function() {
-          return [];
-        }
+        value: function() {return [];}
       },
       /**
        * This property stores the items array, after it's been
@@ -73,15 +73,14 @@ Element providing the content for the px-dropdown element
         computed: '_computedItems(items)'
       },
       /**
-       * The initial selected value (if any) of an item in the dropdown
-       * @type String
-       * @default ''
-       * @notify true
+       * a read only property that tells you if the user has selected anything from the dropdown
+       * @type Boolean
+       * @default false
        */
-      selectedValue: {
-        type: String,
-        notify: true,
-        value: ''
+      selectionOccured: {
+        type: Boolean,
+        value: false,
+        readOnly: true
       },
       /**
        * Used to check if the dropdown is currently open or closed.
@@ -277,7 +276,7 @@ Element providing the content for the px-dropdown element
       this._clickFire(evt);
       this.close();
       this.fire('dropdown_flip', true);
-      this.set('selectedValue', evt.target.firstChild.textContent);
+      this._setSelectionOccured(true);
       this.fire('dropdown_content_value_changed', {textValue: evt.target.firstChild.textContent});
     },
     /**
@@ -297,11 +296,12 @@ Element providing the content for the px-dropdown element
      */
     _extendDropdown: function() {
       if (!this.extended && this.extendDropdown) {
-        //get the width of the dropcell, and how much to extend it by.
+        // how much to extend it by.
 
         var extendBy = this.extendDropdownBy;
         //set the flag that we've extended the dropdown. without this, it'll keep extending.
         this.extended = true;
+        //add 'em up
         this.$.dropdown.style.width = this.dropCellWidth + parseInt(extendBy) + 'px';
       }
     },
