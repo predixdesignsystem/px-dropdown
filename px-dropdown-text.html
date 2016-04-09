@@ -66,17 +66,6 @@ Element providing the text for the px-dropdown element
      */
     _includeTooltip: function() {
       return (this.displayValue.length > this.maxContCharacterWidth);
-    },
-    /**
-     * @method forceSetWidth
-     *
-     * 'lock' the width on the dropdown text
-     */
-    forceSetWidth: function() {
-      var div = this.$.textWrap,
-          width = window.getComputedStyle(div, null).getPropertyValue('width');
-
-      div.style.width = width;
     }
   });
 </script>

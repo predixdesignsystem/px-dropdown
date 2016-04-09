@@ -27,8 +27,7 @@ Element providing the content for the px-dropdown element
       <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
         <ul class="px-dropdown--list list-bare">
           <template is="dom-repeat" items={{computedItems}}>
-            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">{{item.val}}
-              <template is="dom-if" if="{{_includeTooltip(item.val)}}">
+            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}">
                   <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
               </template>
             </li>
@@ -165,16 +164,6 @@ Element providing the content for the px-dropdown element
       allowOutsideScroll: {
         type: Boolean,
         value: false
-      },
-      /**
-       * An attribute which specifies whether the dropdown has been opened at
-       * least once
-       * @type Boolean
-       * @default: false
-       */
-      _hasBeenOpened : {
-        type: Boolean,
-        value: false
       }
     },
     attached: function() {
@@ -188,29 +177,23 @@ Element providing the content for the px-dropdown element
      * @method open
      */
     open: function() {
+
+      //lock scroll outside if needed
       if(!this.allowOutsideScroll) {
         Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
       }
       this.menuOpen = true;
 
-      if(!this._hasBeenOpened) {
-
-        //do first adjustments we wont need to do in the future
-        this.fire('dropdown_content_request_size', {pxContent: this});
-      }
-
-
-
-      this.set('_hasBeenOpened', true);
+      //resize ourselves
+      this.fire('dropdown_content_request_size', {pxContent: this});
     },
     _dropCellWidthChanged: function(newValue, oldValue) {
       if(newValue) {
-        this._extendDropdown();
+        this._setWidth();
       }
     },
     _dropCellHeightChanged: function(newValue, oldValue) {
       if(newValue) {
-
         this.adjustHeight();
       }
     },
@@ -289,20 +272,16 @@ Element providing the content for the px-dropdown element
       this.fire('px-dropdown-click', evt);
     },
     /**
-     * This allows for the dropdown to be extended to make sure it's more distinguishable
-     * from its container.
+     * This sets the dropdown width depending on the dropcell width and the extend by
      *
-     * @method _extendDropdown
+     * @method _setWidth
      */
-    _extendDropdown: function() {
-      if (!this.extended && this.extendDropdown) {
-        // how much to extend it by.
-
-        var extendBy = this.extendDropdownBy;
-        //set the flag that we've extended the dropdown. without this, it'll keep extending.
-        this.extended = true;
-        //add 'em up
-        this.$.dropdown.style.width = this.dropCellWidth + parseInt(extendBy) + 'px';
+    _setWidth: function() {
+      if (this.extendDropdown) {
+        this.$.dropdown.style.width = this.dropCellWidth + parseInt(this.extendDropdownBy) + 'px';
+      }
+      else {
+        this.$.dropdown.style.width = this.dropCellWidth + 'px';
       }
     },
     /**
@@ -319,7 +298,6 @@ Element providing the content for the px-dropdown element
 
         //reduce height by half the size of an item
         var reduceBy = parseInt(this.dropCellHeight/2);
-
         this.$.dropdown.style.height = currentHeight - reduceBy + 'px';
       }
     },
