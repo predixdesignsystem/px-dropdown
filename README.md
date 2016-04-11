@@ -111,6 +111,12 @@ A number which represents the number of characters allowed in the dropdown befor
 
 ## Attributes (on px-dropdown)
 
+#### value
+
+*Type:* **String** - (*Optional*) - *Default*: ''
+
+Similar to displayValue, Read Only.
+
 #### hide-chevron
 
 *Type:* **Boolean** - (*Optional*) - *Default*: false
@@ -201,6 +207,14 @@ An attribute that is used to display the initial text showing up in the dropdown
 ```
 
 <hr />
+
+## Broadcast Events
+
+#### change
+This event is fired whenever the selected value is changed.
+
+####dropdownStateChanged
+This event is fired whenever the dropdown state changes (open/close).
 
 
 ## Local Development
