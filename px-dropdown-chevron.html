@@ -75,7 +75,8 @@ Element providing a chevron for the px-dropdown element.
      *
      * @method _manipulateOpened
      */
-    _manipulateOpened: function() {
+    _manipulateOpened: function(evt) {
+      evt.stopPropagation();
       this.opened = !this.opened;
     },
     /**
@@ -83,7 +84,8 @@ Element providing a chevron for the px-dropdown element.
      *
      * @method _manipulateHoverOff
      */
-    _manipulateHoverOff: function() {
+    _manipulateHoverOff: function(evt) {
+      evt.stopPropagation();
       this.hover = false;
     },
     /**
@@ -91,7 +93,8 @@ Element providing a chevron for the px-dropdown element.
      *
      * @method _manipulateHoverOn
      */
-    _manipulateHoverOn: function() {
+    _manipulateHoverOn: function(evt) {
+      evt.stopPropagation();
       this.hover = true;
     },
     /**

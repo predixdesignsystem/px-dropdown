@@ -1,3 +1,7 @@
+v0.7.1
+================
+* updated readme and added stopPropagation on internal events
+
 v0.7.0
 ================
 * removed px-dropdown-lock-width
