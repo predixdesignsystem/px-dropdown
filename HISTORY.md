@@ -1,3 +1,10 @@
+v0.7.4
+================
+* brought the default border color for dropdown.
+
+v0.7.3
+================
+* Fix tooltip bug in datatable
 v0.7.2
 ================
 * removed documentation from README, and replaced with link to github page, where cos are auto generated.

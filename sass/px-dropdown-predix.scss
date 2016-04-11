@@ -26,7 +26,8 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 }
 
 #dropcell {
-  background-color: var(--dropdown_bg_default,$gray1);;
+  background-color: var(--dropdown_bg_default,$gray1);
+  border: var(--dropdown_border_color, 1px solid $gray5);
   border-radius: 3px;
   cursor: pointer;
 }
