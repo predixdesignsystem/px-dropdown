@@ -33,7 +33,7 @@ Element providing a dropdown solution.
     on-mouseout="_hoverOff"
     class$="{{_dropcellClass(opened, hover)}} flex"
     id="dropcell">
-      <px-dropdown-text display-value="{{displayValue}}" max-cont-character-width="{{_maxCharWidth}}"></px-dropdown-text>
+      <px-dropdown-text display-value="{{displayValue}}" max-cont-character-width="{{_maxCharWidth}}" tooltip-value={{value}}></px-dropdown-text>
       <template is="dom-if" if="{{_hideChevron(hideChevron)}}">
         <px-dropdown-chevron class="px-dropdown-chevron"></px-dropdown-chevron>
       </template>
@@ -156,8 +156,9 @@ Element providing a dropdown solution.
         value: function() { return null;}
       },
       /**
-       * Reflects the currently selected value of the dropdown. This will mostly
-       * be the same as displayValue but is used internally
+       * reflects the actual value of the dropdown rather than the displayed one
+       * (the displayed one can be shortened for example)
+       *
        * @param value
        * @type string
        * @default ''
@@ -165,9 +166,7 @@ Element providing a dropdown solution.
       value: {
         type: String,
         value: '',
-        computed: '_computeValue(displayValue)',
-        notify: true,
-        readOnly: true
+        notify: true
       }
     },
     observers: [
@@ -187,6 +186,10 @@ Element providing a dropdown solution.
       // We should be using only 'tap', but this would be a breaking change.
       var tapEvent = ('ontouchstart' in window) ? 'tap' : 'click';
       document.addEventListener(tapEvent, this._onCaptureClick.bind(this), true);
+
+      if(!this.value && this.displayValue) {
+        this.set('value', this.displayValue);
+      }
     },
     detached: function() {
       var tapEvent = ('ontouchstart' in window) ? 'tap' : 'click';
@@ -199,6 +202,7 @@ Element providing a dropdown solution.
     *
     */
     _newTextValue: function(evt) {
+      this.set('value', evt.detail.textValue);
       this.set('displayValue',evt.detail.textValue);
       this.fire('change');
 

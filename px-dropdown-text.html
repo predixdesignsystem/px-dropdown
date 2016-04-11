@@ -22,8 +22,8 @@ Element providing the text for the px-dropdown element
   <link rel="import" type="css" href="css/px-dropdown-text.css" />
   <template>
       <div id="textWrap" class="flex__item px-dropdown-text u-p--">{{displayValue}}</div>
-      <template is="dom-if" if="{{_includeTooltip(displayValue)}}">
-          <px-tooltip tooltip-message="{{displayValue}}" orientation="top"></px-tooltip>
+      <template is="dom-if" if="{{_includeTooltip(tooltipValue, maxContCharacterWidth)}}">
+          <px-tooltip tooltip-message="{{tooltipValue}}" orientation="top"></px-tooltip>
       </template>
   </template>
 </dom-module>
@@ -48,6 +48,21 @@ Element providing the text for the px-dropdown element
         value: ''
       },
       /**
+       * Text value used for the tooltip
+       *
+       * @property tooltipValue
+       * @type String
+       * @default ''
+       */
+      tooltipValue: {
+        type: String,
+        notify: true,
+        value: ''
+      },
+      /**
+       * The tooltip will be displayed if tooltipValue length is bigger than
+       * this attribute
+       *
        * @property maxContCharacterWidth
        * @type Number
        * @default 0
@@ -65,7 +80,7 @@ Element providing the text for the px-dropdown element
      * we need to display the tooltip or not.
      */
     _includeTooltip: function() {
-      return (this.displayValue.length > this.maxContCharacterWidth);
+      return (this.tooltipValue.length > this.maxContCharacterWidth);
     }
   });
 </script>

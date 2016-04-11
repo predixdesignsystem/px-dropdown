@@ -101,7 +101,8 @@ Element providing the content for the px-dropdown element
        */
       maxContCharacterWidth: {
         type: Number,
-        value: 0
+        value: 0,
+        observer: '_maxContCharacterWidthChanged'
       },
       /**
        * An attribute which specifies if the dropdown should extend in width
@@ -166,8 +167,8 @@ Element providing the content for the px-dropdown element
         value: false
       }
     },
-    attached: function() {
-      if (this.maxContCharacterWidth) {
+    _maxContCharacterWidthChanged: function(newValue) {
+      if(newValue) {
         this.fire('maxContCharacterWidth', {maxContCharacterWidth : this.maxContCharacterWidth});
       }
     },
