@@ -1,3 +1,7 @@
+v0.7.2
+================
+* removed documentation from README, and replaced with link to github page, where cos are auto generated.
+
 v0.7.1
 ================
 * updated readme and added stopPropagation on internal events
