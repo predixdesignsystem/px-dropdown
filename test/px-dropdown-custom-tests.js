@@ -138,16 +138,6 @@ function runCustomTests() {
        });
       done();
     });
-    test('check that the passed text is what is showing up in px-dropdown-text',
-    function(done) {
-      var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-         px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-         px_dropdown_text = Polymer.dom(px_dropdown).querySelector('px-dropdown-text'),
-         text_div = Polymer.dom(px_dropdown_text.root).querySelector('div');
-
-       assert.equal(text_div.textContent, px_dropdown_text.displayValue);
-      done();
-    });
     test('checks if Hide Chevron actaully hides the chevron',
      function(done){
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
@@ -196,6 +186,55 @@ function runCustomTests() {
        title.addEventListener('click', clickHandle);
        title.click();
        title.removeEventListener('click', clickHandle);
+      }
+    );
+    test('check if checkbox mode enables checkboxes',
+      function(done){
+       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
+          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
+          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
+
+       //we should have some checkboxes
+       assert.isTrue(checkboxes.length > 0);
+       done();
+      }
+    );
+    test('check if in checkbox mode we can toggle check state',
+      function(done){
+       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
+          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
+          dropcell = px_dropdown.$$('#dropcell'),
+          item = px_dropdown_content.$.dropdown.querySelector('li'),
+          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
+
+
+       //first item should be checked
+       assert.isTrue(px_dropdown_content.items[0].checked);
+       //double check the html element
+       assert.isTrue(checkboxes[0].checked);
+       //second unchecked
+       assert.isFalse(px_dropdown_content.items[1].checked);
+
+       clickHandle = function() {
+         //first element must now be uncheckd, second still unchecked
+         assert.isFalse(px_dropdown_content.items[0].checked);
+         //double check the html element
+         assert.isFalse(checkboxes[0].checked);
+         assert.isFalse(px_dropdown_content.items[1].checked);
+
+         //dropdown must still be opened
+         assert.isTrue(px_dropdown_content.menuOpen);
+
+         done();
+       };
+
+       //open dropdown
+       dropcell.click();
+
+       //try clicking first element...
+       item.addEventListener('click', clickHandle);
+       item.click();
+       item.removeEventListener('click', clickHandle);
       }
     );
   });
