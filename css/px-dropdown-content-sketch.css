@@ -760,6 +760,9 @@ textarea {
   text-overflow: ellipsis;
   white-space: nowrap; }
 
+.px-dropdown--checkbox {
+  margin-right: 5px; }
+
 /*------------------------------------*    #PX-META-LISTS-DESIGN
 \*------------------------------------*/
 .list-bare {

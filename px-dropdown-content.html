@@ -26,9 +26,12 @@ Element providing the content for the px-dropdown element
   <template>
       <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
         <ul class="px-dropdown--list list-bare">
-          <template is="dom-repeat" items={{computedItems}}>
-            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}">
-                  <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
+          <template is="dom-repeat" items={{computedItems}} strip-whitespace>
+            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">
+              <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
+                <input type="checkbox" on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox">
+              </template>{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
+                <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
               </template>
             </li>
           </template>
@@ -49,7 +52,10 @@ Element providing the content for the px-dropdown element
      */
     properties: {
       /**
-       * Array that contains the list of items which show up in the dropdown
+       * Array that contains the list of items which show up in the dropdown.
+       * Each item is an object, which 'val' attribute reflects the text
+       * displayed and 'checked' attribute reflects the state of the checkbox
+       * if px-dropdown-content is in checkboxMode
        *
        * @type Array
        * @default []
@@ -69,7 +75,7 @@ Element providing the content for the px-dropdown element
       computedItems: {
         type: Array,
         value: function() {return [];},
-        computed: '_computedItems(items)'
+        computed: '_computedItems(items, items.*)'
       },
       /**
        * a read only property that tells you if the user has selected anything from the dropdown
@@ -165,6 +171,15 @@ Element providing the content for the px-dropdown element
       allowOutsideScroll: {
         type: Boolean,
         value: false
+      },
+      /**
+       * If set to true each dropdown item will have a checkbox and clicking an
+       * item will toggle the checkbox state rather than selecting the item.
+       * The checkbox state will be reflected in the 'items' array
+       */
+      checkboxMode: {
+        type: Boolean,
+        value:false
       }
     },
     _maxContCharacterWidthChanged: function(newValue) {
@@ -181,7 +196,14 @@ Element providing the content for the px-dropdown element
 
       //lock scroll outside if needed
       if(!this.allowOutsideScroll) {
-        Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
+
+        //only if we have scroll bar
+        var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height);
+
+        //do we have a scrollbar?
+        if(currentHeight < this.$.dropdown.scrollHeight) {
+          Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
+        }
       }
       this.menuOpen = true;
 
@@ -197,6 +219,23 @@ Element providing the content for the px-dropdown element
       if(newValue) {
         this.adjustHeight();
       }
+    },
+    _checkChanged: function(evt) {
+      this._checkboxChanged(evt.target);
+    },
+    /**
+     * This function updates the checkedItems attribute for the given checkbox:
+     * removes it if present and add it if not
+     */
+    _checkboxChanged: function(checkbox) {
+      var itemVal = Polymer.dom(checkbox).parentNode.textContent;
+
+      //make sure we set the checked property properly so listeners are notified
+      this.items.forEach(function(item, index) {
+        if(item.val === itemVal) {
+          this.set('items.' + index + '.checked', checkbox.checked);
+        }
+      }.bind(this));
     },
     /**
      * Closes the dropdown menu
@@ -258,10 +297,25 @@ Element providing the content for the px-dropdown element
      */
     _clickItem: function(evt) {
       this._clickFire(evt);
-      this.close();
-      this.fire('dropdown_flip', true);
-      this._setSelectionOccured(true);
-      this.fire('dropdown_content_value_changed', {textValue: evt.target.firstChild.textContent});
+
+      if(this.checkboxMode) {
+
+        //try to toggle checkbox state
+        var checkbox = Polymer.dom(evt.target).querySelector('input');
+
+        //if we haven't found it it's probably because the click was actually
+        //on the checkbox so just ignore
+        if(checkbox) {
+          checkbox.checked = !checkbox.checked;
+          this._checkboxChanged(checkbox);
+        }
+      }
+      else {
+        this.close();
+        this.fire('dropdown_flip', true);
+        this._setSelectionOccured(true);
+        this.fire('dropdown_content_value_changed', {textValue: evt.target.textContent});
+      }
     },
     /**
      * This fires a notification that happens on click, allowing the evt to be
@@ -316,11 +370,25 @@ Element providing the content for the px-dropdown element
             computedItemsArr = [];
 
             for (i; i < len; i++) {
-              computedItemsArr.push({val:items[i]});
+              if(this.checkboxMode) {
+                //default unchecked if using a string array in check mode
+                computedItemsArr.push({val:items[i], checked: false});
+              }
+              else {
+                computedItemsArr.push({val:items[i]});
+              }
             }
             return computedItemsArr;
-      } else {
-        return this.items;
+      }
+      else {
+        var computedItemsArr = [];
+
+        //with new array it looks like we need to do a copy of items
+        // seems like items can be sparse at this point
+        items.forEach(function(item, index) {
+           computedItemsArr.push(item);
+         });
+         return computedItemsArr;
       }
     }
   });

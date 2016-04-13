@@ -1,3 +1,8 @@
+v0.8.0
+======
+* Apply scroll lock only if content has vertical scroll bars
+* added 'checkbox-mode' attribute on px-dropdown-content, allowing it to function as a list of items with checkboxes
+
 v0.7.4
 ================
 * brought the default border color for dropdown.

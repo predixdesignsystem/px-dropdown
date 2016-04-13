@@ -46,6 +46,11 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.px-dropdown--checkbox {
+  margin-right: 5px;
+}
+
 // Meta
 @import "px-meta-lists-design/_meta.lists.scss";
 
