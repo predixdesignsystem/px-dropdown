@@ -194,6 +194,9 @@ Element providing the content for the px-dropdown element
      */
     open: function() {
 
+
+      this.menuOpen = true;
+
       //lock scroll outside if needed
       if(!this.allowOutsideScroll) {
 
@@ -205,7 +208,6 @@ Element providing the content for the px-dropdown element
           Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
         }
       }
-      this.menuOpen = true;
 
       //resize ourselves
       this.fire('dropdown_content_request_size', {pxContent: this});
