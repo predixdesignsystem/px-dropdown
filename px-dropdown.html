@@ -132,6 +132,7 @@ Element providing a dropdown solution.
        */
       displayValue: {
         type: String,
+        notify: true,
         value: ''
       },
       /**
@@ -204,6 +205,7 @@ Element providing a dropdown solution.
     _newTextValue: function(evt) {
       this.set('value', evt.detail.textValue);
       this.set('displayValue',evt.detail.textValue);
+
       this.fire('change');
 
       evt.stopPropagation();
