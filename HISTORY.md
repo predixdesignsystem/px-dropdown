@@ -1,3 +1,7 @@
+v0.9.0
+===============
+* Upgrade to Polymer 1.4.0
+
 v0.8.1
 ================
 * display-value attribute now notifies
