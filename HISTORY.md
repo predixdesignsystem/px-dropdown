@@ -1,3 +1,7 @@
+v0.9.1
+===============
+* Fix bug where selecting an item having a tooltip would set the value and displayValue to this item + its tooltip
+
 v0.9.0
 ===============
 * Upgrade to Polymer 1.4.0

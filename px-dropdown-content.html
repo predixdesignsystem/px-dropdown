@@ -313,10 +313,25 @@ Element providing the content for the px-dropdown element
         }
       }
       else {
+
+        var el = evt.target,
+            child = el.firstChild,
+            text;
+
+        //the only way we can get the text value of this element is by looping
+        //over its children and get the first one that is text. Otherwise using
+        //textcontent will also concatenate other childs, such as px-tooltip
+        while (child && !text) {
+            if (child.nodeType == 3) {
+                text = child.data;
+            }
+            child = child.nextSibling;
+        }
+
         this.close();
         this.fire('dropdown_flip', true);
         this._setSelectionOccured(true);
-        this.fire('dropdown_content_value_changed', {textValue: evt.target.textContent});
+        this.fire('dropdown_content_value_changed', {textValue: text});
       }
     },
     /**
