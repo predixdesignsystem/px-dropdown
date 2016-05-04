@@ -1,3 +1,7 @@
+v0.9.2
+===============
+* Minor CSS text colour fix.
+
 v0.9.1
 ===============
 * Fix bug where selecting an item having a tooltip would set the value and displayValue to this item + its tooltip

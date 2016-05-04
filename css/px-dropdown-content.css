@@ -853,7 +853,8 @@ textarea {
 .px-dropdown--content {
   background-color: #f7f7fc;
   border-radius: 3px;
-  border: 1px solid #b1b1bc; }
+  border: 1px solid #b1b1bc;
+  color: black; }
 
 .px-dropdown--listitem:hover {
   background-color: #0a9ec1;

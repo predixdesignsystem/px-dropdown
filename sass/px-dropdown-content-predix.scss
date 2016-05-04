@@ -30,6 +30,7 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
   background-color: $gray1;
   border-radius: 3px;
   border: 1px solid $gray5;
+  color: $black;
 }
 .px-dropdown--listitem {
   &:hover {
