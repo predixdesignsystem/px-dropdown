@@ -1,3 +1,7 @@
+v0.9.3
+===============
+* added auto github pages functionality
+
 v0.9.2
 ===============
 * Minor CSS text colour fix.
