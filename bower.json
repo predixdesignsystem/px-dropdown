@@ -1,6 +1,6 @@
 {
   "name": "px-dropdown",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "main": [
     "px-dropdown.html"
   ],
@@ -11,7 +11,8 @@
     "sass",
     "bower_components",
     "node_modules",
-    "test"
+    "test",
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "polymer": "~1.4.0",
