@@ -125,6 +125,8 @@ Element providing a dropdown solution.
       },
       /**
        * An attribute which specifies what text is displayed on the dropdown
+       * When selecting a value from the dropdown content both value and display
+       * value will change, with value being set before displayValue
        *
        * @param displayValue
        * @type String
@@ -158,7 +160,9 @@ Element providing a dropdown solution.
       },
       /**
        * reflects the actual value of the dropdown rather than the displayed one
-       * (the displayed one can be shortened for example)
+       * (the displayed one can be shortened for example).
+       * When selecting a value from the dropdown content both value and display
+       * value will change, with value being set before displayValue
        *
        * @param value
        * @type string
