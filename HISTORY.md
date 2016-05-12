@@ -1,3 +1,7 @@
+v0.9.7
+===============
+* up minor version on polymer font awesome
+
 v0.9.6
 ===============
 * removed dependency on .px-dropdown-content class

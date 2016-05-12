@@ -1,6 +1,6 @@
 {
   "name": "px-dropdown",
-  "version": "0.9.5",
+  "version": "0.9.7",
   "main": [
     "px-dropdown.html"
   ],
@@ -19,7 +19,7 @@
     "px-theme": "https://github.com/predixDev/px-theme.git#~0.7.0",
     "px-tooltip": "https://github.com/PredixDev/px-tooltip.git#~0.6.0",
     "px-spacing-design": "https://github.com/PredixDev/px-spacing-design.git#~0.3.7",
-    "polymer-font-awesome": "mdwragg/polymer-font-awesome#~0.0.5",
+    "polymer-font-awesome": "mdwragg/polymer-font-awesome#~0.1.0",
     "iron-dropdown": "PolymerElements/iron-dropdown#~1.3.0"
   },
   "devDependencies": {
