@@ -39,7 +39,7 @@ Element providing a dropdown solution.
       </template>
     </div>
     <div style="position:relative;">
-      <content select=".px-dropdown-content"></content>
+      <content select="px-dropdown-content"></content>
     </div>
   </template>
 </dom-module>
@@ -273,7 +273,7 @@ Element providing a dropdown solution.
          !this._selfInPath(Polymer.dom(evt).path) &&
          this.opened) {
 
-        var content = Polymer.dom(this).querySelector(".px-dropdown-content");
+        var content = Polymer.dom(this).querySelector("px-dropdown-content");
         this._flipOpened();
         content.close();
         this._reset();
@@ -306,7 +306,7 @@ Element providing a dropdown solution.
    * @type Object
    */
     triggerClicked: function(evt) {
-      var content = Polymer.dom(this).querySelector(".px-dropdown-content");
+      var content = Polymer.dom(this).querySelector("px-dropdown-content");
       if (!this.opened) {
         content.open();
         this._setPosition();
