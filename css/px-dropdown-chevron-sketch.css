@@ -580,13 +580,9 @@ a {
 .viewport--full-height {
   min-height: 100vh; }
 
-.chevronContainer {
-  width: 1.2666666667rem;
-  height: 1.2666666667rem; }
-
 iron-icon {
-  width: 100%;
-  height: 100%; }
+  width: 1.0666666667rem;
+  height: 1.0666666667rem; }
 
 /*------------------------------------*    #CLEARFIX
 \*------------------------------------*/

@@ -1,3 +1,7 @@
+v0.9.8
+===============
+* Added --dropdown_text_padding to control text padding and make internal element use flex layout
+
 v0.9.7
 ===============
 * up minor version on polymer font awesome

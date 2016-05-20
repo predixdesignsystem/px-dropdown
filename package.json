@@ -3,7 +3,7 @@
     "name": "px-dropdown",
     "author": "General Electric",
     "description": "A Px Dropdown component",
-    "version": "0.9.7",
+    "version": "0.9.8",
     "private": true,
     "extName" : null,
     "repository" :

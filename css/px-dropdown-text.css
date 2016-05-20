@@ -763,12 +763,14 @@ textarea {
   overflow: hidden;
   -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
-          flex: 1 1 auto; }
+          flex: 1 1 auto;
+  padding: var(--dropdown_text_padding, 0.3333333333rem); }
 
-div {
+.px-dropdown-text {
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden; }
+  overflow: hidden;
+  vertical-align: text-top; }
 
 /*------------------------------------*    #PX-META-LISTS-DESIGN
 \*------------------------------------*/

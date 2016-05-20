@@ -35,12 +35,14 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   cursor: pointer;
   overflow: hidden;
   flex: 1 1 auto;
+  padding: var(--dropdown_text_padding, $inuit-base-spacing-unit--tiny);
 }
 
-div {
+.px-dropdown-text {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  vertical-align: text-top;
 }
 
 // Meta
