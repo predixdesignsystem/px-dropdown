@@ -31,7 +31,7 @@ Element providing a dropdown solution.
     on-tap="triggerClicked"
     on-mouseover="_hoverOn"
     on-mouseout="_hoverOff"
-    class$="{{_dropcellClass(opened, hover)}} flex flex--middle"
+    class$="{{_dropcellClass(opened, hover)}} flex flex--middle dropcell"
     id="dropcell">
       <px-dropdown-text display-value="{{displayValue}}" max-cont-character-width="{{_maxCharWidth}}" tooltip-value={{value}}></px-dropdown-text>
       <template is="dom-if" if="{{_hideChevron(hideChevron)}}">

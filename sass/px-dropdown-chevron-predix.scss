@@ -25,18 +25,15 @@ common/abstract rules go in px-dropdown-text-sketch.scss, not in this file.
 @import 'px-dropdown-chevron-sketch.scss';
 
 :host {
-  background-color: var(--dropdown_bg_default,$gray1);
   cursor: pointer;
   border-radius: 0 3px 3px 0;
   display: flex;
   max-height: calculateRem(31px);
 }
 .hover {
-  background-color: var(--dropdown_bg_hover,$gray5);
   border-radius: 0 3px 3px 0;
 }
 
 .opened {
-  background-color: var(--dropdown_bg_opened,$gray6);
   border-radius: 0 3px 3px 0;
 }

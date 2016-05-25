@@ -21,16 +21,21 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 
 @import 'px-dropdown-sketch.scss';
 
-#dropcell.opened {
-  background-color: var(--dropdown_bg_opened,$gray6);;
-}
-
-#dropcell {
-  background-color: var(--dropdown_bg_default,$gray1);
-  border: var(--dropdown_border_color, 1px solid $gray5);
+.dropcell {
+  background-color:   var(--dropdown_bg_default,$gray3);
+  border:             var(--dropdown_border_color, 1px solid $gray5);
   border-radius: 3px;
   cursor: pointer;
+  &:hover{
+    background-color: var(--dropdown_bg_hover,$gray5);
+    color:            var(--dropdown_text_color--hover, $black);
+  }
+  &:active{
+    color:            var(--dropdown_text_color--pressed, $black);
+  }
+
 }
-#dropcell.hover {
-  background-color: var(--dropdown_bg_hover,$gray5);;
+.opened {
+  background-color:   var(--dropdown_bg_opened,$gray6);
+  color:              var(--dropdown_text--opened, $black);
 }
