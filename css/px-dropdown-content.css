@@ -741,7 +741,8 @@ textarea {
   z-index: 1;
   max-height: 14.8rem;
   overflow-y: auto;
-  cursor: pointer; }
+  cursor: pointer;
+  margin: var(--dropdown_content_margin, 0); }
 
 .px-dropdown--listitem {
   overflow-x: hidden;

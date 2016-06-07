@@ -1,3 +1,7 @@
+v0.9.9
+===============
+* Added --dropdown_content_margin to control the dropdown content margin
+
 v0.9.8
 ===============
 * Added --dropdown_text_padding to control text padding and make internal element use flex layout
