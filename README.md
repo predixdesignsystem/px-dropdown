@@ -1,4 +1,4 @@
-# Px-dropdown
+# Px-dropdown [![Build Status](https://travis-ci.org/PredixDev/px-dropdown.svg?branch=master)](https://travis-ci.org/PredixDev/px-dropdown)
 
 Px-dropdown is a select-like component in the Predix UI platform.
 
