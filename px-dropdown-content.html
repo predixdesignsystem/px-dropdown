@@ -322,7 +322,7 @@ Element providing the content for the px-dropdown element
         //over its children and get the first one that is text. Otherwise using
         //textcontent will also concatenate other childs, such as px-tooltip
         while (child && !text) {
-            if (child.nodeType == 3) {
+            if (child.nodeType === 3) {
                 text = child.data;
             }
             child = child.nextSibling;
@@ -381,31 +381,31 @@ Element providing the content for the px-dropdown element
      * @param items (Array)
      */
     _computedItems: function(items) {
-      if (typeof this.items[0] === 'string') {
-        var len = items.length,
-            i = 0,
-            computedItemsArr = [];
-
-            for (i; i < len; i++) {
-              if(this.checkboxMode) {
-                //default unchecked if using a string array in check mode
-                computedItemsArr.push({val:items[i], checked: false});
-              }
-              else {
-                computedItemsArr.push({val:items[i]});
-              }
-            }
-            return computedItemsArr;
-      }
-      else {
+      if(this.items){
         var computedItemsArr = [];
+        if (typeof this.items[0] === 'string') {
+          var len = items.length,
+          i = 0;
 
-        //with new array it looks like we need to do a copy of items
-        // seems like items can be sparse at this point
-        items.forEach(function(item, index) {
-           computedItemsArr.push(item);
-         });
-         return computedItemsArr;
+          for (i; i < len; i++) {
+            if(this.checkboxMode) {
+              //default unchecked if using a string array in check mode
+              computedItemsArr.push({val:items[i], checked: false});
+            }
+            else {
+              computedItemsArr.push({val:items[i]});
+            }
+          }
+          return computedItemsArr;
+        }
+        else {
+          //with new array it looks like we need to do a copy of items
+          // seems like items can be sparse at this point
+          items.forEach(function(item, index) {
+            computedItemsArr.push(item);
+          });
+          return computedItemsArr;
+        }
       }
     }
   });

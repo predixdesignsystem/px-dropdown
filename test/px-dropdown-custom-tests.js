@@ -53,7 +53,7 @@ function runCustomTests() {
            if (px_dropdown_content.extendDropdown) {
              var extendWidth = px_dropdown_content.extendDropdownBy,
                  extendDropdownBy = px_dropdown_content.extendDropdownBy,
-                 calculated_dropdown = dropcellWidth + extendDropdownBy + 2; //2px border around dropdown
+                 calculated_dropdown = dropcellWidth + extendDropdownBy;
              assert.isTrue(calculated_dropdown === dropdownWidth);
           } else {
             assert.isTrue(dropcellWidth === dropdownWidth);
