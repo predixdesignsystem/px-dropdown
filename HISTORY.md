@@ -1,3 +1,7 @@
+v0.10.1
+===============
+* Fix to make px-dropdown play with Angular nicely. Added Angular demo, also.
+
 v0.10.0
 ===============
 * Upgrade to Polymer 1.5.0
