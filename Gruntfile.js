@@ -44,6 +44,9 @@ module.exports = function (grunt) {
               'css/noprefix/px-dropdown-text-sketch.css': 'sass/px-dropdown-text-sketch.scss',
               'css/noprefix/px-dropdown-text.css': 'sass/px-dropdown-text-predix.scss'
               }
+            },
+            demo: {
+              'css/noprefix/px-dropdown-demo.css': 'sass/px-dropdown-demo.scss'
             }
         },
 

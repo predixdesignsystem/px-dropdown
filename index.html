@@ -1,13 +1,185 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>px-dropdown API</title>
-        <script src="../webcomponentsjs/webcomponents-lite.min.js"></script>
-        <link rel="import" href="../iron-component-page/iron-component-page.html"/>
-    </head>
-    <body>
-        <iron-component-page src="px-dropdown.html" active="px-dropdown"></iron-component-page>
-    </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>px-dropdown Demo</title>
+  <link rel="stylesheet" type="text/css" href="css/px-dropdown-demo.css"/>
+  <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
+  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../px-theme/px-theme.html"/>
+  <link rel="import" href="../px-api-viewer/px-api-viewer.html" />
+  <link rel="import" href="../px-tabs/px-tab-set.html" />
+  <link rel="import" href="px-dropdown.html"/>
+  <link rel="icon" href="px-favicon.png" type="image/x-icon"/>
+  <link rel="import" href="../px-demo-snippet/px-demo-snippet.html">
+  <link rel="import" href="../polymer-font-awesome/polymer-font-awesome.html">
+  <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+
+  </head>
+
+<body>
+
+  <!-- Wrap elements with auto-binding template to -->
+  <!-- allow use of Polymer bindings in main document -->
+  <template id="just-for-demo" is="dom-bind" >
+
+    <!-- discription -->
+    <div class="hero u-p++ text--shadow">
+  		<h1 class="delta">px-dropdown</h1>
+  		<p>
+  			Dropdowns have two primary use cases. First, as a form control, drop-down lists are ideal for a user to choose from a preconfigured list of options – ideally, between 5 and 15. If there are fewer than 5 options, consider using a radio button. For very large lists of options, consider adding typeahead functionality in addition to, or instead of, a drop-down. The second primary use case for a drop-down list is as a filter or navigation item, where invoking an option from the drop-down menu results in an action of some kind.
+  		</p>
+  		<div class="flex">
+  			<img class="u-mr--" src="https://img.shields.io/travis/PredixDev/px-dropdown.svg?style=flat-square" alt="Travis"/>
+  			<img class="u-mr--" src="https://img.shields.io/bower/v/px-dropdown.svg?style=flat-square" alt="Bower"/>
+  			<img class="u-mr--" src="https://img.shields.io/github/issues-raw/PredixDev/px-dropdown.svg?style=flat-square" alt="Issues"/>
+  			<img class="u-mr--" src="https://img.shields.io/github/watchers/PredixDev/px-dropdown.svg?style=social&label=Watch"/>
+  		</div>
+  	</div>
+    <br />
+
+    <!-- mega demo -->
+    <div style="position: relative;" class="u-pb++ flex flex--col" id="defaultTab">
+      <div class="tabContainer u-pt++ u-pl++">
+        <px-tab-set selected="{{selected}}" bare no-bottom-border>
+          <template is="dom-repeat" items="{{optionsArray}}">
+            <px-tab>Configuration {{indexPlusOne(index)}}</px-tab>
+          </template>
+        </px-tab-set>
+      </div>
+      <px-tab-pages selected="{{selected}}">
+        <template is="dom-repeat" items="{{optionsArray}}">
+          <section class="tab-page flex flex--right flex--wrap">
+            <div class="mega-demo flex u-pb++">
+            <!-- Properties -->
+            <div class="properties u-ph+ u-pb+  u-m++">
+              <p class="epsilon">Properties</p>
+              <div class="u-mb-">Value: <input id="value{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.value::input}}" /></div>
+              <div class="flex u-mb-">
+                <input id="above{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.above::change}}">
+                <label for$="above{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                <div class="u-ml-">above</div>
+              </div>
+              <div class="flex u-mb-">
+                <input id="hideChevron{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.hideChevron::change}}">
+                <label for$="hideChevron{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                <div class="u-ml-">Hide Chevron</div>
+              </div>
+              <div class="flex u-mb-">
+                <input id="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.preventCloseOnOutsideClick::change}}">
+                <label for$="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                <div class="u-ml-">Prevent Close On Outside Click</div>
+              </div>
+              <div class="u-mb-">Display Value: <input class="text-input" type="text" placeholder="{{item.displayValue}}" value="{{item.displayValue::input}}" /></div>
+
+              <div class="flex u-mb-">
+                <input id="animated{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.animated::change}}">
+                <label for$="animated{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                <div class="u-ml-">animated</div>
+              </div>
+            </div>
+
+            <div class="demoContainer u-mr++">
+              <!-- demo -->
+              <div class="flex flex--col">
+                <div class="flex__item demo u-ph+ u-pb+ u-mt++">
+                  <br />
+                  <div style="width: 150px;">
+                    <px-dropdown
+                      above="{{item.above}}"
+                      display-value="{{item.displayValue}}"
+                      hide-chevron="{{item.hideChevron}}"
+                      prevent-close-on-outside-click="{{item.preventCloseOnOutsideClick}}"
+                      value="{{item.value}}"
+                      >
+                    </px-dropdown>
+                  </div>
+                </div>
+                <div class="flex__item">
+                  <px-demo-snippet
+                    element-properties={{item}}
+                    element-name="px-dropdown">
+                  </px-demo-snippet>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="apiContainer">
+            <div class="flex flex--col api u-mt++" >
+              <div>
+                <px-api-viewer source="px-dropdown"></px-api-viewer>
+              </div>
+            </div>
+          </div>
+        </section>
+      </template>
+    </px-tab-pages>
+  </div>
+  <footer class="footer flex flex--center">
+    <div class="footer__container u-pv++">
+      <div>
+        <a href="https://ge.com/digital" >
+          <img src="monogram-wdmk.png" alt="GE Monogram" class="footer__img">
+        </a>
+      </div>
+      <div class="footer__list">
+        <ul class="list-inline list-inline--delimited">
+          <li>
+            <a href="http://predix.io/legal" class="footer__list--lnk">Legal</a>
+          </li>
+          <li>
+            <a href="mailto:info@predix.io" class="footer__list--lnk">Contact Us</a>
+          </li>
+          <li>Copyright &copy; {{year}} General Electric Company. All rights reserved.</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</template>
+<script>
+window.addEventListener('WebComponentsReady', function() {
+  var template = document.querySelector('template[is=dom-bind]'),
+      year = new Date(),
+      optionsArray = [
+        {
+          above:false,
+          displayValue:"Elephant",
+          hideChevron:false,
+          preventCloseOnOutsideClick:false,
+          value:[
+              {"key":"one", "val": "Iphone"},
+              {"key":"two", "val": "Android"},
+              {"key":"three", "val": "Blackberry"},
+              {"key":"four", "val": "Windows Phone"}
+            ]
+        },
+        {
+          above:true,
+          displayValue:"Cougar",
+          hideChevron:true,
+          preventCloseOnOutsideClick:true,
+          value:[
+              {"key":"one", "val": "Linux"},
+              {"key":"two", "val": "Mac"},
+              {"key":"three", "val": "Windows"},
+              {"key":"four", "val": "Spark"},
+              {"key":"five", "val": "NeXT"}
+            ]
+        }
+      ],
+      indexPlusOne = function(num) {
+        return num + 1;
+      };
+
+  year = year.getFullYear();
+
+  template.selected = "0";
+  template.optionsArray = optionsArray;
+  template.indexPlusOne = indexPlusOne;
+  template.year = year;
+});
+</script>
+
+</body>
 </html>
