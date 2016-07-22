@@ -1,6 +1,6 @@
 {
   "name": "px-dropdown",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "main": [
     "px-dropdown.html"
   ],
@@ -29,8 +29,8 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.3",
     "polymer-font-awesome": "~0.1.5",
     "px-tabs": "~0.4.0",
-    "px-api-viewer": "^0.0.1",
-    "px-demo-snippet": "^0.0.1",
+    "px-api-viewer": "^0.0.3",
+    "px-demo-snippet": "^0.0.11",
     "px-list-inline-design": "^0.2.11",
     "px-toggle-design": "^0.2.12",
     "px-headings-design": "^0.2.14",

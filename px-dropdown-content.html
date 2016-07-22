@@ -71,6 +71,7 @@ Element providing the content for the px-dropdown element
        *
        * @type Array
        * @default []
+       * @private
        */
       computedItems: {
         type: Array,
@@ -81,6 +82,7 @@ Element providing the content for the px-dropdown element
        * a read only property that tells you if the user has selected anything from the dropdown
        * @type Boolean
        * @default false
+       * @private
        */
       selectionOccured: {
         type: Boolean,
@@ -89,9 +91,10 @@ Element providing the content for the px-dropdown element
       },
       /**
        * Used to check if the dropdown is currently open or closed.
-       * notifies and shows/hides the dropdown.
+       * shows/hides the dropdown.
        * @type Boolean
        * @default false
+       * @private
        */
       menuOpen: {
         type: Boolean,
@@ -146,6 +149,7 @@ Element providing the content for the px-dropdown element
        *
        * @type Number
        * @default: 0
+       * @private
        */
       dropCellWidth: {
         type: Number,
@@ -156,6 +160,7 @@ Element providing the content for the px-dropdown element
        *
        * @type Number
        * @default: 0
+       * @private
        */
       dropCellHeight: {
         type: Number,
@@ -164,9 +169,9 @@ Element providing the content for the px-dropdown element
       },
       /**
        * By default, the dropdown will constrain scrolling on the page
-       * to itself when opened.
-       * Set to true in order to prevent scroll from being constrained
-       * to the dropdown when it opens.
+       * when opened AND the dropdown has a scrollbar.
+       * Set to true in order to prevent the page from scrolling while the dropdown is open and has a scrollbar of its own.
+       * 
        */
       allowOutsideScroll: {
         type: Boolean,

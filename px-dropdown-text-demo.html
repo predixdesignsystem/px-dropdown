@@ -26,16 +26,10 @@
 
     <!-- discription -->
     <div class="hero u-p++ text--shadow">
-  		<h1 class="delta">px-dropdown</h1>
+  		<h1 class="delta">px-dropdown-text</h1>
   		<p>
-  			Dropdowns have two primary use cases. First, as a form control, drop-down lists are ideal for a user to choose from a preconfigured list of options – ideally, between 5 and 15. If there are fewer than 5 options, consider using a radio button. For very large lists of options, consider adding typeahead functionality in addition to, or instead of, a drop-down. The second primary use case for a drop-down list is as a filter or navigation item, where invoking an option from the drop-down menu results in an action of some kind.
+  			Px-dropdown-text is a sub-component of px-dropdown, and holds the initial text which shows up when the dropdown loads initially.
   		</p>
-  		<div class="flex">
-  			<img class="u-mr--" src="https://img.shields.io/travis/PredixDev/px-dropdown.svg?style=flat-square" alt="Travis"/>
-  			<img class="u-mr--" src="https://img.shields.io/bower/v/px-dropdown.svg?style=flat-square" alt="Bower"/>
-  			<img class="u-mr--" src="https://img.shields.io/github/issues-raw/PredixDev/px-dropdown.svg?style=flat-square" alt="Issues"/>
-  			<img class="u-mr--" src="https://img.shields.io/github/watchers/PredixDev/px-dropdown.svg?style=social&label=Watch"/>
-  		</div>
   	</div>
     <br />
 
@@ -55,16 +49,7 @@
             <!-- Properties -->
             <div class="properties u-ph+ u-pb+  u-m++">
               <p class="epsilon">Properties</p>
-            <div class="flex u-mb-">
-                <input id="hideChevron{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.hideChevron::change}}">
-                <label for$="hideChevron{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
-                <div class="u-ml-">Hide Chevron</div>
-              </div>
-              <div class="flex u-mb-">
-                <input id="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.preventCloseOnOutsideClick::change}}">
-                <label for$="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
-                <div class="u-ml-">Prevent Close On Outside Click</div>
-              </div>
+              <div class="u-mb-">max Cont Character Width: <input class="text-input" type="text" placeholder="{{item.maxContCharacterWidth}}" value="{{item.maxContCharacterWidth::input}}" /></div>
               <div class="u-mb-">Display Value: <input class="text-input" type="text" placeholder="{{item.displayValue}}" value="{{item.displayValue::input}}" /></div>
             </div>
 
@@ -79,7 +64,7 @@
                       hide-chevron="{{item.hideChevron}}"
                       prevent-close-on-outside-click="{{item.preventCloseOnOutsideClick}}"
                       >
-                      <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="[[item.list]]">
+                      <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="{{item.maxContCharacterWidth}}" items="[[item.list]]">
                       </px-dropdown-content>
                     </px-dropdown>
                   </div>
@@ -87,7 +72,7 @@
                 <div class="flex__item">
                   <px-demo-snippet
                     element-properties={{item}}
-                    element-name="px-dropdown">
+                    element-name="px-dropdown-text">
                   </px-demo-snippet>
                 </div>
               </div>
@@ -101,9 +86,7 @@
                     <div class="componentHeader">Children Component</div>
                     <div class="componentList">
                       <ul>
-                        <li><a href="px-dropdown-text-demo.html">px-dropdown-text</a></li>
-                        <li><a href="px-dropdown-content-demo.html">px-dropdown-content</a></li>
-                        <li><a href="px-dropdown-chevron-demo.html">px-dropdown-chevron</a></li>
+
                       </ul>
                     </div>
                   </div>
@@ -113,15 +96,16 @@
                     <div class="componentHeader">Associated Component</div>
                     <div class="componentList">
                       <ul>
-                        <li><a href="http://predixdev.github.io/px-data-table/px-data-table/index.html">px-data-table</a></li>
-                        <li><a href="https://predixdev.github.io/px-datetime-range-field/px-datetime-range-field/index.html">px-datetime-range-field</a></li>
+                        <li><a href="index.html">px-dropdown</a></li>
+                        <li><a href="px-dropdown-content-demo.html">px-dropdown-content</a></li>
+                        <li><a href="px-dropdown-chevron-demo.html">px-dropdown-chevron</a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
               <div>
-                <px-api-viewer source="px-dropdown"></px-api-viewer>
+                <px-api-viewer source="px-dropdown-text"></px-api-viewer>
               </div>
             </div>
           </div>
@@ -156,20 +140,21 @@ window.addEventListener('WebComponentsReady', function() {
       year = new Date(),
       optionsArray = [
         {
-          above:false,
-          displayValue:"Elephant",
+          maxContCharacterWidth: 15,
+          displayValue:"Zebra",
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           list:[
-              {"key":"one", "val": "Iphone"},
-              {"key":"two", "val": "Android"},
-              {"key":"three", "val": "Blackberry"},
-              {"key":"four", "val": "Windows Phone"}
+              {"key":"one", "val": "Rhino"},
+              {"key":"two", "val": "Giraffe"},
+              {"key":"three", "val": "Lion"},
+              {"key":"four", "val": "Dodo"},
+              {"key":"five", "val": "hippopotamus"}
             ]
         },
         {
-          above:true,
-          displayValue:"Cougar",
+          displayValue:"Palm",
+          maxContCharacterWidth: 5,
           hideChevron:true,
           preventCloseOnOutsideClick:true,
           list:[
