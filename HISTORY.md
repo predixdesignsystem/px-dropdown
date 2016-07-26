@@ -1,3 +1,7 @@
+v0.10.3
+===============
+* updated gh-pages script to vulcanize demo
+
 v0.10.1
 ===============
 * Fix to make px-dropdown play with Angular nicely. Added Angular demo, also.

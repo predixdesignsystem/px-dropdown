@@ -103,7 +103,7 @@ $inuit-enable-list-inline--delimited : true;
   }
 }
 .api {
-  width:80%;
+  width:100%;
   margin:0 auto;
   max-width:calculateRem(1200px);
 }
@@ -117,6 +117,7 @@ $inuit-enable-list-inline--delimited : true;
 .apiContainer {
   background-color: white;
   margin: 0 auto;
+  width:80%;
 }
 
 .footer{
