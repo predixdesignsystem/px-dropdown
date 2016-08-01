@@ -1,6 +1,6 @@
 # Px-dropdown [![Build Status](https://travis-ci.org/PredixDev/px-dropdown.svg?branch=master)](https://travis-ci.org/PredixDev/px-dropdown)
 
-Px-dropdown is a select-like component in the Predix UI platform.
+[![px-dropdown demo](px-dropdown.png?raw=true)](https://github.com/PredixDev/px-dropdown)
 
 ## Overview
 
@@ -46,6 +46,8 @@ Finally, use the component in your application:
 ## documentation
 
 Read the full API and view the demo [here](https://predixdev.github.io/px-dropdown).
+
+Also, make sure to look at the demo-angular.html page for an example of using Polymer with Angular.
 
 ## Local Development
 
