@@ -1,6 +1,6 @@
 {
   "name": "px-dropdown",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "main": [
     "px-dropdown.html"
   ],
@@ -33,7 +33,7 @@
     "px-polymer-font-awesome":"^0.1.8",
     "px-tabs": "~0.4.0",
     "px-api-viewer": "^0.0.3",
-    "px-demo-snippet": "^0.0.11",
+    "px-demo-snippet": "^0.1.0",
     "px-list-inline-design": "^0.2.11",
     "px-toggle-design": "^0.2.12",
     "px-headings-design": "^0.2.14",
@@ -41,8 +41,5 @@
     "px-code-design": "^0.2.11",
     "px-list-bare-design": "^0.2.13",
     "px-meta-lists-design": "^0.3.4"
-  },
-  "resolutions": {
-    "polymer": "^1.1.0"
   }
 }

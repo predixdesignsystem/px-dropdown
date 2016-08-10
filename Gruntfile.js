@@ -14,13 +14,13 @@ module.exports = function (grunt) {
         },
 
         sass: {
-            options: {
-                importer: importOnce,
-                importOnce: {
-                  index: true,
-                  bower: true
-                }
-            },
+          options: {
+            importer: importOnce,
+            importOnce: {
+              index: true,
+              bower: true
+            }
+          },
             content: {
               files:{
                 'css/noprefix/px-dropdown-content-sketch.css': 'sass/px-dropdown-content-sketch.scss',
@@ -46,72 +46,82 @@ module.exports = function (grunt) {
               }
             },
             demo: {
-              'css/noprefix/px-dropdown-demo.css': 'sass/px-dropdown-demo.scss'
+              files:{
+                'css/noprefix/px-dropdown-demo.css': 'sass/px-dropdown-demo.scss'
+              }
             }
         },
 
         autoprefixer: {
-          options: {
-            browsers: ['last 2 version']
+            options: {
+              browsers: ['last 3 version']
+            },
+            multiple_files: {
+              expand: true,
+              flatten: true,
+              src: 'css/noprefix/*.css',
+              dest: 'css'
+            }
           },
-          multiple_files: {
-            expand: true,
-            flatten: true,
-            src: 'css/noprefix/*.css',
-            dest: 'css'
-          }
-        },
 
-        shell: {
-            options: {
-                stdout: true,
-                stderr: true
-            },
-            bower: {
-                command: 'bower install'
-            }
-        },
+          shell: {
+              options: {
+                  stdout: true,
+                  stderr: true
+              },
+              bower: {
+                  command: 'bower install'
+              }
+          },
 
-        jshint: {
-            all: [
-                'Gruntfile.js',
-                'js/**/*.js'
-            ],
-            options: {
-                jshintrc: '.jshintrc'
-            }
-        },
+          jshint: {
+              all: [
+                  'Gruntfile.js',
+                  'js/**/*.js'
+              ],
+              options: {
+                  jshintrc: '.jshintrc'
+              }
+          },
 
-        watch: {
-            sass: {
-                files: ['sass/**/*.scss'],
-                tasks: ['sass', 'autoprefixer'],
-                options: {
-                    interrupt: true,
-                    livereload: false
-                }
-            },
-            htmljs: {
-                files: ['*.html', '*.js'],
-                options: {
-                    interrupt: true,
-                    livereload: false
-                }
-            }
-        },
+          watch: {
+              sass: {
+                  files: ['sass/**/*.scss'],
+                  tasks: ['sass', 'autoprefixer'],
+                  options: {
+                      interrupt: true,
+                      livereload: true
+                  }
+              },
+              htmljs: {
+                  files: ['*.html', '*.js'],
+                  options: {
+                      interrupt: true,
+                      livereload: true
+                  }
+              }
+          },
 
-        depserve: {
-            options: {
-                open: '<%= depserveOpenUrl %>'
-            }
-        },
-        concurrent: {
-            devmode: {
-                tasks: ['watch', 'depserve'],
-                options: {
-                    logConcurrentOutput: true
-                }
-            }
+          depserve: {
+              options: {
+                  open: '<%= depserveOpenUrl %>'
+              }
+          },
+          webdriver: {
+              options: {
+                  specFiles: ['test/*spec.js']
+              },
+              local: {
+                  webdrivers: ['chrome']
+              }
+          },
+          concurrent: {
+              devmode: {
+                  tasks: ['watch', 'depserve'],
+                  options: {
+                      logConcurrentOutput: true
+                  }
+              }
           },
           bump: {
             options:{
@@ -121,40 +131,48 @@ module.exports = function (grunt) {
               push: false
             }
           }
-    });
+      });
 
-    grunt.loadNpmTasks('grunt-bump');
-    grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-shell');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-dep-serve');
-    grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-concurrent');
 
-    // Default task.
-    grunt.registerTask('default', 'Basic build', [
-        'sass',
-        'autoprefixer'
-    ]);
+      // grunt.loadNpmTasks('grunt-bump');
+      grunt.loadNpmTasks('grunt-sass');
+      grunt.loadNpmTasks('grunt-shell');
+      grunt.loadNpmTasks('grunt-contrib-clean');
+      grunt.loadNpmTasks('grunt-contrib-jshint');
+      grunt.loadNpmTasks('grunt-contrib-watch');
+      grunt.loadNpmTasks('grunt-dep-serve');
+      // grunt.loadNpmTasks('webdriver-support');
+      grunt.loadNpmTasks('grunt-autoprefixer');
+      grunt.loadNpmTasks('grunt-concurrent');
 
-    grunt.registerTask('devmode', 'Development Mode', [
-        'concurrent:devmode'
-    ]);
+      // Default task.
+      grunt.registerTask('default', 'Basic build', [
+          'sass',
+          'autoprefixer'
+      ]);
 
-    // First run task.
-    grunt.registerTask('firstrun', 'Basic first run', function() {
-        grunt.config.set('depserveOpenUrl', '/index.html');
-        grunt.task.run('default');
-        grunt.task.run('depserve');
-    });
+      grunt.registerTask('devmode', 'Development Mode', [
+          'concurrent:devmode'
+      ]);
 
-    grunt.registerTask('release', 'Release', [
-        'clean',
-        'shell:bower',
-        'default',
-        'test'
-    ]);
+      // First run task.
+      grunt.registerTask('firstrun', 'Basic first run', function() {
+          grunt.config.set('depserveOpenUrl', '/index.html');
+          grunt.task.run('default');
+          grunt.task.run('depserve');
+      });
 
-};
+      // Default task.
+      grunt.registerTask('test', 'Test', [
+          'jshint',
+          'webdriver'
+      ]);
+
+      grunt.registerTask('release', 'Release', [
+          'clean',
+          'shell:bower',
+          'default',
+          'test'
+      ]);
+
+  };
