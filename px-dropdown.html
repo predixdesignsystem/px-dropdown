@@ -172,6 +172,15 @@ Element providing a dropdown solution.
         type: String,
         value: '',
         notify: true
+      },
+      /**
+       * After an item has been selected from the dropdown content this represents the
+       * key of this item. Empty if no item has been selected yet
+       */
+      selectedKey: {
+        type: String,
+        value: '',
+        notify: true
       }
     },
     observers: [
@@ -209,6 +218,7 @@ Element providing a dropdown solution.
     _newTextValue: function(evt) {
       this.set('value', evt.detail.textValue);
       this.set('displayValue',evt.detail.textValue);
+      this.set('selectedKey', evt.detail.key);
 
       this.fire('change');
 

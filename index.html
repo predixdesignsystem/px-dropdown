@@ -67,6 +67,7 @@
                   <div class="u-ml-">Prevent Close On Outside Click</div>
                 </div>
                 <div class="u-mb-">Display Value: <input class="text-input" type="text" placeholder="{{item.displayValue}}" value="{{item.displayValue::input}}" /></div>
+                <div class="u-mb-">Selected Key: <input class="text-input" type="text" placeholder="{{item.selectedKey}}" value="{{item.selectedKey::input}}" /></div>
               </div>
 
               <div class="demoContainer u-mt+">
@@ -78,6 +79,7 @@
                       <px-dropdown
                         display-value="{{item.displayValue}}"
                         hide-chevron="{{item.hideChevron}}"
+                        selected-key="{{item.selectedKey}}"
                         prevent-close-on-outside-click="{{item.preventCloseOnOutsideClick}}">
                         <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="[[item.list]]">
                         </px-dropdown-content>
@@ -161,6 +163,7 @@ window.addEventListener('WebComponentsReady', function() {
           displayValue:"Elephant",
           hideChevron:false,
           preventCloseOnOutsideClick:false,
+          selectedKey: "",
           list:[
               {"key":"one", "val": "Iphone"},
               {"key":"two", "val": "Android"},
@@ -171,6 +174,7 @@ window.addEventListener('WebComponentsReady', function() {
         {
           above:true,
           displayValue:"Cougar",
+          selectedKey: "",
           hideChevron:true,
           preventCloseOnOutsideClick:true,
           list:[

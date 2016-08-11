@@ -122,6 +122,27 @@ function runCustomTests() {
         px_dropdown.removeEventListener('px-dropdown-click', li_click);
       });
 
+    test('selecting an element changes displayValue and selectedKey',
+      function(done) {
+        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
+           px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
+           dropcell = px_dropdown.$$('#dropcell'),
+           dropdown = px_dropdown_content.$$('#dropdown'),
+           dropdown_li = Polymer.dom(dropdown).querySelectorAll('li')[2];
+
+        var li_click = function(e) {
+          assert.equal(e.detail.textValue, 'Three');
+          assert.equal(e.detail.key, 'three');
+          assert.equal(px_dropdown.displayValue, 'Three');
+          assert.equal(px_dropdown.selectedKey, 'three');
+          done();
+        };
+        px_dropdown.addEventListener('dropdown_content_value_changed', li_click);
+        dropdown_li.click();
+        px_dropdown.removeEventListener('dropdown_content_value_changed', li_click);
+      });
+
+
     test('compare passed items to what\'s on the dropdown itself',
     function(done) {
       var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),

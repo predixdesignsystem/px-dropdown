@@ -27,7 +27,7 @@ Element providing the content for the px-dropdown element
       <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
         <ul class="px-dropdown--list list-bare">
           <template is="dom-repeat" items={{computedItems}} strip-whitespace>
-            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem">
+            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem" value="{{index}}">
               <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
                 <input type="checkbox" on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox">
               </template>{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
@@ -319,24 +319,20 @@ Element providing the content for the px-dropdown element
       }
       else {
 
-        var el = evt.target,
-            child = el.firstChild,
-            text;
-
-        //the only way we can get the text value of this element is by looping
-        //over its children and get the first one that is text. Otherwise using
-        //textcontent will also concatenate other childs, such as px-tooltip
-        while (child && !text) {
-            if (child.nodeType === 3) {
-                text = child.data;
-            }
-            child = child.nextSibling;
-        }
-
         this.close();
         this.fire('dropdown_flip', true);
         this._setSelectionOccured(true);
-        this.fire('dropdown_content_value_changed', {textValue: text});
+        /**
+         * dropdown_content_value_changed event.
+         *
+         * @event dropdown_content_value_changed
+         * @type {object}
+         * @property {string} textValue - The text value of the newly selected item
+         * @property {string} key - The key of the newly selected item
+         */
+        this.fire('dropdown_content_value_changed', 
+          {textValue: this.computedItems[evt.target.value].val, 
+            key: this.computedItems[evt.target.value].key});
       }
     },
     /**

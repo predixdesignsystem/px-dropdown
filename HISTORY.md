@@ -1,3 +1,7 @@
+v0.11.0
+===============
+* Added 'selectedKey' attribute to dropdown, representing the key of the currently selected item
+
 v0.10.5
 ===============
 * updated mega demo styles and bower px-demo-snippet to ^
