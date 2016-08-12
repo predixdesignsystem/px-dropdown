@@ -46,6 +46,18 @@ Element providing a dropdown solution.
 <script>
   Polymer({
 
+    /**
+     * dropdown_content_value_changed event, fired when an element is selected.
+     * evt.details contains:
+     * { textValue: "text of the selected element",
+     *   key: "key of the selected element"
+     * }
+     *
+     * @event dropdown_content_value_changed
+     * @type {object}
+     * @property {string} textValue - The text value of the newly selected item
+     * @property {string} key - The key of the newly selected item
+     */
     is: 'px-dropdown',
     properties: {
       /**

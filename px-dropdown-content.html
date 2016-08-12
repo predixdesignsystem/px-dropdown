@@ -323,7 +323,11 @@ Element providing the content for the px-dropdown element
         this.fire('dropdown_flip', true);
         this._setSelectionOccured(true);
         /**
-         * dropdown_content_value_changed event.
+         * dropdown_content_value_changed event, fired when an element is selected.
+         * evt.details contains:
+         * { textValue: "text of the selected element",
+         *   key: "key of the selected element"
+         * }
          *
          * @event dropdown_content_value_changed
          * @type {object}
