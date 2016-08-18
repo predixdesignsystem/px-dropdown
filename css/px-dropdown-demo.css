@@ -1127,7 +1127,8 @@ textarea {
 .demoContainer {
   -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
-          flex: 1 1 auto; }
+          flex: 1 1 auto;
+  overflow: auto; }
 
 .demoSnippet {
   -webkit-flex-basis: 10rem;

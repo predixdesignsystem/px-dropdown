@@ -1,3 +1,7 @@
+v0.11.1
+===============
+* updated demo bugs
+
 v0.11.0
 ===============
 * Added 'selectedKey' attribute to dropdown, representing the key of the currently selected item
