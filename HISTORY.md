@@ -1,3 +1,7 @@
+v0.11.2
+===============
+* added other demo pages to vulcanize
+
 v0.11.1
 ===============
 * updated demo bugs
