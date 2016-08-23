@@ -1,3 +1,7 @@
+v0.11.3
+===============
+* added parent-name to demo-snippet and changed over the polymer-font-awesome library
+
 v0.11.2
 ===============
 * added other demo pages to vulcanize
