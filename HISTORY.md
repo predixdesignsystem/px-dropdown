@@ -1,3 +1,7 @@
+v0.11.4
+===============
+* removed the text and chevron demo pages, since they are internal, and made the components load with parentComponent, so they can work with codepen.
+
 v0.11.3
 ===============
 * added parent-name to demo-snippet and changed over the polymer-font-awesome library

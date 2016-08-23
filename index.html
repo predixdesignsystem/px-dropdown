@@ -104,9 +104,7 @@
                       <div class="componentHeader">Children Component</div>
                       <div class="componentList">
                         <ul>
-                          <li><a href="px-dropdown-text-demo.html">px-dropdown-text</a></li>
                           <li><a href="px-dropdown-content-demo.html">px-dropdown-content</a></li>
-                          <li><a href="px-dropdown-chevron-demo.html">px-dropdown-chevron</a></li>
                         </ul>
                       </div>
                     </div>
@@ -147,7 +145,7 @@
             <li>
               <a href="mailto:info@predix.io" class="footer__list--lnk">Contact Us</a>
             </li>
-            <li>Copyright &copy; {{year}} General Electric Company. All rights reserved.</li>
+            <li>Copyright &copy; 2016 General Electric Company. All rights reserved.</li>
           </ul>
         </div>
       </div>
@@ -156,7 +154,21 @@
 <script>
 window.addEventListener('WebComponentsReady', function() {
   var template = document.querySelector('template[is=dom-bind]'),
-      year = new Date(),
+      list = [
+        [
+          {"key":"one", "val": "Iphone"},
+          {"key":"two", "val": "Android"},
+          {"key":"three", "val": "Blackberry"},
+          {"key":"four", "val": "Windows Phone"}
+        ],
+        [
+          {"key":"one", "val": "Linux"},
+          {"key":"two", "val": "Mac"},
+          {"key":"three", "val": "Windows"},
+          {"key":"four", "val": "Spark"},
+          {"key":"five", "val": "NeXT"}
+        ]
+        ],
       optionsArray = [
         {
           above:false,
@@ -164,12 +176,7 @@ window.addEventListener('WebComponentsReady', function() {
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           selectedKey: "",
-          list:[
-              {"key":"one", "val": "Iphone"},
-              {"key":"two", "val": "Android"},
-              {"key":"three", "val": "Blackberry"},
-              {"key":"four", "val": "Windows Phone"}
-            ]
+          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list[0]) + "'></px-dropdown-content>"
         },
         {
           above:true,
@@ -177,25 +184,16 @@ window.addEventListener('WebComponentsReady', function() {
           selectedKey: "",
           hideChevron:true,
           preventCloseOnOutsideClick:true,
-          list:[
-              {"key":"one", "val": "Linux"},
-              {"key":"two", "val": "Mac"},
-              {"key":"three", "val": "Windows"},
-              {"key":"four", "val": "Spark"},
-              {"key":"five", "val": "NeXT"}
-            ]
+          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list[0]) + "'></px-dropdown-content>"
         }
       ],
       indexPlusOne = function(num) {
         return num + 1;
       };
 
-  year = year.getFullYear();
-
   template.selected = "0";
   template.optionsArray = optionsArray;
   template.indexPlusOne = indexPlusOne;
-  template.year = year;
 });
 </script>
 
