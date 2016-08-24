@@ -1,3 +1,7 @@
+v0.11.5
+===============
+* fixed demo bug
+
 v0.11.4
 ===============
 * removed the text and chevron demo pages, since they are internal, and made the components load with parentComponent, so they can work with codepen.

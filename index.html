@@ -81,7 +81,7 @@
                         hide-chevron="{{item.hideChevron}}"
                         selected-key="{{item.selectedKey}}"
                         prevent-close-on-outside-click="{{item.preventCloseOnOutsideClick}}">
-                        <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="[[item.list]]">
+                        <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="{{list}}">
                         </px-dropdown-content>
                       </px-dropdown>
                     </div>
@@ -155,19 +155,10 @@
 window.addEventListener('WebComponentsReady', function() {
   var template = document.querySelector('template[is=dom-bind]'),
       list = [
-        [
           {"key":"one", "val": "Iphone"},
           {"key":"two", "val": "Android"},
           {"key":"three", "val": "Blackberry"},
           {"key":"four", "val": "Windows Phone"}
-        ],
-        [
-          {"key":"one", "val": "Linux"},
-          {"key":"two", "val": "Mac"},
-          {"key":"three", "val": "Windows"},
-          {"key":"four", "val": "Spark"},
-          {"key":"five", "val": "NeXT"}
-        ]
         ],
       optionsArray = [
         {
@@ -176,15 +167,7 @@ window.addEventListener('WebComponentsReady', function() {
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           selectedKey: "",
-          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list[0]) + "'></px-dropdown-content>"
-        },
-        {
-          above:true,
-          displayValue:"Cougar",
-          selectedKey: "",
-          hideChevron:true,
-          preventCloseOnOutsideClick:true,
-          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list[0]) + "'></px-dropdown-content>"
+          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
         }
       ],
       indexPlusOne = function(num) {
@@ -194,6 +177,7 @@ window.addEventListener('WebComponentsReady', function() {
   template.selected = "0";
   template.optionsArray = optionsArray;
   template.indexPlusOne = indexPlusOne;
+  template.list = list;
 });
 </script>
 
