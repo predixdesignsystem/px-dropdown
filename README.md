@@ -21,7 +21,7 @@ Node, npm and bower are necessary to install the component and dependencies. web
 First, install the component via bower on the command line.
 
 ```
-bower install https://github.com/PredixDev/px-dropdown.git --save
+bower install px-dropdown --save
 ```
 
 Second, import the component to your application with the following tag in your head.
