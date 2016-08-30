@@ -18,13 +18,16 @@ Element providing the text for the px-dropdown element
 @homepage index.html
 @demo demo.html
 -->
+<link rel="import" href="css/px-dropdown-text-styles.html">
+
 <dom-module id="px-dropdown-text">
-  <link rel="import" type="css" href="css/px-dropdown-text.css" />
   <template>
-      <span id="textWrap" class="flex__item px-dropdown-text">{{displayValue}}</span>
-      <template is="dom-if" if="{{_includeTooltip(tooltipValue, maxContCharacterWidth)}}">
-          <px-tooltip tooltip-message="{{tooltipValue}}" orientation="top"></px-tooltip>
-      </template>
+    <style include="px-dropdown-text-styles"></style>
+    <style include="px-theme-styles"></style>
+    <span id="textWrap" class="flex__item px-dropdown-text">{{displayValue}}</span>
+    <template is="dom-if" if="{{_includeTooltip(tooltipValue, maxContCharacterWidth)}}">
+        <px-tooltip tooltip-message="{{tooltipValue}}" orientation="top"></px-tooltip>
+    </template>
   </template>
 </dom-module>
 <script>

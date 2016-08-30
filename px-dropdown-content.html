@@ -21,22 +21,25 @@ Element providing the content for the px-dropdown element
 @homepage index.html
 @demo demo.html
 -->
+<link rel="import" href="css/px-dropdown-content-styles.html">
+
 <dom-module id="px-dropdown-content">
-  <link rel="import" type="css" href="css/px-dropdown-content.css" />
   <template>
-      <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
-        <ul class="px-dropdown--list list-bare">
-          <template is="dom-repeat" items={{computedItems}} strip-whitespace>
-            <li class="px-dropdown--listitem u-p--" on-tap="_clickItem" value="{{index}}">
-              <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
-                <input type="checkbox" on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox">
-              </template>{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
-                <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
-              </template>
-            </li>
-          </template>
-        </ul>
-      </div>
+    <style include="px-dropdown-content-styles"></style>
+    <style include="px-theme-styles"></style>
+    <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
+      <ul class="px-dropdown--list list-bare">
+        <template is="dom-repeat" items={{computedItems}} strip-whitespace>
+          <li class="px-dropdown--listitem u-p--" on-tap="_clickItem" value="{{index}}">
+            <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
+              <input type="checkbox" on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox">
+            </template>{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
+              <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
+            </template>
+          </li>
+        </template>
+      </ul>
+    </div>
   </template>
 </dom-module>
 <script>
@@ -171,7 +174,7 @@ Element providing the content for the px-dropdown element
        * By default, the dropdown will constrain scrolling on the page
        * when opened AND the dropdown has a scrollbar.
        * Set to true in order to prevent the page from scrolling while the dropdown is open and has a scrollbar of its own.
-       * 
+       *
        */
       allowOutsideScroll: {
         type: Boolean,
@@ -334,8 +337,8 @@ Element providing the content for the px-dropdown element
          * @property {string} textValue - The text value of the newly selected item
          * @property {string} key - The key of the newly selected item
          */
-        this.fire('dropdown_content_value_changed', 
-          {textValue: this.computedItems[evt.target.value].val, 
+        this.fire('dropdown_content_value_changed',
+          {textValue: this.computedItems[evt.target.value].val,
             key: this.computedItems[evt.target.value].key});
       }
     },

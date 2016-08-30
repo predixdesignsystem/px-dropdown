@@ -24,9 +24,12 @@ Element providing a dropdown solution.
 @homepage index.html
 @demo demo.html
 -->
+<link rel="import" href="css/px-dropdown-styles.html">
+
 <dom-module id="px-dropdown">
-  <link rel="import" type="css" href="css/px-dropdown.css" />
   <template>
+    <style include="px-dropdown-styles"></style>
+    <style include="px-theme-styles"></style>
     <div
     on-tap="triggerClicked"
     on-mouseover="_hoverOn"

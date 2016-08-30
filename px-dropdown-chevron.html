@@ -21,10 +21,12 @@ Element providing a chevron for the px-dropdown element.
 @homepage index.html
 @demo demo.html
 -->
+<link rel="import" href="css/px-dropdown-chevron-styles.html">
 
 <dom-module id="px-dropdown-chevron">
-  <link rel="import" type="css" href="css/px-dropdown-chevron.css" />
   <template>
+    <style include="px-dropdown-chevron-styles"></style>
+    <style include="px-theme-styles"></style>
     <div class$="{{_chevronClass(hover, opened)}} px-dropdown-chevron" id="trigger">
       <iron-icon icon="fa:fa-angle-down" class$="{{_chevronClass(hover, opened)}} angle-down"></iron-icon>
     </div>
