@@ -1,3 +1,11 @@
+v0.12.1
+===============
+* Fixed dropdown-content demo
+
+v0.12.0
+===============
+* Uprev
+
 v0.11.5
 ===============
 * fixed demo bug

@@ -16,7 +16,7 @@
   <link rel="import" href="px-dropdown.html"/>
   <link rel="icon" href="px-favicon.png" type="image/x-icon"/>
   <link rel="import" href="../px-demo-snippet/px-demo-snippet.html">
-  <link rel="import" href="../polymer-font-awesome/polymer-font-awesome.html">
+  <link rel="import" href="../px-polymer-font-awesome/polymer-font-awesome.html">
   <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
 
   </head>
@@ -41,17 +41,17 @@
       <div class="tabContainer u-pt++ u-pl++">
         <px-tab-set selected="{{selected}}" bare no-bottom-border>
           <template is="dom-repeat" items="{{optionsArray}}">
-            <px-tab>Configuration {{indexPlusOne(index)}}</px-tab>
+            <px-tab>Option {{indexPlusOne(index)}}</px-tab>
           </template>
         </px-tab-set>
       </div>
       <px-tab-pages selected="{{selected}}">
         <template is="dom-repeat" items="{{optionsArray}}">
-          <section class="tab-page flex flex--right flex--wrap">
-            <div class="mega-demo flex u-pb++">
-            <!-- Properties -->
-            <div class="properties u-ph+ u-pb+  u-m++">
-              <p class="epsilon">Properties</p>
+          <section class="tab-page">
+            <div class="mega-demo flex u-ph++ u-pb++">
+              <!-- Properties -->
+              <div class="properties u-ph+ u-pb+ u-mt+">
+                  <p class="epsilon">Properties</p>
               <div class="u-mb-">Extend Dropdown by: <input class="text-input" type="text" placeholder="{{item.extendDropdownBy}}" value="{{item.extendDropdownBy::input}}" /></div>
               <div class="flex u-mb-">
                 <input id="extendDropdown{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.extendDropdown::change}}">
@@ -71,10 +71,10 @@
 
             </div>
 
-            <div class="demoContainer u-mr++">
+            <div class="demoContainer u-mt+">
               <!-- demo -->
               <div class="flex flex--col">
-                <div class="flex__item demo u-ph+ u-pb+ u-mt++">
+                <div class="demo u-p+">
                   <br />
                   <div style="width: 100px;">
                     <px-dropdown
@@ -84,7 +84,8 @@
                         extend-dropdown-by="{{item.extendDropdownBy}}"
                         max-cont-character-width="{{item.maxContCharacterWidth}}"
                         items="[[item.items]]"
-                        allow-outside-scroll="{{item.allowOutsideScroll}}">
+                        allow-outside-scroll="{{item.allowOutsideScroll}}"
+                        checkbox-mode="{{item.checkboxMode}}">
                       </px-dropdown-content>
                     </px-dropdown>
                   </div>
@@ -182,7 +183,8 @@ window.addEventListener('WebComponentsReady', function() {
             extendDropdownBy: 30,
             extendDropdown: true,
             allowOutsideScroll: false,
-            parentComponent: ["<px-dropdown display-value='Click Me'>", "</px-dropdown>"]
+            parentComponent: ["<px-dropdown display-value='Click Me'>", "</px-dropdown>"],
+            checkboxMode: false
         },
         {
           items:[
@@ -195,7 +197,8 @@ window.addEventListener('WebComponentsReady', function() {
             extendDropdownBy: 10,
             extendDropdown: true,
             allowOutsideScroll: true,
-            parentComponent: ["<px-dropdown display-value='Click Me'>", "</px-dropdown>"]
+            parentComponent: ["<px-dropdown display-value='Click Me'>", "</px-dropdown>"],
+            checkboxMode: true
         }
       ],
       indexPlusOne = function(num) {
