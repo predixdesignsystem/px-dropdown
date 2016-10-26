@@ -1,3 +1,7 @@
+v0.12.3
+===============
+* Updated dependencies
+
 v0.12.1
 ===============
 * Fixed dropdown-content demo
