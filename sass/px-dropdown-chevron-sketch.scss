@@ -34,6 +34,11 @@ iron-icon {
   width: calculateRem(16px);
   height: calculateRem(16px);
 }
+
+:host.disabled {
+  cursor: not-allowed;
+}
+
 // Trumps
 @import "inuit-clearfix/_trumps.clearfix.scss";
 

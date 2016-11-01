@@ -1,3 +1,7 @@
+v0.13.0
+===============
+* added property for disabled dropdown
+
 v0.12.3
 ===============
 * Updated dependencies

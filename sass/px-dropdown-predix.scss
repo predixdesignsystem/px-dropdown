@@ -33,6 +33,12 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
   &:active{
     color:            var(--dropdown_text_color--pressed, $black);
   }
+  &.disabled {
+    cursor: not-allowed;
+    background-color: var(--dropdown_bg_disabled,$white);
+    color:            var(--dropdown_text_color--disabled,$gray4);
+    border:           var(--dropdown_border_color--disabled,1px solid $gray4);
+  }
 
 }
 .opened {

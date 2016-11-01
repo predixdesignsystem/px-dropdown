@@ -39,6 +39,10 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 
 }
 
+:host.disabled {
+  cursor: not-allowed;
+}
+
 .px-dropdown-text {
   white-space: nowrap;
   text-overflow: ellipsis;
