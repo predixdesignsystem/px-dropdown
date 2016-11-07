@@ -49,27 +49,11 @@ Element providing a dropdown solution.
 <script>
   Polymer({
 
-    /**
-     * dropdown_content_value_changed event, fired when an element is selected.
-     * evt.details contains:
-     * { textValue: "text of the selected element",
-     *   key: "key of the selected element"
-     * }
-     *
-     * @event dropdown_content_value_changed
-     * @type {object}
-     * @property {string} textValue - The text value of the newly selected item
-     * @property {string} key - The key of the newly selected item
-     */
     is: 'px-dropdown',
+
     properties: {
       /**
       * A flag which checks if the dropdown trigger has been clicked or not.
-      *
-      * @property opened
-      * @notify true
-      * @type Boolean
-      * @default false
       */
       opened:{
         type: Boolean,
@@ -78,11 +62,6 @@ Element providing a dropdown solution.
       },
       /**
       * A flag which reflects whether the dropdown is being hovered over.
-      *
-      * @property hover
-      * @notify true
-      * @type Boolean
-      * @default false
       */
       hover: {
         type: Boolean,
@@ -92,23 +71,13 @@ Element providing a dropdown solution.
       /**
       * A flag which reflects whether the content is showing above
       * the dropcell. Read-only.
-      *
-      * @property above
-      * @notify false
-      * @type Boolean
-      * @default false
       */
       above: {
         type: Boolean,
         value: false
       },
       /**
-      * A flag which reflects whether the chevron should be hidden
-      *
-      * @property hideChevron
-      * @observer _hideChevron
-      * @type Boolean
-      * @default false
+      * A flag which reflects whether the chevron should be hidden.
       */
       hideChevron: {
         type: Boolean,
@@ -116,11 +85,7 @@ Element providing a dropdown solution.
       },
       /**
        * An attribute which specifies the bounding target the dropdown will be
-       * displayed within
-       *
-       * @property boundTarget
-       * @type HTMLElement
-       * @default null
+       * displayed within.
        */
       boundTarget : {
         type: HTMLElement,
@@ -128,11 +93,7 @@ Element providing a dropdown solution.
       },
       /**
        * An attribute which specifies whether the dropdown will close when
-       * outside it. Set to true to prevent dropdown from closing
-       *
-       * @property preventCloseOnOutsideClick
-       * @type Boolean
-       * @default false
+       * outside it. Set to true to prevent dropdown from closing.
        */
       preventCloseOnOutsideClick: {
         type: Boolean,
@@ -141,22 +102,13 @@ Element providing a dropdown solution.
       /**
        * An attribute which specifies what text is displayed on the dropdown
        * When selecting a value from the dropdown content both value and display
-       * value will change, with value being set before displayValue
-       *
-       * @property displayValue
-       * @type String
-       * @default ''
+       * value will change, with value being set before displayValue.
        */
       displayValue: {
         type: String,
         notify: true,
         value: ''
       },
-      /**
-       * @property _maxCharWidth
-       * @type Number
-       * @default 0
-       */
       _maxCharWidth: {
         type: Number,
         notify: true,
@@ -164,24 +116,17 @@ Element providing a dropdown solution.
       },
       /**
        * An attribute which specifies the anchor element the content will use to
-       * position itself. Won't be used if null
-       * @property contentAnchor
-       * @type HTMLElement
-       * @default null
+       * position itself. Won't be used if null.
        */
       contentAnchor: {
         type: HTMLElement,
         value: function() { return null;}
       },
       /**
-       * reflects the actual value of the dropdown rather than the displayed one
+       * Reflects the actual value of the dropdown rather than the displayed one
        * (the displayed one can be shortened for example).
        * When selecting a value from the dropdown content both value and display
-       * value will change, with value being set before displayValue
-       *
-       * @property value
-       * @type string
-       * @default ''
+       * value will change, with value being set before displayValue.
        */
       value: {
         type: String,
@@ -191,9 +136,6 @@ Element providing a dropdown solution.
       /**
        * After an item has been selected from the dropdown content this represents the
        * key of this item. Empty if no item has been selected yet.
-       * @property selectedKey
-       * @type String
-       * @default ''
        */
       selectedKey: {
         type: String,
@@ -203,8 +145,6 @@ Element providing a dropdown solution.
       /**
        * Boolean representing whether the component is active or disabled.
        * When disabled, the user is unable to interact with the dropdown.
-       * @property disabled
-       * @default false
        */
       disabled: {
         type: Boolean,
@@ -215,10 +155,10 @@ Element providing a dropdown solution.
       '_boundTargetChanged(boundTarget, isAttached)'
     ],
     listeners: {
-      'dropdown_flip': '_flipOpened',
-      'dropdown_content_request_size':  '_provideCellSize',
-      'dropdown_content_value_changed': '_newTextValue',
-      'maxContCharacterWidth': '_newMaxContCharWidth'
+      'px-dropdown-flip': '_flipOpened',
+      'px-dropdown-request-size':  '_provideCellSize',
+      'px-dropdown-value-changed': '_newTextValue',
+      'px-dropdown-max-width': '_newMaxContCharWidth'
     },
     attached: function() {
       //capture all clicks so that we can close the dropdown if the user
@@ -239,13 +179,10 @@ Element providing a dropdown solution.
     },
     /**
     * This function is called when we have a newly selected value.
-    * @method _newTextValue
-    * @param evt
-    *
     */
     _newTextValue: function(evt) {
-      this.set('value', evt.detail.textValue);
-      this.set('displayValue',evt.detail.textValue);
+      this.set('value', evt.detail.val);
+      this.set('displayValue',evt.detail.val);
       this.set('selectedKey', evt.detail.key);
 
       this.fire('change');
@@ -253,18 +190,14 @@ Element providing a dropdown solution.
       evt.stopPropagation();
     },
     /**
-    * This function is called when we have a maximum character width
-    * @method _newTextValue
-    * @param evt
+    * This function is called when we have a maximum character width.
     */
     _newMaxContCharWidth: function(evt) {
       this.set('_maxCharWidth', evt.detail.maxContCharacterWidth);
       evt.stopPropagation();
     },
     /**
-    * This function provide the cell size to the dropdown content
-    * @method _provideCellSize
-    * @param evt
+    * This function provide the cell size to the dropdown content.
     */
     _provideCellSize: function(evt) {
       var dropcell = this.contentAnchor ? this.contentAnchor : this.$.dropcell,
@@ -276,18 +209,13 @@ Element providing a dropdown solution.
       evt.stopPropagation();
     },
     /**
-    * This function checks whether the chevron should be visible or
-    * hidden.
-    * @method _hideChevron
-    * @param newValue
+    * This function checks whether the chevron should be visible or hidden.
     */
     _hideChevron: function(newValue) {
       return (!this.hideChevron);
     },
     /**
-     * Returns whether this dropdown is within the path
-     * @method _selfInPath
-     * @param path
+     * Returns whether this dropdown is within the path.
      */
     _selfInPath: function(path) {
       path = path || [];
@@ -298,9 +226,7 @@ Element providing a dropdown solution.
       }
     },
     /**
-     * called whenever a click happens
-     * @method _onCaptureClick
-     * @param evt
+     * Called whenever a click happens.
      */
     _onCaptureClick: function(evt) {
 
@@ -318,10 +244,7 @@ Element providing a dropdown solution.
       }
     },
     /**
-    * This function is called when the bound target has changed
-    * @method _boundTargetChanged
-    * @param boundTarget
-    * @param isAttached
+    * This function is called when the bound target has changed.
     */
     _boundTargetChanged: function(boundTarget, isAttached) {
       //find the element if we have been passed an id
@@ -330,19 +253,12 @@ Element providing a dropdown solution.
             Polymer.dom(this.ownerDocument).querySelector('#' + boundTarget);
       }
     },
-    /**
-    *
-    * @method _computeValue
-    * @param displayValue
-    */
     _computeValue: function(displayValue) {
       return displayValue;
     },
    /**
    * This function is called when the dropdown trigger/chevron is clicked, and
    * it either opens or closes (shows/hides) the content.
-   * @method triggerClicked
-   * @param evt
    */
     triggerClicked: function(evt) {
       var content = Polymer.dom(this).querySelector("px-dropdown-content");
@@ -354,13 +270,10 @@ Element providing a dropdown solution.
         content.close();
         this._reset();
       }
-      this._flipOpened();
-      this.fire('dropdownStateChanged', evt);
+      this.fire('px-dropdown-flip',evt);
     },
     /**
-    * This function flips the "opened" property
-    * @method _flipOpened
-    * @param evt
+    * This function flips the "opened" property.
     */
     _flipOpened: function(evt) {
       this._fireChevron('opened');
@@ -373,8 +286,6 @@ Element providing a dropdown solution.
     /**
     * This function checks to make sure the chevron exists, and if it does,
     * fire an event.
-    * @method _fireChevron
-    * @param evt
     */
     _fireChevron: function(fireEvent) {
       var chevron = this.$$('px-dropdown-chevron');
@@ -384,11 +295,7 @@ Element providing a dropdown solution.
     },
     /**
     * This function returns the correct class for the chevron
-    * depending on the state of the component
-    * @method _dropcellClass
-    * @param opened
-    * @param hover
-    * @param disabled
+    * depending on the state of the component.
     */
     _dropcellClass: function(opened, hover, disabled) {
       if (this.opened) {
@@ -401,9 +308,7 @@ Element providing a dropdown solution.
     },
     /**
     * This function returns the correct class for the text
-    * depending on the state of the component
-    * @method _disabledClass
-    * @param disabled
+    * depending on the state of the component.
     */
     _disabledClass: function(disabled) {
       if (this.disabled) {
@@ -416,7 +321,6 @@ Element providing a dropdown solution.
     /**
     * This function fires off a hoverOn event which px-dropdown-chevron
     * picks up, and sets the hover property to true.
-    * @method _hoverOn
     */
     _hoverOn: function() {
       /*
@@ -431,7 +335,6 @@ Element providing a dropdown solution.
     /**
     * This function fires off a hoverOff event which px-dropdown-chevron
     * picks up, and sets the hover property to false.
-    * @method _hoverOff
     */
     _hoverOff: function() {
       /*
@@ -446,7 +349,6 @@ Element providing a dropdown solution.
     /**
     * This function resets the above property as well as set
     * the top property to empty string - not 0, which causes firefox to miscalculate.
-    * @method _reset
     */
     _reset: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
@@ -456,8 +358,7 @@ Element providing a dropdown solution.
     },
     /**
     * This function changes the position of the dropdown content
-    * if the content area goes under the viewport
-    * @method _setPosition
+    * if the content area goes under the viewport.
     */
     _setPosition: function() {
       this._reset();
@@ -471,8 +372,7 @@ Element providing a dropdown solution.
     },
     /**
     * This function changes the position of the dropdown content
-    * to be next to this.contentAnchor rather than the dropcell
-    * @method _positionOnContentAnchor
+    * to be next to this.contentAnchor rather than the dropcell.
     */
     _positionOnContentAnchor: function() {
       if(this.contentAnchor) {
@@ -487,8 +387,7 @@ Element providing a dropdown solution.
     },
     /**
     * This function figures out whether the content area for the dropdown is
-    * under the viewport
-    * @method _isoffScreenOnBottom
+    * under the viewport.
     */
     _isoffScreenOnBottom: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
@@ -499,9 +398,7 @@ Element providing a dropdown solution.
       return dropdownBottomPoint > window.innerHeight;
     },
     /**
-    * This function appropriately positions the dropdown within the bounds given
-    * @method positionWithinBounds
-    * @param parentBoundingRect
+    * This function appropriately positions the dropdown within the bounds given.
     */
     positionWithinBounds: function(parentBoundingRect) {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
@@ -542,7 +439,6 @@ Element providing a dropdown solution.
     /**
     * This function changes the position of the content area to be above
     * the dropcell, instead of the default below.
-    * @method setTopPosition
     */
     _setTopPosition: function() {
       var content = Polymer.dom(this).querySelector('px-dropdown-content'),
@@ -555,5 +451,30 @@ Element providing a dropdown solution.
       dropdown.style.top = newTop;
       this.above = true;
     }
+  // These are all events that are used by px-dropdown-content, adding them here so they show up in the API document.
+  /**
+  * Event fired when any given element is selected or deselected in checkboxMode.
+  * `evt.detail` contains:
+  * ```
+  * { val: "text of the changed element",
+  *   key: "key of the changed element",
+  *   checked: true/false,
+  *   items: [the updated items array] }
+  * ```
+  * @event px-dropdown-checkbox-changed
+  */
+  /**
+  * Event fired when a single element is selected if NOT in checkboxMode.
+  * `evt.detail` contains:
+  * ```
+  * { val: "text of the selected element",
+  *   key: "key of the selected element" }
+  * ```
+  * @event px-dropdown-value-changed
+  */
+  /**
+  * Event fired when an element is clicked  on in the dropdown.
+  * @event px-dropdown-click
+  */
   });
 </script>

@@ -131,15 +131,15 @@ function runCustomTests() {
            dropdown_li = Polymer.dom(dropdown).querySelectorAll('li')[2];
 
         var li_click = function(e) {
-          assert.equal(e.detail.textValue, 'Three');
+          assert.equal(e.detail.val, 'Three');
           assert.equal(e.detail.key, 'three');
           assert.equal(px_dropdown.displayValue, 'Three');
           assert.equal(px_dropdown.selectedKey, 'three');
           done();
         };
-        px_dropdown.addEventListener('dropdown_content_value_changed', li_click);
+        px_dropdown.addEventListener('px-dropdown-value-changed', li_click);
         dropdown_li.click();
-        px_dropdown.removeEventListener('dropdown_content_value_changed', li_click);
+        px_dropdown.removeEventListener('px-dropdown-value-changed', li_click);
       });
 
 
@@ -234,14 +234,14 @@ function runCustomTests() {
        //double check the html element
        assert.isTrue(checkboxes[0].checked);
        //second unchecked
-       assert.isFalse(px_dropdown_content.items[1].checked);
+       assert.isTrue(!px_dropdown_content.items[1].checked);
 
        clickHandle = function() {
          //first element must now be uncheckd, second still unchecked
-         assert.isFalse(px_dropdown_content.items[0].checked);
+         assert.isTrue(!px_dropdown_content.items[0].checked);
          //double check the html element
-         assert.isFalse(checkboxes[0].checked);
-         assert.isFalse(px_dropdown_content.items[1].checked);
+         assert.isTrue(!checkboxes[0].checked);
+         assert.isTrue(!px_dropdown_content.items[1].checked);
 
          //dropdown must still be opened
          assert.isTrue(px_dropdown_content.menuOpen);
