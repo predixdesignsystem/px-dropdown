@@ -164,16 +164,16 @@
 window.addEventListener('WebComponentsReady', function() {
   var template = document.querySelector('template[is=dom-bind]'),
       list = [
-          {"key":"one", "val": "Iphone"},
-          {"key":"two", "val": "Android"},
-          {"key":"three", "val": "Blackberry"},
-          {"key":"four", "val": "Windows Phone"}
+          {"key":"1", "val": "iPhone"},
+          {"key":"2", "val": "Android"},
+          {"key":"3", "val": "Blackberry"},
+          {"key":"4", "val": "Windows Phone"}
         ],
       optionsArray = [
         {
           disabled: false,
           above:false,
-          displayValue:"Elephant",
+          displayValue:"Select",
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           selectedKey: "",
@@ -182,7 +182,7 @@ window.addEventListener('WebComponentsReady', function() {
         {
           disabled: true,
           above:false,
-          displayValue:"Elephant",
+          displayValue:"Select",
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           selectedKey: "",
@@ -192,6 +192,12 @@ window.addEventListener('WebComponentsReady', function() {
       indexPlusOne = function(num) {
         return num + 1;
       };
+
+      // window.setTimeout(function() {
+      //   window.addEventListener('px-dropdown-checkbox-changed', function(evt) {
+      //     console.log(evt.detail);
+      //   });
+      // },300);
 
   template.selected = "0";
   template.optionsArray = optionsArray;

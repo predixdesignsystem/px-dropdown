@@ -14,7 +14,7 @@
   <link rel="import" href="../px-api-viewer/px-api-viewer.html" />
   <link rel="import" href="../px-tabs/px-tab-set.html" />
   <link rel="import" href="px-dropdown.html"/>
-  <link rel="icon" href="px-favicon.png" type="image/x-icon"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
   <link rel="import" href="../px-demo-snippet/px-demo-snippet.html">
   <link rel="import" href="../px-polymer-font-awesome/polymer-font-awesome.html">
   <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
@@ -61,7 +61,7 @@
               <div class="flex u-mb-">
                 <input id="allowOutsideScroll{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.allowOutsideScroll::change}}">
                 <label for$="allowOutsideScroll{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
-                <div class="u-ml-">allow Outside Scroll</div>
+                <div class="u-ml-">Allow Outside Scroll</div>
               </div>
               <div class="flex u-mb-">
                 <input id="checkboxMode{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.checkboxMode::change}}">
@@ -159,26 +159,26 @@ window.addEventListener('WebComponentsReady', function() {
       optionsArray = [
         {
           items:[
-              {"key":"one", "val": "Rhino"},
-              {"key":"two", "val": "Giraffe"},
-              {"key":"three", "val": "Lion"},
-              {"key":"four", "val": "Dodo"},
-              {"key":"five", "val": "hippopotamus"},
-              {"key":"one", "val": "Rhino"},
-              {"key":"two", "val": "Giraffe"},
-              {"key":"three", "val": "Lion"},
-              {"key":"four", "val": "Dodo"},
-              {"key":"five", "val": "hippopotamus"},
-              {"key":"one", "val": "Rhino"},
-              {"key":"two", "val": "Giraffe"},
-              {"key":"three", "val": "Lion"},
-              {"key":"four", "val": "Dodo"},
-              {"key":"five", "val": "hippopotamus"},
-              {"key":"one", "val": "Rhino"},
-              {"key":"two", "val": "Giraffe"},
-              {"key":"three", "val": "Lion"},
-              {"key":"four", "val": "Dodo"},
-              {"key":"five", "val": "hippopotamus"}
+              {"key":"1", "val": "Rhino"},
+              {"key":"2", "val": "Giraffe"},
+              {"key":"3", "val": "Lion"},
+              {"key":"4", "val": "Dodo"},
+              {"key":"5", "val": "Hippopotamus"},
+              {"key":"6", "val": "Rhino"},
+              {"key":"7", "val": "Giraffe"},
+              {"key":"8", "val": "Lion"},
+              {"key":"9", "val": "Dodo"},
+              {"key":"10", "val": "Hippopotamus"},
+              {"key":"11", "val": "Rhino"},
+              {"key":"12", "val": "Giraffe"},
+              {"key":"13", "val": "Lion"},
+              {"key":"14", "val": "Dodo"},
+              {"key":"15", "val": "Hippopotamus"},
+              {"key":"16", "val": "Rhino"},
+              {"key":"17", "val": "Giraffe"},
+              {"key":"18", "val": "Lion"},
+              {"key":"19", "val": "Dodo"},
+              {"key":"20", "val": "Hippopotamus"}
             ],
             extendDropdownBy: 30,
             extendDropdown: true,
@@ -188,11 +188,11 @@ window.addEventListener('WebComponentsReady', function() {
         },
         {
           items:[
-              {"key":"one", "val": "Linux"},
-              {"key":"two", "val": "Mac"},
-              {"key":"three", "val": "Windows"},
-              {"key":"four", "val": "Spark"},
-              {"key":"five", "val": "NeXT"}
+              {"key":"1", "val": "Linux"},
+              {"key":"2", "val": "Mac"},
+              {"key":"3", "val": "Windows"},
+              {"key":"4", "val": "Spark"},
+              {"key":"5", "val": "NeXT"}
             ],
             extendDropdownBy: 10,
             extendDropdown: true,
@@ -204,6 +204,12 @@ window.addEventListener('WebComponentsReady', function() {
       indexPlusOne = function(num) {
         return num + 1;
       };
+
+      // window.setTimeout(function() {
+      //   window.addEventListener('px-dropdown-checkbox-changed', function(evt) {
+      //     console.log(evt.detail);
+      //   });
+      // },300);
 
   template.selected = "0";
   template.optionsArray = optionsArray;
