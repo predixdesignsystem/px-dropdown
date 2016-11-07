@@ -1,3 +1,7 @@
+v1.0.0
+===============
+* accepted PR that fixed multiple checkbox behavior and standardized event names
+
 v0.13.0
 ===============
 * added property for disabled dropdown
