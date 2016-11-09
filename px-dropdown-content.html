@@ -29,8 +29,9 @@ Element providing the content for the px-dropdown element
     <style include="px-theme-styles"></style>
     <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
       <ul class="px-dropdown--list list-bare">
+        <!-- search input -->
         <template is="dom-if" if="{{searchMode}}">
-          <li class="px-dropdown--listitem u-p--">
+          <li class="px-dropdown--listitem px-dropdown--searchitem u-p--">
             <input type="search" style="width:100%;" placeholder="{{searchPlaceHolder}}" value="{{searchTerm::input}}"/>
           </li>
         </template>
@@ -401,7 +402,7 @@ Element providing the content for the px-dropdown element
         // return a filter function for the current search string
         searchTerm = searchTerm.toLowerCase();
         return function(entry) {
-          return entry.val.toLowerCase().indexOf(searchTerm) != -1;
+          return entry.val.toLowerCase().indexOf(searchTerm) > -1;
         };
       }
     },

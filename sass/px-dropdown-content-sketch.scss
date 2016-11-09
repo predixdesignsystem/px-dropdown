@@ -46,6 +46,12 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &.px-dropdown--searchitem{
+    &:hover{
+      background-color:transparent;
+    }
+  }
 }
 
 .px-dropdown--checkbox {
