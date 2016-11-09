@@ -29,7 +29,12 @@ Element providing the content for the px-dropdown element
     <style include="px-theme-styles"></style>
     <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
       <ul class="px-dropdown--list list-bare">
-        <template is="dom-repeat" items={{computedItems}} strip-whitespace>
+        <template is="dom-if" if="{{searchMode}}">
+          <li class="px-dropdown--listitem u-p--">
+            <input type="search" style="width:100%;" placeholder="{{searchPlaceHolder}}" value="{{searchTerm::input}}"/>
+          </li>
+        </template>
+        <template is="dom-repeat" items={{computedItems}} filter="{{_computeFilter(searchTerm)}}" observe="searchTerm" delay="1000" strip-whitespace>
           <li class="px-dropdown--listitem u-p--" on-tap="_clickItem" value="{{index}}">
             <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
               <input type="checkbox" data-key={{item.key}} on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox">
@@ -68,6 +73,29 @@ Element providing the content for the px-dropdown element
         type: Array,
         value: function() {return [];},
         computed: '_computedItems(items, items.*)'
+      },
+      /**
+       * If true then list will be filtered by search term
+       */
+      searchMode:{
+        type:Boolean,
+        value: false,
+        observer:'_searchModeChanged'
+      },
+      /**
+       * String specifying value that items must contain in
+       * order to be displayed in the list
+       */
+      searchTerm:{
+        type:String,
+        value:''
+      },
+      /**
+       * String specifying placeholder value in search input
+       */
+      searchPlaceHolder:{
+        type:String,
+        value:''
       },
       /**
        * A read-only property that tells you if the user has selected anything from the dropdown.
@@ -301,8 +329,8 @@ Element providing the content for the px-dropdown element
          * @event px-dropdown-value-changed
          */
         this.fire('px-dropdown-value-changed',
-          {val: this.computedItems[evt.target.value].val,
-            key: this.computedItems[evt.target.value].key});
+          {val: evt.model.item.val,
+            key: evt.model.item.key});
       }
     },
     /**
@@ -363,6 +391,23 @@ Element providing the content for the px-dropdown element
           });
           return computedItemsArr;
         }
+      }
+    },
+    _computeFilter: function(searchTerm) {
+      if (!this.searchMode || !searchTerm.length) {
+        // set filter to null to disable filtering
+        return null;
+      } else {
+        // return a filter function for the current search string
+        searchTerm = searchTerm.toLowerCase();
+        return function(entry) {
+          return entry.val.toLowerCase().indexOf(searchTerm) != -1;
+        };
+      }
+    },
+    _searchModeChanged:function(newVal,oldVal){
+      if(!newVal && oldVal){
+        this.set('searchTerm','');
       }
     }
   });

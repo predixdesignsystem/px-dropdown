@@ -68,7 +68,16 @@
                 <label for$="checkboxMode{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
                 <div class="u-ml-">Checkbox Mode</div>
               </div>
-
+                <div class="flex u-mb-">
+                  <input id="searchMode{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.searchMode::change}}">
+                  <label for$="searchMode{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                  <div class="u-ml-">Search Mode</div>
+                </div>
+                <template is="dom-if" if="{{item.searchMode}}">
+                <div class="flex u-mb-">
+                  <div class="u-mb-">Search Input Place-holder: <input id="searchPlaceHolder{{indexPlusOne(index)}}" class="text-input" type="text" value="{{item.searchPlaceHolder::input}}"/></div>
+                </div>
+                </template>
             </div>
 
             <div class="demoContainer u-mt+">
@@ -85,7 +94,9 @@
                         max-cont-character-width="{{item.maxContCharacterWidth}}"
                         items="[[item.items]]"
                         allow-outside-scroll="{{item.allowOutsideScroll}}"
-                        checkbox-mode="{{item.checkboxMode}}">
+                        checkbox-mode="{{item.checkboxMode}}"
+                        search-mode="{{item.searchMode}}"
+                        search-place-holder="{{item.searchPlaceHolder}}">
                       </px-dropdown-content>
                     </px-dropdown>
                   </div>
@@ -184,7 +195,9 @@ window.addEventListener('WebComponentsReady', function() {
             extendDropdown: true,
             allowOutsideScroll: false,
             parentComponent: ["<px-dropdown display-value='Click Me'>", "</px-dropdown>"],
-            checkboxMode: false
+            checkboxMode: false,
+            searchMode:true,
+            searchPlaceHolder:'filter by'
         },
         {
           items:[
@@ -198,7 +211,9 @@ window.addEventListener('WebComponentsReady', function() {
             extendDropdown: true,
             allowOutsideScroll: true,
             parentComponent: ["<px-dropdown display-value='Click Me'>", "</px-dropdown>"],
-            checkboxMode: true
+            checkboxMode: true,
+            searchMode:false,
+            searchPlaceHolder:'filter by'
         }
       ],
       indexPlusOne = function(num) {
