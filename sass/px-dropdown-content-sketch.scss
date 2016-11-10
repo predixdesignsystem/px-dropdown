@@ -34,13 +34,27 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   width: 100%;
   left: 0;
   position: absolute;
-  height: auto;
   z-index: 1;
-  max-height: calculateRem(222px);
-  overflow-y: auto;
   cursor: pointer;
   margin: var(--dropdown_content_margin, 0);
+
+  .px-dropdown--search{
+    width:100%;
+    input{
+      border-radius:4px;
+      width:100%;
+    }
+  }
+
+  .scrollable-content{
+    width:100%;
+    max-height: calculateRem(222px);
+    height: auto;
+    overflow-y:auto;
+  }
 }
+
+
 
 .px-dropdown--listitem {
   overflow-x: hidden;
