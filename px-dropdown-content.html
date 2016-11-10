@@ -33,13 +33,13 @@ Element providing the content for the px-dropdown element
       <!-- search input -->
       <template is="dom-if" if="{{searchMode}}">
         <div class="px-dropdown--search u-p--">
-          <input type="search" placeholder="{{searchPlaceHolder}}" value="{{searchTerm::input}}"/>
+          <input type="search" placeholder="{{searchPlaceHolder}}" value="{{searchInputVal::input}}" on-keyup="_handleSearchKeyUp"/>
         </div>
       </template>
 
       <div class="scrollable-content">
       <ul class="px-dropdown--list list-bare">
-        <template is="dom-repeat" items={{computedItems}} filter="{{_computeFilter(searchTerm)}}" observe="searchTerm" delay="3000" strip-whitespace>
+        <template is="dom-repeat" items={{computedItems}} filter="{{_computeFilter(searchTerm)}}" observe="searchTerm" strip-whitespace>
           <li class="px-dropdown--listitem u-p--" on-tap="_clickItem" value="{{index}}">
             <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
               <input type="checkbox" data-key={{item.key}} on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox">
@@ -105,6 +105,13 @@ Element providing the content for the px-dropdown element
       searchPlaceHolder:{
         type:String,
         value:''
+      },
+      /**
+       */
+      searchInputVal:{
+        type:String,
+        value:'',
+        observer:'_searchInputValChanged'
       },
       /**
        * A read-only property that tells you if the user has selected anything from the dropdown.
@@ -414,9 +421,19 @@ Element providing the content for the px-dropdown element
         };
       }
     },
+    _searchInputValChanged:function(searchInputVal){
+      if(!searchInputVal.length){
+        this.set('searchTerm','');
+      }
+    },
     _searchModeChanged:function(newVal,oldVal){
       if(!newVal && oldVal){
         this.set('searchTerm','');
+      }
+    },
+    _handleSearchKeyUp:function(evt){
+      if(evt.keyCode === 13){
+        this.set('searchTerm',this.searchInputVal);
       }
     }
   });
