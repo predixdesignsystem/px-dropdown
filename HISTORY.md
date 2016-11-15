@@ -1,3 +1,7 @@
+v2.0.1
+==================
+* added the style header in the docs
+
 v2.0.0
 ==================
 * added css variables, and changed previous ones to match the BEM naming.
