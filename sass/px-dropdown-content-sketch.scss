@@ -39,7 +39,7 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   max-height: calculateRem(222px);
   overflow-y: auto;
   cursor: pointer;
-  margin: var(--dropdown_content_margin, 0);
+  margin: var(--px-dropdown-content-margin, 0);
 }
 
 .px-dropdown--listitem {
