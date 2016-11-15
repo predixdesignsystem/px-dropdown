@@ -1,3 +1,6 @@
+v2.0.0
+==================
+* added css variables, and changed previous ones to match the BEM naming.
 
 v1.0.1
 ==================

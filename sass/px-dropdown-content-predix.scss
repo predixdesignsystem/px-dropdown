@@ -27,15 +27,15 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
 // Component
 
 .px-dropdown--content{
-  background-color: $gray1;
+  background-color: var(--px-dropdown-content-background-color, $gray1);
   border-radius: 3px;
-  border: 1px solid $gray5;
-  color: $black;
+  border: 1px solid var(--px-dropdown-content-border-color, $gray5);
+  color: var(--px-dropdown-content-text-color, $black);
 }
 .px-dropdown--listitem {
   &:hover {
-    background-color: $select-blue-default;
-    color: $white;
+    background-color: var(--px-dropdown-list-item-background-color,$select-blue-default);
+    color: var(--px-dropdown-list-item-text-color,$white);
   }
 &:first-child {
     border-radius: 4px 4px 0 0;

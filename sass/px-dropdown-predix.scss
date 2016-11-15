@@ -22,26 +22,26 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 @import 'px-dropdown-sketch.scss';
 
 .dropcell {
-  background-color:   var(--dropdown_bg_default,$gray3);
-  border:             var(--dropdown_border_color, 1px solid $gray5);
+  background-color:   var(--px-dropdown-bg--default,$gray3);
+  border:             var(--dropdown-border-color, 1px solid $gray5);
   border-radius: 3px;
   cursor: pointer;
   &:hover{
-    background-color: var(--dropdown_bg_hover,$gray5);
-    color:            var(--dropdown_text_color--hover, $black);
+    background-color: var(--px-dropdown-bg--hover,$gray5);
+    color:            var(--px-dropdown-text-color--hover, $black);
   }
   &:active{
-    color:            var(--dropdown_text_color--pressed, $black);
+    color:            var(--px-dropdown-text-color--pressed, $black);
   }
   &.disabled {
     cursor: not-allowed;
-    background-color: var(--dropdown_bg_disabled,$white);
-    color:            var(--dropdown_text_color--disabled,$gray4);
-    border:           var(--dropdown_border_color--disabled,1px solid $gray4);
+    background-color: var(--px-dropdown-bg--disabled,$white);
+    color:            var(--px-dropdown-text-color--disabled,$gray4);
+    border:           var(--px-dropdown-border-color--disabled,1px solid $gray4);
   }
 
 }
 .opened {
-  background-color:   var(--dropdown_bg_opened,$gray6);
-  color:              var(--dropdown_text--opened, $black);
+  background-color:   var(--px-dropdown-bg--opened,$gray6);
+  color:              var(--px-dropdown-text--opened, $black);
 }
