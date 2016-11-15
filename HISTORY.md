@@ -1,3 +1,8 @@
+
+v1.0.1
+==================
+* bower updating px-demo-snippet
+
 v1.0.0
 ===============
 * accepted PR that fixed multiple checkbox behavior and standardized event names
