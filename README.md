@@ -45,7 +45,7 @@ Finally, use the component in your application:
 
 ## documentation
 
-Read the full API and view the demo [here](https://predixdev.github.io/px-dropdown).
+Read the full API and view the demo [here](https://budsalvetti.github.io/px-dropdown).
 
 Also, make sure to look at the demo-angular.html page for an example of using Polymer with Angular.
 

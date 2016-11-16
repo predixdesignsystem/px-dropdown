@@ -430,10 +430,13 @@ Element providing the content for the px-dropdown element
      * if the searchInputVal gets cleared
      * we need to also set the searchTerm to an empty string
      * to trigger a re-run of the the filter
+     * and inform the parent component the the dropdown
+     * height may have changed
      */
     _searchInputValChanged:function(searchInputVal){
       if(!searchInputVal.length){
         this.set('searchTerm','');
+        this._handleHeightChange();
       }
     },
     /**
@@ -443,19 +446,36 @@ Element providing the content for the px-dropdown element
      * searchTerm
      */
     _searchModeChanged:function(newVal,oldVal){
+
       if(!newVal && oldVal){
         this.set('searchTerm','');
       }
+
     },
     /**
-     * watches for enter key press on
-     * search input
+     * watches for 'enter' key press on
+     * search input. If the user has
      * @param evt
      */
     _handleSearchKeyUp:function(evt){
       if(evt.keyCode === 13){
         this.set('searchTerm',this.searchInputVal);
+        this._handleHeightChange();
       }
+    },
+    /**
+     * the height may have changed as result of
+     * filtering the list so we will dispatch an
+     * event that the parent px-dropdown will listen
+     * for that will re-position the dropdown to
+     * account for the height change
+     */
+    _handleHeightChange:function(){
+      var _this = this;
+      //delay it by 1 second to account for re rendering after change
+      setTimeout(function(){
+        _this.fire('px-dropdown-content-height-changed'),1000
+      });
     }
   });
 </script>

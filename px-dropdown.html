@@ -158,7 +158,8 @@ Element providing a dropdown solution.
       'px-dropdown-flip': '_flipOpened',
       'px-dropdown-request-size':  '_provideCellSize',
       'px-dropdown-value-changed': '_newTextValue',
-      'px-dropdown-max-width': '_newMaxContCharWidth'
+      'px-dropdown-max-width': '_newMaxContCharWidth',
+      'px-dropdown-content-height-changed':'_setPosition'
     },
     attached: function() {
       //capture all clicks so that we can close the dropdown if the user
