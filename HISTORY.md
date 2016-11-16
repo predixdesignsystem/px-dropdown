@@ -1,3 +1,7 @@
+v2.0.2
+==================
+* fixed style variables for consistency
+
 v2.0.1
 ==================
 * added the style header in the docs
