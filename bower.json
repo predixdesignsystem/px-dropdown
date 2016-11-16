@@ -1,13 +1,13 @@
 {
     "name": "px-dropdown",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "main": [
         "px-dropdown.html"
     ],
     "ignore": [
         ".*",
         "npm-debug.log",
-        "Gruntfile.js",
+        "gulpfile.js",
         "sass",
         "bower_components",
         "node_modules",

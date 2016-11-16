@@ -1,3 +1,8 @@
+
+v2.0.3
+==================
+* changing Gruntfile.js to gulpfile.js
+
 v2.0.2
 ==================
 * fixed style variables for consistency
