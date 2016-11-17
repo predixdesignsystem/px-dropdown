@@ -23,7 +23,7 @@ Element providing the text for the px-dropdown element
 <dom-module id="px-dropdown-text">
   <template>
     <style include="px-dropdown-text-styles"></style>
-    <style include="px-theme-styles"></style>
+    
     <span id="textWrap" class="flex__item px-dropdown-text">{{displayValue}}</span>
     <template is="dom-if" if="{{_includeTooltip(tooltipValue, maxContCharacterWidth)}}">
         <px-tooltip tooltip-message="{{tooltipValue}}" orientation="top"></px-tooltip>
