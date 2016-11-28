@@ -25,6 +25,7 @@ Custom property | Description | Default
 `--px-dropdown-bg--default`| The default background color for the dropcell | $gray3
 `--dropdown-border-color`| The border color for the dropcell | $gray5
 `--px-dropdown-bg--hover`| The border color for the dropcell when hovered | $gray5
+`--px-dropdown-text-color`| The default text color for the dropcell | $black
 `--px-dropdown-text-color--hover`| The text color for the dropcell when hovered | $black
 `--px-dropdown-text-color--pressed`| The text color for the dropcell when pressed | $black
 `--px-dropdown-bg--disabled`| The background color for the dropcell when disabled | $white
@@ -51,7 +52,7 @@ Custom property | Description | Default
 <dom-module id="px-dropdown">
   <template>
     <style include="px-dropdown-styles"></style>
-    
+
     <div
     on-tap="triggerClicked"
     on-mouseover="_hoverOn"

@@ -1,3 +1,7 @@
+v2.0.7
+==================
+* added --px-dropdown-text-color css var
+
 v2.0.6
 ==================
 * changing all devDeps to ^
