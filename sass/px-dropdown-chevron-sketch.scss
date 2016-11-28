@@ -33,6 +33,7 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 iron-icon {
   width: calculateRem(16px);
   height: calculateRem(16px);
+  color: var(--px-dropdown-text-color, $black);
 }
 
 :host.disabled {
