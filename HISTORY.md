@@ -1,3 +1,7 @@
+v2.0.8
+==================
+* changing browser in wct testing from safari 8 to safari 10 on elcapitan
+
 v2.0.7
 ==================
 * added --px-dropdown-text-color css var
