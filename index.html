@@ -70,6 +70,11 @@
                     <div class="u-ml-">Hide Chevron</div>
                   </div>
                   <div class="flex u-mb-">
+                    <input id="checkboxMode{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.checkboxMode::change}}">
+                    <label for$="checkboxMode{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                    <div class="u-ml-">Checkbox Mode</div>
+                  </div>
+                  <div class="flex u-mb-">
                     <input id="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.preventCloseOnOutsideClick::change}}">
                     <label for$="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
                     <div class="u-ml-">Prevent Close On Outside Click</div>
@@ -90,7 +95,7 @@
                         selected-key="{{item.selectedKey}}"
                         prevent-close-on-outside-click="{{item.preventCloseOnOutsideClick}}"
                         disabled="{{item.disabled}}">
-                        <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="{{list}}">
+                        <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="{{list}}" checkbox-mode="{{item.checkboxMode}}">
                         </px-dropdown-content>
                       </px-dropdown>
                     </div>
