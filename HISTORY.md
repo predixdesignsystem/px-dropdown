@@ -1,3 +1,7 @@
+v2.1.1
+==================
+* Updated iron-dropdown dependency
+
 v2.1.0
 ==================
 * Updated dependencies
