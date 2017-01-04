@@ -23,7 +23,7 @@
     "px-tooltip": "^0.10.0",
     "px-spacing-design": "^0.4.0",
     "px-polymer-font-awesome": "^1.1.0",
-    "px-defaults-design": "^1.0.2"
+    "px-defaults-design": "^1.0.2",
     "iron-dropdown": "^1.5.4"
   },
   "devDependencies": {
