@@ -1,3 +1,7 @@
+v2.1.2
+==================
+* updating dropdown styles to match spec and adding checkbox mode to demo
+
 v2.1.1
 ==================
 * Updated iron-dropdown dependency
