@@ -130,6 +130,8 @@
                         <ul>
                           <li><a href="http://predixdev.github.io/px-data-table/px-data-table/index.html">px-data-table</a></li>
                           <li><a href="https://predixdev.github.io/px-datetime-range-field/px-datetime-range-field/index.html">px-datetime-range-field</a></li>
+                          <li><a href="https://predixdev.github.io/px-validation/px-validation/index.html">px-validation</a></li>
+                          <li><a href="https://predixdev.github.io/px-forms-design/px-forms-design/index.html">px-forms-design</a></li>
                         </ul>
                       </div>
                     </div>
@@ -182,9 +184,18 @@ window.addEventListener('WebComponentsReady', function() {
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           selectedKey: "",
+          checkboxMode: false,
           lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
-        },
-        {
+        },{
+          disabled: false,
+          above:false,
+          displayValue:"Select",
+          hideChevron:false,
+          preventCloseOnOutsideClick:false,
+          selectedKey: "",
+          checkboxMode: true,
+          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
+        },{
           disabled: true,
           above:false,
           displayValue:"Select",

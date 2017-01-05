@@ -8,7 +8,7 @@
 <link rel="import" href="px-dropdown-chevron.html" />
 <link rel="import" href="px-dropdown-text.html" />
 <!--
-Element providing a dropdown solution.
+This element provides a dropdown where users can select one or more values (multi-select is achieved using the "checkbox-mode" property). It can also be used in conjunction with px-validation / px-forms-design to apply error, warning, and success states.
 
 ##### Usage
 
@@ -19,19 +19,22 @@ Element providing a dropdown solution.
 </px-dropdown>
 ```
 
+### Styling
+The following custom properties are available for styling:
+
 Custom property | Description | Default
 ----------------|-------------|----------
 `--px-dropdown-text-padding`| The text padding inside the dropdown | $inuit-base-spacing-unit--tiny
-`--px-dropdown-bg--default`| The default background color for the dropcell | $gray3
-`--dropdown-border-color`| The border color for the dropcell | $gray5
-`--px-dropdown-bg--hover`| The border color for the dropcell when hovered | $gray5
+`--px-dropdown-bg-color--default`| The default background color for the dropcell | $gray3
+`--px-dropdown-border-color`| The border color for the dropcell | $gray5
+`--px-dropdown-bg-color--hover`| The border color for the dropcell when hovered | $gray5
 `--px-dropdown-text-color`| The default text color for the dropcell | $black
 `--px-dropdown-text-color--hover`| The text color for the dropcell when hovered | $black
 `--px-dropdown-text-color--pressed`| The text color for the dropcell when pressed | $black
-`--px-dropdown-bg--disabled`| The background color for the dropcell when disabled | $white
+`--px-dropdown-bg-color--disabled`| The background color for the dropcell when disabled | $white
 `--px-dropdown-text-color--disabled`| The text color for the dropcell when disabled | $gray4
 `--px-dropdown-border-color--disabled`| The border color for the dropcell when disabled | $gray4
-`--px-dropdown-bg--opened`| The background color for the dropcell when opened | $gray6
+`--px-dropdown-bg-color--opened`| The background color for the dropcell when opened | $gray6
 `--px-dropdown-text--opened`| The text color for the dropcell when opened | $black
 `--px-dropdown-list-item-background-color`| The background color of a list item | $select-blue-default
 `--px-dropdown-list-item-text-color`| The text color of a list item | $white
@@ -39,6 +42,9 @@ Custom property | Description | Default
 `--px-dropdown-content-border-color`| The border color of the content | $gray5
 `--px-dropdown-content-text-color`| The text color of the content | $black
 `--px-dropdown-content-margin` |  The content margin | 0
+`--px-validation-error-text-color` | Border color that appears when validation is an error | `$alert-red`
+`--px-validation-warning-text-color` | Border color that appears when validation is a warning | `$alert-orange`
+`--px-validation-success-text-color` | Border color that appears when validation is successful | `$green`
 
 
 
