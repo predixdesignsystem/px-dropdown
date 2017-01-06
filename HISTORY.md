@@ -1,3 +1,15 @@
+v2.1.4
+==================
+* added styles for validation classes from px-forms-design
+
+v2.1.3
+==================
+* fix missing comma in bower.json
+
+v2.1.2
+==================
+* updating dropdown styles to match spec and adding checkbox mode to demo
+
 v2.1.1
 ==================
 * Updated iron-dropdown dependency

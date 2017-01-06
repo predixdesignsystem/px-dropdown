@@ -21,8 +21,8 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
 
 // Settings
 @import "px-colors-design/_settings.colors.scss";
-
 @import 'px-dropdown-content-sketch.scss';
+@import "px-defaults-design/_settings.defaults.scss";
 
 // Component
 
@@ -31,16 +31,27 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
   border-radius: 3px;
   border: 1px solid var(--px-dropdown-content-border-color, $gray5);
   color: var(--px-dropdown-content-text-color, $black);
+  padding-top: $inuit-base-spacing-unit--tiny;
+
 }
 .px-dropdown--listitem {
+
+  padding-top: $inuit-base-spacing-unit--tiny;
+  padding-bottom:$inuit-base-spacing-unit--tiny;
+  padding-left: $inuit-base-spacing-unit--small;
+  padding-right:$inuit-base-spacing-unit--small;
+  margin-bottom:$inuit-base-spacing-unit--tiny;
+
   &:hover {
     background-color: var(--px-dropdown-list-item-background-color,$select-blue-default);
     color: var(--px-dropdown-list-item-text-color,$white);
   }
-&:first-child {
-    border-radius: 4px 4px 0 0;
+  &:first-child {
+    //border-radius: 4px 4px 0 0;
+  //  margin-top: 5px;
   }
   :last-child {
-    border-radius: 0 0 4px 4px;
+    //border-radius: 0 0 4px 4px;
+    //margin-bottom: none;
   }
 }
