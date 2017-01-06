@@ -32,7 +32,7 @@ Element providing the content for the px-dropdown element
         <template is="dom-repeat" items={{computedItems}} strip-whitespace>
           <li class="px-dropdown--listitem u-p--" on-tap="_clickItem" value="{{index}}" style$="{{_getDisabledStyle(item.disabled)}}">
             <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
-              <input type="checkbox" data-key={{item.key}} on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox">
+              <input type="checkbox" data-key={{item.key}} on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox" disabled$="{{item.disabled}}">
             </template>{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
               <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
             </template>
