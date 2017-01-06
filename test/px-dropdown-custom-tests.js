@@ -142,8 +142,28 @@ function runCustomTests() {
         px_dropdown.removeEventListener('px-dropdown-value-changed', li_click);
       });
 
+	  test('selecting a disabled element does not fire a click event',
+		  function(done) {
+			  var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
+				  px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
+				  dropcell = px_dropdown.$$('#dropcell'),
+				  dropdown = px_dropdown_content.$$('#dropdown'),
+				  dropdown_li = Polymer.dom(dropdown).querySelectorAll('li')[4];
 
-    test('compare passed items to what\'s on the dropdown itself',
+			  var li_click = function(e) {
+			  	  assert.fail(null, null, 'should not be called');
+				  done();
+			  };
+			  px_dropdown.addEventListener('px-dropdown-value-changed', li_click);
+			  var spy = sinon.spy(px_dropdown_content, 'fire');
+			  dropdown_li.click();
+			  px_dropdown.removeEventListener('px-dropdown-value-changed', li_click);
+			  assert(spy.neverCalledWith('px-dropdown-click'));
+			  done();
+		  });
+
+
+	  test('compare passed items to what\'s on the dropdown itself',
     function(done) {
       var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
@@ -220,6 +240,18 @@ function runCustomTests() {
        done();
       }
     );
+	  test('check if checkbox for disabled item is disabled',
+		  function(done){
+			  var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
+				  px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
+				  checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
+
+			  //some checkboxes are disabled, others are not
+			  assert.isFalse(checkboxes[9].disabled);
+			  assert.isTrue(checkboxes[10].disabled);
+			  done();
+		  }
+	  );
     test('check if in checkbox mode we can toggle check state',
       function(done){
        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
