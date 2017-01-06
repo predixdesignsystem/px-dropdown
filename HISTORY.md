@@ -1,3 +1,7 @@
+v2.2.0
+==================
+* added capability to disable a dropdown item
+
 v2.1.4
 ==================
 * added styles for validation classes from px-forms-design
