@@ -1,3 +1,7 @@
+v2.2.1
+==================
+* fixed event propogation per #26
+
 v2.2.0
 ==================
 * added capability to disable a dropdown item
