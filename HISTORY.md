@@ -1,3 +1,7 @@
+v2.2.2
+==================
+* changing ghp.sh to account for Alpha releases
+
 v2.2.1
 ==================
 * fixed event propogation per #26
