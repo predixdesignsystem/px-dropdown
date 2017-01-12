@@ -1,3 +1,7 @@
+v2.2.3
+==================
+* rebuild demo css
+
 v2.2.2
 ==================
 * changing ghp.sh to account for Alpha releases
