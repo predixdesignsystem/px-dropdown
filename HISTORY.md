@@ -1,3 +1,7 @@
+v2.2.4
+==================
+* Update colors design to pick up new colors
+
 v2.2.3
 ==================
 * rebuild demo css
