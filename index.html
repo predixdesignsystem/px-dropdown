@@ -70,11 +70,6 @@
                     <div class="u-ml-">Hide Chevron</div>
                   </div>
                   <div class="flex u-mb-">
-                    <input id="checkboxMode{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.checkboxMode::change}}">
-                    <label for$="checkboxMode{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
-                    <div class="u-ml-">Checkbox Mode</div>
-                  </div>
-                  <div class="flex u-mb-">
                     <input id="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.preventCloseOnOutsideClick::change}}">
                     <label for$="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
                     <div class="u-ml-">Prevent Close On Outside Click</div>
@@ -95,7 +90,7 @@
                         selected-key="{{item.selectedKey}}"
                         prevent-close-on-outside-click="{{item.preventCloseOnOutsideClick}}"
                         disabled="{{item.disabled}}">
-                        <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="{{list}}" checkbox-mode="{{item.checkboxMode}}">
+                        <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="{{list}}" checkbox-mode="{{checkboxMode(index)}}">
                         </px-dropdown-content>
                       </px-dropdown>
                     </div>
@@ -185,7 +180,6 @@ window.addEventListener('WebComponentsReady', function() {
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           selectedKey: "",
-          checkboxMode: false,
           lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
         },{
           disabled: false,
@@ -194,8 +188,7 @@ window.addEventListener('WebComponentsReady', function() {
           hideChevron:false,
           preventCloseOnOutsideClick:false,
           selectedKey: "",
-          checkboxMode: true,
-          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
+          lightDomContent: "<px-dropdown-content checkbox-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
         },{
           disabled: true,
           above:false,
@@ -208,6 +201,9 @@ window.addEventListener('WebComponentsReady', function() {
       ],
       indexPlusOne = function(num) {
         return num + 1;
+      },
+      checkboxMode = function(index) {
+        return index === 1;
       };
 
       // window.setTimeout(function() {
@@ -220,6 +216,7 @@ window.addEventListener('WebComponentsReady', function() {
   template.optionsArray = optionsArray;
   template.indexPlusOne = indexPlusOne;
   template.list = list;
+  template.checkboxMode = checkboxMode;
 });
 </script>
 
