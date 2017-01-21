@@ -1,3 +1,7 @@
+v2.2.5
+==================
+* clear up checkbox-mode confusion from demo (#28)
+
 v2.2.4
 ==================
 * Update colors design to pick up new colors
