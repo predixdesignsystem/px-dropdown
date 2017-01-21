@@ -36,16 +36,12 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 }
 
 .dropcell {
-  background-color:   var(--px-dropdown-bg-color--default,$gray3);
-  border:             var(--px-dropdown-border-color, 1px solid $gray5);
   border-radius: 3px;
   cursor: pointer;
   padding-left: $inuit-base-spacing-unit--tiny;
   padding-right: $inuit-base-spacing-unit--tiny;
 
   &:hover{
-    background-color: var(--px-dropdown-bg-color--hover,$gray5);
-    border:           var(--px-dropdown-border-color, 1px solid $gray6);
     color:            var(--px-dropdown-text-color--hover, $black);
   }
   &:active{
@@ -53,9 +49,7 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
   }
   &.disabled {
     cursor: not-allowed;
-    background-color: var(--px-dropdown-bg-color--disabled,$white);
     color:            var(--px-dropdown-text-color--disabled,$gray4);
-    border:           var(--px-dropdown-border-color--disabled,1px solid $gray4);
   }
 
 }
@@ -64,4 +58,50 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
   background-color:   var(--px-dropdown-bg-color--opened,$gray6);
   border:           var(--px-dropdown-border-color, 1px solid $gray7);
   color:              var(--px-dropdown-text--opened, $black);
+}
+
+.opened--bare,
+.opened--bare:hover {
+  background-color:   transparent;
+  border:             none;
+  color:              var(--px-dropdown-text--opened, $black);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.dropdown-button {
+  background-color:   var(--px-dropdown-bg-color--default,$gray3);
+  border:             var(--px-dropdown-border-color, 1px solid $gray5);
+
+  &:hover{
+    background-color: var(--px-dropdown-bg-color--hover,$gray5);
+    border:           var(--px-dropdown-border-color, 1px solid $gray6);
+  }
+  &--bare {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  &.disabled {
+    background-color: var(--px-dropdown-bg-color--disabled,$white);
+    border:           var(--px-dropdown-border-color--disabled,1px solid $gray4);
+  }
+}
+
+.bare {
+  background-color:   transparent;
+  border:             none;
+  padding-left: 0;
+  padding-right: 0;
+
+  &:hover{
+    background-color: transparent;
+    border:           none;
+  }
+  /*&:active{
+    color:            var(--px-dropdown-text-color--pressed, $black);
+  }*/
+  &.disabled {
+    background-color: transparent;
+    border:           none;
+  }
 }

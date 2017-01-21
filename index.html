@@ -70,6 +70,11 @@
                     <div class="u-ml-">Hide Chevron</div>
                   </div>
                   <div class="flex u-mb-">
+                    <input id="bare{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.bare::change}}">
+                    <label for$="bare{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                    <div class="u-ml-">Bare</div>
+                  </div>
+                  <div class="flex u-mb-">
                     <input id="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.preventCloseOnOutsideClick::change}}">
                     <label for$="preventCloseOnOutsideClick{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
                     <div class="u-ml-">Prevent Close On Outside Click</div>
@@ -87,6 +92,7 @@
                       <px-dropdown
                         display-value="{{item.displayValue}}"
                         hide-chevron="{{item.hideChevron}}"
+                        bare="{{item.bare}}"
                         selected-key="{{item.selectedKey}}"
                         prevent-close-on-outside-click="{{item.preventCloseOnOutsideClick}}"
                         disabled="{{item.disabled}}">
@@ -189,6 +195,15 @@ window.addEventListener('WebComponentsReady', function() {
           preventCloseOnOutsideClick:false,
           selectedKey: "",
           lightDomContent: "<px-dropdown-content checkbox-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
+        },{
+          disabled: false,
+          above:false,
+          displayValue:"Select",
+          hideChevron:false,
+          bare:true,
+          preventCloseOnOutsideClick:false,
+          selectedKey: "",
+          lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(list) + "'></px-dropdown-content>"
         },{
           disabled: true,
           above:false,
