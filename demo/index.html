@@ -117,7 +117,8 @@
               {
                 configName: "Default",
                 lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>",
-                disabled: false
+                disabled: false,
+                checkboxMode: false
               },
               {
                 configName: "Checkbox Mode",
@@ -128,6 +129,7 @@
               {
                 configName: "Disabled",
                 disabled: true,
+                checkboxMode: false,
                 lightDomContent: "<px-dropdown-content checkbox-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>"
               }
           ];
