@@ -1,3 +1,7 @@
+v2.2.6
+==================
+* added new demo component
+
 v2.2.5
 ==================
 * clear up checkbox-mode confusion from demo (#28)
