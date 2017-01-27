@@ -1,3 +1,7 @@
+v2.2.7
+==================
+* Update demo with multiple pages
+
 v2.2.6
 ==================
 * added new demo component
