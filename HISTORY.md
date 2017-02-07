@@ -1,3 +1,7 @@
+v2.2.8
+==================
+* Ensure click on checkboxes don't throw an error
+
 v2.2.7
 ==================
 * Update demo with multiple pages
