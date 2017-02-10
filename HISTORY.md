@@ -1,3 +1,7 @@
+v2.2.9
+==================
+* Ensure tooltip is hidden when scrolling the dropdown content
+
 v2.2.8
 ==================
 * Ensure click on checkboxes don't throw an error

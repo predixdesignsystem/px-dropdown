@@ -28,7 +28,7 @@ Element providing the content for the px-dropdown element
     <style include="px-dropdown-content-styles"></style>
 
     <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
-      <ul class="px-dropdown--list list-bare">
+      <ul id="list" class="px-dropdown--list list-bare">
         <template is="dom-repeat" items="{{computedItems}}" strip-whitespace>
           <li class="px-dropdown--listitem" on-tap="_clickItem" value="{{index}}" style$="{{_getDisabledStyle(item.disabled)}}">
             <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
@@ -153,7 +153,39 @@ Element providing the content for the px-dropdown element
       checkboxMode: {
         type: Boolean,
         value:false
+      },
+      _shownTooltip: {
+        type: Array,
+        value: function() {
+          return [];
+        }
       }
+    },
+    listeners: { 'px-tooltip-request-show': '_tooltipShow',
+                 'px-tooltip-hide': '_tooltipHide'
+    },
+    attached: function() {
+
+      this.$.dropdown.addEventListener('scroll', this._onContentScroll.bind(this));
+    },
+    detached: function() {
+
+      this.$.dropdown.removeEventListener('scroll',this._onContentScroll);
+    },
+    _tooltipShow: function(evt) {
+      this._shownTooltip.push(evt.detail.target);
+    },
+    _tooltipHide: function(evt) {
+      this._shownTooltip.splice(this._shownTooltip.indexOf(evt.detail.target), 1);
+    },
+    _onContentScroll: function() {
+     // this.debounce('sdasdsd', function() {
+        //hide tooltip that have been shown
+        for(var i=0; i<this._shownTooltip.length; i++) {
+          this._shownTooltip[i]._hide();
+        }
+        this._shownTooltip = [];
+    //  }, 0);
     },
     _maxContCharacterWidthChanged: function(newValue) {
       if(newValue) {
