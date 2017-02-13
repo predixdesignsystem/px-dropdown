@@ -52,6 +52,20 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   margin-right: 5px;
 }
 
+
+input[type="search"] {
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  padding: 4px;
+  width: 85%;
+  position: relative;
+}
+
+input[type="checkbox"] {
+  pointer-events: none;
+}
+
 // Meta
 @import "px-meta-lists-design/_meta.lists.scss";
 

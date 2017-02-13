@@ -28,6 +28,10 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   max-height: calculateRem(31px);
 }
 
+.dropcell {
+  height: 1.85rem;
+}
+
 //Colors
 @import "px-colors-design/_settings.colors.scss";
 
