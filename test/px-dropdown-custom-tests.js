@@ -258,7 +258,7 @@ function runCustomTests() {
           px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
           dropcell = px_dropdown.$$('#dropcell'),
           item = px_dropdown_content.$.dropdown.querySelector('li'),
-          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
+          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input[type=checkbox]');
 
 
        //first item should be checked
