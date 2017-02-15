@@ -257,14 +257,14 @@ function runCustomTests() {
        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
           px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
           dropcell = px_dropdown.$$('#dropcell'),
-          item = px_dropdown_content.$.dropdown.querySelector('li'),
-          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input[type=checkbox]');
+          item = px_dropdown_content.$.dropdown.querySelectorAll('li')[1],
+          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
 
 
        //first item should be checked
        assert.isTrue(px_dropdown_content.items[0].checked);
-       //double check the html element
-       assert.isTrue(checkboxes[0].checked);
+       //double check the html element, index [1], because of first input != checkbox
+       assert.isTrue(checkboxes[1].checked);
        //second unchecked
        assert.isTrue(!px_dropdown_content.items[1].checked);
 
@@ -272,7 +272,7 @@ function runCustomTests() {
          //first element must now be uncheckd, second still unchecked
          assert.isTrue(!px_dropdown_content.items[0].checked);
          //double check the html element
-         assert.isTrue(!checkboxes[0].checked);
+         assert.isTrue(!checkboxes[1].checked);
          assert.isTrue(!px_dropdown_content.items[1].checked);
 
          //dropdown must still be opened

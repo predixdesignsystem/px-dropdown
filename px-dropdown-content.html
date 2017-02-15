@@ -30,9 +30,9 @@ Element providing the content for the px-dropdown element
     <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
       <ul id="list" class="px-dropdown--list list-bare">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
-          <div>
+          <li>
             <input type="search" placeholder="{{searchPlaceHolder}}" value="{{searchTerm::input}}">
-          </div>
+          </li>
         </template>
         <template is="dom-repeat" items="{{computedItems}}" filter="{{_computeFilter(searchTerm)}}" sort="_computeSort" delay="1000" strip-whitespace>
           <li class="px-dropdown--listitem" on-tap="_clickItem" value="{{index}}" style$="{{_getDisabledStyle(item.disabled)}}">
