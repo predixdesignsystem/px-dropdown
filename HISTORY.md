@@ -1,3 +1,7 @@
+v2.2.10
+==================
+* updated usage documentation
+
 v2.2.9
 ==================
 * Ensure tooltip is hidden when scrolling the dropdown content
