@@ -263,7 +263,7 @@ function runCustomTests() {
 
        //first item should be checked
        assert.isTrue(px_dropdown_content.items[0].checked);
-       //double check the html element, index [1], because of first input != checkbox
+       //double check the html element, index [1] because of first input != checkbox
        assert.isTrue(checkboxes[1].checked);
        //second unchecked
        assert.isTrue(!px_dropdown_content.items[1].checked);

@@ -29,7 +29,7 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 }
 
 .dropcell {
-  height: 1.85rem;
+  height: calculateRem(28px);
 }
 
 //Colors

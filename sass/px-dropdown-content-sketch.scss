@@ -49,15 +49,15 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 }
 
 .px-dropdown--checkbox {
-  margin-right: 5px;
+  margin-right: $inuit-base-spacing-unit--tiny;
 }
 
 
 input[type="search"] {
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  padding: 4px;
+  margin-left: $inuit-base-spacing-unit--small;
+  margin-right: $inuit-base-spacing-unit--small;
+  margin-bottom: $inuit-base-spacing-unit--small;
+  padding: $inuit-base-spacing-unit--tiny;
   width: 85%;
   position: relative;
 }

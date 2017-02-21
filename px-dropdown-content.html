@@ -31,7 +31,7 @@ Element providing the content for the px-dropdown element
       <ul id="list" class="px-dropdown--list list-bare">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
           <li>
-            <input type="search" placeholder="{{searchPlaceHolder}}" value="{{searchTerm::input}}">
+            <input class="" type="search" placeholder="{{searchPlaceHolder}}" value="{{searchTerm::input}}">
           </li>
         </template>
         <template is="dom-repeat" items="{{computedItems}}" filter="{{_computeFilter(searchTerm)}}" sort="_computeSort" delay="1000" strip-whitespace>
@@ -483,8 +483,16 @@ Element providing the content for the px-dropdown element
       }
     },
     /**
-     * This function sort the items
-     * and sets checked items first
+     * This function sorts the items and sets checked items first
+     *
+     * The function takes two following elements, if one of them is checked and
+     * the second one unchecked, the checked one comes first, if they are both
+     * checked or unchecked they are left unchanged
+     *
+     * Following the standard Array sort API:
+     * 0 - items are equal, leave them unchanged
+     * -1 - first element ('a') comes first
+     * 1 - second element ('b') comes first
      */
     _computeSort: function (a, b) {
       if (!this.sortMode) {
@@ -505,6 +513,14 @@ Element providing the content for the px-dropdown element
       if(!this.menuOpen){
         this.searchTerm = '';
       }
+      /**
+       * Event fired when px dropdown content is opened or closed
+       * `evt.detail` contains:
+       * ```
+       * { menuOpen: true/false }
+       * ```
+       * @event px-dropdown-content-toggle
+       */
       this.fire('px-dropdown-content-toggle', {menuOpen: this.menuOpen})
     }
   });
