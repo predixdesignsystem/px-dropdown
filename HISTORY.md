@@ -1,3 +1,7 @@
+v2.2.11
+==================
+* fixed CodePen for subcomponent
+
 v2.2.10
 ==================
 * updated usage documentation

@@ -162,12 +162,16 @@
           {"key":"20", "val": "Hippopotamus", "disabled": true}
         ],
         inputType: 'code:JSON'
+      },
+      parentComponent: {
+        type: Array,
+        defaultValue: ['<px-dropdown display-value="Click Me">','</px-dropdown>']
       }
 
     },
 
     ready: function () {
-
+      this.linksIncludes = ['px-dropdown/px-dropdown.html'];
     }
   });
 </script>
