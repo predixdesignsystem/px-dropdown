@@ -267,11 +267,11 @@ Element providing the content for the px-dropdown element
       this._checkboxChanged(checkbox);
     },
     _checkboxChanged: function(checkbox) {
-      this.items.forEach(function(item, index) {
-        if(item.key === checkbox.dataKey) {
-          this.set('items.' + index + '.checked', checkbox.checked);
+      for(var i = 0; i < this.items.length; i++) {
+        if(this.items[i].key === checkbox.dataKey) {
+          this.set('items.' + i + '.checked', checkbox.checked);
         }
-      }.bind(this));
+      }
       /**
        * Event fired when any given element is selected or deselected in checkboxMode.
        * `evt.detail` contains:
@@ -358,11 +358,11 @@ Element providing the content for the px-dropdown element
             this._checkboxChanged(checkbox);
           }
 
-          this.items.forEach(function (item) {
-            if(item.checked){
-              items.push(item.val);
+          for(var i = 0; i < this.items.length; i++) {
+            if(this.items[i].checked) {
+              items.push(this.items[i].val);
             }
-          });
+          }
 
           if(items.length){
             displayValues = items.join(', ');
@@ -454,9 +454,9 @@ Element providing the content for the px-dropdown element
         else {
           //with new array it looks like we need to do a copy of items
           // seems like items can be sparse at this point
-          items.forEach(function(item, index) {
-            computedItemsArr.push(item);
-          });
+          for(var j = 0; j < items.length; j++) {
+            computedItemsArr.push(items[j]);
+          }
           return computedItemsArr;
         }
       }
