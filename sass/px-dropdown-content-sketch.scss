@@ -49,15 +49,15 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 }
 
 .px-dropdown--checkbox {
-  margin-right: $inuit-base-spacing-unit--tiny;
+  /*margin-right: $inuit-base-spacing-unit--tiny;*/
 }
 
 
 input[type="search"] {
-  margin-left: $inuit-base-spacing-unit--small;
+/*  margin-left: $inuit-base-spacing-unit--small;
   margin-right: $inuit-base-spacing-unit--small;
   margin-bottom: $inuit-base-spacing-unit--small;
-  padding: $inuit-base-spacing-unit--tiny;
+  padding: $inuit-base-spacing-unit--tiny;*/
   width: 85%;
   position: relative;
 }
@@ -76,4 +76,6 @@ input[type="checkbox"] {
 @import "inuit-clearfix/_trumps.clearfix.scss";
 
 $inuit-enable-paddings--tiny             : true;
+$inuit-enable-margins--tiny             : true;
+$inuit-enable-margins--small             : true;
 @import "px-spacing-design/_trumps.spacing.scss";
