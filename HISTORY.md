@@ -1,3 +1,7 @@
+v2.3.0
+==================
+* standardized style variable naming
+
 v2.2.11
 ==================
 * fixed CodePen for subcomponent
