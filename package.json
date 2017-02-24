@@ -2,7 +2,7 @@
     "name": "px-dropdown",
     "author": "General Electric",
     "description": "A Predix UI Dropdown component",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "private": true,
     "extName": null,
     "repository": {

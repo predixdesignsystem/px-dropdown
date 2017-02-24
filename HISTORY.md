@@ -1,3 +1,7 @@
+v2.3.1
+==================
+* remove old theming and remove shields from subcomponent
+
 v2.3.0
 ==================
 * standardized style variable naming
