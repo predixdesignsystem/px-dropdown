@@ -51,7 +51,7 @@ Custom property | Description | Default
 `--px-validation-success-text-color` | Border color that appears when validation is successful | `$green`
 `--px-dropdown-chevron-color` | chevron color  | `$black`
 `--px-dropdown-chevron-color--hover` | chevron color when hovered over | `$black`
-`--px-dropdown-text-chevron--pressed` | chevron color when pressed | `$black`
+`--px-dropdown-chevron-color--pressed` | chevron color when pressed | `$black`
 `--px-dropdown-chevron-color--disabled` | chevron color when disabled | `$gray4`
 `--px-dropdown-chevron-color--opened` | chevron color when opened | `$black`
 
@@ -72,7 +72,7 @@ Custom property | Description | Default
     on-mouseout="_hoverOff"
     class$="{{_dropcellClass(opened, hover, disabled)}} flex flex--middle dropcell"
     id="dropcell">
-      <px-dropdown-text class$="{{_disabledClass(disabled)}}" display-value="{{displayValue}}" max-cont-character-width="{{_maxCharWidth}}" tooltip-value={{value}}></px-dropdown-text>
+      <px-dropdown-text class$="{{_disabledClass(disabled)}}" display-value="{{displayValue}}" max-cont-character-width="{{_maxCharWidth}}" tooltip-value="{{value}}" opened="[[opened]]" hover="[[hover]]"></px-dropdown-text>
       <template is="dom-if" if="{{_hideChevron(hideChevron)}}">
         <px-dropdown-chevron class$="px-dropdown-chevron {{_disabledClass(disabled)}}" opened="[[opened]]" hover="[[hover]]"></px-dropdown-chevron>
       </template>

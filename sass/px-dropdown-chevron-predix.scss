@@ -37,7 +37,7 @@ iron-icon {
     color: var(--px-dropdown-chevron-color--hover, $black);
   }
   &:active{
-    color: var(--px-dropdown-text-chevron--pressed, $black);
+    color: var(--px-dropdown-chevron-color--pressed, $black);
   }
   &.disabled {
     border-color: var(--px-dropdown-chevron-color--disabled, $gray4);
