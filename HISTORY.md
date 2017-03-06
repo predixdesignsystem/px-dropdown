@@ -1,3 +1,7 @@
+v2.4.0
+==================
+* added chevron css vars
+
 v2.3.1
 ==================
 * remove old theming and remove shields from subcomponent
