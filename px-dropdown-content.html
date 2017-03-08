@@ -389,8 +389,8 @@ Element providing the content for the px-dropdown element
            */
           this.fire('px-dropdown-value-changed',
             {
-              val: this.computedItems[evt.target.value].val,
-              key: this.computedItems[evt.target.value].key
+              val: evt.model.item.val,
+              key: evt.model.item.key
             });
         }
       }
