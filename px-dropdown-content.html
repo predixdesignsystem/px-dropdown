@@ -507,24 +507,24 @@ Element providing the content for the px-dropdown element
 
       if(this.checkboxMode) {
         if (a.checked && !b.checked) {
-          sortValue += -1;
+          sortValue--;
           if (a.disabled) {
-            sortValue += -1;
+            sortValue--;
           }
         }
         if (!a.checked && b.checked) {
-          sortValue += 1;
+          sortValue++;
           if (b.disabled) {
-            sortValue += 1;
+            sortValue++;
           }
         }
       }
 
       if(a.disabled) {
-        sortValue += 1;
+        sortValue++;
       }
       if(b.disabled) {
-        sortValue += -1;
+        sortValue--;
       }
 
       if(sortValue === 0) {
@@ -536,10 +536,10 @@ Element providing the content for the px-dropdown element
             nameB = b.val.toUpperCase();
 
           if(nameA < nameB) {
-            sortValue += -1;
+            sortValue--;
           }
           if(nameA > nameB){
-            sortValue += 1;
+            sortValue++;
           }
         }
       }
