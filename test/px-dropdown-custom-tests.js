@@ -257,23 +257,19 @@ function runCustomTests() {
        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
           px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
           dropcell = px_dropdown.$$('#dropcell'),
-          item = px_dropdown_content.$.dropdown.querySelectorAll('li')[1],
-          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
+          items = px_dropdown_content.$.dropdown.querySelectorAll('li'),
+          checkbox1 = items[value=1].querySelector('input'),
+          checkbox2 = items[value=2].querySelector('input');
 
-
-       //first item should be checked
-       assert.isTrue(px_dropdown_content.items[0].checked);
-       //double check the html element, index [1] because of first input != checkbox
-       assert.isTrue(checkboxes[1].checked);
-       //second unchecked
-       assert.isTrue(!px_dropdown_content.items[1].checked);
+       //second item should be checked
+       assert.isTrue(checkbox1.checked);
+       //third item unchecked
+       assert.isTrue(!checkbox2.checked);
 
        clickHandle = function() {
-         //first element must now be uncheckd, second still unchecked
-         assert.isTrue(!px_dropdown_content.items[0].checked);
-         //double check the html element
-         assert.isTrue(!checkboxes[1].checked);
-         assert.isTrue(!px_dropdown_content.items[1].checked);
+         //second element must now be unchecked, third still unchecked
+         assert.isTrue(!checkbox1.checked);
+         assert.isTrue(!checkbox2.checked);
 
          //dropdown must still be opened
          assert.isTrue(px_dropdown_content.menuOpen);
@@ -285,9 +281,9 @@ function runCustomTests() {
        dropcell.click();
 
        //try clicking first element...
-       item.addEventListener('click', clickHandle);
-       item.click();
-       item.removeEventListener('click', clickHandle);
+       checkbox1.addEventListener('click', clickHandle);
+       checkbox1.click();
+       checkbox1.removeEventListener('click', clickHandle);
       }
     );
   });
