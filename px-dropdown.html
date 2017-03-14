@@ -8,7 +8,9 @@
 <link rel="import" href="px-dropdown-chevron.html" />
 <link rel="import" href="px-dropdown-text.html" />
 <!--
-This element provides a dropdown where users can select one or more values (multi-select is achieved using the "checkbox-mode" property of px-dropdown-content). It can also be used in conjunction with px-validation / px-forms-design to apply error, warning, and success states.
+This element provides a dropdown where users can select one or more values (multi-select is achieved using the `checkbox-mode` property of px-dropdown-content). Be sure to use the dropdown at the top of the screen to view the API for the px-dropdown-content sub-component.
+
+It can also be used in conjunction with px-validation, similar to px-forms-design, to apply validation states - simply add the `validation-error`, `validation-warning`, and `validation-success` classes to alter the border color of the component.
 
 ##### Usage
 
@@ -25,17 +27,19 @@ The following custom properties are available for styling:
 Custom property | Description | Default
 ----------------|-------------|----------
 `--px-dropdown-text-padding`| The text padding inside the dropdown | $inuit-base-spacing-unit--tiny
-`--px-dropdown-bg-color--default`| The default background color for the dropcell | $gray3
-`--px-dropdown-border-color`| The border color for the dropcell | $gray5
+`--px-dropdown-bg-color`| The default background color for the dropcell | $gray3
 `--px-dropdown-bg-color--hover`| The border color for the dropcell when hovered | $gray5
+`--px-dropdown-bg-color--disabled`| The background color for the dropcell when disabled | $white
+`--px-dropdown-bg-color--opened`| The background color for the dropcell when opened | $gray6
+`--px-dropdown-border-color`| The border color for the dropcell | $gray5
+`--px-dropdown-border-color--disabled`| The border color for the dropcell when disabled | $gray4
+`--px-dropdown-border-color--hover`| The border color for the dropcell when hovered | $gray6
+`--px-dropdown-border-color--opened`| The border color for the dropcell when opened | $gray7
 `--px-dropdown-text-color`| The default text color for the dropcell | $black
 `--px-dropdown-text-color--hover`| The text color for the dropcell when hovered | $black
 `--px-dropdown-text-color--pressed`| The text color for the dropcell when pressed | $black
-`--px-dropdown-bg-color--disabled`| The background color for the dropcell when disabled | $white
 `--px-dropdown-text-color--disabled`| The text color for the dropcell when disabled | $gray4
-`--px-dropdown-border-color--disabled`| The border color for the dropcell when disabled | $gray4
-`--px-dropdown-bg-color--opened`| The background color for the dropcell when opened | $gray6
-`--px-dropdown-text--opened`| The text color for the dropcell when opened | $black
+`--px-dropdown-text-color--opened`| The text color for the dropcell when opened | $black
 `--px-dropdown-list-item-background-color`| The background color of a list item | $select-blue-default
 `--px-dropdown-list-item-text-color`| The text color of a list item | $white
 `--px-dropdown-content-background-color`| The background color of the content | $gray1
@@ -45,8 +49,11 @@ Custom property | Description | Default
 `--px-validation-error-text-color` | Border color that appears when validation is an error | `$alert-red`
 `--px-validation-warning-text-color` | Border color that appears when validation is a warning | `$alert-orange`
 `--px-validation-success-text-color` | Border color that appears when validation is successful | `$green`
-
-
+`--px-dropdown-chevron-color` | chevron color  | `$black`
+`--px-dropdown-chevron-color--hover` | chevron color when hovered over | `$black`
+`--px-dropdown-text-chevron--pressed` | chevron color when pressed | `$black`
+`--px-dropdown-chevron-color--disabled` | chevron color when disabled | `$gray4`
+`--px-dropdown-chevron-color--opened` | chevron color when opened | `$black`
 
 @element px-dropdown
 @blurb Element providing a dropdown solution.
@@ -67,7 +74,7 @@ Custom property | Description | Default
     id="dropcell">
       <px-dropdown-text class$="{{_disabledClass(disabled)}}" display-value="{{displayValue}}" max-cont-character-width="{{_maxCharWidth}}" tooltip-value={{value}}></px-dropdown-text>
       <template is="dom-if" if="{{_hideChevron(hideChevron)}}">
-        <px-dropdown-chevron class$="px-dropdown-chevron {{_disabledClass(disabled)}}"></px-dropdown-chevron>
+        <px-dropdown-chevron class$="px-dropdown-chevron {{_disabledClass(disabled)}}" opened="[[opened]]" hover="[[hover]]"></px-dropdown-chevron>
       </template>
     </div>
     <div style="position:relative;">

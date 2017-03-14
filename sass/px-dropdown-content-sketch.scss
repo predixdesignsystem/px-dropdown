@@ -27,7 +27,7 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 // Base
 @import "px-flexbox-design/_base.flexbox.scss";
 @import "px-viewport-design/_base.viewport.scss";
-
+$inuit-enable-input--search : true;
 @import "px-forms-design/_base.forms.scss";
 
 .px-dropdown--content{
@@ -48,18 +48,10 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   white-space: nowrap;
 }
 
-.px-dropdown--checkbox {
-  /*margin-right: $inuit-base-spacing-unit--tiny;*/
-}
-
-
-input[type="search"] {
-/*  margin-left: $inuit-base-spacing-unit--small;
-  margin-right: $inuit-base-spacing-unit--small;
-  margin-bottom: $inuit-base-spacing-unit--small;
-  padding: $inuit-base-spacing-unit--tiny;*/
+.input--search {
   width: 85%;
   position: relative;
+  height: 1rem;
 }
 
 input[type="checkbox"] {

@@ -46,12 +46,4 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
     background-color: var(--px-dropdown-list-item-background-color,$select-blue-default);
     color: var(--px-dropdown-list-item-text-color,$white);
   }
-  &:first-child {
-    //border-radius: 4px 4px 0 0;
-  //  margin-top: 5px;
-  }
-  :last-child {
-    //border-radius: 0 0 4px 4px;
-    //margin-bottom: none;
-  }
 }
