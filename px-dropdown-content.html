@@ -349,7 +349,7 @@ Element providing the content for the px-dropdown element
           //try to toggle checkbox state
           var checkbox = Polymer.dom(evt.target).querySelector('input'),
             items = [],
-            displayValues = '';
+            displayValues = 'Select';
 
           //if we haven't found it it's probably because the click was actually
           //on the checkbox so just ignore
@@ -366,7 +366,9 @@ Element providing the content for the px-dropdown element
 
           if(items.length){
             items.sort(this._computeSort.bind(this));
-            displayValues = items.map((item) => item.val).join(', ');
+            displayValues = items.map(function (item) {
+              return item.val;
+            }).join(', ');
           }
 
           this.fire('px-dropdown-value-changed',
