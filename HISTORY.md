@@ -1,3 +1,7 @@
+v2.4.1
+==================
+* fix disabled text color
+
 v2.4.0
 ==================
 * added chevron css vars

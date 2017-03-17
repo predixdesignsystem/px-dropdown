@@ -31,11 +31,14 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
     &.hover {
       color: var(--px-dropdown-text-color--hover, $black);
     }
-    
+
     &.opened {
       color: var(--px-dropdown-text-color--opened, $black);
     }
     &:active {
       color: var(--px-dropdown-text-color--pressed, $black);
+    }
+    &.disabled {
+      color: var(--px-dropdown-text-color--disabled, $gray4);
     }
 }
