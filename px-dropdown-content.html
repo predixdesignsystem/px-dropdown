@@ -30,9 +30,9 @@ Element providing the content for the px-dropdown element
     <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
       <ul id="list" class="px-dropdown--list list-bare">
         <template is="dom-repeat" items="{{computedItems}}" strip-whitespace>
-          <li class="px-dropdown--listitem" on-tap="_clickItem" value="{{index}}" style$="{{_getDisabledStyle(item.disabled)}}">
+          <li role="menuitem" class="px-dropdown--listitem" on-tap="_clickItem" value="{{index}}" style$="{{_getDisabledStyle(item.disabled)}}">
             <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
-              <input type="checkbox" data-key="{{item.key}}" on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox" disabled$="{{item.disabled}}">
+              <input role="menuitemcheckbox" type="checkbox" data-key="{{item.key}}" on-change="_checkChanged" checked="{{item.checked}}" class="px-dropdown--checkbox" disabled$="{{item.disabled}}">
             </template>{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
               <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
             </template>

@@ -208,6 +208,7 @@ Custom property | Description | Default
       if(!this.value && this.displayValue) {
         this.set('value', this.displayValue);
       }
+      this.setAttribute('role','menu');
     },
     detached: function() {
       var tapEvent = ('ontouchstart' in window) ? 'tap' : 'click';

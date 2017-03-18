@@ -1,3 +1,7 @@
+v2.4.3
+==================
+* improved accessibility
+
 v2.4.2
 ==================
 * fix disabled text color
