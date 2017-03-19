@@ -1,3 +1,7 @@
+v2.4.4
+==================
+* changed position to absolute
+
 v2.4.3
 ==================
 * improved accessibility
