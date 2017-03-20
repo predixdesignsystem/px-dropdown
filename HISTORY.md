@@ -1,3 +1,7 @@
+v2.5.1
+==================
+* fixed display issue with search box, added unit tests
+
 v2.5.0
 ==================
 * merge PR #32, add search and sort functionality

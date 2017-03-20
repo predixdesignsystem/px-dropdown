@@ -286,5 +286,29 @@ function runCustomTests() {
        checkbox1.removeEventListener('click', clickHandle);
       }
     );
+    test('Check that search box appears when in search mode',
+      function(done){
+       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_4'),
+          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('.px-dropdown-content'),
+          items = px_dropdown_content.$.dropdown.querySelectorAll('li'),
+          input = items[0].children[0];
+        assert.isTrue(input.classList.contains('input--search'));
+        done();
+      }
+    );
+    test('Sort mode: items can be sorted by values or keys',
+      function(done){
+       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_4'),
+          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('.px-dropdown-content'),
+          items = px_dropdown_content.$.dropdown.querySelectorAll('li');
+        px_dropdown_content.sortMode = 'val';
+        items = px_dropdown_content.$.dropdown.querySelectorAll('li');
+        assert.equal(items[1].textContent, 'eight');
+        px_dropdown_content.sortMode = 'key';
+        items = px_dropdown_content.$.dropdown.querySelectorAll('li');
+        assert.equal(items[1].textContent, 'One');
+        done();
+      }
+    );
   });
 }
