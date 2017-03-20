@@ -1,3 +1,7 @@
+v2.5.0
+==================
+* merge PR #32, add search and sort functionality
+
 v2.4.5
 ==================
 * changed position back to relative, fixed demo

@@ -19,12 +19,12 @@
 <!-- Demo DOM module -->
 <dom-module id="px-dropdown-demo">
   <template>
-  <style include="px-demo-styles" is="custom-style"></style>
+    <style include="px-demo-styles" is="custom-style"></style>
 
     <!-- Header -->
     <px-demo-header
-        module-name="px-dropdown"
-        description="Dropdowns have two primary use cases. First, as a form control, drop-down lists are ideal for a user to choose from a preconfigured list of options – ideally, between 5 and 15. If there are fewer than 5 options, consider using a radio button. For very large lists of options, consider adding typeahead functionality in addition to, or instead of, a drop-down. The second primary use case for a drop-down list is as a filter or navigation item, where invoking an option from the drop-down menu results in an action of some kind.">
+      module-name="px-dropdown"
+      description="Dropdowns have two primary use cases. First, as a form control, drop-down lists are ideal for a user to choose from a preconfigured list of options – ideally, between 5 and 15. If there are fewer than 5 options, consider using a radio button. For very large lists of options, consider adding typeahead functionality in addition to, or instead of, a drop-down. The second primary use case for a drop-down list is as a filter or navigation item, where invoking an option from the drop-down menu results in an action of some kind.">
     </px-demo-header>
 
     <!-- Interactive -->
@@ -44,7 +44,7 @@
             selected-key="{{props.selectedKey.value}}"
             prevent-close-on-outside-click="{{props.preventCloseOnOutsideClick.value}}"
             disabled="{{props.disabled.value}}">
-            <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="{{dropdownItems}}" checkbox-mode="{{props.checkboxMode.value}}">
+            <px-dropdown-content extend-dropdown="true" extend-dropdown-by="25" max-cont-character-width="10" items="{{dropdownItems}}" checkbox-mode="{{props.checkboxMode.value}}" search-mode="{{props.searchMode.value}}">
             </px-dropdown-content>
           </px-dropdown>
         </div>
@@ -52,9 +52,9 @@
       <!-- END Component ------------------------------------------------------>
 
       <px-demo-component-snippet
-          element-properties="{{props}}"
-          element-name="px-dropdown"
-          links-includes="[[linksIncludes]]">
+        element-properties="{{props}}"
+        element-name="px-dropdown"
+        links-includes="[[linksIncludes]]">
       </px-demo-component-snippet>
     </px-demo-interactive>
 
@@ -76,12 +76,12 @@
         type: Array,
         value: function() {
           return [
-              {"key":"1", "val": "iPhone"},
-              {"key":"2", "val": "Android"},
-              {"key":"3", "val": "Blackberry"},
-              {"key":"4", "val": "Windows Phone"},
-          {"key":"5", "val": "Flip Phone", "disabled": true}
-        ];
+            {"key":"1", "val": "iPhone"},
+            {"key":"2", "val": "Android"},
+            {"key":"3", "val": "Blackberry"},
+            {"key":"4", "val": "Windows Phone"},
+            {"key":"5", "val": "Flip Phone", "disabled": true}
+          ];
         }
       },
       /**
@@ -101,32 +101,42 @@
         type: Array,
         value: function(){
           var dropdownItems = [
-              {"key":"1", "val": "iPhone"},
-              {"key":"2", "val": "Android"},
-              {"key":"3", "val": "Blackberry"},
-              {"key":"4", "val": "Windows Phone"},
-              {"key":"5", "val": "Flip Phone", "disabled": true}
-        ];
+            {"key":"1", "val": "iPhone"},
+            {"key":"2", "val": "Android"},
+            {"key":"3", "val": "Blackberry"},
+            {"key":"4", "val": "Windows Phone"},
+            {"key":"5", "val": "Flip Phone", "disabled": true}
+          ];
 
           return [
-              {
-                configName: "Default",
-                lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>",
-                disabled: false,
-                checkboxMode: false
-              },
-              {
-                configName: "Checkbox Mode",
-                checkboxMode: true,
-                disabled: false,
-                lightDomContent: "<px-dropdown-content checkbox-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>"
-              },
-              {
-                configName: "Disabled",
-                disabled: true,
-                checkboxMode: false,
-                lightDomContent: "<px-dropdown-content checkbox-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>"
-              }
+            {
+              configName: "Default",
+              disabled: false,
+              checkboxMode: false,
+              searchMode: false,
+              lightDomContent: "<px-dropdown-content extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>"
+            },
+            {
+              configName: "Checkbox mode",
+              checkboxMode: true,
+              disabled: false,
+              searchMode: false,
+              lightDomContent: "<px-dropdown-content checkbox-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>"
+            },
+            {
+              configName: "Checkbox and search",
+              checkboxMode: true,
+              disabled: false,
+              searchMode: true,
+              lightDomContent: "<px-dropdown-content checkbox-mode='true' search-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>"
+            },
+            {
+              configName: "Disabled",
+              disabled: true,
+              checkboxMode: false,
+              searchMode: false,
+              lightDomContent: "<px-dropdown-content checkbox-mode='true' extend-dropdown='true' extend-dropdown-by='25' max-cont-character-width='10' items='" + JSON.stringify(dropdownItems) + "'></px-dropdown-content>"
+            }
           ];
         }
       }
@@ -170,6 +180,10 @@
         inputType: 'toggle'
       },
       checkboxMode: {
+        type: Boolean,
+        defaultValue: false
+      },
+      searchMode: {
         type: Boolean,
         defaultValue: false
       },

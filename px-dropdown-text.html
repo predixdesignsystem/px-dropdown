@@ -4,6 +4,7 @@
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
 -->
 <link rel="import" href="../polymer/polymer.html" />
+<link rel="import" href="../px-tooltip/px-tooltip.html" />
 <!--
 Element providing the text for the px-dropdown element
 
@@ -108,8 +109,8 @@ Element providing the text for the px-dropdown element
      * This method is called when the display value is calculated, to check if
      * we need to display the tooltip or not.
      */
-    _includeTooltip: function() {
-      return (this.tooltipValue.length > this.maxContCharacterWidth);
+    _includeTooltip: function(tooltipValue, maxContCharacterWidth) {
+      return (tooltipValue.length > maxContCharacterWidth);
     },
     _textClass: function() {
       if (this.opened) {

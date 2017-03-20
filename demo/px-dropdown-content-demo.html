@@ -46,7 +46,9 @@
               extend-dropdown-by="{{props.extendDropdownBy.value}}"
               allow-outside-scroll="{{props.allowOutsideScroll.value}}"
               checkbox-mode="{{props.checkboxMode.value}}"
-              items="[[props.items.value]]">
+              items="[[props.items.value]]"
+              search-mode="{{props.searchMode.value}}"
+              sort-mode="{{props.sortMode.value}}">
             </px-dropdown-content>
           </px-dropdown>
         </div>
@@ -93,13 +95,31 @@
           return [
               {
                 configName: "Default",
-                configHideProps: ['extendDropdown', 'extendDropdownBy'],
                 configReset: true
               },
               {
-                configName: "Extend Dropdown",
+                configName: "Extend dropdown",
                 extendDropdown: true,
-                extendDropdownBy: 30
+                extendDropdownBy: 30,
+                sortMode: "",
+                searchMode: false,
+                checkboxMode: false
+              },
+              {
+                configName: "Sort values",
+                sortMode: "val",
+                extendDropdown: false,
+                extendDropdownBy: '',
+                searchMode: false,
+                checkboxMode: false
+              },
+              {
+                configName: "Checkbox and search",
+                sortMode: "",
+                extendDropdown: false,
+                extendDropdownBy: '',
+                searchMode: true,
+                checkboxMode: true
               }
           ];
         }
@@ -110,26 +130,6 @@
      * A reference for `this.props`. Read the documentation there.
      */
     demoProps: {
-      allowOutsideScroll: {
-        type: Boolean,
-        defaultValue: false,
-        inputType: 'toggle'
-      },
-      checkboxMode: {
-        type: Boolean,
-        defaultValue: false,
-        inputType: 'toggle'
-      },
-      extendDropdown: {
-        type: Boolean,
-        defaultValue: null,
-        inputType: 'toggle'
-      },
-      extendDropdownBy: {
-        type: Number,
-        defaultValue: null,
-        inputType: 'number'
-      },
       items: {
         type: Object,
         defaultValue: [
@@ -155,6 +155,37 @@
           {"key":"20", "val": "Hippopotamus", "disabled": true}
         ],
         inputType: 'code:JSON'
+      },
+      allowOutsideScroll: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      checkboxMode: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      searchMode: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      sortMode: {
+        type: String,
+        defaultValue: '',
+        inputType: 'dropdown',
+        inputChoices: ['key','val']
+      },
+      extendDropdown: {
+        type: Boolean,
+        defaultValue: null,
+        inputType: 'toggle'
+      },
+      extendDropdownBy: {
+        type: Number,
+        defaultValue: null,
+        inputType: 'number'
       },
       parentComponent: {
         type: Array,
