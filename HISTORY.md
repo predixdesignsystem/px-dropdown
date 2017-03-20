@@ -1,3 +1,7 @@
+v2.4.5
+==================
+* changed position back to relative, fixed demo
+
 v2.4.4
 ==================
 * changed position to absolute
