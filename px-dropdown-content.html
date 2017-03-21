@@ -34,7 +34,7 @@ Element providing the content for the px-dropdown element
             <input class="text-input input--search u-ml-- u-mb-- u-p--" type="text" placeholder="{{searchPlaceholder}}" value="{{searchTerm::input}}">
           </li>
         </template>
-        <template id="dropdownItems" is="dom-repeat" items="{{computedItems}}" filter="{{_computeFilter(searchTerm)}}" sort="_computeSort" delay="1000" strip-whitespace>
+        <template id="dropdownItems" is="dom-repeat" items="{{computedItems}}" filter="{{_computeFilter(searchTerm)}}" delay="1000" strip-whitespace>
           <li class="px-dropdown--listitem" on-tap="_clickItem" value="{{index}}" style$="{{_getDisabledStyle(item.disabled)}}">
             <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
               <input type="checkbox" data-key="{{item.key}}" on-change="_checkChanged" checked="{{item.checked}}" class="u-mr--" disabled$="{{item.disabled}}">
@@ -88,6 +88,29 @@ Element providing the content for the px-dropdown element
       sortMode:{
         type: String,
         observer: '_initSort'
+      },
+      /**
+       * If set to true and checkbox-mode is also true, checked items will be sorted to the top,
+       * while unchecked items will be sorted to the bottom of the list.
+       */
+      sortCheckedItems:{
+        type: Boolean,
+        observer: '_initSort'
+      },
+      /**
+       * If set to true, disabled items will be sorted to the bottom of the list.
+       */
+      sortDisabledItems:{
+        type: Boolean,
+        observer: '_initSort'
+      },
+      /**
+       * If set to true, a comma-separated list of the currently selected items
+       * will be displayed in the dropdown, taking the place of the placeholder text.
+       */
+      showSelected:{
+        type: Boolean,
+        value: false
       },
       /**
        * The value of the search box, used for filtering the dropdown items when search-mode is true.
@@ -363,7 +386,7 @@ Element providing the content for the px-dropdown element
             }
           }
 
-          if(items.length){
+          if(this.showSelected && items.length){
             items.sort(this._computeSort.bind(this));
             displayValues = items.map(function (item) {
               return item.val;
@@ -502,11 +525,11 @@ Element providing the content for the px-dropdown element
      */
     _computeSort: function (a, b) {
       var sortValue = 0;
-      if (this.sortMode === '') {
-        return sortValue;
+      if(!this.sortMode && !this.sortChecked && !this.sortDisabled) {
+        return -1;
       }
 
-      if(this.checkboxMode) {
+      if(this.checkboxMode && this.sortCheckedItems) {
         if (a.checked && !b.checked) {
           sortValue--;
           if (a.disabled) {
@@ -521,14 +544,16 @@ Element providing the content for the px-dropdown element
         }
       }
 
-      if(a.disabled) {
-        sortValue++;
-      }
-      if(b.disabled) {
-        sortValue--;
+      if(this.sortDisabledItems) {
+        if(a.disabled) {
+          sortValue++;
+        }
+        if(b.disabled) {
+          sortValue--;
+        }
       }
 
-      if(sortValue === 0) {
+      if(this.sortMode && sortValue === 0) {
         if(this.sortMode === 'key'){
           sortValue = a.key - b.key;
         }
@@ -568,6 +593,7 @@ Element providing the content for the px-dropdown element
      * Call render on dropdownItems template for init sort.
      */
     _initSort: function () {
+      this.$.dropdownItems.sort = '_computeSort';
       this.$.dropdownItems.render();
     }
   });

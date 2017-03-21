@@ -1,8 +1,12 @@
-v2.5.1
+v3.0.0
+==================
+* turned off new functionality from PR #32 by default
+
+v2.5.1 (tag deleted)
 ==================
 * fixed display issue with search box, added unit tests
 
-v2.5.0
+v2.5.0 (tag deleted)
 ==================
 * merge PR #32, add search and sort functionality
 

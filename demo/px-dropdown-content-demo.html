@@ -48,7 +48,10 @@
               checkbox-mode="{{props.checkboxMode.value}}"
               items="[[props.items.value]]"
               search-mode="{{props.searchMode.value}}"
-              sort-mode="{{props.sortMode.value}}">
+              sort-mode="{{props.sortMode.value}}"
+              sort-checked-items="{{props.sortCheckedItems.value}}"
+              sort-disabled-items="{{props.sortDisabledItems.value}}"
+              show-selected="{{props.showSelected.value}}">
             </px-dropdown-content>
           </px-dropdown>
         </div>
@@ -103,15 +106,21 @@
                 extendDropdownBy: 30,
                 sortMode: "",
                 searchMode: false,
-                checkboxMode: false
+                checkboxMode: false,
+                sortCheckedItems: false,
+                sortDisabledItems: false,
+                showSelected: false
               },
               {
-                configName: "Sort values",
+                configName: "Sort by values",
                 sortMode: "val",
                 extendDropdown: false,
                 extendDropdownBy: '',
                 searchMode: false,
-                checkboxMode: false
+                checkboxMode: false,
+                sortCheckedItems: false,
+                sortDisabledItems: false,
+                showSelected: false
               },
               {
                 configName: "Checkbox and search",
@@ -119,7 +128,10 @@
                 extendDropdown: false,
                 extendDropdownBy: '',
                 searchMode: true,
-                checkboxMode: true
+                checkboxMode: true,
+                sortCheckedItems: true,
+                sortDisabledItems: true,
+                showSelected: true
               }
           ];
         }
@@ -170,6 +182,22 @@
         type: Boolean,
         defaultValue: false,
         inputType: 'toggle'
+      },
+      sortCheckedItems: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      sortDisabledItems: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      showSelected: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle',
+        inputHelpText: 'Only relevant if checkbox mode is true.'
       },
       sortMode: {
         type: String,
