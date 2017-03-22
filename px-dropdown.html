@@ -58,7 +58,12 @@ Custom property | Description | Default
 <dom-module id="px-dropdown">
   <template>
     <style include="px-dropdown-styles"></style>
-
+    <iron-a11y-keys
+      id="keys"
+      keys="up down space enter tab esc"
+      target="[[_keyBindingsTarget]]"
+      on-keys-pressed="_handleKeyPress">
+    </iron-a11y-keys>
     <div
       on-tap="triggerClicked"
       on-mouseover="_hoverOn"
@@ -90,12 +95,12 @@ Custom property | Description | Default
      * TBD add bindings for UP(38),DOWN(40) & Enter(13)
      **/
     _keybindings: {
-      SPACE: 32,
-      ESC: 27,
-      TAB: 9,
-      UP: 38,
-      DOWN: 40,
-      ENTER: 13
+      SPACE: 'space',
+      ESC: 'esc',
+      TAB: 'tab',
+      UP: 'up',
+      DOWN: 'down',
+      ENTER: 'enter'
     },
     properties: {
       /**
@@ -197,6 +202,15 @@ Custom property | Description | Default
       disabled: {
         type: Boolean,
         value: false
+      },
+      /**
+       * Binding target for iron-a111y-keys
+       **/
+      _keyBindingsTarget: {
+        type: Object,
+        value: function () {
+          return this;
+        }
       }
     },
     observers: [
@@ -220,8 +234,6 @@ Custom property | Description | Default
       if (!this.value && this.displayValue) {
         this.set('value', this.displayValue);
       }
-
-      this.addEventListener('keydown', this._handleKeyPress);
     },
     detached: function () {
       var tapEvent = ('ontouchstart' in window) ? 'tap' : 'click';
@@ -507,11 +519,13 @@ Custom property | Description | Default
      *  Keyevents to be captured are defined in the _keybindings  object.
      **/
     _handleKeyPress: function (event) {
-      if (event.which) {
-        switch (event.which) {
+      var keyPressed = event.detail.combo;
+      console.log('key pressed : %s', keyPressed);
+      if (keyPressed) {
+        switch (keyPressed) {
           case this._keybindings.SPACE:
             this.triggerClicked(event);
-            event.preventDefault();
+            event.detail.keyboardEvent.preventDefault();
             break;
           case this._keybindings.ESC:
             if (this.opened) {
@@ -520,7 +534,7 @@ Custom property | Description | Default
               this._reset();
               this._flipOpened(event);
             }
-            event.preventDefault();
+            event.detail.keyboardEvent.preventDefault();
             break;
           case this._keybindings.TAB:
             if (this.opened) {
@@ -536,13 +550,22 @@ Custom property | Description | Default
               content._handleKeyEvent('DOWN', event);
             } else {
               this.triggerClicked(event);
-              event.preventDefault();
+              event.detail.keyboardEvent.preventDefault();
             }
             break;
           case this._keybindings.UP:
             if (this.opened) {
               var content = Polymer.dom(this).querySelector('px-dropdown-content');
               content._handleKeyEvent('UP', event);
+            }
+            break;
+          case this._keybindings.ENTER:
+            if (this.opened) {
+              var content = Polymer.dom(this).querySelector('px-dropdown-content');
+              content._handleKeyEvent('ENTER', event);
+            } else {
+              this.triggerClicked(event);
+              event.detail.keyboardEvent.preventDefault();
             }
             break;
         }

@@ -6,6 +6,7 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../px-tooltip/px-tooltip.html"/>
 <link rel="import" href="../iron-dropdown/iron-dropdown-scroll-manager.html"/>
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 
 <!--
 Element providing the content for the px-dropdown element
@@ -281,19 +282,23 @@ Element providing the content for the px-dropdown element
      * as well as closes the dropdown. Finally, it flips the opened flag.
      */
     _clickItem: function (evt) {
+      /**
+       * Event fired when an element is clicked  on in the dropdown.
+       * @event px-dropdown-click
+       */
+      this.fire('px-dropdown-click', evt);
+      !this.computedItems[evt.target.value].disabled && this.fire('px-dropdown-click', evt);
 
+      this._selectItemAndClose(evt.target.value, evt.target);
+    },
+    _selectItemAndClose: function (value, listItem) {
       // only handle the click if the item is not disabled
-      if (!this.computedItems[evt.currentTarget.value].disabled) {
-        /**
-         * Event fired when an element is clicked  on in the dropdown.
-         * @event px-dropdown-click
-         */
-        this.fire('px-dropdown-click', evt);
+      if (!this.computedItems[value].disabled) {
 
         if (this.checkboxMode) {
 
           //try to toggle checkbox state
-          var checkbox = Polymer.dom(evt.target).querySelector('input');
+          var checkbox = Polymer.dom(listItem).querySelector('input');
 
           //if we haven't found it it's probably because the click was actually
           //on the checkbox so just ignore
@@ -318,8 +323,8 @@ Element providing the content for the px-dropdown element
            */
           this.fire('px-dropdown-value-changed',
             {
-              val: this.computedItems[evt.target.value].val,
-              key: this.computedItems[evt.target.value].key
+              val: this.computedItems[value].val,
+              key: this.computedItems[value].key
             });
         }
       }
@@ -392,41 +397,77 @@ Element providing the content for the px-dropdown element
         }
       }
     },
+    _keyboardBeingUsed: false,
+    _bindMouse: function () {
+      this._keyboardBeingUsed = false;
+      this.$.dropdown.classList.remove('no-mouse-event');
+      this.removeEventListener('mousemove', this._bindMouse);
+    },
     _handleKeyEvent: function (keyDir, event) {
+      this._keyboardBeingUsed = true;
+      this.$.dropdown.classList.add('no-mouse-event');
+      this.addEventListener('mousemove', this._bindMouse.bind(this));
+
       var currHighlightedItem = this.querySelector('li.px-dropdown--listitem.highlighted'),
-        prevSibling = this.querySelector('li.px-dropdown--listitem:last-child'),
-        nextSibling = this.querySelector('li.px-dropdown--listitem:first-child');
+        prevSibling = this.querySelector('li.px-dropdown--listitem:last-of-type'),
+        nextSibling = this.querySelector('li.px-dropdown--listitem:first-of-type');
 
       if (currHighlightedItem) {
-        prevSibling = currHighlightedItem.previousElementSibling || prevSibling;
-        nextSibling = currHighlightedItem.nextElementSibling || nextSibling;
+        if (currHighlightedItem.previousElementSibling && currHighlightedItem.previousElementSibling.nodeName
+          != 'TEMPLATE') {
+          prevSibling = currHighlightedItem.previousElementSibling;
+        }
+
+        if (currHighlightedItem.nextElementSibling && currHighlightedItem.nextElementSibling.nodeName != 'TEMPLATE') {
+          nextSibling = currHighlightedItem.nextElementSibling;
+        }
       } else {
-          currHighlightedItem = nextSibling;
+        currHighlightedItem = nextSibling;
       }
 
       switch (keyDir) {
         case 'UP':
           currHighlightedItem.classList.remove('highlighted');
           prevSibling.classList.add('highlighted');
+          this._moveItemIntoDisplay(prevSibling);
           break;
         case 'DOWN':
           currHighlightedItem.classList.remove('highlighted');
           nextSibling.classList.add('highlighted');
+          this._moveItemIntoDisplay(nextSibling);
           break;
+        case 'ENTER':
+          this._selectItemAndClose(currHighlightedItem.value, currHighlightedItem);
       }
-
-      event.preventDefault();
+      event.detail.keyboardEvent.preventDefault();
     },
-    _hoverOn: function(event) {
-      var currHighlightedItem = this.querySelector('li.px-dropdown--listitem.highlighted');
-      if(currHighlightedItem) {
+    _hoverOn: function (event) {
+      if (!this._keyboardBeingUsed) {
+        var currHighlightedItem = this.querySelector('li.px-dropdown--listitem.highlighted');
+        if (currHighlightedItem) {
           currHighlightedItem.classList.remove('highlighted');
+        }
+        event.currentTarget.classList.add('highlighted');
       }
-      event.currentTarget.classList.add('highlighted');
-
     },
-    _hoverOff: function(event) {
+    _hoverOff: function (event) {
       event.currentTarget.classList.remove('highlighted');
+    },
+    _moveItemIntoDisplay: function (listItem) {
+      var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height),
+        listItemHeight = listItem.getBoundingClientRect().height,
+        scrollHeight = this.$.dropdown.scrollHeight;
+
+      //do we have a scrollbar?
+      if (currentHeight < scrollHeight) {
+        if ((listItemHeight + listItem.offsetTop) > (currentHeight + this.$.dropdown.scrollTop)) {
+          console.log('move into view down');
+          this.$.dropdown.scrollTop += (listItem.offsetTop + listItemHeight) - (currentHeight + this.$.dropdown.scrollTop);
+        } else if ((listItemHeight + listItem.offsetTop) < this.$.dropdown.scrollTop) {
+          console.log('move into view up');
+          this.$.dropdown.scrollTop -= (this.$.dropdown.scrollTop - listItem.offsetTop);
+        }
+      }
     }
   });
 </script>
