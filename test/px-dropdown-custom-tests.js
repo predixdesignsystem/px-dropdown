@@ -114,7 +114,7 @@ function runCustomTests() {
            dropdown_li = Polymer.dom(dropdown).querySelector('li');
 
         var li_click = function(e) {
-          //assert.equal(e.detail.srcElement, dropdown_li);
+          assert.equal(e.detail.srcElement, dropdown_li);
           done();
         };
         px_dropdown.addEventListener('px-dropdown-click', li_click);
@@ -303,10 +303,10 @@ function runCustomTests() {
           items = px_dropdown_content.$.dropdown.querySelectorAll('li');
         px_dropdown_content.sortMode = 'val';
         items = px_dropdown_content.$.dropdown.querySelectorAll('li');
-        assert.equal(items[1].textContent, 'eight');
+        assert.equal(items[1].textContent.trim(), 'eight');
         px_dropdown_content.sortMode = 'key';
         items = px_dropdown_content.$.dropdown.querySelectorAll('li');
-        assert.equal(items[1].textContent, 'One');
+        assert.equal(items[1].textContent.trim(), 'One');
         done();
       }
     );

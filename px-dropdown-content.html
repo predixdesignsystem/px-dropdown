@@ -385,14 +385,13 @@ Element providing the content for the px-dropdown element
        * Event fired when an element is clicked  on in the dropdown.
        * @event px-dropdown-click
        */
-      this.fire('px-dropdown-click', evt);
-      !this.computedItems[evt.target.value].disabled && this.fire('px-dropdown-click', evt);
+      !evt.model.item.disabled && this.fire('px-dropdown-click', evt);
 
-      this._selectItemAndClose(evt.target.value, evt.target);
+      this._selectItemAndClose(evt.model.item, evt.target);
     },
-    _selectItemAndClose: function (value, listItem) {
+    _selectItemAndClose: function (item, listItem) {
       // only handle the click if the item is not disabled
-      if (!this.computedItems[value].disabled) {
+      if (!item.disabled) {
 
         if (this.checkboxMode) {
 
@@ -442,8 +441,8 @@ Element providing the content for the px-dropdown element
            */
           this.fire('px-dropdown-value-changed',
             {
-              val: this.computedItems[value].val,
-              key: this.computedItems[value].key
+              val: item.val,
+              key: item.key
             });
         }
       }
@@ -679,7 +678,7 @@ Element providing the content for the px-dropdown element
           this._moveItemIntoDisplay(nextSibling);
           break;
         case 'ENTER':
-          this._selectItemAndClose(currHighlightedItem.value, currHighlightedItem);
+          this._selectItemAndClose(this.computedItems[currHighlightedItem.value], currHighlightedItem);
       }
       event.detail.keyboardEvent.preventDefault();
     },
