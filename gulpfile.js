@@ -72,7 +72,6 @@ gulp.task('watch', function() {
 });
 
 gulp.task('serve', function() {
-  console.log('here');
   browserSync.init({
     port: 8080,
     notify: false,
