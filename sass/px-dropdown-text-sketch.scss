@@ -31,7 +31,6 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 @import "px-forms-design/_base.forms.scss";
 
 :host {
-  //align-self: flex-start;
   cursor: pointer;
   overflow: hidden;
   flex: 1 1 auto;
@@ -41,7 +40,6 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 
 :host.disabled {
   cursor: not-allowed;
-  color: var(--px-dropdown-text-color--disabled, $gray4);
 }
 
 .px-dropdown-text {
@@ -49,8 +47,6 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: text-top;
-  //color: var(--px-dropdown-text-color, $black);
-
 }
 
 // Meta

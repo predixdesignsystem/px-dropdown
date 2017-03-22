@@ -1,3 +1,51 @@
+v2.5.1
+==================
+* fixed display issue with search box, added unit tests
+
+v2.5.0
+==================
+* merge PR #32, add search and sort functionality
+
+v2.4.5
+==================
+* changed position back to relative, fixed demo
+
+v2.4.4
+==================
+* changed position to absolute
+
+v2.4.3
+==================
+* improved accessibility
+
+v2.4.2
+==================
+* fix disabled text color
+
+v2.4.0
+==================
+* added chevron css vars
+
+v2.3.1
+==================
+* remove old theming and remove shields from subcomponent
+
+v2.3.0
+==================
+* standardized style variable naming
+
+v2.2.11
+==================
+* fixed CodePen for subcomponent
+
+v2.2.10
+==================
+* updated usage documentation
+
+v2.2.9
+==================
+* Ensure tooltip is hidden when scrolling the dropdown content
+
 v2.2.8
 ==================
 * Ensure click on checkboxes don't throw an error

@@ -27,7 +27,7 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 // Base
 @import "px-flexbox-design/_base.flexbox.scss";
 @import "px-viewport-design/_base.viewport.scss";
-
+$inuit-enable-input--search : true;
 @import "px-forms-design/_base.forms.scss";
 
 #dropdown.no-mouse-event li.px-dropdown--listitem{
@@ -52,8 +52,15 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
   white-space: nowrap;
 }
 
-.px-dropdown--checkbox {
-  margin-right: 5px;
+.input--search {
+  width: 85%;
+  position: relative;
+  height: 1rem;
+  box-sizing: content-box;
+}
+
+input[type="checkbox"] {
+  pointer-events: none;
 }
 
 // Meta
@@ -66,4 +73,6 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 @import "inuit-clearfix/_trumps.clearfix.scss";
 
 $inuit-enable-paddings--tiny             : true;
+$inuit-enable-margins--tiny             : true;
+$inuit-enable-margins--small             : true;
 @import "px-spacing-design/_trumps.spacing.scss";

@@ -4,6 +4,7 @@
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
 -->
 <link rel="import" href="../polymer/polymer.html" />
+<link rel="import" href="../px-tooltip/px-tooltip.html" />
 <!--
 Element providing the text for the px-dropdown element
 
@@ -24,7 +25,7 @@ Element providing the text for the px-dropdown element
   <template>
     <style include="px-dropdown-text-styles"></style>
 
-    <span id="textWrap" class="flex__item px-dropdown-text">{{displayValue}}</span>
+    <span id="textWrap" class$="flex__item px-dropdown-text {{_textClass(hover, opened)}}">{{displayValue}}</span>
     <template is="dom-if" if="{{_includeTooltip(tooltipValue, maxContCharacterWidth)}}">
         <px-tooltip tooltip-message="{{tooltipValue}}" orientation="top"></px-tooltip>
     </template>
@@ -74,6 +75,32 @@ Element providing the text for the px-dropdown element
         type: Number,
         notify: true,
         value: 0
+      },
+      /**
+       * Boolean which reflects whether the chevron is being hovered over.
+       *
+       * @prop hover
+       * @type Boolean
+       * @default false
+       * @notify true
+       */
+      hover: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      /**
+       * Boolean which reflects whether the menu is open.
+       *
+       * @prop opened
+       * @type Boolean
+       * @default false
+       * @notify true
+       */
+      opened: {
+        type: Boolean,
+        value: false,
+        notify: true
       }
     },
     /**
@@ -82,8 +109,15 @@ Element providing the text for the px-dropdown element
      * This method is called when the display value is calculated, to check if
      * we need to display the tooltip or not.
      */
-    _includeTooltip: function() {
-      return (this.tooltipValue.length > this.maxContCharacterWidth);
+    _includeTooltip: function(tooltipValue, maxContCharacterWidth) {
+      return (tooltipValue.length > maxContCharacterWidth);
+    },
+    _textClass: function() {
+      if (this.opened) {
+        return "opened";
+      } else if (this.hover) {
+        return "hover";
+      }
     }
   });
 </script>
