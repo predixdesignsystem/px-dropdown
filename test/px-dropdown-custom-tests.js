@@ -258,18 +258,18 @@ function runCustomTests() {
           px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
           dropcell = px_dropdown.$$('#dropcell'),
           items = px_dropdown_content.$.dropdown.querySelectorAll('li'),
-          checkbox1 = items[value=1].querySelector('input'),
-          checkbox2 = items[value=2].querySelector('input');
+          checkbox1 = items[value=0].querySelector('input'),
+          checkbox2 = items[value=1].querySelector('input');
 
-       //second item should be checked
+       //first item should be checked
        assert.isTrue(checkbox1.checked);
-       //third item unchecked
-       assert.isTrue(!checkbox2.checked);
+       //second item unchecked
+       assert.isFalse(checkbox2.checked);
 
        clickHandle = function() {
-         //second element must now be unchecked, third still unchecked
-         assert.isTrue(!checkbox1.checked);
-         assert.isTrue(!checkbox2.checked);
+         //first element must now be unchecked, second still unchecked
+         assert.isFalse(checkbox1.checked);
+         assert.isFalse(checkbox2.checked);
 
          //dropdown must still be opened
          assert.isTrue(px_dropdown_content.menuOpen);
