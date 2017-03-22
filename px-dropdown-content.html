@@ -230,6 +230,14 @@ Element providing the content for the px-dropdown element
       },
       _contentScrollHandler: {
         type: Object
+      },
+      /**
+       * Used to capture if the user is using the keyboard to interact with the dropdown. At this point we use this
+       * to disable all mouse events.
+       **/
+      _keyboardBeingUsed: {
+          type: Boolean,
+          value: false
       }
     },
     listeners: { 'px-tooltip-request-show': '_tooltipShow',
@@ -618,16 +626,29 @@ Element providing the content for the px-dropdown element
       this.$.dropdownItems.sort = '_computeSort';
       this.$.dropdownItems.render();
     },
-    _keyboardBeingUsed: false,
+    /**
+     * Event handler for mouse move event. We enable mouse events when user moves the mouse.
+     * Mouse events are disabled when user uses the keyboard to interact with the dropdown.
+     * @private
+     */
     _bindMouse: function () {
       this._keyboardBeingUsed = false;
       this.$.dropdown.classList.remove('no-mouse-event');
       this.removeEventListener('mousemove', this._bindMouse);
     },
+    /**
+     * Keypress event handler. The keypress event is orchestrated from the px-dropdown to px-dropdown content
+     * for the below events.
+     * UP DOWN ENTER
+     * @param keyDir
+     * @param event
+     * @private
+     */
     _handleKeyEvent: function (keyDir, event) {
       this._keyboardBeingUsed = true;
       this.$.dropdown.classList.add('no-mouse-event');
       this.addEventListener('mousemove', this._bindMouse.bind(this));
+      this._onContentScroll();
 
       var currHighlightedItem = this.querySelector('li.px-dropdown--listitem.highlighted'),
         prevSibling = this.querySelector('li.px-dropdown--listitem:last-of-type'),
@@ -662,6 +683,11 @@ Element providing the content for the px-dropdown element
       }
       event.detail.keyboardEvent.preventDefault();
     },
+    /**
+     * Event handler when the mouse hovers over a dropdown list item.
+     * @param event
+     * @private
+     */
     _hoverOn: function (event) {
       if (!this._keyboardBeingUsed) {
         var currHighlightedItem = this.querySelector('li.px-dropdown--listitem.highlighted');
@@ -671,9 +697,20 @@ Element providing the content for the px-dropdown element
         event.currentTarget.classList.add('highlighted');
       }
     },
+    /**
+     * Event handler when the mouse hovers out of a dropdown list item.
+     * @param event
+     * @private
+     */
     _hoverOff: function (event) {
       event.currentTarget.classList.remove('highlighted');
     },
+    /**
+     * Sets the scroll position of the dropdown list if the user uses the keyboard up/down keys to navigate the
+     * dropdown list.
+     * @param listItem
+     * @private
+     */
     _moveItemIntoDisplay: function (listItem) {
       var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height),
         listItemHeight = listItem.getBoundingClientRect().height,
@@ -682,10 +719,8 @@ Element providing the content for the px-dropdown element
       //do we have a scrollbar?
       if (currentHeight < scrollHeight) {
         if ((listItemHeight + listItem.offsetTop) > (currentHeight + this.$.dropdown.scrollTop)) {
-          console.log('move into view down');
           this.$.dropdown.scrollTop += (listItem.offsetTop + listItemHeight) - (currentHeight + this.$.dropdown.scrollTop);
         } else if ((listItemHeight + listItem.offsetTop) < this.$.dropdown.scrollTop) {
-          console.log('move into view up');
           this.$.dropdown.scrollTop -= (this.$.dropdown.scrollTop - listItem.offsetTop);
         }
       }

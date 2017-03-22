@@ -523,14 +523,10 @@ Custom property | Description | Default
     /**
      *  This functions is a catch all for all keyboard events that we want to capture.
      *
-     *  SPACE : Toggle/Flip dropdown.
-     *  ESC : Close dropdown.
-     *
      *  Keyevents to be captured are defined in the _keybindings  object.
      **/
     _handleKeyPress: function (event) {
       var keyPressed = event.detail.combo;
-      console.log('key pressed : %s', keyPressed);
       if (keyPressed) {
         switch (keyPressed) {
           case this._keybindings.SPACE:
