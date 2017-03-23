@@ -76,7 +76,7 @@ gulp.task('serve', function() {
     port: 8080,
     notify: false,
     reloadOnRestart: true,
-    logPrefix: `${pkg.name}`,
+    //logPrefix: `${pkg.name}`,
     https: false,
     server: ['./', 'bower_components'],
   });

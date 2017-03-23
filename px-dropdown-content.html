@@ -3,9 +3,10 @@
     siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
     'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
 -->
-<link rel="import" href="../polymer/polymer.html" />
-<link rel="import" href="../px-tooltip/px-tooltip.html" />
-<link rel="import" href="../iron-dropdown/iron-dropdown-scroll-manager.html" />
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../px-tooltip/px-tooltip.html"/>
+<link rel="import" href="../iron-dropdown/iron-dropdown-scroll-manager.html"/>
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 
 <!--
 Element providing the content for the px-dropdown element
@@ -30,17 +31,24 @@ Element providing the content for the px-dropdown element
     <div class="px-dropdown--content" id="dropdown" hidden$="{{!menuOpen}}">
       <ul id="list" class="px-dropdown--list list-bare">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
-          <li>
-            <input class="text-input input--search u-ml-- u-mb-- u-p--" type="text" placeholder="{{searchPlaceholder}}" value="{{searchTerm::input}}">
+          <li class="search-input-container">
+            <input class="text-input input--search u-ml-- u-mb-- u-p--" type="text" placeholder="{{searchPlaceholder}}"
+                   value="{{searchTerm::input}}">
           </li>
         </template>
-        <template id="dropdownItems" is="dom-repeat" items="{{computedItems}}" filter="{{_computeFilter(searchTerm)}}" delay="1000" strip-whitespace>
-          <li class="px-dropdown--listitem" on-tap="_clickItem" value="{{index}}" style$="{{_getDisabledStyle(item.disabled)}}">
+        <template id="dropdownItems" is="dom-repeat" items="{{computedItems}}" filter="{{_computeFilter(searchTerm)}}"
+                  delay="1000" strip-whitespace>
+          <li class="px-dropdown--listitem" on-tap="_clickItem" value="{{index}}"
+              style$="{{_getDisabledStyle(item.disabled)}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff"
+              disabled$="[[item.disabled]]">
             <template is="dom-if" if="{{checkboxMode}}" strip-whitespace>
-              <input type="checkbox" data-key="{{item.key}}" on-change="_checkChanged" checked="{{item.checked}}" class="u-mr--" disabled$="{{item.disabled}}">
-            </template>{{item.val}}<template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
-            <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
-          </template>
+              <input type="checkbox" data-key="{{item.key}}" on-change="_checkChanged" checked="{{item.checked}}"
+                     class="u-mr--" disabled$="{{item.disabled}}">
+            </template>
+            {{item.val}}
+            <template is="dom-if" if="{{_includeTooltip(item.val)}}" strip-whitespace>
+              <px-tooltip tooltip-message="{{item.val}}"></px-tooltip>
+            </template>
           </li>
         </template>
       </ul>
@@ -63,7 +71,9 @@ Element providing the content for the px-dropdown element
       items: {
         type: Array,
         notify: true,
-        value: function() {return [];}
+        value: function () {
+          return [];
+        }
       },
       /**
        * This property stores the items array, after it's been
@@ -71,21 +81,23 @@ Element providing the content for the px-dropdown element
        */
       computedItems: {
         type: Array,
-        value: function() {return [];},
+        value: function () {
+          return [];
+        },
         computed: '_computedItems(items, items.*)'
       },
       /**
        * If true, the dropdown will include a search box, whereby the dropdown items can be filtered with a search term.
        */
-      searchMode:{
-        type:Boolean,
+      searchMode: {
+        type: Boolean,
         value: false,
-        observer:'_searchModeChanged'
+        observer: '_searchModeChanged'
       },
       /**
        * What to sort the dropdown items by - one of "key" or "val", where "key" is the default.
        */
-      sortMode:{
+      sortMode: {
         type: String,
         observer: '_initSort'
       },
@@ -93,14 +105,14 @@ Element providing the content for the px-dropdown element
        * If set to true and checkbox-mode is also true, checked items will be sorted to the top,
        * while unchecked items will be sorted to the bottom of the list.
        */
-      sortCheckedItems:{
+      sortCheckedItems: {
         type: Boolean,
         observer: '_initSort'
       },
       /**
        * If set to true, disabled items will be sorted to the bottom of the list.
        */
-      sortDisabledItems:{
+      sortDisabledItems: {
         type: Boolean,
         observer: '_initSort'
       },
@@ -108,23 +120,23 @@ Element providing the content for the px-dropdown element
        * If set to true, a comma-separated list of the currently selected items
        * will be displayed in the dropdown, taking the place of the placeholder text.
        */
-      showSelected:{
+      showSelected: {
         type: Boolean,
         value: false
       },
       /**
        * The value of the search box, used for filtering the dropdown items when search-mode is true.
        */
-      searchTerm:{
-        type:String,
-        value:''
+      searchTerm: {
+        type: String,
+        value: ''
       },
       /**
        * Placeholder text used in the search box when search-mode is true.
        */
-      searchPlaceholder:{
-        type:String,
-        value:''
+      searchPlaceholder: {
+        type: String,
+        value: ''
       },
       /**
        * A read-only property that tells you if the user has selected anything from the dropdown.
@@ -173,7 +185,7 @@ Element providing the content for the px-dropdown element
        * An attribute which specifies whether the dropdown is
        * extended in width from its container.
        */
-      extended : {
+      extended: {
         type: Boolean,
         value: false
       },
@@ -210,49 +222,58 @@ Element providing the content for the px-dropdown element
        */
       checkboxMode: {
         type: Boolean,
-        value:false
+        value: false
       },
       _shownTooltip: {
         type: Array,
-        value: function() {
+        value: function () {
           return [];
         }
       },
       _contentScrollHandler: {
         type: Object
+      },
+      /**
+       * Used to capture if the user is using the keyboard to interact with the dropdown. At this point we use this
+       * to disable all mouse events.
+       **/
+      _keyboardBeingUsed: {
+        type: Boolean,
+        value: false
       }
     },
-    listeners: { 'px-tooltip-request-show': '_tooltipShow',
+    listeners: {
+      'px-tooltip-request-show': '_tooltipShow',
       'px-tooltip-hide': '_tooltipHide'
     },
-    attached: function() {
+    attached: function () {
       this._contentScrollHandler = this._onContentScroll.bind(this);
       this.$.dropdown.addEventListener('scroll', this._contentScrollHandler);
     },
-    detached: function() {
+    detached: function () {
       this.$.dropdown.removeEventListener('scroll', this._contentScrollHandler);
     },
-    _tooltipShow: function(evt) {
+    _tooltipShow: function (evt) {
       this._shownTooltip.push(evt.detail.target);
     },
-    _tooltipHide: function(evt) {
+    _tooltipHide: function (evt) {
       this._shownTooltip.splice(this._shownTooltip.indexOf(evt.detail.target), 1);
     },
-    _onContentScroll: function() {
+    _onContentScroll: function () {
       //hide tooltip that have been shown
-      for(var i=0; i<this._shownTooltip.length; i++) {
+      for (var i = 0; i < this._shownTooltip.length; i++) {
         this._shownTooltip[i]._hide();
       }
     },
-    _maxContCharacterWidthChanged: function(newValue) {
-      if(newValue) {
-        this.fire('px-dropdown-max-width', {maxContCharacterWidth : this.maxContCharacterWidth});
+    _maxContCharacterWidthChanged: function (newValue) {
+      if (newValue) {
+        this.fire('px-dropdown-max-width', {maxContCharacterWidth: this.maxContCharacterWidth});
       }
     },
     /**
      * Opens the dropdown menu.
      */
-    open: function() {
+    open: function () {
 
 
       this.menuOpen = true;
@@ -260,13 +281,13 @@ Element providing the content for the px-dropdown element
       this.resetHeight();
 
       //lock scroll outside if needed
-      if(!this.allowOutsideScroll) {
+      if (!this.allowOutsideScroll) {
 
         //only if we have scroll bar
         var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height);
 
         //do we have a scrollbar?
-        if(currentHeight < this.$.dropdown.scrollHeight) {
+        if (currentHeight < this.$.dropdown.scrollHeight) {
           Polymer.IronDropdownScrollManager.pushScrollLock(this.$.dropdown);
         }
       }
@@ -274,23 +295,23 @@ Element providing the content for the px-dropdown element
       //resize ourselves
       this.fire('px-dropdown-request-size', {pxContent: this});
     },
-    _dropCellWidthChanged: function(newValue, oldValue) {
-      if(newValue) {
+    _dropCellWidthChanged: function (newValue, oldValue) {
+      if (newValue) {
         this._setWidth();
       }
     },
-    _dropCellHeightChanged: function(newValue, oldValue) {
-      if(newValue) {
+    _dropCellHeightChanged: function (newValue, oldValue) {
+      if (newValue) {
         this.adjustHeight();
       }
     },
-    _checkChanged: function(evt) {
+    _checkChanged: function (evt) {
       var checkbox = evt.target;
       this._checkboxChanged(checkbox);
     },
-    _checkboxChanged: function(checkbox) {
-      for(var i = 0; i < this.items.length; i++) {
-        if(this.items[i].key === checkbox.dataKey) {
+    _checkboxChanged: function (checkbox) {
+      for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i].key === checkbox.dataKey) {
           this.set('items.' + i + '.checked', checkbox.checked);
         }
       }
@@ -315,19 +336,23 @@ Element providing the content for the px-dropdown element
     /**
      * Closes the dropdown menu.
      */
-    close: function() {
+    close: function () {
+      var currHighlighted = this.querySelector('li.px-dropdown--listitem.highlighted');
+      currHighlighted && currHighlighted.classList.remove('highlighted');
+
       this.menuOpen = false;
       Polymer.IronDropdownScrollManager.removeScrollLock(this.$.dropdown);
+
     },
     /**
      * Size the content to height to fit maxHeight and do the height adjustments
      * for scrolling.
      */
-    sizeHeight: function(maxHeight) {
+    sizeHeight: function (maxHeight) {
       var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height);
 
       //limit height
-      if(currentHeight > maxHeight) {
+      if (currentHeight > maxHeight) {
         this.$.dropdown.style.height = maxHeight + 'px';
       }
       else {
@@ -337,7 +362,7 @@ Element providing the content for the px-dropdown element
     /**
      * Reset the height of the content.
      */
-    resetHeight: function() {
+    resetHeight: function () {
       this.$.dropdown.style.height = '';
     },
     /**
@@ -345,10 +370,10 @@ Element providing the content for the px-dropdown element
      * the allowed Max length, passed in as maxContCharacterWidth.
      * If it is, px-tooltip is included with the component.
      */
-    _includeTooltip: function(value) {
+    _includeTooltip: function (value) {
       //find the container max character passed in
       var maxContWidth = this.maxContCharacterWidth;
-      if(value === null || value === undefined || typeof value === 'string' && value.trim().length === 0) {
+      if (value === null || value === undefined || typeof value === 'string' && value.trim().length === 0) {
         return false;
       }
       //find out if the character count in the passed value is higher than the allowed max. if it is, we show the tooltip.
@@ -358,18 +383,23 @@ Element providing the content for the px-dropdown element
      * This function is called on an item click, and calls the fire event
      * as well as closes the dropdown. Finally, it flips the opened flag.
      */
-    _clickItem: function(evt) {
+    _clickItem: function (evt) {
+      /**
+       * Event fired when an element is clicked  on in the dropdown.
+       * @event px-dropdown-click
+       */
+      !evt.model.item.disabled && this.fire('px-dropdown-click', evt);
+
+      this._selectItemAndClose(evt.model.item, evt.target);
+    },
+    _selectItemAndClose: function (item, listItem) {
       // only handle the click if the item is not disabled
-      if (!evt.model.item.disabled) {
-        /**
-         * Event fired when an element is clicked  on in the dropdown.
-         * @event px-dropdown-click
-         */
-        this.fire('px-dropdown-click', evt);
+      if (!item.disabled) {
 
         if (this.checkboxMode) {
+
           //try to toggle checkbox state
-          var checkbox = Polymer.dom(evt.target).querySelector('input'),
+          var checkbox = Polymer.dom(listItem).querySelector('input'),
             items = [],
             displayValues = 'Select';
 
@@ -380,13 +410,13 @@ Element providing the content for the px-dropdown element
             this._checkboxChanged(checkbox);
           }
 
-          for(var i = 0; i < this.items.length; i++) {
-            if(this.items[i].checked) {
+          for (var i = 0; i < this.items.length; i++) {
+            if (this.items[i].checked) {
               items.push(this.items[i]);
             }
           }
 
-          if(this.showSelected && items.length){
+          if (this.showSelected && items.length) {
             items.sort(this._computeSort.bind(this));
             displayValues = items.map(function (item) {
               return item.val;
@@ -414,22 +444,24 @@ Element providing the content for the px-dropdown element
            */
           this.fire('px-dropdown-value-changed',
             {
-              val: evt.model.item.val,
-              key: evt.model.item.key
+              val: item.val,
+              key: item.key
             });
         }
       }
     },
     /**
-     * Get the style attribute for a disabled item
+     * Get the style attribute for a disabled item.
+     *
+     * Not required anymore.
      */
-    _getDisabledStyle: function(disabled) {
-      return disabled ? 'opacity: 0.5; cursor: default;' : '';
+    _getDisabledStyle: function (disabled) {
+      return disabled ? '' : '';
     },
     /**
      * Sets the dropdown width depending on the dropcell width and the extendDropdownBy.
      */
-    _setWidth: function() {
+    _setWidth: function () {
       if (this.extendDropdown) {
         this.$.dropdown.style.width = this.dropCellWidth + parseInt(this.extendDropdownBy) + 'px';
       }
@@ -442,14 +474,14 @@ Element providing the content for the px-dropdown element
      * an item's height if the dropdown has scrollbars so it's more obvious the user
      * can scroll.
      */
-    adjustHeight: function() {
+    adjustHeight: function () {
       var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height);
 
       //do we have a scrollbar?
-      if(currentHeight < this.$.dropdown.scrollHeight) {
+      if (currentHeight < this.$.dropdown.scrollHeight) {
 
         //reduce height by half the size of an item
-        var reduceBy = parseInt(this.dropCellHeight/2);
+        var reduceBy = parseInt(this.dropCellHeight / 2);
         this.$.dropdown.style.height = currentHeight - reduceBy + 'px';
       }
     },
@@ -458,20 +490,20 @@ Element providing the content for the px-dropdown element
      * an array of objects, or an array of strings. if it is strings
      * they are converted to objects.
      */
-    _computedItems: function(items) {
-      if(this.items){
+    _computedItems: function (items) {
+      if (this.items) {
         var computedItemsArr = [];
         if (typeof this.items[0] === 'string') {
           var len = items.length,
             i = 0;
 
           for (i; i < len; i++) {
-            if(this.checkboxMode) {
+            if (this.checkboxMode) {
               //default unchecked if using a string array in check mode
-              computedItemsArr.push({val:items[i], checked: false});
+              computedItemsArr.push({val: items[i], checked: false});
             }
             else {
-              computedItemsArr.push({val:items[i]});
+              computedItemsArr.push({val: items[i]});
             }
           }
           return computedItemsArr;
@@ -479,9 +511,9 @@ Element providing the content for the px-dropdown element
         else {
           //with new array it looks like we need to do a copy of items
           // seems like items can be sparse at this point
-          for(var j = 0; j < items.length; j++) {
-            computedItemsArr.push(items[j]);
-          }
+          items.forEach(function (item, index) {
+            computedItemsArr.push(item);
+          });
           return computedItemsArr;
         }
       }
@@ -490,14 +522,14 @@ Element providing the content for the px-dropdown element
      * This function filters items in the dropdown
      * and shows only those which match the searchTerm property.
      */
-    _computeFilter: function(searchTerm) {
+    _computeFilter: function (searchTerm) {
       if (!this.searchMode || !searchTerm.length) {
         // set filter to null to disable filtering
         return null;
       } else {
         // return a filter function for the current search string
         searchTerm = searchTerm.toLowerCase();
-        return function(entry) {
+        return function (entry) {
           return entry.val.toLowerCase().indexOf(searchTerm) != -1;
         };
       }
@@ -505,9 +537,9 @@ Element providing the content for the px-dropdown element
     /**
      * Clears the current search term if search-mode is changed.
      */
-    _searchModeChanged:function(newVal,oldVal){
-      if(!newVal && oldVal){
-        this.set('searchTerm','');
+    _searchModeChanged: function (newVal, oldVal) {
+      if (!newVal && oldVal) {
+        this.set('searchTerm', '');
       }
     },
     /**
@@ -525,11 +557,11 @@ Element providing the content for the px-dropdown element
      */
     _computeSort: function (a, b) {
       var sortValue = 0;
-      if(!this.sortMode && !this.sortChecked && !this.sortDisabled) {
+      if (!this.sortMode && !this.sortChecked && !this.sortDisabled) {
         return -1;
       }
 
-      if(this.checkboxMode && this.sortCheckedItems) {
+      if (this.checkboxMode && this.sortCheckedItems) {
         if (a.checked && !b.checked) {
           sortValue--;
           if (a.disabled) {
@@ -544,27 +576,27 @@ Element providing the content for the px-dropdown element
         }
       }
 
-      if(this.sortDisabledItems) {
-        if(a.disabled) {
+      if (this.sortDisabledItems) {
+        if (a.disabled) {
           sortValue++;
         }
-        if(b.disabled) {
+        if (b.disabled) {
           sortValue--;
         }
       }
 
-      if(this.sortMode && sortValue === 0) {
-        if(this.sortMode === 'key'){
+      if (this.sortMode && sortValue === 0) {
+        if (this.sortMode === 'key') {
           sortValue = a.key - b.key;
         }
-        if(this.sortMode === 'val') {
+        if (this.sortMode === 'val') {
           var nameA = a.val.toUpperCase(),
             nameB = b.val.toUpperCase();
 
-          if(nameA < nameB) {
+          if (nameA < nameB) {
             sortValue--;
           }
-          if(nameA > nameB){
+          if (nameA > nameB) {
             sortValue++;
           }
         }
@@ -576,7 +608,7 @@ Element providing the content for the px-dropdown element
      * Fire and event when show/hide dropdown
      * */
     _isMenuOpen: function () {
-      if(!this.menuOpen){
+      if (!this.menuOpen) {
         this.searchTerm = '';
       }
       /**
@@ -595,6 +627,116 @@ Element providing the content for the px-dropdown element
     _initSort: function () {
       this.$.dropdownItems.sort = '_computeSort';
       this.$.dropdownItems.render();
+    },
+    /**
+     * Event handler for mouse move event. We enable mouse events when user moves the mouse.
+     * Mouse events are disabled when user uses the keyboard to interact with the dropdown.
+     * @private
+     */
+    _bindMouse: function () {
+      this._keyboardBeingUsed = false;
+      this.$.dropdown.classList.remove('no-mouse-event');
+      this.removeEventListener('mousemove', this._bindMouse);
+    },
+    /**
+     * Keypress event handler. The keypress event is orchestrated from the px-dropdown to px-dropdown content
+     * for the below events.
+     * UP DOWN ENTER
+     * @param keyDir
+     * @param event
+     * @private
+     */
+    _handleKeyEvent: function (keyDir, event) {
+      this._keyboardBeingUsed = true;
+      this.$.dropdown.classList.add('no-mouse-event');
+      this.addEventListener('mousemove', this._bindMouse.bind(this));
+      this._onContentScroll();
+
+      var currHighlightedItem = this.querySelector('li.highlighted'),
+        prevSibling = this.searchMode ? this.querySelector('li') :
+          this.querySelector('li.px-dropdown--listitem:last-of-type'),
+
+        /* if search mode is on, we highlight the input box.*/
+        nextSibling = this.searchMode ? this.querySelector('li') : this.querySelector('li.px-dropdown--listitem');
+
+      if (currHighlightedItem) {
+        if (currHighlightedItem.previousElementSibling && currHighlightedItem.previousElementSibling.nodeName
+          != 'TEMPLATE') {
+          prevSibling = currHighlightedItem.previousElementSibling;
+        }
+
+        if (currHighlightedItem.nextElementSibling && currHighlightedItem.nextElementSibling.nodeName != 'TEMPLATE') {
+          nextSibling = currHighlightedItem.nextElementSibling;
+        } else {
+          nextSibling = currHighlightedItem.nextElementSibling.nextElementSibling || nextSibling;
+        }
+      } else {
+        currHighlightedItem = nextSibling;
+      }
+
+      switch (keyDir) {
+        case 'UP':
+          currHighlightedItem.classList.remove('highlighted');
+          prevSibling.classList.contains('search-input-container') && prevSibling.querySelector('input').focus();
+          prevSibling.classList.add('highlighted');
+          this._moveItemIntoDisplay(prevSibling);
+          break;
+        case 'DOWN':
+          currHighlightedItem.classList.remove('highlighted');
+          nextSibling.classList.contains('search-input-container') && nextSibling.querySelector('input').focus();
+          nextSibling.classList.add('highlighted');
+          this._moveItemIntoDisplay(nextSibling);
+          break;
+        case 'ENTER':
+          this._selectItemAndClose(this.computedItems[currHighlightedItem.value], currHighlightedItem);
+      }
+      event.detail.keyboardEvent.preventDefault();
+    },
+    /**
+     * Event handler when the mouse hovers over a dropdown list item.
+     * @param event
+     * @private
+     */
+    _hoverOn: function (event) {
+      if (!this._keyboardBeingUsed) {
+        var currHighlightedItem = this.querySelector('li.px-dropdown--listitem.highlighted');
+        if (currHighlightedItem) {
+          currHighlightedItem.classList.remove('highlighted');
+        }
+        event.currentTarget.classList.add('highlighted');
+      }
+    },
+    /**
+     * Event handler when the mouse hovers out of a dropdown list item.
+     * @param event
+     * @private
+     */
+    _hoverOff: function (event) {
+      event.currentTarget.classList.remove('highlighted');
+    },
+    /**
+     * Sets the scroll position of the dropdown list if the user uses the keyboard up/down keys to navigate the
+     * dropdown list.
+     *
+     * @param listItem
+     * @private
+     */
+    _moveItemIntoDisplay: function (listItem) {
+      var currentHeight = parseInt(this.$.dropdown.getBoundingClientRect().height),
+        listItemHeight = listItem.getBoundingClientRect().height,
+        scrollHeight = this.$.dropdown.scrollHeight;
+
+      //padding between items. Needed to calculate exact scroll position.
+      var bufferPadding = 5;
+      //do we have a scrollbar?
+      if (currentHeight < scrollHeight) {
+        if ((listItemHeight + listItem.offsetTop) > (currentHeight + this.$.dropdown.scrollTop)) {
+          this.$.dropdown.scrollTop += ((listItem.offsetTop + listItemHeight) - (currentHeight +
+            this.$.dropdown.scrollTop)) + bufferPadding;
+        } else if ((listItemHeight + listItem.offsetTop) < this.$.dropdown.scrollTop) {
+          this.$.dropdown.scrollTop -= ((this.$.dropdown.scrollTop - listItem.offsetTop)) + bufferPadding;
+        }
+      }
     }
   });
 </script>

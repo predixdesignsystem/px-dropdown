@@ -30,6 +30,10 @@ Predix branding rules go in px-dropdown-predix.scss, not in this file.
 $inuit-enable-input--search : true;
 @import "px-forms-design/_base.forms.scss";
 
+#dropdown.no-mouse-event li.px-dropdown--listitem{
+  pointer-events: none;
+}
+
 .px-dropdown--content{
   width: 100%;
   left: 0;
