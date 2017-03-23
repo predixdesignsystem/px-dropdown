@@ -45,6 +45,10 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
   padding-left: $inuit-base-spacing-unit--tiny;
   padding-right: $inuit-base-spacing-unit--tiny;
 
+  &:focus {
+    outline: none;
+  }
+
   &.hover{
     background-color: var(--px-dropdown-bg-color--hover,$gray5);
     border-style: solid;
