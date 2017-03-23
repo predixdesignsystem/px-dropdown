@@ -1,3 +1,7 @@
+v3.1.0
+==================
+* merge PR #36 to add keyboard support
+
 v3.0.0
 ==================
 * turned off new functionality from PR #32 by default
