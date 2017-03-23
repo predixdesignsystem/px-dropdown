@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "px-starter-kit-design": "^0.7.0",
-    "px-demo": "^1.2.3"
+    "px-demo": "^1.2.3",
+    "iron-test-helpers": "^1.4.1"
   }
 }
