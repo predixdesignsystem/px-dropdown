@@ -1,3 +1,7 @@
+v3.1.1
+==================
+* fix for failing FF unit test
+
 v3.1.0
 ==================
 * merge PR #36 to add keyboard support
