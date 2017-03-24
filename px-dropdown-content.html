@@ -733,7 +733,7 @@ Element providing the content for the px-dropdown element
         if ((listItemHeight + listItem.offsetTop) > (currentHeight + this.$.dropdown.scrollTop)) {
           this.$.dropdown.scrollTop += ((listItem.offsetTop + listItemHeight) - (currentHeight +
             this.$.dropdown.scrollTop)) + bufferPadding;
-        } else if ((listItemHeight + listItem.offsetTop) < this.$.dropdown.scrollTop) {
+        } else if (listItem.offsetTop < this.$.dropdown.scrollTop) {
           this.$.dropdown.scrollTop -= ((this.$.dropdown.scrollTop - listItem.offsetTop)) + bufferPadding;
         }
       }

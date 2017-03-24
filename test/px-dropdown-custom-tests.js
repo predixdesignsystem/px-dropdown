@@ -117,7 +117,8 @@ function runCustomTests() {
           dropdown_li = Polymer.dom(dropdown).querySelector('li');
 
         var li_click = function (e) {
-          assert.equal(e.detail.srcElement, dropdown_li);
+          var target = e.detail.target || e.detail.srcElement;
+          assert.equal(target, dropdown_li);
           done();
         };
         px_dropdown.addEventListener('px-dropdown-click', li_click);
@@ -349,7 +350,7 @@ function runCustomTests() {
         var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
           px_dropcell = px_dropdown.$$('#dropcell'),
           px_dropdown_content_div = px_dropdown.querySelector('#dropdown'),
-        firstItem = px_dropdown_content_div.querySelector('li.px-dropdown--listitem');
+          firstItem = px_dropdown_content_div.querySelector('li.px-dropdown--listitem');
 
         //Make sure dropdown is open before running the tests.
         if (px_dropdown_content_div.hasAttribute('hidden')) {
@@ -357,7 +358,7 @@ function runCustomTests() {
         }
 
         //Make sure first item is highlighted
-        if(!firstItem.classList.contains('highlighted')) {
+        if (!firstItem.classList.contains('highlighted')) {
           MockInteractions.pressAndReleaseKeyOn(px_dropcell, 40);
           assert.isTrue(firstItem.classList.contains('highlighted'));
         }
