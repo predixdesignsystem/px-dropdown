@@ -26,7 +26,7 @@ Element providing the text for the px-dropdown element
     <style include="px-dropdown-text-styles"></style>
 
     <span id="textWrap" class$="flex__item px-dropdown-text {{_textClass(hover, opened)}}">{{displayValue}}</span>
-    <template is="dom-if" if="{{_includeTooltip(tooltipValue, maxContCharacterWidth)}}">
+    <template is="dom-if" if="{{_includeTooltip(tooltipValue, maxContCharacterWidth, disableTooltip)}}">
         <px-tooltip tooltip-message="{{tooltipValue}}" orientation="top"></px-tooltip>
     </template>
   </template>
@@ -101,6 +101,13 @@ Element providing the text for the px-dropdown element
         type: Boolean,
         value: false,
         notify: true
+      },
+      /**
+       * Boolean representing whether the tooltip should be shown.
+       */
+      disableTooltip: {
+        type: Boolean,
+        value: false
       }
     },
     /**
@@ -109,7 +116,8 @@ Element providing the text for the px-dropdown element
      * This method is called when the display value is calculated, to check if
      * we need to display the tooltip or not.
      */
-    _includeTooltip: function(tooltipValue, maxContCharacterWidth) {
+    _includeTooltip: function(tooltipValue, maxContCharacterWidth, disableTooltip) {
+      if (disableTooltip) return false;
       return (tooltipValue.length > maxContCharacterWidth);
     },
     _textClass: function() {
