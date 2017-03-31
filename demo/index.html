@@ -1,68 +1,126 @@
-<!-- Common imports -->
-<link rel="import" href="../../polymer/polymer.html" />
-<link rel="import" href="../../px-demo/css/px-demo-styles.html" />
-<link rel="import" href="../../px-demo/px-demo-collection.html" />
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Predix UI</title>
 
-<!-- Import peer demo pages -->
-<link rel="import" href="px-dropdown-demo.html" />
-<link rel="import" href="px-dropdown-content-demo.html" />
+    <!--
+      Load webcomponentslite and the Polymer library.
+    -->
+    <link rel="import" href="../../webcomponentsjs/webcomponents-lite.min.js" />
+    <link rel="import" href="../../polymer/polymer.html" />
 
-<!-- Demo DOM module -->
-<dom-module id="local-element-demo">
-  <template>
-      <style include="px-demo-styles" is="custom-style"></style>
-    <!-- Demo list/view change entrypoint -->
-    <px-demo-collection demos="{{demos}}"></px-demo-collection>
+    <!--
+      Load the light theme (default theme).
+    -->
+    <link rel="import" href="../../px-theme/px-theme-styles.html" />
+    <style include="px-theme-styles" is="custom-style"></style>
 
-    <!-- Code Editor -->
-    <px-demo-code-editor props="{{props}}"></px-demo-code-editor>
-  </template>
-</dom-module>
-<script>
-  Polymer({
-    is: 'local-element-demo',
+    <!--
+      Load the component itself.
+    -->
+    <link rel="import" href="../px-dropdown.html" />
 
-    properties: {
-
-      /**
-       * A list of demo pages to make available. An array of objects, each with
-       * the name of a demo, and the name of the custom element loaded holding
-       * the demo. (Make sure you create <link> tags to import each demo
-       * page in your index.html.)
-       *
-       * @example
-       *
-       * [
-       *   { name: "px-context-browser", tagName: "px-context-browser-demo" },
-       *   { name: "px-context-browser-typeahead", tagName: "px-context-browser-typeahead-demo" }
-       * ]
-       *
-       * @property demos
-       * @type {Array}
-       */
-      demos: {
-        type: Array,
-        value: function(){
-          return [
-            { name: "px-dropdown",
-              tagName: "px-dropdown-demo" },
-            { name: "px-dropdown-content",
-              tagName: "px-dropdown-content-demo" }
-          ]
-        }
-      },
-
-      /**
-       * The name of the active demo. Can be set to update the currently visible
-       * demo, or listened to for notifications when the user changes the
-       * active demo.
-       *
-       * @property chosenDemoName
-       * @type {String}
-       */
-      chosenDemoName: {
-        type: String
+    <!--
+      Basic page styles.
+    -->
+    <style>
+      html, body {
+        margin: 0;
+        padding: 10px;
+        overflow: auto;
       }
-    }
-  });
-</script>
+      .flex {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+      .flex__item {
+        display: flex;
+        flex-direction: column;
+        width: 33%;
+        margin-bottom: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="flex flex--row">
+
+      <div class="flex__item">
+        <p>Default:</p>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]'>
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Items passed as simple strings:</p>
+        <px-dropdown items='["One","Two","Three","Four"]'>
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Override displayValue ("Click me") & Bare style:</p>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' display-value="Click me" bare>
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Selected by Key (2):</p>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' selected="2">
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Selected by Val (3), Hide chevron true:</p>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' hide-chevron select-by="val" selected="Three">
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Multi-select, Pre-selected in items array as boolean/text (1 & 3) & Disabled Item (2):</p>
+        <px-dropdown items='[{"key":"1","val":"One","selected":true},{"key":"2","val":"Two","disabled":"true"},{"key":"3","val":"Three","selected":"true"},{"key":"4","val":"Four","selected":"false"}]' multi>
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Multi-select, Pre-selected by keys (2 & 4):</p>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' multi selected-values='["2","4"]'>
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Multi-select, Pre-selected by vals (1 & 3):</p>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' multi select-by="val" selected-values='["One","Three"]'>
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Lots of options, Search mode on:</p>
+        <px-dropdown search-mode multi items='[{"key":"0","val":"Zerozerozerozerozerozerozerozerozerozerozerozerozerozerozerozero"},{"key":"1","val":"Oneoneoneoneoneoneone oneoneoneoneone"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"},{"key":"5","val":"One"},{"key":"6","val":"Two"},{"key":"7","val":"Three"},{"key":"8","val":"Four"},{"key":"9","val":"One"},{"key":"10","val":"Zero"},{"key":"11","val":"One"},{"key":"12","val":"Two"},{"key":"13","val":"Three"},{"key":"14","val":"Four"},{"key":"15","val":"One"},{"key":"16","val":"Two"},{"key":"17","val":"Three"},{"key":"18","val":"Four"},{"key":"19","val":"One"},{"key":"20","val":"Zero"},{"key":"21","val":"One"},{"key":"22","val":"Two"},{"key":"23","val":"Three"},{"key":"24","val":"Four"},{"key":"25","val":"One"},{"key":"26","val":"Two"},{"key":"27","val":"Three"},{"key":"28","val":"Four"},{"key":"29","val":"One"},{"key":"30","val":"Zero"},{"key":"31","val":"One"},{"key":"32","val":"Two"},{"key":"33","val":"Three"},{"key":"34","val":"Four"},{"key":"35","val":"One"},{"key":"36","val":"Two"},{"key":"37","val":"Three"},{"key":"38","val":"Four"},{"key":"39","val":"One"},{"key":"40","val":"Zero"},{"key":"41","val":"One"},{"key":"42","val":"Two"},{"key":"43","val":"Three"},{"key":"44","val":"Four"},{"key":"45","val":"One"},{"key":"46","val":"Two"},{"key":"47","val":"Three"},{"key":"48","val":"Four"},{"key":"49","val":"One"},{"key":"50","val":"Zero"},{"key":"51","val":"One"},{"key":"52","val":"Two"},{"key":"53","val":"Three"},{"key":"54","val":"Four"},{"key":"55","val":"One"},{"key":"56","val":"Two"},{"key":"57","val":"Three"},{"key":"58","val":"Four"},{"key":"59","val":"One"},{"key":"60","val":"Zero"},{"key":"61","val":"One"},{"key":"62","val":"Two"},{"key":"63","val":"Three"},{"key":"64","val":"Four"},{"key":"65","val":"One"},{"key":"66","val":"Two"},{"key":"67","val":"Three"},{"key":"68","val":"Four"},{"key":"69","val":"One"},{"key":"70","val":"Zero"},{"key":"71","val":"One"},{"key":"72","val":"Two"},{"key":"73","val":"Three"},{"key":"74","val":"Four"},{"key":"75","val":"One"},{"key":"76","val":"Two"},{"key":"77","val":"Three"},{"key":"78","val":"Four"},{"key":"79","val":"One"},{"key":"80","val":"Zero"},{"key":"81","val":"One"},{"key":"82","val":"Two"},{"key":"83","val":"Three"},{"key":"84","val":"Four"},{"key":"85","val":"One"},{"key":"86","val":"Two"},{"key":"87","val":"Three"},{"key":"88","val":"Four"},{"key":"89","val":"One"},{"key":"90","val":"Zero"},{"key":"91","val":"One"},{"key":"92","val":"Two"},{"key":"93","val":"Three"},{"key":"94","val":"Four"},{"key":"95","val":"One"},{"key":"96","val":"Two"},{"key":"97","val":"Three"},{"key":"98","val":"Four"},{"key":"99","val":"One"},{"key":"100","val":"Zero"}]'>
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Variable lengths of items, Validation error:</p>
+        <px-dropdown class="validation-error" items='[{"key":"1","val":"One"},{"key":"2","val":"Twotwotwotwo"},{"key":"3","val":"Threethreethreethreethreethree"},{"key":"4","val":"Fourfour fourfourfour fourfour fourfourfour"}]' display-value="Really really super duper long displayValue">
+        </px-dropdown>
+      </div>
+
+      <div id="parentDiv" class="flex__item">
+        <p>Confined to parentDiv, Sorted by values:</p>
+        <px-dropdown bound-target="#parentDiv" items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' sort-mode="val">
+        </px-dropdown>
+      </div>
+
+      <div class="flex__item">
+        <p>Disabled Completely:</p>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' disabled>
+        </px-dropdown>
+      </div>
+
+    </div>
+
+  </body>
+</html>

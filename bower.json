@@ -32,7 +32,7 @@
     "px-defaults-design": "^1.0.2",
     "iron-dropdown": "^1.5.4",
     "px-forms-design": "^1.1.0",
-    "px-meta-lists-design": "^0.4.1",
+    "px-list-bare-design": "^0.3.5",
     "iron-a11y-keys": "^1.0.7"
   },
   "devDependencies": {
