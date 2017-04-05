@@ -8,17 +8,6 @@
  * under which the software has been supplied.
  */
 
-//
-// Sass for the Predix notion of the px-dropdown component
-//
-// @author
-//
-
-/*
-THIS FILE SHOULD CONTAIN ONLY RULES SPECIFIC TO PREDIX BRANDING
-common/abstract rules go in px-dropdown-sketch.scss, not in this file.
-*/
-
 // Settings
 @import "px-defaults-design/_settings.defaults.scss";
 @import "px-colors-design/_settings.colors.scss";
@@ -38,7 +27,6 @@ $inuit-enable-input--search : true;
 $inuit-enable-btn--disabled: true;
 $inuit-enable-btn--bare: true;
 @import "px-buttons-design/_objects.buttons.scss";
-@import "px-list-bare-design/_objects.list-bare.scss";
 
 // Component
 :host {
@@ -84,7 +72,7 @@ $inuit-enable-btn--bare: true;
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown {
-  background-color: white;
+  background-color: var(--px-dropdown-bg-color, $white);
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
@@ -93,14 +81,14 @@ $inuit-enable-btn--bare: true;
 .dropdown-option {
   padding: 0.5rem;
   cursor: pointer;
-  &:hover {
-    background-color: salmon;
+  &.highlighted {
+    background-color: var(--px-dropdown-bg-color--hover, $select-blue-hover);
   }
   &.iron-selected {
-    background-color: firebrick;
+    background-color: var(--px-dropdown-bg-color--selected, $select-blue-default);
   }
   &[disabled] {
-    color: lightgray;
+    color: var(--px-dropdown-text-color--disabled, $gray4);
     cursor: default;
     pointer-events: none;
   }

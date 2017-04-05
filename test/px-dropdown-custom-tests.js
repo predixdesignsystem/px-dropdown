@@ -1,33 +1,12 @@
-// This is the wrapper for custom tests, called upon web components ready state
 var getStyle = function (el, style) {
   return window.getComputedStyle(el, null).getPropertyValue(style);
 };
 function runCustomTests() {
-  // Place any setup steps like variable declaration and initialization here
 
-  // This is the placeholder suite to place custom tests in
-  // Use testCase(options) for a more convenient setup of the test cases
   suite('Custom Automation Tests for px-dropdown', function () {
     var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
       px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
       px_dropcell = px_dropdown_content.$$('#dropcell');
-
-    // testCase({
-    //   'description': 'checks if dropdown opens on container click',
-    //   'eventChain': [
-    //     {
-    //       'root': px_dropcell,
-    //       'eventString': 'click'
-    //     }
-    //   ],
-    //   'assertFunction': function() {
-    //     var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-    //        px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-    //        dropdown = px_dropdown_content.$$('#dropdown');
-    //       return dropdown.hidden;
-    //   }
-    // });
-    //test if dropdown opens and closes on clicks
 
     test('checks if dropdown opens on container click',
       function (done) {
