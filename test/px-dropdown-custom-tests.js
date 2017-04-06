@@ -4,321 +4,202 @@ var getStyle = function (el, style) {
 function runCustomTests() {
 
   suite('Custom Automation Tests for px-dropdown', function () {
-    var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-      px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-      px_dropcell = px_dropdown_content.$$('#dropcell');
+    var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
+        px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+        px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
 
-    test('checks if dropdown opens on container click',
+    test('Checks if dropdown opens on container click',
       function (done) {
-        var dropcell = document.querySelector('#dropcell'),
-          clickHandle = function () {
-            assert.isTrue(document.querySelector('#dropdown').style.display !== 'none');
-            done();
-          };
-        dropcell.addEventListener('click', clickHandle);
-        dropcell.click();
-        dropcell.removeEventListener('click', clickHandle);
-      }
-    );
-
-    test('checks if extendDropdown is true, and if so, checks the width, else, check width of dropdown ',
-      function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          dropcellWidth = dropcell.offsetWidth,
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          dropdownWidth = dropdown.offsetWidth;
-
         var clickHandle = function () {
-          if (px_dropdown_content.extendDropdown) {
-            var extendWidth = px_dropdown_content.extendDropdownBy,
-              extendDropdownBy = px_dropdown_content.extendDropdownBy,
-              calculated_dropdown = dropcellWidth + extendDropdownBy;
-            assert.isTrue(calculated_dropdown === dropdownWidth);
-          } else {
-            assert.isTrue(dropcellWidth === dropdownWidth);
-          }
-          done();
-        };
-
-        dropcell.addEventListener('click', clickHandle);
-        dropcell.click();
-        dropcell.removeEventListener('click', clickHandle);
-      }
-    );
-
-    test('checks if dropdown closes on container click after open',
-      function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          clickHandle = function () {
-            assert.isTrue(dropdown.hidden);
-            done();
+            setTimeout(function() {
+              assert.isTrue(document.querySelector('#dropdown').style.display !== 'none');
+              done();
+            },50);
           };
-        dropcell.click();
-        dropcell.addEventListener('click', clickHandle);
-        dropcell.click();
-        dropcell.removeEventListener('click', clickHandle);
+        px_dropdown_button.addEventListener('click', clickHandle);
+        px_dropdown_button.click();
+        px_dropdown_button.removeEventListener('click', clickHandle);
       }
     );
 
-    test('check if max-cont-character-width has a value, and if so, is there a px-tooltip?',
+    test('Selecting an element changes selected property',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          dropdown = px_dropdown_content.$$('#dropdown');
+        var dropdown_option = Polymer.dom(px_dropdown.root).querySelectorAll('.dropdown-option')[2];
 
-        dropcell.addEventListener('click', function () {
-          var elemList = Polymer.dom(px_dropdown_content.root).querySelectorAll('.px-dropdown--listitem');
-          Array.prototype.forEach.call(elemList, function (li) {
-            var maxChar = px_dropdown_content.maxContCharacterWidth;
-            if (maxChar && li.textContent.trim().length > maxChar) {
-              var pxTooltip = Polymer.dom(li).querySelector('px-tooltip');
-              expect(pxTooltip).to.not.be.null;
-            }
-          });
-          done();
-        });
-        dropcell.click();
-      }
-    );
-
-    test('check that element fires off click event',
-      function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          dropdown_li = Polymer.dom(dropdown).querySelector('li');
-
-        var li_click = function (e) {
-          var target = e.detail.target || e.detail.srcElement;
-          assert.equal(target, dropdown_li);
-          done();
-        };
-        px_dropdown.addEventListener('px-dropdown-click', li_click);
-        dropdown_li.click();
-        px_dropdown.removeEventListener('px-dropdown-click', li_click);
-      });
-
-    test('selecting an element changes displayValue and selectedKey',
-      function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          dropdown_li = Polymer.dom(dropdown).querySelectorAll('li')[2];
-
-        var li_click = function (e) {
+        var item_click = function (e) {
           assert.equal(e.detail.val, 'Three');
-          assert.equal(e.detail.key, 'three');
-          assert.equal(px_dropdown.displayValue, 'Three');
-          assert.equal(px_dropdown.selectedKey, 'three');
+          assert.equal(e.detail.key, '3');
+          assert.equal(px_dropdown.selected, '3');
           done();
         };
-        px_dropdown.addEventListener('px-dropdown-value-changed', li_click);
-        dropdown_li.click();
-        px_dropdown.removeEventListener('px-dropdown-value-changed', li_click);
+        px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
+        dropdown_option.click();
+        px_dropdown.removeEventListener('px-dropdown-selection-changed', item_click);
       });
 
-    test('selecting a disabled element does not fire a click event',
+    test('Selecting a disabled element does not fire a click event',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          dropdown_li = Polymer.dom(dropdown).querySelectorAll('li')[4];
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_6'),
+            px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+            px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+            dropdown_option = Polymer.dom(px_dropdown.root).querySelectorAll('.dropdown-option')[1];
 
-        var li_click = function (e) {
+        var item_click = function (e) {
           assert.fail(null, null, 'should not be called');
           done();
         };
-        px_dropdown.addEventListener('px-dropdown-value-changed', li_click);
-        var spy = sinon.spy(px_dropdown_content, 'fire');
-        dropdown_li.click();
-        px_dropdown.removeEventListener('px-dropdown-value-changed', li_click);
-        assert(spy.neverCalledWith('px-dropdown-click'));
+        px_dropdown_button.click();
+        px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
+        dropdown_option.click();
+        px_dropdown.removeEventListener('px-dropdown-selection-changed', item_click);
         done();
       });
 
-
-    test('compare passed items to what\'s on the dropdown itself',
+    test('Compare passed items to what is on the dropdown itself',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          items = Polymer.dom(document).querySelector('px-dropdown-content').items,
-          LIs = dropdown.querySelectorAll('li');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
+            px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+            selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+            divs = Polymer.dom(selector.root).querySelectorAll('div'),
+            items = px_dropdown.items;
 
-        Array.prototype.forEach.call(LIs, function (li, index) {
-          if (li.firstChild.textContent.trim() === items[index].val) {
-            assert.equal(li.firstChild.textContent.trim(), items[index].val);
-          }
+        Array.prototype.forEach.call(divs, function (div, index) {
+          assert.equal(div.textContent.trim(), items[index].val);
         });
         done();
       });
+
     test('checks if Hide Chevron actaully hides the chevron',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
-          chevron = px_dropdown.$$('px-dropdown-chevron');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_5'),
+            chevron = Polymer.dom(px_dropdown.root).querySelector('iron-icon');
         expect(chevron).to.be.null;
         done();
       }
     );
+
     test('check if dropdown closes on outside click',
       function (done) {
         var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_3'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          title = Polymer.dom(document).querySelector('#title');
+            px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+            px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+            title = Polymer.dom(document).querySelector('#title'),
+            clickHandle = function () {
+              setTimeout(function() {
+                assert.isFalse(px_dropdown.opened);
+              },50);
+              done();
+            };
 
-        clickHandle = function () {
-          assert.isTrue(dropdown.hidden);
-          done();
-        };
-
-        //open dropdown
-        dropcell.click();
+        px_dropdown_button.click();
         title.addEventListener('click', clickHandle);
         title.click();
         title.removeEventListener('click', clickHandle);
       }
     );
+
     test('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_3'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('px-dropdown-content'),
-          dropdown = px_dropdown_content.$$('#dropdown'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          title = Polymer.dom(document).querySelector('#title');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
+            px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+            px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+            title = Polymer.dom(document).querySelector('#title');
 
         px_dropdown.preventCloseOnOutsideClick = true;
 
         clickHandle = function () {
-          assert.isFalse(dropdown.hidden);
+          setTimeout(function() {
+            assert.isTrue(px_dropdown.opened);
+          },50);
           done();
         };
 
         //open dropdown
-        dropcell.click();
+        px_dropdown_button.click();
         title.addEventListener('click', clickHandle);
         title.click();
         title.removeEventListener('click', clickHandle);
       }
     );
-    test('check if checkbox mode enables checkboxes',
+
+    test('Check if in multi mode we can toggle an item',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
-          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_7'),
+            px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+            px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+            selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+            divs = Polymer.dom(selector.root).querySelectorAll('div');
 
-        //we should have some checkboxes
-        assert.isTrue(checkboxes.length > 0);
-        done();
-      }
-    );
-    test('check if checkbox for disabled item is disabled',
-      function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
-          checkboxes = px_dropdown_content.$.dropdown.querySelectorAll('input');
+        assert.isFalse(divs[0].classList.contains('iron-selected'));
+        assert.isTrue(divs[1].classList.contains('iron-selected'));
+        assert.isFalse(divs[2].classList.contains('iron-selected'));
+        assert.isTrue(divs[3].classList.contains('iron-selected'));
 
-        //some checkboxes are disabled, others are not
-        assert.isFalse(checkboxes[9].disabled);
-        assert.isTrue(checkboxes[10].disabled);
-        done();
-      }
-    );
-    test('check if in checkbox mode we can toggle check state',
-      function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_check'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('#px_dropdown_content_check'),
-          dropcell = px_dropdown.$$('#dropcell'),
-          items = px_dropdown_content.$.dropdown.querySelectorAll('li'),
-          checkbox1 = items[value = 0].querySelector('input'),
-          checkbox2 = items[value = 1].querySelector('input');
-
-        //first item should be checked
-        assert.isTrue(checkbox1.checked);
-        //second item unchecked
-        assert.isFalse(checkbox2.checked);
-
-        clickHandle = function () {
-          //first element must now be unchecked, second still unchecked
-          assert.isFalse(checkbox1.checked);
-          assert.isFalse(checkbox2.checked);
-
-          //dropdown must still be opened
-          assert.isTrue(px_dropdown_content.menuOpen);
-
+        var clickHandle = function () {
+          setTimeout(function() {
+            assert.isTrue(divs[0].classList.contains('iron-selected'));
+            assert.isTrue(px_dropdown.opened);
+          },50);
           done();
         };
 
-        //open dropdown
-        dropcell.click();
+        px_dropdown_button.click();
 
-        //try clicking first element...
-        checkbox1.addEventListener('click', clickHandle);
-        checkbox1.click();
-        checkbox1.removeEventListener('click', clickHandle);
+        divs[0].addEventListener('click', clickHandle);
+        divs[0].click();
+        divs[0].removeEventListener('click', clickHandle);
       }
     );
+
     test('Check that search box appears when in search mode',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_4'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('.px-dropdown-content'),
-          items = px_dropdown_content.$.dropdown.querySelectorAll('li'),
-          input = items[0].children[0];
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_9'),
+          px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.dropdown-content'),
+          input = px_dropdown_content.children[0];
         assert.isTrue(input.classList.contains('input--search'));
         done();
       }
     );
+
     test('Sort mode: items can be sorted by values or keys',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_4'),
-          px_dropdown_content = Polymer.dom(px_dropdown).querySelector('.px-dropdown-content'),
-          items = px_dropdown_content.$.dropdown.querySelectorAll('li');
-        px_dropdown_content.sortMode = 'val';
-        items = px_dropdown_content.$.dropdown.querySelectorAll('li');
-        assert.equal(items[1].textContent.trim(), 'eight');
-        px_dropdown_content.sortMode = 'key';
-        items = px_dropdown_content.$.dropdown.querySelectorAll('li');
-        assert.equal(items[1].textContent.trim(), 'One');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_11'),
+            px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.px-dropdown-content'),
+            selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+            divs = Polymer.dom(selector.root).querySelectorAll('div');
+
+        assert.equal(divs[0].textContent.trim(), 'Four');
+        px_dropdown.sortMode = 'key';
+        divs = Polymer.dom(selector.root).querySelectorAll('div');
+        assert.equal(divs[0].textContent.trim(), 'One');
         done();
       }
     );
 
-
     test('Keyboard space: px-dropdown should open upon pressing space',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropdown_content_div = px_dropdown.querySelector('#dropdown');
-        assert.isTrue(px_dropdown_content_div.hasAttribute('hidden'));
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
+            px_dropdown_content = px_dropdown.querySelector('#dropdown');
+        assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
         MockInteractions.pressSpace(px_dropdown);
-        assert.isFalse(px_dropdown_content_div.hasAttribute('hidden'));
+        assert.isFalse(px_dropdown_content.hasAttribute('aria-hidden'));
         done();
       });
 
     test('Keyboard down: px-dropdown item should get focus on pressing down arrow',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropcell = px_dropdown.$$('#dropcell'),
-          px_dropdown_content_div = px_dropdown.querySelector('#dropdown');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
+          px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+          px_dropdown_content = px_dropdown.querySelector('#dropdown'),
+          firstItem = px_dropdown_content.querySelector('.dropdown-option');
 
         //Make sure dropdown is open before running the tests.
-        if (px_dropdown_content_div.hasAttribute('hidden')) {
+        if (px_dropdown_content.hasAttribute('aria-hidden')) {
           MockInteractions.pressSpace(px_dropdown);
         }
 
-        MockInteractions.pressAndReleaseKeyOn(px_dropcell, 40);
+        MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
 
-        var firstItem = px_dropdown_content_div.querySelector('li.px-dropdown--listitem');
         assert.isTrue(firstItem.classList.contains('highlighted'));
 
         done();
@@ -326,55 +207,53 @@ function runCustomTests() {
 
     test('Keyboard enter: px-dropdown item should be selected on pressing enter',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropcell = px_dropdown.$$('#dropcell'),
-          px_dropdown_content_div = px_dropdown.querySelector('#dropdown'),
-          firstItem = px_dropdown_content_div.querySelector('li.px-dropdown--listitem');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
+            px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+            px_dropdown_content = px_dropdown.querySelector('#dropdown'),
+            firstItem = px_dropdown_content.querySelector('.dropdown-option');
+
+        px_dropdown.selected = null;
 
         //Make sure dropdown is open before running the tests.
-        if (px_dropdown_content_div.hasAttribute('hidden')) {
+        if (px_dropdown_content.hasAttribute('aria-hidden')) {
           MockInteractions.pressSpace(px_dropdown);
         }
 
         //Make sure first item is highlighted
         if (!firstItem.classList.contains('highlighted')) {
-          MockInteractions.pressAndReleaseKeyOn(px_dropcell, 40);
+          MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
           assert.isTrue(firstItem.classList.contains('highlighted'));
         }
 
-        var li_click = function (e) {
+        var item_click = function (e) {
           assert.equal(e.detail.val, 'One');
-          assert.equal(e.detail.key, 'one');
-          assert.equal(px_dropdown.displayValue, 'One');
-          assert.equal(px_dropdown.selectedKey, 'one');
+          assert.equal(e.detail.key, '1');
+          assert.equal(px_dropdown.selected, '1');
           done();
         };
 
-        px_dropdown.addEventListener('px-dropdown-value-changed', li_click);
+        px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
 
         MockInteractions.pressEnter(firstItem);
       });
 
     test('Keyboard esc: px-dropdown should close',
       function (done) {
-        var px_dropdown = Polymer.dom(document).querySelector('px-dropdown'),
-          px_dropcell = px_dropdown.$$('#dropcell'),
-          px_dropdown_content_div = px_dropdown.querySelector('#dropdown');
+        var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
+            px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+            px_dropdown_content = px_dropdown.querySelector('#dropdown'),
+            firstItem = px_dropdown_content.querySelector('.dropdown-option');
 
         //Make sure dropdown is open before running the tests.
-        if (px_dropdown_content_div.hasAttribute('hidden')) {
+        if (px_dropdown_content.hasAttribute('aria-hidden')) {
           MockInteractions.pressSpace(px_dropdown);
         }
 
-        MockInteractions.pressAndReleaseKeyOn(px_dropcell, 27);
+        MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 27);
 
-        var firstItem = px_dropdown_content_div.querySelector('li.px-dropdown--listitem');
-        assert.isTrue(px_dropdown_content_div.hasAttribute('hidden'));
+        assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
         done();
       });
 
-
   });
-
-
 }

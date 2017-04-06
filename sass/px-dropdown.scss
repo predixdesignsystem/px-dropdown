@@ -89,9 +89,11 @@ $inuit-enable-btn--bare: true;
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, $gray4);
-    cursor: default;
-    pointer-events: none;
+    cursor: not-allowed;
   }
+}
+.checkbox {
+  margin-right: 0.5rem;
 }
 
 // Trumps

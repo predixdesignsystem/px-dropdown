@@ -63,7 +63,7 @@ Custom property | Description | Default
     <button id="button" class$="btn dropdown-trigger {{_getDisabledClass(disabled)}} {{_getBareClass(bare)}}" on-tap="toggle">
       <div id="label" class="label">{{displayValue}}</div>
       <template is="dom-if" if="{{_showClearButton(opened,selected,selectedValues,selectedValues.*)}}">
-        <iron-icon class="icon" icon="fa:fa-times-circle" on-tap="clear"></iron-icon>
+        <iron-icon class="icon" icon="fa:fa-times-circle" on-tap="_clear"></iron-icon>
       </template>
       <template is="dom-if" if="{{_showChevron(hideChevron,opened,selected,selectedValues,selectedValues.*)}}">
         <iron-icon class="icon" icon="fa:fa-angle-down"></iron-icon>
@@ -196,7 +196,7 @@ Custom property | Description | Default
        * Will either be a single key or value based on `selectBy`.
        */
       selected: {
-        type: (String|Number),
+        type: String,
         value: null
       },
       /**
@@ -286,6 +286,7 @@ Custom property | Description | Default
       }
     },
     listeners: {
+      'iron-activate' : '_ignoreDisabled',
       'iron-select' : '_handleSelection',
       'iron-deselect' : '_handleDeselection'
     },
@@ -301,7 +302,7 @@ Custom property | Description | Default
     /**
      * Clears all of the selections when the clear button is pressed.
      */
-    clear: function(evt) {
+    _clear: function(evt) {
       evt.stopPropagation();
       var length = this.items.length,
           i;
@@ -373,6 +374,15 @@ Custom property | Description | Default
       }
     },
     /**
+     * When iron-activate is fired, this method checks whether the item is disabled.
+     * If so, it cancels the event so that iron-select is not called.
+     */
+    _ignoreDisabled: function(evt) {
+      if(evt.detail.item.hasAttribute('disabled')) {
+        evt.preventDefault();
+      }
+    },
+    /**
      * Handles the selection event from iron-selector to update
      * the label displayed inside the dropdown.
      */
@@ -387,6 +397,23 @@ Custom property | Description | Default
         this.$.label.innerText = this.$.selector.selectedItem ? this.$.selector.selectedItem.innerText : this.displayValue;
         this.$.dropdown.close();
       }
+      /**
+       * Event fired when any given element is selected or deselected in the list.
+       * `evt.detail` contains:
+       * ```
+       * { val: "text of the changed element",
+       *   key: "key of the changed element",
+       *   selected: true/false,
+       *   items: [the updated items array] }
+       * ```
+       * @event px-dropdown-selection-changed
+       */
+      this.fire('px-dropdown-selection-changed', {
+        val: evt.detail.item.val,
+        key: evt.detail.item.key,
+        selected: true,
+        items: this.items
+      });
     },
     /**
      * Handles the de-selection event from iron-selector to update
@@ -402,6 +429,23 @@ Custom property | Description | Default
       else {
         this.$.label.innerText = this.displayValue;
       }
+      /**
+       * Event fired when any given element is selected or deselected in the list.
+       * `evt.detail` contains:
+       * ```
+       * { val: "text of the changed element",
+       *   key: "key of the changed element",
+       *   selected: true/false,
+       *   items: [the updated items array] }
+       * ```
+       * @event px-dropdown-selection-changed
+       */
+      this.fire('px-dropdown-selection-changed', {
+        val: evt.detail.item.val,
+        key: evt.detail.item.key,
+        selected: false,
+        items: this.items
+      });
     },
     /**
      * Filter function used by the dom-repeat inside the iron-selector,
@@ -550,7 +594,7 @@ Custom property | Description | Default
             }
             break;
           case 'enter':
-            if (this.opened) {
+            if (this.opened && !currHighlightedItem.hasAttribute('disabled')) {
               this.$.selector.select(currHighlightedItem[this.selectBy]);
               if(!this.multi) {
                 this.$.dropdown.close();
@@ -586,6 +630,7 @@ Custom property | Description | Default
      * Sets the scroll position of the dropdown list if the user uses the
      * keyboard up/down keys to navigate the dropdown list.
      */
+    // TODO: doesn't seem to be working
     _moveItemIntoDisplay: function (option) {
       var currentHeight = parseInt(this.$.selector.getBoundingClientRect().height),
           optionHeight = option.getBoundingClientRect().height,
