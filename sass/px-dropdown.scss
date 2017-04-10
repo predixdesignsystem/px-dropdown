@@ -81,7 +81,7 @@ $inuit-enable-btn--bare: true;
 .dropdown-option {
   padding: 0.5rem;
   cursor: pointer;
-  &.highlighted {
+  &.focused {
     background-color: var(--px-dropdown-bg-color--hover, $select-blue-hover);
   }
   &.iron-selected {

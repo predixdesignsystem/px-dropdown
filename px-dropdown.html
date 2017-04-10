@@ -75,7 +75,7 @@ Custom property | Description | Default
                    fit-into="{{_getElement(boundTarget)}}"
                    no-overlap
                    dynamic-align
-                   vertical-align="top"
+                   vertical-align="bottom"
                    opened="{{opened}}"
                    hover="{{hover}}"
                    no-cancel-on-outside-click="{{preventCloseOnOutsideClick}}"
@@ -83,7 +83,7 @@ Custom property | Description | Default
                    disabled$="{{disabled}}">
       <div class="dropdown-content">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
-          <input class="text-input input--search u-ml-- u-mb-- u-p--" type="text" value="{{searchTerm::input}}">
+          <input id="searchbox" class="text-input input--search u-ml-- u-mb-- u-p--" type="text" value="{{searchTerm::input}}">
         </template>
         <iron-selector id="selector"
                        multi="{{multi}}"
@@ -91,7 +91,7 @@ Custom property | Description | Default
                        selected-values={{selectedValues}}
                        selected-items={{selectedItems}}
                        attr-for-selected="{{selectBy}}">
-          <template is="dom-repeat" id="dropdownItems" items="{{items}}" filter="{{_computeFilter(searchTerm)}}" delay="100">
+          <template is="dom-repeat" id="dropdownItems" items="{{items}}" filter="{{_computeFilter(searchTerm)}}" delay="100" strip-whitespace>
             <div class="dropdown-option"
                  key="{{item.key}}"
                  val="{{item.val}}"
@@ -126,6 +126,14 @@ Custom property | Description | Default
         type: Boolean,
         notify: true,
         value: false
+      },
+      /**
+       * Returns the currently focused item in the dropdown list.
+       */
+      focusedItem: {
+        observer: '_focusedItemChanged',
+        readOnly: true,
+        type: Object
       },
       /**
        * Whether or not to hide the chevron icon from the dropdown.
@@ -278,7 +286,15 @@ Custom property | Description | Default
         }
       },
       /**
+       * The currently "focused" option in the dropdown list.
+       * Used for handling of keyboard events.
+       */
+      _focusedOption: {
+        type: HTMLElement
+      },
+      /**
        * Used to capture if the user is using the keyboard to interact with the dropdown.
+       * Used to disable all mouse events.
        */
       _keyboardBeingUsed: {
         type: Boolean,
@@ -344,7 +360,7 @@ Custom property | Description | Default
      * and resets the selected items.
      */
     _itemsChanged: function(items, multi, selectBy, selectedValues) {
-      if(typeof items[0] === 'string') {
+      if(items[0] && typeof items[0] === 'string') {
         var length = items.length,
             computedItems = [],
             i;
@@ -387,8 +403,8 @@ Custom property | Description | Default
      * the label displayed inside the dropdown.
      */
     _handleSelection: function(evt) {
-      if(this.multi && this.selectedItems.length === 1) {
-        this.$.label.innerText = this.selectedItems[0].innerText;
+      if(this.multi && this.selectedValues.length === 1) {
+        this.$.label.innerText = this.$.selector.selectedItems[0].innerText;
       }
       else if(this.multi && this.selectedValues.length > 1) {
         this.$.label.innerText = this.selectedValues.length + ' selected';
@@ -420,8 +436,8 @@ Custom property | Description | Default
      * the label displayed inside the dropdown.
      */
     _handleDeselection: function(evt) {
-      if(this.multi && this.selectedItems.length === 1) {
-        this.$.label.innerText = this.selectedItems[0].innerText;
+      if(this.multi && this.selectedValues.length === 1) {
+        this.$.label.innerText = this.$.selector.selectedItems[0].innerText;
       }
       else if(this.multi && this.selectedValues.length > 1) {
         this.$.label.innerText = this.selectedValues.length + ' selected';
@@ -481,6 +497,16 @@ Custom property | Description | Default
       this.$.dropdownItems.render();
     },
     /**
+     * Event handler for mouse move event. We enable mouse events when user moves the mouse.
+     * Mouse events are disabled when user uses the keyboard to interact with the dropdown.
+     * @private
+     */
+    _bindMouse: function () {
+      this._keyboardBeingUsed = false;
+      this.$.dropdown.classList.remove('no-mouse-event');
+      this.removeEventListener('mousemove', this._bindMouse);
+    },
+    /**
      * The sort function used by the dom-repeat inside of iron-selector to
      * sort the items by either 'key' or 'val' based on `sortMode`.
      */
@@ -510,142 +536,121 @@ Custom property | Description | Default
       return sortValue;
     },
     /**
-     * Event handler for mouse move event. We enable mouse events when user moves the mouse.
-     * Mouse events are disabled when user uses the keyboard to interact with the dropdown.
+     * Adds or removes the focused class for keyboard navigation.
      */
-    _bindMouse: function () {
-      this._keyboardBeingUsed = false;
-      this.$.dropdown.classList.remove('no-mouse-event');
-      this.removeEventListener('mousemove', this._bindMouse);
+    _setFocusedOption: function(newOption, oldOption) {
+      this._focusedOption = newOption;
+      if(newOption) {
+        newOption.classList.add('focused');
+      }
+      if(oldOption) {
+        oldOption.classList.remove('focused');
+      }
     },
     /**
      * Keypress event handler for iron-a11y-keys.
      */
     _handleKeyPress: function (event) {
       this._keyboardBeingUsed = true;
-      this.$.dropdown.classList.add('no-mouse-event');
-      this.addEventListener('mousemove', this._bindMouse.bind(this));
-      var keyPressed = event.detail.combo;
-      if (keyPressed) {
-        var currHighlightedItem = this.querySelector('.dropdown-option.highlighted'),
-        prevSibling = this.searchMode ? this.querySelector('.dropdown-option') :
-          this.querySelector('div.dropdown-option:last-of-type'),
+      var keyPressed = event.detail.combo,
+          options = this.$.selector.getEffectiveChildren().filter(function(node) {
+            return (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'DIV'
+                    && !node.hasAttribute('disabled'));
+          }),
+          focused = options.indexOf(this._focusedOption),
+          searchFocused = this.searchMode && Polymer.dom(this.$.dropdown).querySelector(':focus') === Polymer.dom(this.$.dropdown).querySelector('#searchbox');
 
-        nextSibling = this.searchMode ? this.querySelector('.dropdown-option') : this.querySelector('div.dropdown-option');
-
-        if (currHighlightedItem) {
-          if (currHighlightedItem.previousElementSibling && currHighlightedItem.previousElementSibling.nodeName != 'TEMPLATE') {
-            prevSibling = currHighlightedItem.previousElementSibling;
+      switch (keyPressed) {
+        case 'space':
+        case 'enter':
+          // If closed, open it
+          if(!this.opened) {
+            this.toggle();
           }
-
-          if (currHighlightedItem.nextElementSibling && currHighlightedItem.nextElementSibling.nodeName != 'TEMPLATE') {
-            nextSibling = currHighlightedItem.nextElementSibling;
-          } else {
-            nextSibling = currHighlightedItem.nextElementSibling.nextElementSibling || nextSibling;
+          // If opened, select currently focused item
+          else if(focused !== -1) {
+            options[focused].click();
           }
-        }
-        else {
-          currHighlightedItem = nextSibling;
-        }
-        switch (keyPressed) {
-          case 'space':
-            if (this.opened) {
-              currHighlightedItem.click();
-              this.$.dropdown.close();
-            }
-            else {
-              this.toggle();
-            }
-            event.detail.keyboardEvent.preventDefault();
-            break;
-          case 'esc':
-            if (this.opened) {
-              this.$.dropdown.close();
-            }
-            event.detail.keyboardEvent.preventDefault();
-            break;
-          case 'tab':
-            if (this.opened) {
-              this.$.dropdown.close();
-            }
-            break;
-          case 'down':
-            if (this.opened) {
-              currHighlightedItem.classList.remove('highlighted');
-              // TODO: this isn't working
-              nextSibling.classList.contains('input--search') && nextSibling.querySelector('input').focus();
-              nextSibling.classList.add('highlighted');
-              this._moveItemIntoDisplay(nextSibling);
-              break;
-            }
-            else {
-              this.toggle();
-              event.detail.keyboardEvent.preventDefault();
-            }
-            break;
-          case 'up':
-            if (this.opened) {
-              currHighlightedItem.classList.remove('highlighted');
-              // TODO: this isn't working
-              prevSibling.classList.contains('input--search') && prevSibling.querySelector('input').focus();
-              prevSibling.classList.add('highlighted');
-              this._moveItemIntoDisplay(prevSibling);
-              break;
-            }
-            break;
-          case 'enter':
-            if (this.opened && !currHighlightedItem.hasAttribute('disabled')) {
-              this.$.selector.select(currHighlightedItem[this.selectBy]);
-              if(!this.multi) {
-                this.$.dropdown.close();
-              }
-            }
-            else {
-              this.$.dropdown.toggle();
-            }
-            event.detail.keyboardEvent.preventDefault();
-            break;
-        }
+          event.detail.keyboardEvent.preventDefault();
+          break;
+        case 'esc':
+          this.$.button.focus();
+          this.$.dropdown.close();
+          break;
+        case 'tab':
+          // Close dropdown and (default behavior) move to next item
+          if(this.opened) {
+            this.$.dropdown.close();
+          }
+          break;
+        case 'down':
+          // If closed, open it
+          if(!this.opened) {
+            this.toggle();
+          }
+          // If something is focused, move to the next sibling
+          if(focused > -1 && focused < options.length - 1) {
+            this._setFocusedOption(options[focused + 1], options[focused]);
+            this.$.dropdown.querySelector('.dropdown-content').scrollTop += options[focused+1].offsetHeight;
+          }
+          // If nothing is focused and search-mode is true, move to the search box
+          else if (focused === -1 && this.searchMode && !searchFocused) {
+            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
+          }
+          // If searchbox is focused, move to the first option
+          else if (searchFocused) {
+            Polymer.dom(this.$.dropdown).querySelector('#searchbox').blur();
+            this.$.button.focus();
+            this._setFocusedOption(options[0]);
+          }
+          // Else focus the first item in the list
+          else {
+            this._setFocusedOption(options[0]);
+          }
+          event.detail.keyboardEvent.preventDefault();
+          break;
+        case 'up':
+          // If closed, open it
+          if(!this.opened) {
+            this.toggle();
+          }
+          // If something is focused, move to the previous sibling
+          if(focused > 0) {
+            this._setFocusedOption(options[focused - 1], options[focused]);
+            this.$.dropdown.querySelector('.dropdown-content').scrollTop -= options[focused].offsetHeight;
+          }
+          // If the first item is focused and search-mode is true, move to the search box
+          else if (focused === 0 && this.searchMode && !searchFocused) {
+            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
+            this._setFocusedOption(null, options[0]);
+          }
+          // Else focus the last item in the list
+          else if (focused === -1 && !searchFocused) {
+            this._setFocusedOption(options[options.length - 1]);
+          }
+          event.detail.keyboardEvent.preventDefault();
+          break;
       }
     },
     /**
-     * Event handler when the mouse hovers over a dropdown item.
+     * Event handler when the mouse hovers over a dropdown list item.
      */
     _hoverOn: function (event) {
       if (!this._keyboardBeingUsed) {
-        var currHighlightedItem = this.querySelector('div.dropdown-option.highlighted');
+        var currHighlightedItem = this.querySelector('.dropdown-option.focused');
         if (currHighlightedItem) {
-          currHighlightedItem.classList.remove('highlighted');
+          currHighlightedItem.classList.remove('focused');
         }
-        event.currentTarget.classList.add('highlighted');
+        event.currentTarget.classList.add('focused');
       }
     },
     /**
-     * Event handler when the mouse hovers off a dropdown item.
+     * Event handler when the mouse hovers out of a dropdown list item.
      */
     _hoverOff: function (event) {
-      event.currentTarget.classList.remove('highlighted');
-    },
-    /**
-     * Sets the scroll position of the dropdown list if the user uses the
-     * keyboard up/down keys to navigate the dropdown list.
-     */
-    // TODO: doesn't seem to be working
-    _moveItemIntoDisplay: function (option) {
-      var currentHeight = parseInt(this.$.selector.getBoundingClientRect().height),
-          optionHeight = option.getBoundingClientRect().height,
-          scrollHeight = this.$.selector.scrollHeight;
-
-      var bufferPadding = 0;
-      if (currentHeight < scrollHeight) {
-        if ((optionHeight + option.offsetTop) > (currentHeight + this.$.selector.scrollTop)) {
-          this.$.selector.scrollTop += ((option.offsetTop + optionHeight) - (currentHeight +
-            this.$.selector.scrollTop)) + bufferPadding;
-        } else if (option.offsetTop < this.$.selector.scrollTop) {
-          this.$.selector.scrollTop -= ((this.$.selector.scrollTop - option.offsetTop)) + bufferPadding;
-        }
-      }
+      event.currentTarget.classList.remove('focused');
     }
+
 
   });
 </script>
