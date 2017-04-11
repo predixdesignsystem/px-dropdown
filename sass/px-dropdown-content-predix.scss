@@ -44,7 +44,7 @@ common/abstract rules go in px-dropdown-content-sketch.scss, not in this file.
 
  // &:hover, &.highlighted {
   &.highlighted {
-    background-color: var(--px-dropdown-list-item-background-color,$select-blue-default);
+    background-color: var(--px-dropdown-list-item-background-color,$select-default);
     color: var(--px-dropdown-list-item-text-color,$white);
   }
   &:first-child {

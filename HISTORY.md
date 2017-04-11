@@ -1,3 +1,7 @@
+v4.0.0
+==================
+* Major bump in preparation for redesign
+
 v3.1.1
 ==================
 * fix for failing FF unit test

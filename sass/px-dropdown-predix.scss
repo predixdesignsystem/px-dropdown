@@ -23,15 +23,15 @@ common/abstract rules go in px-dropdown-sketch.scss, not in this file.
 @import "px-defaults-design/_settings.defaults.scss";
 
 :host.validation-error .dropcell {
-  border-color: var(--px-validation-error-text-color, $alert-red);
-  color: var(--px-validation-error-text-color, $alert-red);
+  border-color: var(--px-validation-error-text-color, $status-red3);
+  color: var(--px-validation-error-text-color, $status-red3);
 }
 :host.validation-warning .dropcell {
-  border-color: var(--px-validation-warning-text-color, $alert-orange);
+  border-color: var(--px-validation-warning-text-color, $status-orange3);
   color: inherit;
 }
 :host.validation-success .dropcell {
-  border-color: var(--px-validation-success-text-color, $green);
+  border-color: var(--px-validation-success-text-color, $status-green3);
   color: inherit;
 }
 

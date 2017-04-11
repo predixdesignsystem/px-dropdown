@@ -1,6 +1,6 @@
 {
   "name": "px-dropdown",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "main": [
     "px-dropdown.html"
   ],
@@ -25,18 +25,18 @@
   ],
   "dependencies": {
     "polymer": "^1.6.0",
-    "px-theme": "^2.0.1",
-    "px-tooltip": "^0.10.0",
-    "px-spacing-design": "^0.4.0",
-    "px-polymer-font-awesome": "^1.1.0",
-    "px-defaults-design": "^1.0.2",
+    "px-theme": "^3.0.0",
+    "px-tooltip": "^1.0.0",
+    "px-polymer-font-awesome": "^2.0.0",
     "iron-dropdown": "^1.5.4",
-    "px-forms-design": "^1.1.0",
-    "px-meta-lists-design": "^0.4.1",
     "iron-a11y-keys": "^1.0.7"
   },
   "devDependencies": {
-    "px-starter-kit-design": "^0.7.0",
+    "px-spacing-design": "^0.4.0",
+    "px-defaults-design": "^1.0.2",
+    "px-forms-design": "^2.0.0",
+    "px-meta-lists-design": "^0.4.1",
+    "px-starter-kit-design": "^1.0.1",
     "px-demo": "^1.2.3",
     "iron-test-helpers": "^1.4.1"
   }
