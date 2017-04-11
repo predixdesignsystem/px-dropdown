@@ -200,7 +200,7 @@ function runCustomTests() {
 
         MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
 
-        assert.isTrue(firstItem.classList.contains('highlighted'));
+        assert.isTrue(firstItem.classList.contains('focused'));
 
         done();
       });
@@ -220,9 +220,9 @@ function runCustomTests() {
         }
 
         //Make sure first item is highlighted
-        if (!firstItem.classList.contains('highlighted')) {
+        if (!firstItem.classList.contains('focused')) {
           MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
-          assert.isTrue(firstItem.classList.contains('highlighted'));
+          assert.isTrue(firstItem.classList.contains('focused'));
         }
 
         var item_click = function (e) {

@@ -83,17 +83,20 @@ $inuit-enable-btn--bare: true;
   cursor: pointer;
   &.focused {
     background-color: var(--px-dropdown-bg-color--hover, $select-blue-hover);
+    color: var(--px-dropdown-text-color--hover, $white);
   }
   &.iron-selected {
     background-color: var(--px-dropdown-bg-color--selected, $select-blue-default);
+    color: var(--px-dropdown-text-color--selected, $white);
+    &::before {
+      content: "✓ ";
+      font-size: 0.8rem;
+    }
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, $gray4);
     cursor: not-allowed;
   }
-}
-.checkbox {
-  margin-right: 0.5rem;
 }
 
 // Trumps
