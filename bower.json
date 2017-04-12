@@ -33,10 +33,10 @@
   },
   "devDependencies": {
     "px-spacing-design": "^0.4.0",
-    "px-defaults-design": "^1.0.2",
+    "px-defaults-design": "^1.0.0",
     "px-forms-design": "^2.0.0",
     "px-meta-lists-design": "^0.4.1",
-    "px-starter-kit-design": "^1.0.1",
+    "px-starter-kit-design": "^1.0.0",
     "px-demo": "^1.2.3",
     "iron-test-helpers": "^1.4.1"
   }
