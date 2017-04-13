@@ -35,9 +35,9 @@
     "px-spacing-design": "^0.4.0",
     "px-defaults-design": "^1.0.0",
     "px-forms-design": "^2.0.0",
-    "px-meta-lists-design": "^0.4.1",
+    "px-meta-lists-design": "^1.0.0",
     "px-starter-kit-design": "^1.0.0",
-    "px-demo": "^1.2.3",
+    "px-demo": "^2.0.0",
     "iron-test-helpers": "^1.4.1"
   }
 }
