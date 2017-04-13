@@ -1,4 +1,4 @@
-v4.0.0
+v4.0.0-prerelease
 ==================
 * Major bump in preparation for redesign
 
