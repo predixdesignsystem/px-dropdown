@@ -30,35 +30,32 @@ $inuit-enable-btn--bare: true;
 
 // Component
 :host {
-  display: inline-block;
+  display: flex;
   position: relative;
   text-align: left;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-tap-highlight-color: transparent;
 }
 :host.validation-error .dropdown-trigger {
-  border-color: var(--px-validation-error-text-color, $alert-red);
-  color: var(--px-validation-error-text-color, $alert-red);
+  border-color: var(--px-validation-error-text-color, $status-red3);
+  color: var(--px-validation-error-text-color, $status-red3);
 }
 :host.validation-warning .dropdown-trigger {
-  border-color: var(--px-validation-warning-text-color, $alert-orange);
+  border-color: var(--px-validation-warning-text-color, $status-orange3);
   color: inherit;
 }
 :host.validation-success .dropdown-trigger {
-  border-color: var(--px-validation-success-text-color, $green);
+  border-color: var(--px-validation-success-text-color, $status-green3);
   color: inherit;
 }
 .dropdown-trigger {
   outline: none;
   max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  // TODO: this can be removed once px-buttons-design is fixed
-  &.btn--bare {
-    max-width: 100%;
-    width: auto;
-  }
+  justify-content: space-between;
 }
 .dropdown-trigger .label {
   overflow: hidden;
@@ -82,11 +79,11 @@ $inuit-enable-btn--bare: true;
   padding: 0.5rem;
   cursor: pointer;
   &.focused {
-    background-color: var(--px-dropdown-bg-color--hover, $select-blue-hover);
+    background-color: var(--px-dropdown-bg-color--hover, $select-hover);
     color: var(--px-dropdown-text-color--hover, $white);
   }
   &.iron-selected {
-    background-color: var(--px-dropdown-bg-color--selected, $select-blue-default);
+    background-color: var(--px-dropdown-bg-color--selected, $select-default);
     color: var(--px-dropdown-text-color--selected, $white);
     &::before {
       content: "✓ ";
