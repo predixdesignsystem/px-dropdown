@@ -24,8 +24,10 @@ $inuit-enable-input--search : true;
 @import "px-forms-design/_base.forms.scss";
 
 // Objects
+$inuit-enable-btn--tertiary: true;
 $inuit-enable-btn--disabled: true;
 $inuit-enable-btn--bare: true;
+$inuit-enable-btn--bare--primary: true;
 @import "px-buttons-design/_objects.buttons.scss";
 
 // Component
@@ -70,7 +72,8 @@ $inuit-enable-btn--bare: true;
 }
 .dropdown {
   background-color: var(--px-dropdown-bg-color, $white);
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+  border: 1px solid $gray3;
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
   word-break: break-word;
@@ -79,16 +82,10 @@ $inuit-enable-btn--bare: true;
   padding: 0.5rem;
   cursor: pointer;
   &.focused {
-    background-color: var(--px-dropdown-bg-color--hover, $select-hover);
-    color: var(--px-dropdown-text-color--hover, $white);
+    background-color: var(--px-dropdown-bg-color--hover, $gray1);
   }
   &.iron-selected {
-    background-color: var(--px-dropdown-bg-color--selected, $select-default);
-    color: var(--px-dropdown-text-color--selected, $white);
-    &::before {
-      content: "✓ ";
-      font-size: 0.8rem;
-    }
+    background-color: var(--px-dropdown-bg-color--selected, $gray1);
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, $gray4);

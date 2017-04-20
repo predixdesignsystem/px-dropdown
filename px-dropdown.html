@@ -40,8 +40,8 @@ Custom property | Description | Default
 `--px-dropdown-max-height` | Max height for the dropdown menu container | `300px`
 `--px-dropdown-max-width` | Max width for the dropdown menu container | `400px`
 `--px-dropdown-bg-color` | Background color for the dropdown menu container | `$white`
-`--px-dropdown-bg-color--hover` | Background color of a hovered menu item | `$select-blue-hover`
-`--px-dropdown-bg-color--selected` | Background color of a selected menu item | `$select-blue-default`
+`--px-dropdown-bg-color--hover` | Background color of a hovered menu item | `$gray1`
+`--px-dropdown-bg-color--selected` | Background color of a selected menu item | `$gray1`
 `--px-dropdown-text-color--disabled` | Text color of a disabled dropdown menu button | `$gray4`
 
 @element px-dropdown
@@ -60,7 +60,7 @@ Custom property | Description | Default
       target="[[_keyBindingsTarget]]"
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
-    <button id="button" class$="btn dropdown-trigger {{_getDisabledClass(disabled)}} {{_getBareClass(bare)}}" on-tap="toggle">
+    <button id="button" class$="btn dropdown-trigger {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" on-tap="toggle">
       <div id="label" class="label">{{displayValue}}</div>
       <template is="dom-if" if="{{_showClearButton(opened,selected,selectedValues,selectedValues.*)}}">
         <iron-icon class="icon" icon="fa:fa-times-circle" on-tap="_clear"></iron-icon>
@@ -236,12 +236,12 @@ Custom property | Description | Default
         value: false
       },
       /**
-       * When set to true, the button that invokes the dropdown will not
-       * appear with any borders or background styles.
+       * Style for the button that invokes the dropdown.
+       * One of 'default','bare','bare--primary', or 'tertiary'.
        */
-      bare: {
-        type: Boolean,
-        value: false
+      buttonStyle: {
+        type: String,
+        value: 'default'
       },
       /**
        * Whether the dropdown should be disabled and non-interactive.
@@ -343,8 +343,11 @@ Custom property | Description | Default
     /**
      * Calculates the class for a bare dropdown.
      */
-    _getBareClass: function() {
-      return this.bare ? 'btn--bare' : '';
+    _getClass: function() {
+      if(this.buttonStyle === 'bare') return 'btn--bare';
+      else if(this.buttonStyle === 'bare--primary') return 'btn--bare--primary';
+      else if(this.buttonStyle === 'tertiary') return 'btn--tertiary';
+      else return ''
     },
     /**
      * Searches the DOM for the `boundTarget` element.
