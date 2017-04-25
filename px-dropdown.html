@@ -179,7 +179,8 @@ Custom property | Description | Default
         notify: true,
         value: function () {
           return [];
-        }
+        },
+        observer: '_itemsChanged'
       },
       /**
        * If set to true, multiple values can be selected in the dropdown.
@@ -196,7 +197,8 @@ Custom property | Description | Default
        */
       selectBy: {
         type: String,
-        value: 'key'
+        value: 'key',
+        observer: '_updateSelection'
       },
       /**
        * Gets or sets the selected item when `multi` is false.
@@ -276,7 +278,16 @@ Custom property | Description | Default
         observer: '_initSort'
       },
       /**
-       * Binding target for iron-a111y-keys
+       * If set to true, the display-value will always show up in the
+       * invoking button of the dropdown. Useful in cases like the
+       * px-data-table, where "Show/Hide Columns" should always appear.
+       */
+      hideSelected: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * Binding target for iron-a11y-keys
        */
       _keyBindingsTarget: {
         type: Object,
@@ -305,27 +316,20 @@ Custom property | Description | Default
       'iron-select' : '_handleSelection',
       'iron-deselect' : '_handleDeselection'
     },
-    observers: [
-      '_itemsChanged(items, multi, selectBy, selectedValues)'
-    ],
     /**
      * Opens the dropdown when the button is pressed.
      */
     toggle: function() {
       this.$.dropdown.toggle();
+      this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.button).width;
     },
     /**
      * Clears all of the selections when the clear button is pressed.
      */
     _clear: function(evt) {
       evt.stopPropagation();
-      var length = this.items.length,
-          i;
-      for(i=0; i<length; i++) {
-        delete this.items[i].selected;
-      }
-      this.selected = null;
-      this.selectedValues = [];
+      this.set('selected', null);
+      this.set('selectedValues', []);
       this.$.dropdown.close();
     },
     /**
@@ -333,6 +337,7 @@ Custom property | Description | Default
      */
     attached: function() {
       this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.button).width;
+      this._updateSelection();
     },
     /**
      * Calculates the class for a disabled dropdown.
@@ -356,12 +361,10 @@ Custom property | Description | Default
       return document.querySelector(target);
     },
     /**
-     * Any time that `items`, `multi`, `selectBy`, or `selectedValues` change,
-     * this method converts the array of simple strings to an array of objects,
-     * selects all the dropdown items based on their `selected` properties,
-     * and resets the selected items.
+     * Any time that `items` changes, this method will convert an array
+     * of simple strings to an array of objects.
      */
-    _itemsChanged: function(items, multi, selectBy, selectedValues) {
+    _itemsChanged: function(items) {
       if(items[0] && typeof items[0] === 'string') {
         var length = items.length,
             computedItems = [],
@@ -371,24 +374,30 @@ Custom property | Description | Default
         }
         this.items = computedItems;
       }
-      if(multi) {
-        var length = items.length,
+      this._updateSelection();
+    },
+    /**
+     * Iterates over the `items` array and adds items with the
+     * `selected` property to the `selectedValues` array. Overridden
+     * by any existing selections in `selectedValues`.
+     */
+    _updateSelection: function() {
+      if(this.multi && this.items && this.items.length > 0 && this.selectedValues) {
+        var length = this.items.length,
+            selected = [],
             i;
         for(i=0; i<length; i++) {
-          if(items[i].selected !== undefined && items[i].selected.toString() === 'true') {
-            this.push('selectedValues', items[i][selectBy]);
+          if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
+            selected.push(this.items[i][this.selectBy]);
           }
         }
-        if(this.selectedValues.length > 0) this.$.label.innerText = this.selectedValues.length + ' selected';
-      }
-      if(this.selectedValues.length > 1 && !multi) {
-        var selected = Polymer.dom(this.root).querySelectorAll('.iron-selected'),
-            length = selected.length,
-            i;
-        for(i=0; i<length; i++) {
-          selected[i].classList.remove('iron-selected');
+        this.set('selectedValues', selected);
+        if(!this.hideSelected && this.selectedValues.length > 0) {
+          this.$.label.innerText = this.selectedValues.length + ' selected';
         }
-        this.selectedValues = [];
+        else {
+          this.$.label.innerText = this.displayValue;
+        }
       }
     },
     /**
@@ -405,13 +414,13 @@ Custom property | Description | Default
      * the label displayed inside the dropdown.
      */
     _handleSelection: function(evt) {
-      if(this.multi && this.selectedValues.length === 1) {
+      if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
         this.$.label.innerText = this.$.selector.selectedItems[0].innerText;
       }
-      else if(this.multi && this.selectedValues.length > 1) {
+      else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
         this.$.label.innerText = this.selectedValues.length + ' selected';
       }
-      else {
+      else if(!this.hideSelected) {
         this.$.label.innerText = this.$.selector.selectedItem ? this.$.selector.selectedItem.innerText : this.displayValue;
         this.$.dropdown.close();
       }
@@ -421,16 +430,14 @@ Custom property | Description | Default
        * ```
        * { val: "text of the changed element",
        *   key: "key of the changed element",
-       *   selected: true/false,
-       *   items: [the updated items array] }
+       *   selected: true/false }
        * ```
        * @event px-dropdown-selection-changed
        */
       this.fire('px-dropdown-selection-changed', {
         val: evt.detail.item.val,
         key: evt.detail.item.key,
-        selected: true,
-        items: this.items
+        selected: true
       });
     },
     /**
@@ -438,10 +445,10 @@ Custom property | Description | Default
      * the label displayed inside the dropdown.
      */
     _handleDeselection: function(evt) {
-      if(this.multi && this.selectedValues.length === 1) {
+      if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
         this.$.label.innerText = this.$.selector.selectedItems[0].innerText;
       }
-      else if(this.multi && this.selectedValues.length > 1) {
+      else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
         this.$.label.innerText = this.selectedValues.length + ' selected';
       }
       else {
@@ -453,16 +460,14 @@ Custom property | Description | Default
        * ```
        * { val: "text of the changed element",
        *   key: "key of the changed element",
-       *   selected: true/false,
-       *   items: [the updated items array] }
+       *   selected: true/false }
        * ```
        * @event px-dropdown-selection-changed
        */
       this.fire('px-dropdown-selection-changed', {
         val: evt.detail.item.val,
         key: evt.detail.item.key,
-        selected: false,
-        items: this.items
+        selected: false
       });
     },
     /**
