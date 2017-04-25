@@ -78,7 +78,7 @@ Custom property | Description | Default
       class$="{{_dropcellClass(opened, hover, disabled)}} flex flex--middle dropcell"
       id="dropcell" tabindex="0">
       <px-dropdown-text class$="{{_disabledClass(disabled)}}" display-value="{{displayValue}}"
-                        max-cont-character-width="{{_maxCharWidth}}" tooltip-value="{{value}}" opened="[[opened]]" hover="[[hover]]"></px-dropdown-text>
+                        max-cont-character-width="{{_maxCharWidth}}" tooltip-value="{{value}}" opened="[[opened]]" hover="[[hover]]" disable-tooltip="[[disableTooltip]]"></px-dropdown-text>
       <template is="dom-if" if="{{_hideChevron(hideChevron)}}">
         <px-dropdown-chevron class$="px-dropdown-chevron {{_disabledClass(disabled)}}" opened="[[opened]]" hover="[[hover]]"></px-dropdown-chevron>
       </template>
@@ -209,6 +209,13 @@ Custom property | Description | Default
        * When disabled, the user is unable to interact with the dropdown.
        */
       disabled: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * Boolean representing whether the component should
+       */
+      disableTooltip: {
         type: Boolean,
         value: false
       },
