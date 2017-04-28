@@ -42,9 +42,7 @@
           items="{{props.items.value}}"
           display-value="{{props.displayValue.value}}"
           multi="{{props.multi.value}}"
-          opened="{{props.opened.value}}"
           hide-chevron="{{props.hideChevron.value}}"
-          prevent-close-on-outside-click="{{props.preventCloseOnOutsideClick.value}}"
           allow-outside-scroll="{{props.allowOutsideScroll.value}}"
           disabled="{{props.disabled.value}}"
           search-mode="{{props.searchMode.value}}"
@@ -128,17 +126,7 @@
         defaultValue: false,
         inputType: 'toggle'
       },
-      opened: {
-        type: Boolean,
-        defaultValue: false,
-        inputType: 'toggle'
-      },
       hideChevron:{
-        type: Boolean,
-        defaultValue: false,
-        inputType: 'toggle'
-      },
-      preventCloseOnOutsideClick:{
         type: Boolean,
         defaultValue: false,
         inputType: 'toggle'

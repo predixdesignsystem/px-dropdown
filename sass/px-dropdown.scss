@@ -63,17 +63,17 @@ $inuit-enable-btn--bare--primary: true;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
+  flex: 1 1 auto;
 }
 .dropdown-trigger .icon {
   flex: 0 0 auto;
   width: 1rem;
-  height: 1rem;
-  margin-bottom: calculateRem(2px);
+  height: auto;
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown-content {
   background-color: var(--px-dropdown-bg-color, $white);
-  border: 1px solid $gray3;
+  border: 1px solid var(--px-dropdown-border-color, $gray3);
   box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
@@ -86,7 +86,8 @@ $inuit-enable-btn--bare--primary: true;
     background-color: var(--px-dropdown-bg-color--hover, $gray1);
   }
   &.iron-selected {
-    background-color: var(--px-dropdown-bg-color--selected, $gray1);
+    background-color: var(--px-dropdown-bg-color--selected, $select-default);
+    color: var(--px-dropdown-text-color--selected, $white);
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, $gray4);
