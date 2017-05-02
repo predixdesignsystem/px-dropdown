@@ -1,6 +1,6 @@
-v4.0.0-prerelease
+v4.0.0
 ==================
-* Major bump in preparation for redesign
+* rebuild of the px-dropdown component using iron-dropdown and iron-selector
 
 v3.1.1
 ==================
