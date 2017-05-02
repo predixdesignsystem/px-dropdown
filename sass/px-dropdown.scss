@@ -1,0 +1,100 @@
+/*
+ * Copyright (c) 2014 GE Global Research. All rights reserved.
+ *
+ * The copyright to the computer software herein is the property of
+ * GE Global Research. The software may be used and/or copied only
+ * with the written permission of GE Global Research or in accordance
+ * with the terms and conditions stipulated in the agreement/contract
+ * under which the software has been supplied.
+ */
+
+// Settings
+@import "px-defaults-design/_settings.defaults.scss";
+@import "px-colors-design/_settings.colors.scss";
+
+// Generic
+@import "px-normalize-design/_generic.normalize.scss";
+@import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
+
+// Base
+@import "px-flexbox-design/_base.flexbox.scss";
+@import "px-viewport-design/_base.viewport.scss";
+$inuit-enable-input--search : true;
+@import "px-forms-design/_base.forms.scss";
+
+// Objects
+$inuit-enable-btn--tertiary: true;
+$inuit-enable-btn--disabled: true;
+$inuit-enable-btn--bare: true;
+$inuit-enable-btn--bare--primary: true;
+@import "px-buttons-design/_objects.buttons.scss";
+
+// Component
+:host {
+  display: flex;
+  position: relative;
+  text-align: left;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+}
+:host.validation-error .dropdown-trigger {
+  border-color: var(--px-validation-error-text-color, $status-red3);
+  color: var(--px-validation-error-text-color, $status-red3);
+}
+:host.validation-warning .dropdown-trigger {
+  border-color: var(--px-validation-warning-text-color, $status-orange3);
+  color: inherit;
+}
+:host.validation-success .dropdown-trigger {
+  border-color: var(--px-validation-success-text-color, $status-green3);
+  color: inherit;
+}
+.dropdown-trigger {
+  outline: none;
+  max-width: inherit;
+  width: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.dropdown-trigger .label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  flex: 1 1 auto;
+}
+.dropdown-trigger .icon {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: auto;
+  margin-left: $inuit-base-spacing-unit--tiny;
+}
+.dropdown-content {
+  background-color: var(--px-dropdown-bg-color, $white);
+  border: 1px solid var(--px-dropdown-border-color, $gray3);
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
+  max-height: var(--px-dropdown-max-height, 300px);
+  max-width: var(--px-dropdown-max-width, 400px);
+  word-break: break-word;
+}
+.dropdown-option {
+  padding: 0.5rem;
+  cursor: pointer;
+  &.focused {
+    background-color: var(--px-dropdown-bg-color--hover, $gray1);
+  }
+  &.iron-selected {
+    background-color: var(--px-dropdown-bg-color--selected, $select-default);
+    color: var(--px-dropdown-text-color--selected, $white);
+  }
+  &[disabled] {
+    color: var(--px-dropdown-text-color--disabled, $gray4);
+    cursor: not-allowed;
+  }
+}
+
+// Trumps
+@import "inuit-clearfix/_trumps.clearfix.scss";
+@import "px-spacing-design/_trumps.spacing.scss";
