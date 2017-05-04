@@ -269,13 +269,12 @@ Custom property | Description | Default
         value: ''
       },
       /**
-       * What to sort the dropdown items by - one of "key" or "val",
-       * where "key" is the default.
+       * What to sort the dropdown items by - one of "key" or "val".
+       * By default, the items will be displayed in the order they are
+       * passed into the component.
        */
       sortMode: {
-        type: String,
-        value: 'key',
-        observer: '_initSort'
+        type: String
       },
       /**
        * If set to true, the display-value will always show up in the
@@ -316,6 +315,9 @@ Custom property | Description | Default
       'iron-select' : '_handleSelection',
       'iron-deselect' : '_handleDeselection'
     },
+    observers: [
+      '_initSort(sortMode, items)'
+    ],
     /**
      * Opens the dropdown when the button is pressed.
      */
