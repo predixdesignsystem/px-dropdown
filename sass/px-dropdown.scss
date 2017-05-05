@@ -37,6 +37,9 @@ $inuit-enable-btn--bare--primary: true;
   text-align: left;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-tap-highlight-color: transparent;
+  &[disabled] {
+    cursor: not-allowed;
+  }
 }
 :host.validation-error .dropdown-trigger {
   border-color: var(--px-validation-error-text-color, $status-red3);
@@ -58,6 +61,8 @@ $inuit-enable-btn--bare--primary: true;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 .dropdown-trigger .label {
   overflow: hidden;
