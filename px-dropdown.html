@@ -96,7 +96,13 @@ Custom property | Description | Default
                  val="{{item.val}}"
                  disabled$="{{item.disabled}}"
                  on-mouseover="_hoverOn"
-                 on-mouseout="_hoverOff">{{item.val}}</div>
+                 on-mouseout="_hoverOff"
+                 on-tap="_updateCheckbox">
+              <template is="dom-if" if="{{multi}}">
+                <input id="option" class="checkbox" type="checkbox" on-tap="_updateCheckbox" disabled$="{{item.disabled}}"></input>{{item.val}}
+              </template>
+              <template is="dom-if" if="{{!multi}}">{{item.val}}</template>
+            </div>
           </template>
         </iron-selector>
       </div>
@@ -659,6 +665,21 @@ Custom property | Description | Default
      */
     _hoverOff: function (event) {
       this.toggleClass('focused',false,Polymer.dom(event).localTarget);
+    },
+
+    _updateCheckbox: function(event) {
+      if(this.multi) {
+        var evt = Polymer.dom(event);
+        if(evt.rootTarget.classList.contains('checkbox')) {
+          evt.rootTarget.checked = !evt.rootTarget.checked;
+        }
+        else if(evt.rootTarget.classList.contains('iron-selected')) {
+          Polymer.dom(evt.rootTarget).querySelector('input').checked = false;
+        }
+        else {
+          Polymer.dom(evt.rootTarget).querySelector('input').checked = true;
+        }
+      }
     }
 
 
