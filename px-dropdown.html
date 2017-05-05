@@ -387,14 +387,7 @@ Custom property | Description | Default
      * by any existing selections in `selectedValues`.
      */
     _updateSelection: function() {
-      if(this.multi && this.items && this.items.length > 0 && this.selectedValues && this.selectedValues.length > 0) {
-        this.$.selector.childNodes.forEach(function(node) {
-          if(node.tagName === "DIV" && this.selectedValues.includes(node[this.selectBy])) {
-            Polymer.dom(node).querySelector('input').checked = true;
-          }
-        }.bind(this));
-      }
-      else if(this.multi && this.items && this.items.length > 0 && this.selectedValues && this.selectedValues.length === 0) {
+      if(this.multi && this.items && this.items.length > 0 && this.selectedValues && this.selectedValues.length === 0) {
         var length = this.items.length,
             selected = [],
             i;
@@ -415,6 +408,12 @@ Custom property | Description | Default
           for(i=0; i<length; i++) {
             Polymer.dom(this.$.selector.selectedItems[i]).querySelector('input').checked = true;
           }
+        }
+      }
+      for(node in this.$.selector.childNodes) {
+        node = this.$.selector.childNodes[node];
+        if(node.tagName === "DIV" && this.selectedValues.includes(node[this.selectBy])) {
+          Polymer.dom(node).querySelector('input').checked = true;
         }
       }
     },
@@ -439,7 +438,7 @@ Custom property | Description | Default
         this.$.label.innerText = this.selectedValues.length + ' selected';
       }
       else if(!this.hideSelected) {
-        this.$.label.innerText = this.$.selector.selectedItem ? this.$.selector.selectedItem.innerText : this.displayValue;
+        this.$.label.innerText = this.$.selector.selectedItem ? this.$.selector.selectedItem.val : this.displayValue;
         this.$.dropdown.close();
       }
       /**
