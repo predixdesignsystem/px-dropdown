@@ -412,8 +412,17 @@ Custom property | Description | Default
       }
       for(node in this.$.selector.childNodes) {
         node = this.$.selector.childNodes[node];
-        if(node.tagName === "DIV" && this.selectedValues.includes(node[this.selectBy])) {
-          Polymer.dom(node).querySelector('input').checked = true;
+        if(node.tagName === "DIV") {
+          var found = false;
+          for(value in this.selectedValues) {
+            value = this.selectedValues[value];
+            if(value === node[this.selectBy]) {
+              found = true;
+            }
+          }
+          if(found) {
+            Polymer.dom(node).querySelector('input').checked = true;
+          }
         }
       }
     },

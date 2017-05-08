@@ -87,6 +87,8 @@ $inuit-enable-btn--bare--primary: true;
 .dropdown-option {
   padding: 0.5rem;
   cursor: pointer;
+  display: flex;
+  word-wrap: break-word;
   &.focused {
     background-color: var(--px-dropdown-bg-color--hover, $gray1);
   }
@@ -102,6 +104,7 @@ $inuit-enable-btn--bare--primary: true;
 .checkbox {
   margin-right: $inuit-base-spacing-unit--tiny;
   outline: none;
+  flex: 0 0 auto;
 }
 
 // Trumps
