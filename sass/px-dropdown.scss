@@ -54,8 +54,8 @@ $inuit-enable-btn--bare--primary: true;
   max-width: inherit;
   width: inherit;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding-left: $inuit-base-spacing-unit--small;
   padding-right: $inuit-base-spacing-unit--small;
 }
@@ -78,10 +78,9 @@ $inuit-enable-btn--bare--primary: true;
   padding-left: $inuit-base-spacing-unit--small;
   padding-right: $inuit-base-spacing-unit--small;
   height: $inuit-base-spacing-unit--huge;
+  cursor: pointer;
   display: flex;
   align-items: center;
-
-  cursor: pointer;
   &.focused {
     background-color: var(--px-dropdown-bg-color--hover, $gray1);
   }
@@ -108,8 +107,5 @@ $inuit-enable-btn--bare--primary: true;
 }
 
 // Trumps
-$inuit-enable-margins--tiny : true;
-$inuit-enable-paddings--tiny : true;
-$inuit-enable-margins--small : true;
 $inuit-enable-paddings--small : true;
 @import "px-spacing-design/_trumps.spacing.scss";
