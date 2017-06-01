@@ -31,7 +31,6 @@ $inuit-enable-btn--bare--primary: true;
 :host {
   display: flex;
   position: relative;
-  // text-align: right; //<--Do we need this
   // -webkit-tap-highlight-color: rgba(0,0,0,0);// <-- Why is this defined twice
   -webkit-tap-highlight-color: transparent;
   &[disabled] {
@@ -51,7 +50,6 @@ $inuit-enable-btn--bare--primary: true;
   color: inherit;
 }
 .dropdown-trigger {
-  // flex-direction: row;
   outline: none;
   max-width: inherit;
   width: inherit;
@@ -65,10 +63,8 @@ $inuit-enable-btn--bare--primary: true;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
-  // flex: 1 1 auto;
 }
 .dropdown-icon {
-  // flex: 0 0 auto;
   width: 1rem;
   margin-left: $inuit-base-spacing-unit--tiny;
 }
@@ -77,7 +73,6 @@ $inuit-enable-btn--bare--primary: true;
   border: 1px solid var(--px-dropdown-border-color, $gray3);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
-  // word-break: break-word;
 }
 .dropdown-option {
   padding-left: $inuit-base-spacing-unit--small;
@@ -85,7 +80,7 @@ $inuit-enable-btn--bare--primary: true;
   height: $inuit-base-spacing-unit--huge;
   display: flex;
   align-items: center;
-  word-wrap: break-word;
+
   cursor: pointer;
   &.focused {
     background-color: var(--px-dropdown-bg-color--hover, $gray1);
@@ -100,11 +95,16 @@ $inuit-enable-btn--bare--primary: true;
     cursor: not-allowed;
   }
 }
+.dropdown-option__item{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
 .checkbox {
   margin-right: $inuit-base-spacing-unit--tiny;
   outline: none;
-  // flex: 1 0 auto;
-  // display: flex;
+  flex-shrink: 0;
 }
 
 // Trumps

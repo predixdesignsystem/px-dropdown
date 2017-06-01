@@ -95,17 +95,10 @@ Custom property | Description | Default
           selected-items={{selectedItems}}
           attr-for-selected="{{selectBy}}">
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" filter="{{_computeFilter(searchTerm)}}" delay="100" strip-whitespace>
-            <div
-              class="dropdown-option"
-              key="{{item.key}}"
-              val="{{item.val}}"
-              disabled$="{{item.disabled}}"
-              on-mouseover="_hoverOn"
-              on-mouseout="_hoverOff"
-              on-tap="_updateCheckbox">
+            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" on-tap="_updateCheckbox">
               <template is="dom-if" if="{{multi}}">
-                <input id="option" class="checkbox" type="checkbox" on-tap="_updateCheckbox" disabled$="{{item.disabled}}"></input>{{item.val}}</template>
-              <template is="dom-if" if="{{!multi}}">{{item.val}}</template>
+                <input id="option" class="checkbox" type="checkbox" on-tap="_updateCheckbox" disabled$="{{item.disabled}}"></input><span class="dropdown-option__item">{{item.val}}</span></template>
+              <template is="dom-if" if="{{!multi}}"><span class="dropdown-option__item">{{item.val}}</span></template>
             </div>
           </template>
         </iron-selector>
@@ -446,7 +439,7 @@ Custom property | Description | Default
      */
     _handleSelection: function(evt) {
       if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
-        this.$.label.innerText = this.$.selector.selectedItems[0].innerText;
+        this.$.label.innerText = this.$.selector.selectedItems[0].innerText.trim();
       }
       else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
         this.$.label.innerText = this.selectedValues.length + ' selected';
@@ -477,7 +470,7 @@ Custom property | Description | Default
      */
     _handleDeselection: function(evt) {
       if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
-        this.$.label.innerText = this.$.selector.selectedItems[0].innerText;
+        this.$.label.innerText = this.$.selector.selectedItems[0].innerText.trim();
       }
       else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
         this.$.label.innerText = this.selectedValues.length + ' selected';
