@@ -69,7 +69,7 @@ function runCustomTests() {
         done();
       });
 
-    test('checks if Hide Chevron actaully hides the chevron',
+    test('checks if Hide Chevron actually hides the chevron',
       function (done) {
         var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_5'),
             chevron = Polymer.dom(px_dropdown.root).querySelector('iron-icon');
@@ -87,7 +87,7 @@ function runCustomTests() {
             clickHandle = function () {
               setTimeout(function() {
                 assert.isFalse(px_dropdown.opened);
-              },50);
+              },150);
               done();
             };
 
@@ -154,8 +154,7 @@ function runCustomTests() {
     test('Check that search box appears when in search mode',
       function (done) {
         var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_9'),
-          px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.dropdown-content'),
-          input = px_dropdown_content.children[0];
+          input = Polymer.dom(px_dropdown.root).querySelector('#searchbox');
         assert.isTrue(input.classList.contains('input--search'));
         done();
       }
