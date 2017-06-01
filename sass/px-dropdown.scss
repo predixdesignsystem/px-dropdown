@@ -13,13 +13,9 @@
 @import "px-colors-design/_settings.colors.scss";
 
 // Generic
-@import "px-normalize-design/_generic.normalize.scss";
 @import "px-box-sizing-design/_generic.box-sizing.scss";
-@import "px-helpers-design/_generic.helpers.scss";
 
 // Base
-@import "px-flexbox-design/_base.flexbox.scss";
-@import "px-viewport-design/_base.viewport.scss";
 $inuit-enable-input--search : true;
 @import "px-forms-design/_base.forms.scss";
 
@@ -29,21 +25,22 @@ $inuit-enable-btn--disabled: true;
 $inuit-enable-btn--bare: true;
 $inuit-enable-btn--bare--primary: true;
 @import "px-buttons-design/_objects.buttons.scss";
+@import "px-shadows-design/_objects.shadows.scss";
 
 // Component
 :host {
   display: flex;
   position: relative;
-  text-align: left;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  // text-align: right; //<--Do we need this
+  // -webkit-tap-highlight-color: rgba(0,0,0,0);// <-- Why is this defined twice
   -webkit-tap-highlight-color: transparent;
   &[disabled] {
     cursor: not-allowed;
   }
 }
-:host.validation-error .dropdown-trigger {
+:host.validation-error .dropdown-trigger { //<-- can we removed .dropdown-trigger
   border-color: var(--px-validation-error-text-color, $status-red3);
-  color: var(--px-validation-error-text-color, $status-red3);
+  color: var(--px-validation-error-text-color, $status-red3); //<-- why is this different then the others
 }
 :host.validation-warning .dropdown-trigger {
   border-color: var(--px-validation-warning-text-color, $status-orange3);
@@ -54,41 +51,42 @@ $inuit-enable-btn--bare--primary: true;
   color: inherit;
 }
 .dropdown-trigger {
+  // flex-direction: row;
   outline: none;
   max-width: inherit;
   width: inherit;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  align-items: center;
+  padding-left: $inuit-base-spacing-unit--small;
+  padding-right: $inuit-base-spacing-unit--small;
 }
-.dropdown-trigger .label {
+.dropdown-label {
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
-  flex: 1 1 auto;
+  // flex: 1 1 auto;
 }
-.dropdown-trigger .icon {
-  flex: 0 0 auto;
+.dropdown-icon {
+  // flex: 0 0 auto;
   width: 1rem;
-  height: 2rem;
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown-content {
   background-color: var(--px-dropdown-bg-color, $white);
   border: 1px solid var(--px-dropdown-border-color, $gray3);
-  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
-  word-break: break-word;
+  // word-break: break-word;
 }
 .dropdown-option {
-  padding: 0.5rem;
-  cursor: pointer;
+  padding-left: $inuit-base-spacing-unit--small;
+  padding-right: $inuit-base-spacing-unit--small;
+  height: $inuit-base-spacing-unit--huge;
   display: flex;
+  align-items: center;
   word-wrap: break-word;
+  cursor: pointer;
   &.focused {
     background-color: var(--px-dropdown-bg-color--hover, $gray1);
   }
@@ -98,14 +96,20 @@ $inuit-enable-btn--bare--primary: true;
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, $gray4);
+    pointer-events: none;
     cursor: not-allowed;
   }
 }
 .checkbox {
   margin-right: $inuit-base-spacing-unit--tiny;
   outline: none;
-  flex: 0 0 auto;
+  // flex: 1 0 auto;
+  // display: flex;
 }
 
 // Trumps
+$inuit-enable-margins--tiny : true;
+$inuit-enable-paddings--tiny : true;
+$inuit-enable-margins--small : true;
+$inuit-enable-paddings--small : true;
 @import "px-spacing-design/_trumps.spacing.scss";

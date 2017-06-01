@@ -26,19 +26,20 @@
   ],
   "dependencies": {
     "polymer": "^1.6.0",
-    "px-theme": "^3.0.0",
     "px-tooltip": "^1.0.0",
     "px-polymer-font-awesome": "^2.0.0",
     "iron-dropdown": "^1.5.4",
     "iron-a11y-keys": "^1.0.7"
   },
   "devDependencies": {
+    "px-theme": "^3.0.0",
     "px-spacing-design": "^1.0.0",
     "px-defaults-design": "^2.0.0",
     "px-forms-design": "^2.0.0",
-    "px-meta-lists-design": "^1.0.0",
-    "px-starter-kit-design": "^1.0.0",
     "px-demo": "^2.0.0",
-    "iron-test-helpers": "^1.4.1"
+    "iron-test-helpers": "^1.4.1",
+    "px-shadows-design": "^1.0.0",
+    "px-colors-design": "^1.0.0",
+    "px-box-sizing-design": "^1.0.0"
   }
 }
