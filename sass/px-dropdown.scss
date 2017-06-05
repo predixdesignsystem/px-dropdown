@@ -87,7 +87,7 @@ $inuit-enable-btn--bare--primary: true;
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, $gray4);
-    pointer-events: none;
+    background-color: var(--px-dropdown-bg-color--didabled, transparent);
     cursor: not-allowed;
   }
 }
