@@ -31,15 +31,13 @@ $inuit-enable-btn--bare--primary: true;
 :host {
   display: flex;
   position: relative;
-  // -webkit-tap-highlight-color: rgba(0,0,0,0);// <-- Why is this defined twice
-  -webkit-tap-highlight-color: transparent;
   &[disabled] {
     cursor: not-allowed;
   }
 }
-:host.validation-error .dropdown-trigger { //<-- can we removed .dropdown-trigger
+:host.validation-error .dropdown-trigger {
   border-color: var(--px-validation-error-text-color, $status-red3);
-  color: var(--px-validation-error-text-color, $status-red3); //<-- why is this different then the others
+  color: inherit;
 }
 :host.validation-warning .dropdown-trigger {
   border-color: var(--px-validation-warning-text-color, $status-orange3);
@@ -50,17 +48,16 @@ $inuit-enable-btn--bare--primary: true;
   color: inherit;
 }
 .dropdown-trigger {
-  outline: none;
   max-width: inherit;
   width: inherit;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding-left: $inuit-base-spacing-unit--small;
   padding-right: $inuit-base-spacing-unit--small;
 }
 .dropdown-label {
   overflow: hidden;
+  flex-grow: 1;
   text-overflow: ellipsis;
   text-align: left;
 }
