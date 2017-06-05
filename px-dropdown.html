@@ -689,8 +689,8 @@ Custom property | Description | Default
      * `checked` properties in sync.
      */
     _updateCheckbox: function(event) {
-      if(this.multi) {
-        var evt = Polymer.dom(event);
+      var evt = Polymer.dom(event);
+      if(this.multi && !evt.rootTarget.hasAttribute('disabled')) {
         if(evt.rootTarget.classList.contains('checkbox')) {
           evt.rootTarget.checked = !evt.rootTarget.checked;
         }
