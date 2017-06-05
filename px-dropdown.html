@@ -337,6 +337,11 @@ Custom property | Description | Default
       evt.stopPropagation();
       this.set('selected', null);
       this.set('selectedValues', []);
+      if(this.multi) {
+        Polymer.dom(this.$.dropdown).querySelectorAll('input#option:checked').forEach(function(item) {
+          item.checked = false;
+        });
+      }
       this.$.dropdown.close();
     },
     /**
