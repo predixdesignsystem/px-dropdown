@@ -60,11 +60,9 @@ $inuit-enable-btn--bare--primary: true;
   flex-grow: 1;
   text-overflow: ellipsis;
   text-align: left;
-  line-height: calc(#{2em} - 2px);
 }
 .dropdown-icon {
   width: 1rem;
-  height: 2rem;
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown-content {
