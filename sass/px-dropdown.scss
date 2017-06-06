@@ -54,13 +54,13 @@ $inuit-enable-btn--bare--primary: true;
   align-items: center;
   padding-left: $inuit-base-spacing-unit--small;
   padding-right: $inuit-base-spacing-unit--small;
+  outline: none;
 }
 .dropdown-label {
   overflow: hidden;
   flex-grow: 1;
   text-overflow: ellipsis;
   text-align: left;
-
 }
 .dropdown-icon {
   width: 1rem;
