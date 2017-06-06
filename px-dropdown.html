@@ -209,7 +209,8 @@ Custom property | Description | Default
        */
       selected: {
         type: String,
-        value: null
+        value: null,
+        notify: true
       },
       /**
        * Gets or sets the selected items when `multi` is true.
@@ -219,7 +220,8 @@ Custom property | Description | Default
         type: Array,
         value: function() {
           return [];
-        }
+        },
+        notify: true
       },
       /**
        * A read-only array of the selected `<div>` elements in the dropdown.
