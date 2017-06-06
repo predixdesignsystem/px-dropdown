@@ -167,7 +167,8 @@ Custom property | Description | Default
       displayValue: {
         type: String,
         notify: true,
-        value: 'Select'
+        value: 'Select',
+        observer: '_displayValueChanged'
       },
       /**
        * The text that is displayed in the label of the dropdown.
@@ -356,7 +357,6 @@ Custom property | Description | Default
      */
     attached: function() {
       this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.button).width;
-      this._displayValueSelected = this.displayValue;
       this._updateSelection();
     },
     /**
@@ -379,6 +379,12 @@ Custom property | Description | Default
      */
     _getElement: function(target) {
       return Polymer.dom(document).querySelector(target);
+    },
+    /**
+     * When `displayValue` update `_displayValueSelected`
+     */
+    _displayValueChanged: function(){
+      this._displayValueSelected = this.displayValue;
     },
     /**
      * Any time that `items` changes, this method will convert an array
