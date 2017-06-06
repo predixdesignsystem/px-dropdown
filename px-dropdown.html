@@ -61,7 +61,7 @@ Custom property | Description | Default
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
     <button id="button" class$="btn dropdown-trigger {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" on-tap="toggle">
-      <div id="label" class="dropdown-label">{{displayValue}}</div>
+      <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
       <template is="dom-if" if="{{_showClearButton(opened,selected,selectedValues,selectedValues.*)}}">
         <iron-icon class="dropdown-icon" icon="px:close" on-tap="_clear"></iron-icon>
       </template>
@@ -95,7 +95,7 @@ Custom property | Description | Default
           selected-items={{selectedItems}}
           attr-for-selected="{{selectBy}}">
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" filter="{{_computeFilter(searchTerm)}}" delay="100" strip-whitespace>
-            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" on-tap="_updateCheckbox">
+            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" on-tap="_updateCheckbox" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
                 <input id="option" class="checkbox" type="checkbox" on-tap="_updateCheckbox" disabled$="{{item.disabled}}"></input><span class="dropdown-option__item">{{item.val}}</span></template>
               <template is="dom-if" if="{{!multi}}"><span class="dropdown-option__item">{{item.val}}</span></template>
@@ -168,6 +168,13 @@ Custom property | Description | Default
         type: String,
         notify: true,
         value: 'Select'
+      },
+      /**
+       * The text that is displayed in the label of the dropdown.
+       * Updated when the selections change.
+       */
+      _displayValueSelected: {
+        type: String
       },
       /**
        * An array that contains the list of items which show up in the dropdown.
@@ -344,6 +351,7 @@ Custom property | Description | Default
      */
     attached: function() {
       this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.button).width;
+      this._displayValueSelected = this.displayValue;
       this._updateSelection();
     },
     /**
@@ -398,10 +406,10 @@ Custom property | Description | Default
         }
         this.set('selectedValues', selected);
         if(!this.hideSelected && this.selectedValues.length > 0) {
-          this.$.label.innerText = this.selectedValues.length + ' selected';
+          this._displayValueSelected = this.selectedValues.length + ' selected';
         }
         else {
-          this.$.label.innerText = this.displayValue;
+          this._displayValueSelected = this.displayValue;
         }
         if(this.$.selector.selectedItems) {
           var length = this.$.selector.selectedItems.length;
@@ -441,13 +449,13 @@ Custom property | Description | Default
      */
     _handleSelection: function(evt) {
       if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
-        this.$.label.innerText = this.$.selector.selectedItems[0].innerText.trim();
+        this._displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
       }
       else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
-        this.$.label.innerText = this.selectedValues.length + ' selected';
+        this._displayValueSelected = this.selectedValues.length + ' selected';
       }
       else if(!this.hideSelected) {
-        this.$.label.innerText = this.$.selector.selectedItem ? this.$.selector.selectedItem.val : this.displayValue;
+        this._displayValueSelected = this.$.selector.selectedItem ? this.$.selector.selectedItem.val : this.displayValue;
         this.$.dropdown.close();
       }
       /**
@@ -472,13 +480,13 @@ Custom property | Description | Default
      */
     _handleDeselection: function(evt) {
       if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
-        this.$.label.innerText = this.$.selector.selectedItems[0].innerText.trim();
+        this._displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
       }
       else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
-        this.$.label.innerText = this.selectedValues.length + ' selected';
+        this._displayValueSelected = this.selectedValues.length + ' selected';
       }
       else {
-        this.$.label.innerText = this.displayValue;
+        this._displayValueSelected = this.displayValue;
       }
       /**
        * Event fired when any given element is selected or deselected in the list.

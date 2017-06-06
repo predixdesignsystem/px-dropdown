@@ -60,6 +60,7 @@ $inuit-enable-btn--bare--primary: true;
   flex-grow: 1;
   text-overflow: ellipsis;
   text-align: left;
+
 }
 .dropdown-icon {
   width: 1rem;
@@ -95,6 +96,7 @@ $inuit-enable-btn--bare--primary: true;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  pointer-events: none;
 }
 .checkbox {
   margin-right: $inuit-base-spacing-unit--tiny;
