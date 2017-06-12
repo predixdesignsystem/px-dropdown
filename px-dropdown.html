@@ -525,7 +525,7 @@ Custom property | Description | Default
       } else {
         searchTerm = searchTerm.toLowerCase();
         return function (entry) {
-          return entry.val.toLowerCase().indexOf(searchTerm) != -1 || entry.key.toLowerCase().indexOf(searchTerm) != -1;
+          return entry.val.toString().toLowerCase().indexOf(searchTerm) != -1 || entry.key.toString().toLowerCase().indexOf(searchTerm) != -1;
         };
       }
     },
