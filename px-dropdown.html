@@ -60,7 +60,7 @@ Custom property | Description | Default
       target="[[_keyBindingsTarget]]"
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
-    <div id="button" class$="btn dropdown-trigger {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" on-tap="toggle">
+    <div id="button" class$="btn dropdown-trigger {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" on-tap="toggle" tabindex="0">
       <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
       <template is="dom-if" if="{{_showClearButton(opened,selected,selectedValues,selectedValues.*)}}">
         <iron-icon class="dropdown-icon" icon="px:close" on-tap="_clear"></iron-icon>
