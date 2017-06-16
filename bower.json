@@ -40,6 +40,7 @@
     "iron-test-helpers": "^1.4.1",
     "px-shadows-design": "^1.0.0",
     "px-colors-design": "^1.0.0",
-    "px-box-sizing-design": "^1.0.0"
+    "px-box-sizing-design": "^1.0.0",
+    "px-buttons-design": "^2.0.0"
   }
 }
