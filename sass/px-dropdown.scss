@@ -14,6 +14,7 @@
 
 // Generic
 @import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
 
 // Base
 $inuit-enable-input--search : true;
@@ -92,10 +93,7 @@ $inuit-enable-btn--bare--primary: true;
     cursor: not-allowed;
   }
 }
-.dropdown-option__item{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.dropdown-option__item {
   pointer-events: none;
 }
 .checkbox {
