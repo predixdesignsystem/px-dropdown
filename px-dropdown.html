@@ -469,6 +469,7 @@ Custom property | Description | Default
         this._displayValueSelected = this.$.selector.selectedItem ? this.$.selector.selectedItem.val : this.displayValue;
         this.$.dropdown.close();
       }
+      this.$.dropdown.notifyResize();
       /**
        * Event fired when any given element is selected or deselected in the list.
        * `evt.detail` contains:
@@ -499,6 +500,7 @@ Custom property | Description | Default
       else {
         this._displayValueSelected = this.displayValue;
       }
+      this.$.dropdown.notifyResize();
       /**
        * Event fired when any given element is selected or deselected in the list.
        * `evt.detail` contains:
