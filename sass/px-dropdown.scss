@@ -10,11 +10,9 @@
 
 // Settings
 @import "px-defaults-design/_settings.defaults.scss";
-@import "px-colors-design/_settings.colors.scss";
 
 // Generic
 @import "px-box-sizing-design/_generic.box-sizing.scss";
-@import "px-helpers-design/_generic.helpers.scss";
 
 // Base
 $inuit-enable-input--search : true;
@@ -37,15 +35,15 @@ $inuit-enable-btn--bare--primary: true;
   }
 }
 :host.validation-error .dropdown-trigger {
-  border-color: var(--px-validation-error-text-color, $status-red3);
+  border-color: var(--px-validation-error-text-color, red);
   color: inherit;
 }
 :host.validation-warning .dropdown-trigger {
-  border-color: var(--px-validation-warning-text-color, $status-orange3);
+  border-color: var(--px-validation-warning-text-color, orange);
   color: inherit;
 }
 :host.validation-success .dropdown-trigger {
-  border-color: var(--px-validation-success-text-color, $status-green3);
+  border-color: var(--px-validation-success-text-color, green);
   color: inherit;
 }
 .dropdown-trigger {
@@ -68,8 +66,8 @@ $inuit-enable-btn--bare--primary: true;
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown-content {
-  background-color: var(--px-dropdown-bg-color, $white);
-  border: 1px solid var(--px-dropdown-border-color, $gray3);
+  background-color: var(--px-dropdown-bg-color, white);
+  border: 1px solid var(--px-dropdown-border-color, gray);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
 }
@@ -81,14 +79,14 @@ $inuit-enable-btn--bare--primary: true;
   display: flex;
   align-items: center;
   &.focused {
-    background-color: var(--px-dropdown-bg-color--hover, $gray1);
+    background-color: var(--px-dropdown-bg-color--hover, lightgray);
   }
   &.iron-selected {
-    background-color: var(--px-dropdown-bg-color--selected, $select-default);
-    color: var(--px-dropdown-text-color--selected, $white);
+    background-color: var(--px-dropdown-bg-color--selected, blue);
+    color: var(--px-dropdown-text-color--selected, white);
   }
   &[disabled] {
-    color: var(--px-dropdown-text-color--disabled, $gray4);
+    color: var(--px-dropdown-text-color--disabled, gray);
     background-color: var(--px-dropdown-bg-color--didabled, transparent);
     cursor: not-allowed;
   }
