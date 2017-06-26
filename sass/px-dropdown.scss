@@ -34,6 +34,7 @@ $inuit-enable-btn--bare--primary: true;
   &[disabled] {
     cursor: not-allowed;
   }
+  color: var(--px-dropdown-text-color, inherit);
 }
 :host.validation-error .dropdown-trigger {
   border-color: var(--px-validation-error-text-color, red);
@@ -114,4 +115,5 @@ $inuit-enable-btn--bare--primary: true;
 
 // Trumps
 $inuit-enable-paddings--small : true;
+$inuit-enable-paddings--none : true;
 @import "px-spacing-design/_trumps.spacing.scss";
