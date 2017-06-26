@@ -601,7 +601,6 @@ Custom property | Description | Default
           focused = options.indexOf(this._focusedOption),
           searchFocused = this.searchMode && Polymer.dom(this.$.dropdown).querySelector(':focus') === Polymer.dom(this.$.dropdown).querySelector('#searchbox');
       switch (keyPressed) {
-        case 'space':
         case 'enter':
           // If closed, open it
           if(!this.opened) {
