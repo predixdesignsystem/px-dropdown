@@ -83,8 +83,8 @@ Custom property | Description | Default
       disabled$="{{disabled}}">
       <div class="dropdown-content shadow-temporary">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
-          <div class="u-ph- u-pt-">
-            <input id="searchbox" class="text-input input--search" type="text" value="{{searchTerm::input}}">
+          <div class="u-p-">
+            <input id="searchbox" class="text-input input--search" type="text" value="{{searchTerm::input}}" on-input="_notifyResize">
           </div>
         </template>
         <iron-selector
@@ -95,9 +95,11 @@ Custom property | Description | Default
           selected-items={{selectedItems}}
           attr-for-selected="{{selectBy}}">
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" filter="{{_computeFilter(searchTerm)}}" delay="100" strip-whitespace>
-            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" on-tap="_updateCheckbox" title="{{item.val}}">
+            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
-                <input id="option" class="checkbox" type="checkbox" on-tap="_updateCheckbox" disabled$="{{item.disabled}}"></input><span class="dropdown-option__item truncate">{{item.val}}</span></template>
+                <iron-icon icon="px:check"></iron-icon>
+                <span class="dropdown-option__item truncate">{{item.val}}</span>
+              </template>
               <template is="dom-if" if="{{!multi}}"><span class="dropdown-option__item truncate">{{item.val}}</span></template>
             </div>
           </template>
@@ -422,27 +424,6 @@ Custom property | Description | Default
         else {
           this._displayValueSelected = this.displayValue;
         }
-        if(this.$.selector.selectedItems) {
-          var length = this.$.selector.selectedItems.length;
-          for(i=0; i<length; i++) {
-            Polymer.dom(this.$.selector.selectedItems[i]).querySelector('input').checked = true;
-          }
-        }
-      }
-      for(node in this.$.selector.childNodes) {
-        node = this.$.selector.childNodes[node];
-        if(node.tagName === "DIV") {
-          var found = false;
-          for(value in this.selectedValues) {
-            value = this.selectedValues[value];
-            if(value === node[this.selectBy]) {
-              found = true;
-            }
-          }
-          if(found) {
-            Polymer.dom(node).querySelector('input').checked = true;
-          }
-        }
       }
     },
     /**
@@ -491,7 +472,7 @@ Custom property | Description | Default
      * the label displayed inside the dropdown.
      */
     _handleDeselection: function(evt) {
-      if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
+      if(this.multi && this.$.selector.selectedItems.length === 1 && !this.hideSelected) {
         this._displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
       }
       else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
@@ -516,6 +497,12 @@ Custom property | Description | Default
         key: evt.detail.item.key,
         selected: false
       });
+    },
+    /**
+     * Resizes the dropdown when the search term is changed.
+     */
+    _notifyResize: function() {
+      this.$.dropdown.notifyResize();
     },
     /**
      * Filter function used by the dom-repeat inside the iron-selector,
@@ -706,24 +693,6 @@ Custom property | Description | Default
      */
     _hoverOff: function (event) {
       this.toggleClass('focused',false,Polymer.dom(event).localTarget);
-    },
-    /**
-     * Event handler to keep the div's `iron-selected` class and the checkbox's
-     * `checked` properties in sync.
-     */
-    _updateCheckbox: function(event) {
-      var evt = Polymer.dom(event);
-      if(this.multi && !evt.rootTarget.hasAttribute('disabled')) {
-        if(evt.rootTarget.classList.contains('checkbox')) {
-          evt.rootTarget.checked = !evt.rootTarget.checked;
-        }
-        else if(evt.rootTarget.classList.contains('iron-selected')) {
-          Polymer.dom(evt.rootTarget).querySelector('input').checked = false;
-        }
-        else {
-          Polymer.dom(evt.rootTarget).querySelector('input').checked = true;
-        }
-      }
     }
 
 

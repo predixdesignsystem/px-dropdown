@@ -13,6 +13,7 @@
 
 // Generic
 @import "px-box-sizing-design/_generic.box-sizing.scss";
+@import "px-helpers-design/_generic.helpers.scss";
 
 // Base
 $inuit-enable-input--search : true;
@@ -54,6 +55,7 @@ $inuit-enable-btn--bare--primary: true;
   padding-left: $inuit-base-spacing-unit--small;
   padding-right: $inuit-base-spacing-unit--small;
   outline: none;
+  max-width: var(--px-dropdown-max-width, 400px);
 }
 .dropdown-label {
   overflow: hidden;
@@ -78,12 +80,22 @@ $inuit-enable-btn--bare--primary: true;
   cursor: pointer;
   display: flex;
   align-items: center;
+  iron-icon {
+    display: none;
+  }
   &.focused {
     background-color: var(--px-dropdown-bg-color--hover, lightgray);
   }
   &.iron-selected {
     background-color: var(--px-dropdown-bg-color--selected, blue);
     color: var(--px-dropdown-text-color--selected, white);
+    iron-icon {
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      flex: 0 0 auto;
+      margin-right: $inuit-base-spacing-unit--tiny;
+    }
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, gray);

@@ -3,6 +3,7 @@ v4.0.0
 * rebuild of the px-dropdown component using iron-dropdown and iron-selector
 * added new icons
 * code review fixes
+* fix #50, #51, #52
 
 v3.1.1
 ==================
