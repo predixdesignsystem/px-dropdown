@@ -94,7 +94,7 @@ Custom property | Description | Default
           selected-values={{selectedValues}}
           selected-items={{selectedItems}}
           attr-for-selected="{{selectBy}}">
-          <template is="dom-repeat" id="dropdownItems" items="{{items}}" filter="{{_computeFilter(searchTerm)}}" delay="100" strip-whitespace>
+          <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
                 <iron-icon icon="px:check"></iron-icon>
@@ -281,7 +281,8 @@ Custom property | Description | Default
        */
       searchTerm: {
         type: String,
-        value: ''
+        value: '',
+        observer: '_computeFilter'
       },
       /**
        * What to sort the dropdown items by - one of "key" or "val".
@@ -508,14 +509,15 @@ Custom property | Description | Default
      * Filter function used by the dom-repeat inside the iron-selector,
      * based on the searchTerm entered in the search box.
      */
-    _computeFilter: function (searchTerm) {
-      if (!this.searchMode || !searchTerm.length) {
-        return null;
-      } else {
-        searchTerm = searchTerm.toLowerCase();
-        return function (entry) {
-          return entry.val.toString().toLowerCase().indexOf(searchTerm) != -1 || entry.key.toString().toLowerCase().indexOf(searchTerm) != -1;
-        };
+    _computeFilter: function () {
+      if (this.searchMode) {
+        var term = this.searchTerm.toLowerCase(),
+            items = this.$.dropdown.querySelectorAll('.dropdown-option'),
+            length = items.length,
+            i;
+        for(i=0; i<length; i++) {
+          this.toggleClass('hidden', items[i].val.toString().toLowerCase().search(term) === -1 && items[i].key.toString().toLowerCase().search(term) === -1, items[i]);
+        }
       }
     },
     /**
@@ -596,7 +598,7 @@ Custom property | Description | Default
       var keyPressed = event.detail.combo,
           options = this.$.selector.getEffectiveChildren().filter(function(node) {
             return (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'DIV'
-                    && !node.hasAttribute('disabled'));
+                    && !node.hasAttribute('disabled') && !node.classList.contains('hidden'));
           }),
           focused = options.indexOf(this._focusedOption),
           searchFocused = this.searchMode && Polymer.dom(this.$.dropdown).querySelector(':focus') === Polymer.dom(this.$.dropdown).querySelector('#searchbox');
