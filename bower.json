@@ -25,10 +25,10 @@
     "wct.conf.json"
   ],
   "dependencies": {
-    "polymer": "^1.6.0",
+    "polymer": "^1.9.0",
     "px-polymer-font-awesome": "^2.0.0",
-    "iron-dropdown": "^1.5.4",
-    "iron-a11y-keys": "^1.0.7"
+    "iron-dropdown": "^2.0.0",
+    "iron-a11y-keys": "^2.0.0"
   },
   "devDependencies": {
     "px-theme": "^3.0.0",
@@ -37,7 +37,7 @@
     "px-forms-design": "^2.0.0",
     "px-buttons-design": "^2.0.0",
     "px-demo": "^2.0.0",
-    "iron-test-helpers": "^1.4.1",
+    "iron-test-helpers": "^2.0.0",
     "px-shadows-design": "^1.0.0",
     "px-colors-design": "^1.0.0",
     "px-box-sizing-design": "^1.0.0",
