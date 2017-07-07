@@ -28,7 +28,8 @@
     "polymer": "^1.9.0",
     "px-polymer-font-awesome": "^2.0.0",
     "iron-dropdown": "^2.0.0",
-    "iron-a11y-keys": "^2.0.0"
+    "iron-a11y-keys": "^2.0.0",
+    "web-animations-js": "^2.2.0"
   },
   "devDependencies": {
     "px-theme": "^3.0.0",
