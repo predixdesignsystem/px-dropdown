@@ -48,6 +48,9 @@ $inuit-enable-btn--bare--primary: true;
   border-color: var(--px-validation-success-text-color, green);
   color: inherit;
 }
+.dropdown{
+  font-size: var(--px-dropdown-content-font-size, inherit);
+}
 .dropdown-trigger {
   max-width: inherit;
   width: inherit;
@@ -65,7 +68,7 @@ $inuit-enable-btn--bare--primary: true;
   text-align: left;
 }
 .dropdown-icon {
-  width: 1rem;
+  --iron-icon-width: var(--px-dropdown-icon-size, 1rem);
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown-content {
