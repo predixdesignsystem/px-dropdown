@@ -1,10 +1,8 @@
-# Px-dropdown [![Build Status](https://travis-ci.org/PredixDev/px-dropdown.svg?branch=master)](https://travis-ci.org/PredixDev/px-dropdown)
-
-[![px-dropdown demo](px-dropdown.png?raw=true)](https://github.com/PredixDev/px-dropdown)
+# px-dropdown [![Build Status](https://travis-ci.org/PredixDev/px-dropdown.svg?branch=master)](https://travis-ci.org/PredixDev/px-dropdown)
 
 ## Overview
 
-px-dropdown is an element which can be placed in any element, and opens a customizable dropdown list.
+The px-dropdown component can be placed in any element, and opens a customizable dropdown list.
 
 ## Usage
 
@@ -43,7 +41,7 @@ Finally, use the component in your application:
 <br />
 <hr />
 
-## documentation
+## Documentation
 
 Read the full API and view the demo [here](https://predixdev.github.io/px-dropdown).
 
