@@ -94,9 +94,9 @@ Custom property | Description
         <iron-selector
           id="selector"
           multi="{{multi}}"
-          selected={{selected}}
-          selected-values={{selectedValues}}
-          selected-items={{selectedItems}}
+          selected="{{selected}}"
+          selected-values="{{selectedValues}}"
+          selected-items="{{selectedItems}}"
           attr-for-selected="{{selectBy}}">
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
