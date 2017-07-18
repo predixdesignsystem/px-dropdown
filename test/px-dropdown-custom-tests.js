@@ -152,7 +152,7 @@ function runCustomTests() {
     );
 
     test('Check that search box appears when in search mode',
-      function (done) {debugger
+      function (done) {
         var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_9'),
           input = Polymer.dom(px_dropdown.root).querySelector('#searchbox');
         assert.isTrue(input.classList.contains('text-input'));
