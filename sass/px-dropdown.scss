@@ -16,6 +16,7 @@
 @import "px-helpers-design/_generic.helpers.scss";
 
 // Base
+@import "px-flexbox-design/_base.flexbox.scss";
 $inuit-enable-input--search : true;
 @import "px-forms-design/_base.forms.scss";
 
@@ -69,7 +70,7 @@ $inuit-enable-btn--bare--primary: true;
   text-align: left;
 }
 .dropdown-icon {
-  --iron-icon-width: var(--px-dropdown-icon-size, 1rem);
+  --iron-icon-width: var(--px-dropdown-icon-size, calculateRem(16px));
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown-content {
@@ -117,7 +118,42 @@ $inuit-enable-btn--bare--primary: true;
   flex-shrink: 0;
 }
 
+// Hi Kate :)
+// we need to override the forms styles to force our box to look like a single
+// input instead of an input within an input. form styles use pseudo-classes and
+// as such, cannot just be removed when we dont need them.
+.kill-form-styles {
+  padding: 0 !important;
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+.manual-focus {
+  border-color: $inuit-forms-border--outer--focused !important;
+  background-color: $inuit-forms-background--focused !important;
+  color: $inuit-forms-color--focused !important;
+}
+
+.disable-input{
+  border-color: $inuit-forms-border--disabled !important;
+  color: $inuit-forms-color--disabled !important;
+  cursor: not-allowed;
+  background-color: $inuit-forms-background--disabled !important;
+  pointer-events: none;
+}
+
+px-icon {
+  --iron-icon-width: calculateRem(16px);
+  --iron-icon-height: calculateRem(16px);
+  // --iron-icon: unquote("{
+  //   stroke-width: 2;
+  // }");
+  --iron-icon-stroke-color: var(--px-typeahead-icon-color, black);
+}
+
+
 // Trumps
 $inuit-enable-paddings--small : true;
+$inuit-enable-paddings--tiny : true;
 $inuit-enable-paddings--none : true;
 @import "px-spacing-design/_trumps.spacing.scss";
