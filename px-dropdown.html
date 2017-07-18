@@ -88,7 +88,22 @@ Custom property | Description
       <div slot="dropdown-content" class="dropdown-content shadow-temporary">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
           <div class="u-p-">
-            <input id="searchbox" class="text-input input--search" type="text" value="{{searchTerm::input}}" on-input="_notifyResize">
+            <div id="wrapper" class="flex text-input">
+              <input
+                id="searchbox"
+                class="text-input kill-form-styles"
+                disabled$="[[disabled]]"
+                placeholder="{{placeholder}}"
+                value="{{searchTerm::input}}"
+                on-keyup="_keyup"
+                on-keydown="_keydown"
+                on-focus="_onfocus"
+                on-blur="_onblur"
+                on-input="_notifyResize"
+                autocomplete="off">
+              </input>
+              <px-icon icon="px-nav:search"></px-icon>
+            </div>
           </div>
         </template>
         <iron-selector
@@ -101,8 +116,8 @@ Custom property | Description
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
-                <px-icon icon="px-utl:confirmed"></px-icon>
-                <span class="dropdown-option__item truncate">&nbsp;{{item.val}}</span>
+                <px-icon icon="px-utl:confirmed" class="u-pr--"></px-icon>
+                <span class="dropdown-option__item truncate">{{item.val}}</span>
               </template>
               <template is="dom-if" if="{{!multi}}"><span class="dropdown-option__item truncate">{{item.val}}</span></template>
             </div>
@@ -700,8 +715,23 @@ Custom property | Description
      */
     _hoverOff: function (event) {
       this.toggleClass('focused',false,Polymer.dom(event).localTarget);
-    }
+    },
 
+    _onfocus: function(e) {
+      this.$$('#wrapper').classList.add('manual-focus');
+    },
+
+    _onblur: function(e) {
+      this.$$('#wrapper').classList.remove('manual-focus');
+    },
+
+    _disableInput: function() {
+      if(this.disabled) {
+        this.$$('#wrapper').classList.add('disable-input');
+      } else {
+        this.$$('#wrapper').classList.remove('disable-input');
+      }
+    }
 
   });
 </script>
