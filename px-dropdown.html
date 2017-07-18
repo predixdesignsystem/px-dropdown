@@ -67,10 +67,10 @@ Custom property | Description
     <div id="button" slot="dropdown-trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" on-tap="toggle" tabindex="0">
       <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
       <template is="dom-if" if="{{_showClearButton(opened,selected,selectedValues,selectedValues.*)}}">
-        <px-icon class="dropdown-icon" icon="pxm:close" on-tap="_clear"></px-icon>
+        <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="_clear"></px-icon>
       </template>
       <template is="dom-if" if="{{_showChevron(hideChevron,opened,selected,selectedValues,selectedValues.*)}}">
-        <px-icon class="dropdown-icon" icon="pxs:chevron"></px-icon>
+        <px-icon class="dropdown-icon" icon="px-utl:chevron"></px-icon>
       </template>
     </div>
     <iron-dropdown
@@ -101,7 +101,7 @@ Custom property | Description
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
-                <px-icon icon="pxs:confirmed"></px-icon>
+                <px-icon icon="px-utl:confirmed"></px-icon>
                 <span class="dropdown-option__item truncate">&nbsp;{{item.val}}</span>
               </template>
               <template is="dom-if" if="{{!multi}}"><span class="dropdown-option__item truncate">{{item.val}}</span></template>
