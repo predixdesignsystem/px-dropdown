@@ -50,6 +50,7 @@ $inuit-enable-btn--bare--primary: true;
 }
 .dropdown{
   font-size: var(--px-dropdown-content-font-size, inherit);
+  color: var(--px-dropdown-content-color, inherit);
 }
 .dropdown-trigger {
   max-width: inherit;
