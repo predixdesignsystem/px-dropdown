@@ -66,10 +66,10 @@ Custom property | Description
     </iron-a11y-keys>
     <div id="button" slot="dropdown-trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" on-tap="toggle" tabindex="0">
       <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
-      <template is="dom-if" if="{{_showClearButton(opened,selected,selectedValues,selectedValues.*)}}">
+      <template is="dom-if" if="{{_showClearButton(disableClear,opened,selected,selectedValues,selectedValues.*)}}">
         <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="_clear"></px-icon>
       </template>
-      <template is="dom-if" if="{{_showChevron(hideChevron,opened,selected,selectedValues,selectedValues.*)}}">
+      <template is="dom-if" if="{{_showChevron(disableClear,hideChevron,opened,selected,selectedValues,selectedValues.*)}}">
         <px-icon class="dropdown-icon" icon="px-utl:chevron"></px-icon>
       </template>
     </div>
@@ -88,7 +88,7 @@ Custom property | Description
       <div slot="dropdown-content" class="dropdown-content shadow-temporary">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
           <div class="u-p-">
-            <div id="wrapper" class="flex text-input">
+            <div id="wrapper" class="flex flex--row flex--middle text-input">
               <input
                 id="searchbox"
                 class="text-input kill-form-styles"
@@ -190,6 +190,18 @@ Custom property | Description
         notify: true,
         value: 'Select',
         observer: '_displayValueChanged'
+      },
+      /**
+       * If set to true, users are unable to clear out the dropdown
+       * once a selection has been made. Useful for required single-select
+       * dropdowns where an empty state would be undesirable. Not recommended
+       * for multi-select dropdowns, as it means the user will simply lose the ability
+       * to quickly deselect all checked options (there is currently no mechanism
+       * which requires a user to select at least one option).
+       */
+      disableClear: {
+        type: Boolean,
+        value: false
       },
       /**
        * The text that is displayed in the label of the dropdown.
@@ -542,14 +554,37 @@ Custom property | Description
     /**
      * Determines whether to display the clear button inside the dropdown.
      */
-    _showClearButton: function(opened, selected, selectedValues) {
-      return (opened && (typeof selected === 'string' || typeof selected === 'number' || selectedValues.length > 0));
+    _showClearButton: function(disableClear, opened, selected, selectedValues) {
+      // Always hide it if the configuration is present.
+      if(disableClear) {
+        return false;
+      }
+      // Show it if the dropdown is opened and something is selected.
+      else if(opened && (typeof selected === 'string' || typeof selected === 'number' || selectedValues.length > 0)) {
+        return true;
+      }
+      // Otherwise hide it.
+      else {
+        return false;
+      }
     },
     /**
      * Determines whether to display the chevron button inside the dropdown.
      */
-    _showChevron: function(hideChevron, opened, selected, selectedValues) {
-      return !hideChevron && (!opened || (opened && !selected && selectedValues.length === 0));
+    _showChevron: function(disableClear, hideChevron, opened, selected, selectedValues) {
+      // Always hide it if the configuration is present or the dropdown is closed.
+      if(hideChevron) {
+        return false;
+      }
+      // Show it if the clear button is disabled, or if nothing is selected, otherwise it looks too empty.
+      else if(!opened || disableClear || (opened && !selected && selectedValues.length === 0)) {
+        return true;
+      }
+      // Otherwise hide it.
+      else {
+        return false;
+      }
+
     },
     /**
      * Initializes the sort function for the dom-repeat inside of iron-selector.

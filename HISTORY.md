@@ -4,6 +4,7 @@ v4.0.0
 * added new icons
 * code review fixes
 * fix #50, #51, #52
+* add prop for disableClear
 
 v3.1.1
 ==================
