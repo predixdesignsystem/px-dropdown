@@ -49,6 +49,14 @@ $inuit-enable-btn--bare--primary: true;
   border-color: var(--px-validation-success-text-color, green);
   color: inherit;
 }
+
+px-icon {
+  --iron-icon-width: calculateRem(16px);
+  --iron-icon-height: calculateRem(16px);
+  // --iron-icon: unquote("{
+  //   stroke-width: 2;
+  // }");
+}
 .dropdown{
   font-size: var(--px-dropdown-content-font-size, inherit);
   color: var(--px-dropdown-content-color, inherit);
@@ -95,18 +103,19 @@ $inuit-enable-btn--bare--primary: true;
   &.iron-selected {
     background-color: var(--px-dropdown-bg-color--selected, blue);
     color: var(--px-dropdown-text-color--selected, white);
-    iron-icon {
-      display: block;
-      width: 1rem;
-      height: 1rem;
-      flex: 0 0 auto;
-      margin-right: $inuit-base-spacing-unit--tiny;
+    px-icon {
+      stroke: var(--px-dropdown-text-color--selected, white);
+      color: var(--px-dropdown-text-color--selected, white);
     }
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, gray);
     background-color: var(--px-dropdown-bg-color--didabled, transparent);
     cursor: not-allowed;
+    px-icon {
+      stroke: var(--px-dropdown-text-color--disabled, gray);
+      color: var(--px-dropdown-text-color--disabled, gray);
+    }
   }
 }
 .dropdown-option__item {
@@ -118,10 +127,8 @@ $inuit-enable-btn--bare--primary: true;
   flex-shrink: 0;
 }
 
-// Hi Kate :)
-// we need to override the forms styles to force our box to look like a single
-// input instead of an input within an input. form styles use pseudo-classes and
-// as such, cannot just be removed when we dont need them.
+// We need to override the forms styles to force our box to look like a single
+// input instead of an input within an input.
 .kill-form-styles {
   padding: 0 !important;
   background-color: transparent !important;
@@ -140,15 +147,6 @@ $inuit-enable-btn--bare--primary: true;
   cursor: not-allowed;
   background-color: $inuit-forms-background--disabled !important;
   pointer-events: none;
-}
-
-px-icon {
-  --iron-icon-width: calculateRem(16px);
-  --iron-icon-height: calculateRem(16px);
-  // --iron-icon: unquote("{
-  //   stroke-width: 2;
-  // }");
-  --iron-icon-stroke-color: var(--px-typeahead-icon-color, black);
 }
 
 

@@ -43,6 +43,7 @@
           multi="{{props.multi.value}}"
           hide-chevron="{{props.hideChevron.value}}"
           allow-outside-scroll="{{props.allowOutsideScroll.value}}"
+          disable-clear="{{props.disableClear.value}}"
           disabled="{{props.disabled.value}}"
           sort-mode="{{props.sortMode.value}}"
           search-mode="{{props.searchMode.value}}"
@@ -122,6 +123,11 @@
         inputChoices: ['bare','bare--primary','default','tertiary']
       },
       disabled: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      disableClear: {
         type: Boolean,
         defaultValue: false,
         inputType: 'toggle'
