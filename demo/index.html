@@ -47,7 +47,8 @@
           disabled="{{props.disabled.value}}"
           sort-mode="{{props.sortMode.value}}"
           search-mode="{{props.searchMode.value}}"
-          button-style="{{props.buttonStyle.value}}">
+          button-style="{{props.buttonStyle.value}}"
+          icon="{{props.icon.value}}">
         </px-dropdown>
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>
@@ -86,8 +87,19 @@
             },
             {
               configName: "Multiple select",
+              displayValue: "Select",
+              icon: "",
+              sortMode: "key",
+              buttonStyle: "bare--primary",
               multi: true,
               searchMode: true
+            },
+            {
+              configName: "Iconic menu",
+              icon: "px-utl:app-settings",
+              buttonStyle: "icon",
+              multi: false,
+              searchMode: false
             }
           ];
         }
@@ -105,11 +117,6 @@
         ],
         inputType: 'code:JSON'
       },
-      displayValue: {
-        type: String,
-        defaultValue: "Select",
-        inputType: 'text'
-      },
       sortMode: {
         type: String,
         defaultValue: 'key',
@@ -120,7 +127,19 @@
         type: String,
         defaultValue: 'default',
         inputType: 'dropdown',
-        inputChoices: ['bare','bare--primary','default','tertiary']
+        inputChoices: ['bare','bare--primary','default','tertiary','icon']
+      },
+      displayValue: {
+        type: String,
+        defaultValue: "Select",
+        inputType: 'text'
+      },
+      icon: {
+        type: String,
+        defaultValue: '',
+        inputType: 'text',
+        inputPlaceholder: 'e.g. px-utl:app-settings',
+        inputHelpText: 'Use with button style "icon"'
       },
       disabled: {
         type: Boolean,
