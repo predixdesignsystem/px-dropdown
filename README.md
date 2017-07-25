@@ -2,7 +2,7 @@
 
 ## Overview
 
-The px-dropdown component can be placed in any element, and opens a customizable dropdown list.
+`Px-dropdown` is a Predix UI component which can be placed in any element, and opens a customizable dropdown list.
 
 ## Usage
 
@@ -16,13 +16,13 @@ Node, npm and bower are necessary to install the component and dependencies. web
 
 ### Getting Started
 
-First, install the component via bower on the command line.
+First, install the component via bower on the command line:
 
 ```
 bower install px-dropdown --save
 ```
 
-Second, import the component to your application with the following tag in your head.
+Second, import the component to your application with the following tag in your head:
 
 ```
 <link rel="import" href="/bower_components/px-dropdown/px-dropdown.html"/>
@@ -45,7 +45,7 @@ Finally, use the component in your application:
 
 Read the full API and view the demo [here](https://predixdev.github.io/px-dropdown).
 
-Also, make sure to look at the demo-angular.html page for an example of using Polymer with Angular.
+Also, make sure to look at the `demo-angular.html` page for an example of using Polymer with Angular.
 
 ## Local Development
 
