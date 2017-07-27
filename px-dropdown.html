@@ -93,19 +93,17 @@ Custom property | Description
       <div slot="dropdown-content" class="dropdown-content shadow-temporary">
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
           <div class="u-p-">
-            <div id="wrapper" class="flex flex--row flex--middle text-input">
+            <div class="search__form">
               <input
                 id="searchbox"
-                class="text-input kill-form-styles"
+                class="text-input kill-form-styles search__box"
                 disabled$="[[disabled]]"
                 placeholder="{{placeholder}}"
                 value="{{searchTerm::input}}"
-                on-focus="_onfocus"
-                on-blur="_onblur"
                 on-input="_notifyResize"
                 autocomplete="off">
               </input>
-              <px-icon icon="px-utl:search"></px-icon>
+              <px-icon class="search__icon" icon="px-utl:search"></px-icon>
             </div>
           </div>
         </template>
@@ -771,23 +769,6 @@ Custom property | Description
      */
     _hoverOff: function (event) {
       this.toggleClass('focused',false,Polymer.dom(event).localTarget);
-    },
-
-    _onfocus: function(e) {
-      this.$$('#wrapper').classList.add('manual-focus');
-    },
-
-    _onblur: function(e) {
-      this.$$('#wrapper').classList.remove('manual-focus');
-    },
-
-    _disableInput: function() {
-      if(this.disabled) {
-        this.$$('#wrapper').classList.add('disable-input');
-      } else {
-        this.$$('#wrapper').classList.remove('disable-input');
-      }
     }
-
   });
 </script>

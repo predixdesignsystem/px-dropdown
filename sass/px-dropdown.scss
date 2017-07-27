@@ -54,9 +54,6 @@ $inuit-enable-btn--icon: true;
 px-icon {
   --iron-icon-width: calculateRem(16px);
   --iron-icon-height: calculateRem(16px);
-  // --iron-icon: unquote("{
-  //   stroke-width: 2;
-  // }");
 }
 .dropdown{
   font-size: var(--px-dropdown-content-font-size, inherit);
@@ -128,28 +125,25 @@ px-icon {
   flex-shrink: 0;
 }
 
-// We need to override the forms styles to force our box to look like a single
-// input instead of an input within an input.
-.kill-form-styles {
-  padding: 0 !important;
-  background-color: transparent !important;
-  border-bottom: none !important;
+.search__form {
+  position: relative;
+  display: block;
 }
 
-.manual-focus {
-  border-color: $inuit-forms-border--outer--focused !important;
-  background-color: $inuit-forms-background--focused !important;
-  color: $inuit-forms-color--focused !important;
+.search__icon {
+  position: absolute;
+  top: 0;
+  right: calculateRem(8px);
+  display: block;
+  padding: 4px;
+}
+.search__icon--tappable {
+  cursor: pointer;
 }
 
-.disable-input{
-  border-color: $inuit-forms-border--disabled !important;
-  color: $inuit-forms-color--disabled !important;
-  cursor: not-allowed;
-  background-color: $inuit-forms-background--disabled !important;
-  pointer-events: none;
+.search__box {
+  padding-right: 1.5rem;
 }
-
 
 // Trumps
 $inuit-enable-paddings--small : true;
