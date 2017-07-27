@@ -1,3 +1,7 @@
+v4.0.1
+==================
+* Changed how search icon is positioned
+
 v4.0.0
 ==================
 * rebuild of the px-dropdown component using iron-dropdown and iron-selector
