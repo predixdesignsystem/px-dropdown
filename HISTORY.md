@@ -1,3 +1,7 @@
+v4.0.2
+==================
+* update demo per design feedback
+
 v4.0.1
 ==================
 * Changed how search icon is positioned
