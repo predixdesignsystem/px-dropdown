@@ -92,8 +92,8 @@ px-icon {
   cursor: pointer;
   display: flex;
   align-items: center;
-  iron-icon {
-    display: none;
+  px-icon {
+    opacity: 0;
   }
   &.focused {
     background-color: var(--px-dropdown-bg-color--hover, lightgray);
@@ -102,6 +102,7 @@ px-icon {
     background-color: var(--px-dropdown-bg-color--selected, blue);
     color: var(--px-dropdown-text-color--selected, white);
     px-icon {
+      opacity: 1;
       stroke: var(--px-dropdown-text-color--selected, white);
       color: var(--px-dropdown-text-color--selected, white);
     }

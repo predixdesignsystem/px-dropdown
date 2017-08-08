@@ -117,7 +117,7 @@ Custom property | Description
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
-                <px-icon icon="px-utl:confirmed" class="u-pr--"></px-icon>
+                <px-icon icon="px-utl:check" class="u-pr--"></px-icon>
                 <span class="dropdown-option__item truncate">{{item.val}}</span>
               </template>
               <template is="dom-if" if="{{!multi}}"><span class="dropdown-option__item truncate">{{item.val}}</span></template>

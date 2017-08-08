@@ -1,3 +1,7 @@
+v4.0.4
+==================
+* switch to px-utl:check icon
+
 v4.0.3
 ==================
 * runtime theming for demo
