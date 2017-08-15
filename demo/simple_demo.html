@@ -15,79 +15,15 @@
 <body>
   <template is="dom-bind">
     <div style="width:250px">
-      <p>defaults</p>
+      <p>Single Select</p>
       <px-dropdown
         items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'>
       </px-dropdown>
       </br>
-      <p>mulit</p>
+      <p>Mulit Select</p>
       <px-dropdown
         items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
         multi>
-      </px-dropdown>
-      </br>
-      <p>single, bare</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        button-style="bare">
-      </px-dropdown>
-      </br>
-      <p>width 100%</p>
-      <px-dropdown
-        style="width:100%"
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        multi>
-      </px-dropdown>
-      </br>
-      <p>disabled</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        disabled>
-      </px-dropdown>
-      </br>
-      <p>Display Value bof</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        display-value="bof">
-      </px-dropdown>
-      </br>
-      <p>search multi</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        search-mode
-        select-by="val"
-        multi>
-      </px-dropdown>
-      </br>
-      <p>search single</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        search-mode
-        select-by="val">
-      </px-dropdown>
-      </br>
-      <p>Sort mode val</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        sort-mode="val">
-      </px-dropdown>
-      </br>
-      <p>Sort mode key</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        sort-mode="key">
-      </px-dropdown>
-      </br>
-      <p>Hide Chevron</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        hide-chevron>
-      </px-dropdown>
-      </br>
-      <p>Allow outside scroll</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        allow-outside-scroll>
       </px-dropdown>
     </div>
   </template>
