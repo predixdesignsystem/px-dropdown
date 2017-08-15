@@ -1,3 +1,7 @@
+v4.0.5
+==================
+* Fix comment for analyzer
+
 v4.0.4
 ==================
 * switch to px-utl:check icon
