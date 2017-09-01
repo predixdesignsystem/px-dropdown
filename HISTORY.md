@@ -1,3 +1,7 @@
+v4.0.6
+==================
+* add back px-dropdown-click event
+
 v4.0.5
 ==================
 * Fix comment for analyzer

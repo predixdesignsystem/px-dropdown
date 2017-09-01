@@ -369,7 +369,7 @@ Custom property | Description
       }
     },
     listeners: {
-      'iron-activate' : '_ignoreDisabled',
+      'iron-activate' : '_handleActivate',
       'iron-select' : '_handleSelection',
       'iron-deselect' : '_handleDeselection'
     },
@@ -480,7 +480,13 @@ Custom property | Description
      * When iron-activate is fired, this method checks whether the item is disabled.
      * If so, it cancels the event so that iron-select is not called.
      */
-    _ignoreDisabled: function(evt) {
+    _handleActivate: function(evt) {
+      /**
+       * Event fired when any given element is clicked in the dropdown.
+       *
+       * @event px-dropdown-selection-changed
+       */
+      this.fire('px-dropdown-click', evt);
       if(evt.detail.item.hasAttribute('disabled')) {
         evt.preventDefault();
       }
