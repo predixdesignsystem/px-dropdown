@@ -1,3 +1,7 @@
+v4.0.7
+==================
+* fix typo
+
 v4.0.6
 ==================
 * add back px-dropdown-click event
