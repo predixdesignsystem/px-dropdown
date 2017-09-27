@@ -119,10 +119,12 @@ Custom property | Description
           <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
-                <px-icon icon="px-utl:check" class="u-pr--"></px-icon>
-                <span class="dropdown-option__item truncate">{{item.val}}</span>
+                <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
               </template>
-              <template is="dom-if" if="{{!multi}}"><span class="dropdown-option__item truncate">{{item.val}}</span></template>
+              <template is="dom-if" if="{{item.icon}}">
+                <px-icon icon="{{item.icon}}" class="item-icon u-pr--" style$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
+              </template>
+              <span class="dropdown-option__item truncate">{{item.val}}</span>
             </div>
           </template>
         </iron-selector>
@@ -220,6 +222,8 @@ Custom property | Description
        * * 'val' - the actual text that is displayed
        * * 'disabled' - whether the item should be disabled for selection (optional)
        * * 'selected' - whether the item should be selected at instantiation (optional)
+       * * 'icon' - an icon name from the px-icon-set to display next to the item (optional)
+       * * 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)
        */
       items: {
         type: Array,

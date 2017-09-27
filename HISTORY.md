@@ -1,3 +1,7 @@
+v4.0.9
+==================
+* add support for icons in the dropdown
+
 v4.0.8
 ==================
 * add missing style vars to docs
