@@ -1,3 +1,7 @@
+v4.0.8
+==================
+* add missing style vars to docs
+
 v4.0.7
 ==================
 * fix typo
