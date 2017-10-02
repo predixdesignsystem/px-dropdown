@@ -1,3 +1,7 @@
+v4.0.11
+==================
+* revert 4.0.10
+
 v4.0.10
 ==================
 * clear selections on items change

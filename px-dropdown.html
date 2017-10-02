@@ -224,8 +224,6 @@ Custom property | Description
        * * 'selected' - whether the item should be selected at instantiation (optional)
        * * 'icon' - an icon name from the px-icon-set to display next to the item (optional)
        * * 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)
-       *
-       * Note: if you make any changes to this property, existing dropdown selections will be cleared.
        */
       items: {
         type: Array,
@@ -449,8 +447,7 @@ Custom property | Description
     },
     /**
      * Any time that `items` changes, this method will convert an array
-     * of simple strings to an array of objects. Also clears out any existing
-     * selections to prevent an issue in data-table.
+     * of simple strings to an array of objects.
      */
     _itemsChanged: function(items) {
       if(items[0] && typeof items[0] === 'string') {
@@ -460,8 +457,6 @@ Custom property | Description
         })
         this.items = computedItems;
       }
-      this.set('selected', null);
-      this.set('selectedValues', []);
       this._updateSelection();
     },
     /**
