@@ -1,3 +1,7 @@
+v4.0.10
+==================
+* clear selections on items change
+
 v4.0.9
 ==================
 * add support for icons in the dropdown
