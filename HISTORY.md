@@ -1,3 +1,7 @@
+v4.0.13
+==================
+* expose variable to fix style of breadcrumbs
+
 v4.0.12
 ==================
 * handle items changes correctly, new boolean

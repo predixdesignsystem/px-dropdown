@@ -68,6 +68,7 @@ px-icon {
   padding-right: $inuit-base-spacing-unit--small;
   outline: none;
   max-width: var(--px-dropdown-max-width, 400px);
+  font-weight: var(--px-dropdown-font-weight, normal);
 }
 .dropdown-label {
   overflow: hidden;
