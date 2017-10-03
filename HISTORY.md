@@ -1,3 +1,7 @@
+v4.0.12
+==================
+* handle items changes correctly, new boolean
+
 v4.0.11
 ==================
 * revert 4.0.10

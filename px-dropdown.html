@@ -224,6 +224,9 @@ Custom property | Description
        * * 'selected' - whether the item should be selected at instantiation (optional)
        * * 'icon' - an icon name from the px-icon-set to display next to the item (optional)
        * * 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)
+       *
+       * Note: if you specify more than one item as `selected`, but `multi` is not enabled,
+       * only the *first* selected item will be chosen. See also `clearSelectionsOnChange`.
        */
       items: {
         type: Array,
@@ -351,6 +354,14 @@ Custom property | Description
         value: ''
       },
       /**
+      * Set this property if you would like the `selected` and `selectedValues`
+      * properties to be cleared whenever mutations are made to the `items` array.
+      */
+      clearSelectionsOnChange: {
+        type: Boolean,
+        value: false
+      },
+      /**
        * Binding target for iron-a11y-keys
        */
       _keyBindingsTarget: {
@@ -457,29 +468,49 @@ Custom property | Description
         })
         this.items = computedItems;
       }
+      if(this.clearSelectionsOnChange) {
+        this.set('selected', null);
+        this.set('selectedValues', []);
+      }
       this._updateSelection();
     },
     /**
      * Iterates over the `items` array and adds items with the
-     * `selected` property to the `selectedValues` array. Overridden
-     * by any existing selections in `selectedValues`.
+     * `selected` property to the `selectedValues` array (for multi) or
+     * updates `selected` (for single). Note: if you specify more than
+     * one item as `selected` but `multi` is not enabled, only the *first*
+     * selected item will be chosen. Does NOT remove items if their selected
+     * property gets changed to false or removed - use `clearSelectionsOnChange`
+     * or mutate the `selected` / `selectedValues` properties instead.
      */
     _updateSelection: function() {
-      if(this.multi && this.items && this.items.length > 0 && this.selectedValues && this.selectedValues.length === 0) {
-        var length = this.items.length,
-            selected = [],
-            i;
-        for(i=0; i<length; i++) {
-          if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
-            selected.push(this.items[i][this.selectBy]);
+      if(this.items && this.items.length > 0) {
+        if(this.multi) {
+          var length = this.items.length,
+              selected = this.selectedValues,
+              i;
+          for(i=0; i<length; i++) {
+            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
+              if(selected && selected.indexOf(this.items[i][this.selectBy]) === -1) {
+                selected.push(this.items[i][this.selectBy]);
+              }
+            }
           }
-        }
-        this.set('selectedValues', selected);
-        if(!this.hideSelected && this.selectedValues.length > 0) {
-          this._displayValueSelected = this.selectedValues.length + ' selected';
+          this.set('selectedValues', []);
+          this.set('selectedValues', selected);
         }
         else {
-          this._displayValueSelected = this.displayValue;
+          var length = this.items.length,
+              selected = this.selected,
+              i;
+          for(i=0; i<length; i++) {
+            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
+              if(selected !== this.items[i][this.selectBy]) {
+                this.set('selected', this.items[i][this.selectBy]);
+                break;
+              }
+            }
+          }
         }
       }
     },
@@ -578,7 +609,7 @@ Custom property | Description
             length = items.length,
             i;
         for(i=0; i<length; i++) {
-          this.toggleClass('hidden', items[i].val.toString().toLowerCase().search(term) === -1 && items[i].key.toString().toLowerCase().search(term) === -1, items[i]);
+          this.toggleClass('hidden', items[i].val.toString().toLowerCase().indexOf(term) === -1 && items[i].key.toString().toLowerCase().indexOf(term) === -1, items[i]);
         }
       }
     },
