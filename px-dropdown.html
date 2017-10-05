@@ -462,7 +462,7 @@ Custom property | Description
      * of simple strings to an array of objects.
      */
     _itemsChanged: function(items) {
-      if(items[0] && typeof items[0] === 'string') {
+      if(items != null && items[0] && typeof items[0] === 'string') {
         var computedItems = [];
         items.forEach(function(item, idx) {
           computedItems.push({"key":idx, "val":item});

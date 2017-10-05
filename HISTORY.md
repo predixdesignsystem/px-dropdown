@@ -1,3 +1,7 @@
+v4.0.14
+==================
+* add null check (#59)
+
 v4.0.13
 ==================
 * expose variable to fix style of breadcrumbs
