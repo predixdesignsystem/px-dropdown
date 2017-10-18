@@ -1,3 +1,7 @@
+v4.0.16
+==================
+* remove web-animations (#62)
+
 v4.0.15
 ==================
 * resolve version conflict for web-animations (#62)
