@@ -19,7 +19,8 @@ before_script:
 script:
 - xvfb-run polymer test --skip-plugin sauce
 - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test --plugin sauce --skip-plugin
-  local; fiafter_success:
+  local; fi
+after_success:
 - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then openssl aes-256-cbc -k "$DEPLOYSECRET"
   -in deploy.enc -out deploy_key -d; fi
 - cd $TRAVIS_BUILD_DIR/scripts
