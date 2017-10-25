@@ -1,43 +1,44 @@
-suite('Custom Automation Tests for px-dropdown', function () {
-    var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
-        px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-        px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+describe('Custom Automation Tests for px-dropdown', function (done) {
+  before(function(){
+    this.px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1');
+    this.px_dropdown_content = Polymer.dom(this.px_dropdown.root).querySelector('#dropdown');
+    this.px_dropdown_button = Polymer.dom(this.px_dropdown.root).querySelector('#button');
+  });
 
-  test('Checks if dropdown opens on container click',
+  it('Checks if dropdown opens on container click',
     function (done) {
       var clickHandle = function () {
           setTimeout(function() {
-            var px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-            assert.isTrue(px_dropdown_content.style.display !== 'none');
+            var px_dropdown_content = Polymer.dom(this.px_dropdown.root).querySelector('#dropdown');
+            assert.isTrue(this.px_dropdown_content.style.display !== 'none');
             done();
-          },50);
-        };
-      var px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
-      px_dropdown_button.addEventListener('click', clickHandle);
-      px_dropdown_button.click();
-      px_dropdown_button.removeEventListener('click', clickHandle);
+          }.bind(this),50);
+        }.bind(this);
+      var px_dropdown_button = Polymer.dom(this.px_dropdown.root).querySelector('#button');
+      this.px_dropdown_button.addEventListener('click', clickHandle);
+      this.px_dropdown_button.click();
+      this.px_dropdown_button.removeEventListener('click', clickHandle);
     }
   );
 
-  test('Selecting an element changes selected property',
+  it('Selecting an element changes selected property',
     function (done) {
-      var pxd = Polymer.dom(document).querySelector('#px_dropdown_1')
-      var dropdown_option = Polymer.dom(pxd.root).querySelectorAll('.dropdown-option')[2];
+      var dropdown_option = Polymer.dom(this.px_dropdown.root).querySelectorAll('.dropdown-option')[2];
 
       var item_click = function (e) {
-        flush(()=>{
+        flush(function(){
           assert.equal(e.detail.val, 'Three');
           assert.equal(e.detail.key, '3');
-          assert.equal(px_dropdown.selected, '3');
+          assert.equal(this.px_dropdown.selected, '3');
           done();
-        });
-      };
-      pxd.addEventListener('px-dropdown-selection-changed', item_click);
+        }.bind(this));
+      }.bind(this);
+      this.px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
       dropdown_option.click();
-      pxd.removeEventListener('px-dropdown-selection-changed', item_click);
+      this.px_dropdown.removeEventListener('px-dropdown-selection-changed', item_click);
     });
 
-  test('Selecting a disabled element does not fire a click event',
+  it('Selecting a disabled element does not fire a click event',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_6'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
@@ -55,7 +56,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
       done();
     });
 
-  test('Compare passed items to what is on the dropdown itself',
+  it('Compare passed items to what is on the dropdown itself',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
@@ -69,7 +70,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
       done();
     });
 
-  test('checks if Hide Chevron actually hides the chevron',
+  it('checks if Hide Chevron actually hides the chevron',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_5'),
           chevron = Polymer.dom(px_dropdown.root).querySelector('iron-icon');
@@ -78,7 +79,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
     }
   );
 
-  test('check if dropdown closes on outside click',
+  it('check if dropdown closes on outside click',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_3'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
@@ -101,7 +102,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
     }
   );
 
-  test('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
+  it('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
@@ -125,7 +126,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
     }
   );
 
-  test('Check if in multi mode we can toggle an item',
+  it('Check if in multi mode we can toggle an item',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_7'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
@@ -154,7 +155,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
     }
   );
 
-  test('Check that search box appears when in search mode',
+  it('Check that search box appears when in search mode',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_9'),
         input = Polymer.dom(px_dropdown.root).querySelector('#searchbox');
@@ -163,7 +164,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
     }
   );
 
-  test('Sort mode: items can be sorted by values or keys',
+  it('Sort mode: items can be sorted by values or keys',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_11'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.px-dropdown-content'),
@@ -178,7 +179,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
     }
   );
 
-  test('Keyboard space: px-dropdown should open upon pressing space',
+  it('Keyboard space: px-dropdown should open upon pressing space',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
@@ -188,7 +189,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
       done();
     });
 
-  test('Keyboard down: px-dropdown item should get focus on pressing down arrow',
+  it('Keyboard down: px-dropdown item should get focus on pressing down arrow',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
         px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
@@ -207,7 +208,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
       done();
     });
 
-  test('Keyboard enter: px-dropdown item should be selected on pressing enter',
+  it('Keyboard enter: px-dropdown item should be selected on pressing enter',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
           px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
@@ -241,7 +242,7 @@ suite('Custom Automation Tests for px-dropdown', function () {
       MockInteractions.pressEnter(firstItem);
     });
 
-  test('Keyboard esc: px-dropdown should close',
+  it('Keyboard esc: px-dropdown should close',
     function (done) {
       var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
           px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
