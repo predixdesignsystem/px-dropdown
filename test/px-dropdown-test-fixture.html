@@ -6,23 +6,20 @@
     <title>Web Component Test : Fixture for px-dropdown</title>
 
     <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
-    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <script src="../bower_components/iron-test-helpers/mock-interactions.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
     <!-- web-component-tester automatically provides local copy of brower.js below
          for any URL ending with "/web-component-tester/browser.js"
          when wct is run from the command line -->
-    <script src="../web-component-tester/browser.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
     <link rel="import" href="../px-dropdown.html" />
 
     <!-- Retain this link for px-theme.html -->
     <!-- For some reason px-theme is needed for WCT to run without some errors -->
     <link rel="import" href="../../px-theme/px-theme-styles.html">
-    <style include="px-theme-styles" is="custom-style"></style>
-    <!-- This script link will contain the generated script for basic wct test cases -->
-    <script src="px-dropdown-base-tests.js"></script>
-    <!-- This script link will contain the generated script stub for custom, developer-added test cases -->
-    <script src="px-dropdown-custom-tests.js"></script>
-
+    <custom-style>
+      <style include="px-theme-styles" is="custom-style"></style>
+    </custom-style>
     <style>
       html, body {
         margin: 0;
@@ -39,7 +36,6 @@
 
   <body>
     <div class="flex">
-
       <div>
         <p id="title">1. Default:</p>
         <px-dropdown id="px_dropdown_1" items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]'>
@@ -113,6 +109,6 @@
       </div>
 
     </div>
-
+    <script src="px-dropdown-custom-tests.js"></script>
   </body>
 </html>

@@ -37,6 +37,6 @@
     }
   },
   "suites": [
-    "test/px-dropdown-test-fixture.html"
+    "test/index.html"
   ]
 }

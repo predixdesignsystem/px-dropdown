@@ -3,38 +3,41 @@
 
 <head>
   <title>px-dropdown simple demo</title>
-  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
-  <link rel="import" href="../../polymer/polymer-mini.html" />
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../polymer/polymer.html" />
   <link rel="import" href="../px-dropdown.html" />
-
+  <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
   <link rel="import" href="../../px-theme/px-theme-styles.html">
-  <style include="px-theme-styles" is="custom-style"></style>
 
 </head>
 
 <body>
-  <template is="dom-bind">
-    <div style="width:250px">
-      <p>Single Select</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'>
-      </px-dropdown>
-      </br>
-      <p>Multi Select</p>
-      <px-dropdown
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        multi>
-      </px-dropdown>
-      </br>
-      <p>Search Mode</p>
-      <px-dropdown
-        items='[{"key":"1","val":"Etc/GMT+1"},{"key":"2","val":"Etc/GMT+10"},{"key":"3","val":"Etc/GMT+11"},{"key":"4","val":"Etc/GMT+12"}]'
-        multi
-        search-mode>
-      </px-dropdown>
-    </div>
-  </template>
-
+  <custom-style>
+    <style include="px-theme-styles" is="custom-style"></style>
+  </custom-style>
+  <dom-bind>
+    <template is="dom-bind">
+      <div style="width:250px">
+        <p>Single Select</p>
+        <px-dropdown
+          items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'>
+        </px-dropdown>
+        </br>
+        <p>Multi Select</p>
+        <px-dropdown
+          items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
+          multi>
+        </px-dropdown>
+        </br>
+        <p>Search Mode</p>
+        <px-dropdown
+          items='[{"key":"1","val":"Etc/GMT+1"},{"key":"2","val":"Etc/GMT+10"},{"key":"3","val":"Etc/GMT+11"},{"key":"4","val":"Etc/GMT+12"}]'
+          multi
+          search-mode>
+        </px-dropdown>
+      </div>
+    </template>
+  </dom-bind>
 </body>
 
 </html>

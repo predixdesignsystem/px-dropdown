@@ -25,8 +25,8 @@
     "wct.conf.json"
   ],
   "dependencies": {
-    "polymer": "^1.9.0",
-    "px-icon-set": "^2.0.0",
+    "polymer": "#1.9 - 2",
+    "px-icon-set": "polymer2.0-preview",
     "iron-dropdown": "^2.0.0",
     "iron-a11y-keys": "^2.0.0",
     "web-animations-js": "^2.2.0"
@@ -38,14 +38,27 @@
     "px-flexbox-design": "^1.0.0",
     "px-forms-design": "^2.0.0",
     "px-buttons-design": "^2.0.0",
-    "px-demo": "^2.0.0",
     "iron-test-helpers": "^2.0.0",
     "px-shadows-design": "^1.0.0",
     "px-colors-design": "^1.0.0",
     "px-box-sizing-design": "^1.0.0",
-    "px-helpers-design": "^1.0.0"
+    "px-helpers-design": "^1.0.0",
+    "web-component-tester": "^6.0.0"
   },
   "resolutions": {
-    "webcomponentsjs": "^0.7.24"
+    "webcomponentsjs": "^1.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "^1.9.0"
+      },
+      "devDependencies": {
+        "web-component-tester": "^5.0.0"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^0.7.0"
+      }
+    }
   }
 }
