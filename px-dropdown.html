@@ -651,9 +651,11 @@ Custom property | Description
     /**
      * Initializes the sort function for the dom-repeat inside of iron-selector.
      */
-    _initSort: function () {
-      this.$.dropdownItems.sort = '_computeSort';
-      this.$.dropdownItems.render();
+    _initSort: function (sortMode, items) {
+      if (! (sortMode === undefined || items === undefined)) {
+        this.$.dropdownItems.sort = '_computeSort';
+        this.$.dropdownItems.render();
+      }
     },
     /**
      * Event handler for mouse move event. We enable mouse events when user moves the mouse.
