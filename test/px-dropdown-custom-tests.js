@@ -226,7 +226,10 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
         if (!firstItem.classList.contains('focused')) {
           MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
           flush(()=>{
-            assert.isTrue(firstItem.classList.contains('focused'));
+            let isIE = "ActiveXObject" in window;
+            if (!isIE){
+              assert.isTrue(firstItem.classList.contains('focused'));
+            }
           });
         }
       })
