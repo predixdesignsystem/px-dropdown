@@ -1,9 +1,13 @@
 describe('Custom Automation Tests for px-dropdown', function (done) {
   let px_dropdown;
+  let px_dropdown_content;
+  let px_dropdown_button;
 
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-fixture');
     flush(()=>{
+      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
       done();
     });
   });
@@ -12,7 +16,6 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
     function (done) {
       var clickHandle = function () {
           setTimeout(function() {
-            let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
             assert.isTrue(px_dropdown_content.style.display !== 'none');
             done();
           }.bind(this),50);
@@ -26,21 +29,18 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Selecting an element changes selected property',
     function (done) {
-      let dropdown_option;
-      flush(()=>{
-        dropdown_option = Polymer.dom(px_dropdown.root).querySelectorAll('.dropdown-option')[2];
-        var item_click = function (e) {
-          flush(function(){
-            assert.equal(e.detail.val, 'Three');
-            assert.equal(e.detail.key, '3');
-            assert.equal(px_dropdown.selected, '3');
-            done();
-          });
-        };
-        px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
-        dropdown_option.click();
-        px_dropdown.removeEventListener('px-dropdown-selection-changed', item_click);
-      });
+      let dropdown_option = Polymer.dom(px_dropdown.root).querySelectorAll('.dropdown-option')[2];
+      var item_click = function (e) {
+        flush(function(){
+          assert.equal(e.detail.val, 'Three');
+          assert.equal(e.detail.key, '3');
+          assert.equal(px_dropdown.selected, '3');
+          done();
+        });
+      };
+      px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
+      dropdown_option.click();
+      px_dropdown.removeEventListener('px-dropdown-selection-changed', item_click);
     }
   );
 
@@ -69,81 +69,46 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('check if dropdown closes on outside click',
     function (done) {
-      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
-      title = Polymer.dom(document).querySelector('#title'),
-
+      let title = Polymer.dom(document).querySelector('#title');
       clickHandle = function () {
-        setTimeout(function() {
+        flush(()=>{
           assert.isFalse(px_dropdown.opened);
-        },250);
-        done();
+          done();
+        });
       };
 
       px_dropdown_button.click();
       flush(()=>{
         title.addEventListener('click', clickHandle);
         title.click();
-        title.removeEventListener('click', clickHandle);
       });
+    }
+  );
+
+  it('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
+    function (done) {
+      let title = Polymer.dom(document).querySelector('#title');
+
+      px_dropdown.preventCloseOnOutsideClick = true;
+
+      clickHandle = function () {
+        setTimeout(function() {
+          assert.isTrue(px_dropdown.opened);
+        },50);
+        done();
+      };
+
+      //open dropdown
+      px_dropdown_button.click();
+      title.addEventListener('click', clickHandle);
+      title.click();
+      title.removeEventListener('click', clickHandle);
     }
   );
 
 });
 
-  //
-  // it('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_2'),
-  //         px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-  //         px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
-  //         title = Polymer.dom(document).querySelector('#title');
-  //
-  //     px_dropdown.preventCloseOnOutsideClick = true;
-  //
-  //     clickHandle = function () {
-  //       setTimeout(function() {
-  //         assert.isTrue(px_dropdown.opened);
-  //       },50);
-  //       done();
-  //     };
-  //
-  //     //open dropdown
-  //     px_dropdown_button.click();
-  //     title.addEventListener('click', clickHandle);
-  //     title.click();
-  //     title.removeEventListener('click', clickHandle);
-  //   }
-  // );
-  //
-  // it('Check if in multi mode we can toggle an item',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_7'),
-  //         px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-  //         px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
-  //         selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
-  //         divs = Polymer.dom(selector.root).querySelectorAll('div');
-  //
-  //     assert.isFalse(divs[0].classList.contains('iron-selected'));
-  //     assert.isTrue(divs[1].classList.contains('iron-selected'));
-  //     assert.isFalse(divs[2].classList.contains('iron-selected'));
-  //     assert.isTrue(divs[3].classList.contains('iron-selected'));
-  //
-  //     var clickHandle = function () {
-  //       setTimeout(function() {
-  //         assert.isTrue(divs[0].classList.contains('iron-selected'));
-  //         assert.isTrue(px_dropdown.opened);
-  //       },50);
-  //       done();
-  //     };
-  //
-  //     px_dropdown_button.click();
-  //
-  //     divs[0].addEventListener('click', clickHandle);
-  //     divs[0].click();
-  //     divs[0].removeEventListener('click', clickHandle);
-  //   }
-  // );
+
   //
   // it('Check that search box appears when in search mode',
   //   function (done) {
@@ -256,6 +221,41 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
   //     assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
   //     done();
   //   });
+
+describe('Multi select tests for px-dropdown', function (done) {
+  let px_dropdown;
+
+  beforeEach(function(done){
+    px_dropdown = fixture('dropdown-multi-element-fixture');
+    flush(()=>{
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      done();
+    });
+  });
+
+  it('Check if in multi mode we can toggle an item',
+    function (done) {
+      let selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+      divs = Polymer.dom(selector.root).querySelectorAll('div');
+
+      assert.isFalse(divs[0].classList.contains('iron-selected'));
+      assert.isTrue(divs[1].classList.contains('iron-selected'));
+      assert.isFalse(divs[2].classList.contains('iron-selected'));
+      assert.isFalse(divs[3].classList.contains('iron-selected'));
+
+      var clickHandle = function () {
+        flush(()=>{
+          assert.isTrue(divs[0].classList.contains('iron-selected'));
+          assert.isTrue(px_dropdown.opened);
+          done();
+        });
+      };
+      px_dropdown_button.click();
+      divs[0].addEventListener('click', clickHandle);
+      divs[0].click();
+    }
+  );
+});
 
 describe('Disabled element tests for px-dropdown', function (done) {
   let px_dropdown;

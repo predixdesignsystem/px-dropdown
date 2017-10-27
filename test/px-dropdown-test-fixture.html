@@ -41,6 +41,14 @@
       </template>
     </test-fixture>
 
+    <test-fixture id="dropdown-multi-element-fixture">
+      <template>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two","selected":"true"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' multi>
+        </px-dropdown>
+      </template>
+    </test-fixture>
+
+
       <!-- <div>
         <p>2. Items passed as simple strings, Disable close on outside click:</p>
         <px-dropdown id="px_dropdown_2" items='["One","Two","Three","Four"]' prevent-close-on-outside-click>
@@ -59,11 +67,6 @@
         </px-dropdown>
       </div>
 
-      <div>
-        <p>6. Multi-select, Pre-selected in items array as boolean/text (1 & 3) & Disabled Item (2):</p>
-        <px-dropdown id="px_dropdown_6" items='[{"key":"1","val":"One","selected":true},{"key":"2","val":"Two","disabled":"true"},{"key":"3","val":"Three","selected":"true"},{"key":"4","val":"Four","selected":"false"}]' multi>
-        </px-dropdown>
-      </div>
 
       <div>
         <p>7. Multi-select, Pre-selected by keys (2 & 4), Hide-selected:</p>
