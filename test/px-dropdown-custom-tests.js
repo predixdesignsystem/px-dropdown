@@ -222,11 +222,15 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
         MockInteractions.pressSpace(px_dropdown);
       }
 
+      flush(()=>{
+        if (!firstItem.classList.contains('focused')) {
+          MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
+          flush(()=>{
+            assert.isTrue(firstItem.classList.contains('focused'));
+          });
+        }
+      })
       //Make sure first item is highlighted
-      if (!firstItem.classList.contains('focused')) {
-        MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
-        assert.isTrue(firstItem.classList.contains('focused'));
-      }
 
       var item_click = function (e) {
         flush(()=>{
