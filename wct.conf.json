@@ -1,5 +1,6 @@
 {
   "verbose": false,
+  "testTimeout": 360000,
   "plugins": {
     "local": {
       "browsers": [
