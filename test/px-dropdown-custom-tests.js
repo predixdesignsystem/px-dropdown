@@ -69,18 +69,22 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('check if dropdown closes on outside click',
     function (done) {
-      let title = Polymer.dom(document).querySelector('#title');
-      clickHandle = function () {
-        flush(()=>{
-          assert.isFalse(px_dropdown.opened);
-          done();
-        });
-      };
-
       px_dropdown_button.click();
       flush(()=>{
-        title.addEventListener('click', clickHandle);
-        title.click();
+        assert.isTrue(px_dropdown.opened);
+        async.whilst(
+          function() {
+            return px_dropdown.opened;
+          },
+          function(callback) {
+            px_dropdown.parentElement.click();
+            setTimeout(callback, 1000);
+          },
+          function (err, n) {
+            assert.isFalse(px_dropdown.opened);
+            done();
+          }
+        )
       });
     }
   );
@@ -204,23 +208,36 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
   //     MockInteractions.pressEnter(firstItem);
   //   });
   //
-  // it('Keyboard esc: px-dropdown should close',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
-  //         px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
-  //         px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-  //         firstItem = px_dropdown_content.querySelector('.dropdown-option');
-  //
-  //     //Make sure dropdown is open before running the tests.
-  //     if (px_dropdown_content.hasAttribute('aria-hidden')) {
-  //       MockInteractions.pressSpace(px_dropdown);
-  //     }
-  //
-  //     MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 27);
-  //
-  //     assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
-  //     done();
-  //   });
+
+describe('Custom Automation Tests for px-dropdown', function (done) {
+  let px_dropdown;
+  let px_dropdown_content;
+  let px_dropdown_button;
+
+  beforeEach(function(done){
+    px_dropdown = fixture('dropdown-fixture');
+    flush(()=>{
+      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      done();
+    });
+  });
+
+  it('Keyboard esc: px-dropdown should close',
+    function () {
+      let firstItem = px_dropdown_content.querySelector('.dropdown-option');
+
+      //Make sure dropdown is open before running the tests.
+      if (px_dropdown_content.hasAttribute('aria-hidden')) {
+        MockInteractions.pressSpace(px_dropdown);
+      }
+
+      MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 27);
+
+      assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
+    }
+  );
+});
 
 describe('Multi select tests for px-dropdown', function (done) {
   let px_dropdown;
