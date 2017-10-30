@@ -12,6 +12,72 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
     });
   });
 
+  it('Keyboard space: px-dropdown should open upon pressing space',
+    function (done) {
+      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
+      assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
+      MockInteractions.pressSpace(px_dropdown);
+      assert.isFalse(px_dropdown_content.hasAttribute('aria-hidden'));
+      done();
+    }
+  );
+
+  it('Keyboard down: px-dropdown item should get focus on pressing down arrow',
+    function (done) {
+      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+          px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+          firstItem = px_dropdown_content.querySelector('.dropdown-option');
+
+      //Make sure dropdown is open before running the tests.
+      if (px_dropdown_content.hasAttribute('aria-hidden')) {
+        MockInteractions.pressSpace(px_dropdown);
+      }
+
+      MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
+
+      assert.isTrue(firstItem.classList.contains('focused'));
+
+      done();
+    }
+  );
+
+  it('Keyboard enter: px-dropdown item should be selected on pressing enter',
+    function (done) {
+      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+          px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
+          firstItem = px_dropdown_content.querySelector('.dropdown-option');
+
+      px_dropdown.selected = null;
+
+      //Make sure dropdown is open before running the tests.
+      if (px_dropdown_content.hasAttribute('aria-hidden')) {
+        MockInteractions.pressSpace(px_dropdown);
+      }
+
+
+      if (!firstItem.classList.contains('focused')) {
+        MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
+        flush(()=>{
+          assert.isTrue(firstItem.classList.contains('focused'));
+        });
+      }
+      //Make sure first item is highlighted
+
+      var item_click = function (e) {
+        flush(()=>{
+          assert.equal(e.detail.val, 'One');
+          assert.equal(e.detail.key, '1');
+          assert.equal(px_dropdown.selected, '1');
+          done();
+        });
+      };
+
+      px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
+
+      MockInteractions.pressEnter(firstItem);
+    }
+  );
+
   it('Checks if dropdown opens on container click',
     function (done) {
       var clickHandle = function () {
@@ -109,104 +175,81 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
       title.removeEventListener('click', clickHandle);
     }
   );
+});
+
+describe('Custom Automation Tests for search feature px-dropdown', function (done) {
+
+  beforeEach(function(done){
+    px_dropdown = fixture('dropdown-search-fixture');
+    flush(()=>{
+      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      done();
+    });
+  });
+
+  it('Check that search box appears when in search mode',
+    function (done) {
+      flush(()=>{
+        let input = Polymer.dom(px_dropdown.root).querySelector('#searchbox');
+        assert.isTrue(input.classList.contains('text-input'));
+        done();
+      });
+    }
+  );
+
+});
+
+describe('Custom Automation Tests for sort feature px-dropdown', function (done) {
+
+  beforeEach(function(done){
+    px_dropdown = fixture('dropdown-sort-fixture');
+    flush(()=>{
+      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      done();
+    });
+  });
+
+  it('Sort mode: items can be sorted by values or keys',
+    function (done) {
+      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.px-dropdown-content'),
+          selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+          divs = Polymer.dom(selector.root).querySelectorAll('div');
+
+      assert.equal(divs[0].textContent.trim(), 'Four');
+      px_dropdown.sortMode = 'key';
+      divs = Polymer.dom(selector.root).querySelectorAll('div');
+      assert.equal(divs[0].textContent.trim(), 'One');
+      done();
+    }
+  );
+
+  it('Sort mode: items can be sorted by values or keys',
+    function (done) {
+      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.px-dropdown-content'),
+          selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+          divs = Polymer.dom(selector.root).querySelectorAll('div');
+
+      assert.equal(divs[0].textContent.trim(), 'Four');
+      px_dropdown.sortMode = 'key';
+      divs = Polymer.dom(selector.root).querySelectorAll('div');
+      assert.equal(divs[0].textContent.trim(), 'One');
+      done();
+    }
+  );
 
 });
 
 
   //
-  // it('Check that search box appears when in search mode',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_9'),
-  //       input = Polymer.dom(px_dropdown.root).querySelector('#searchbox');
-  //     assert.isTrue(input.classList.contains('text-input'));
-  //     done();
-  //   }
-  // );
   //
-  // it('Sort mode: items can be sorted by values or keys',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_11'),
-  //         px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.px-dropdown-content'),
-  //         selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
-  //         divs = Polymer.dom(selector.root).querySelectorAll('div');
   //
-  //     assert.equal(divs[0].textContent.trim(), 'Four');
-  //     px_dropdown.sortMode = 'key';
-  //     divs = Polymer.dom(selector.root).querySelectorAll('div');
-  //     assert.equal(divs[0].textContent.trim(), 'One');
-  //     done();
-  //   }
-  // );
+
   //
-  // it('Keyboard space: px-dropdown should open upon pressing space',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
-  //         px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-  //     assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
-  //     MockInteractions.pressSpace(px_dropdown);
-  //     assert.isFalse(px_dropdown_content.hasAttribute('aria-hidden'));
-  //     done();
-  //   });
+
   //
-  // it('Keyboard down: px-dropdown item should get focus on pressing down arrow',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
-  //       px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
-  //       px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-  //       firstItem = px_dropdown_content.querySelector('.dropdown-option');
-  //
-  //     //Make sure dropdown is open before running the tests.
-  //     if (px_dropdown_content.hasAttribute('aria-hidden')) {
-  //       MockInteractions.pressSpace(px_dropdown);
-  //     }
-  //
-  //     MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
-  //
-  //     assert.isTrue(firstItem.classList.contains('focused'));
-  //
-  //     done();
-  //   });
-  //
-  // it('Keyboard enter: px-dropdown item should be selected on pressing enter',
-  //   function (done) {
-  //     var px_dropdown = Polymer.dom(document).querySelector('#px_dropdown_1'),
-  //         px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
-  //         px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-  //         firstItem = px_dropdown_content.querySelector('.dropdown-option');
-  //
-  //     px_dropdown.selected = null;
-  //
-  //     //Make sure dropdown is open before running the tests.
-  //     if (px_dropdown_content.hasAttribute('aria-hidden')) {
-  //       MockInteractions.pressSpace(px_dropdown);
-  //     }
-  //
-  //     flush(()=>{
-  //       if (!firstItem.classList.contains('focused')) {
-  //         MockInteractions.pressAndReleaseKeyOn(px_dropdown_button, 40);
-  //         flush(()=>{
-  //           let isIE = "ActiveXObject" in window;
-  //           if (!isIE){
-  //             assert.isTrue(firstItem.classList.contains('focused'));
-  //           }
-  //         });
-  //       }
-  //     })
-  //     //Make sure first item is highlighted
-  //
-  //     var item_click = function (e) {
-  //       flush(()=>{
-  //         assert.equal(e.detail.val, 'One');
-  //         assert.equal(e.detail.key, '1');
-  //         assert.equal(px_dropdown.selected, '1');
-  //         done();
-  //       });
-  //     };
-  //
-  //     px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
-  //
-  //     MockInteractions.pressEnter(firstItem);
-  //   });
+
   //
 
 describe('Custom Automation Tests for px-dropdown', function (done) {
