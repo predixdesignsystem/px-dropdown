@@ -241,17 +241,6 @@ describe('Custom Automation Tests for sort feature px-dropdown', function (done)
 
 });
 
-
-  //
-  //
-  //
-
-  //
-
-  //
-
-  //
-
 describe('Custom Automation Tests for px-dropdown', function (done) {
   let px_dropdown;
   let px_dropdown_content;

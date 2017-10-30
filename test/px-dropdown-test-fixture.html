@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Component Test : Fixture for px-dropdown</title>
 
-    <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <!-- web-component-tester automatically provides local copy of brower.js below
-         for any URL ending with "/web-component-tester/browser.js"
-         when wct is run from the command line -->
     <script src="../../web-component-tester/browser.js"></script>
     <link rel="import" href="../px-dropdown.html" />
     <script src="../../iron-test-helpers/mock-interactions.js"></script>
-    <!-- <script src="../../test-fixture/test-fixture-mocha.js"></script> -->
 
-    <!-- Retain this link for px-theme.html -->
-    <!-- For some reason px-theme is needed for WCT to run without some errors -->
     <link rel="import" href="../../px-theme/px-theme-styles.html">
     <custom-style>
       <style include="px-theme-styles" is="custom-style"></style>
@@ -61,34 +54,5 @@
         </px-dropdown>
       </template>
     </test-fixture>
-
-
-      <!-- <div>
-        <p>2. Items passed as simple strings, Disable close on outside click:</p>
-        <px-dropdown id="px_dropdown_2" items='["One","Two","Three","Four"]' prevent-close-on-outside-click>
-        </px-dropdown>
-      </div>
-
-      <div>
-        <p>3. Override displayValue ("Click me") & Bare style:</p>
-        <px-dropdown id="px_dropdown_3" items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' display-value="Click me" button-style="bare">
-        </px-dropdown>
-      </div>
-
-      <div>
-        <p>5. Selected by Val (3), Hide chevron true:</p>
-        <px-dropdown id="px_dropdown_5" items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' hide-chevron select-by="val" selected="Three">
-        </px-dropdown>
-      </div>
-
-
-      <div>
-        <p>7. Multi-select, Pre-selected by keys (2 & 4), Hide-selected:</p>
-        <px-dropdown id="px_dropdown_7" items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' multi selected-values='["2","4"]' hide-selected>
-        </px-dropdown>
-      </div>
-    -->
-
-
   </body>
 </html>
