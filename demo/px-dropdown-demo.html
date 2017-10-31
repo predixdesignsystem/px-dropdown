@@ -17,11 +17,16 @@
 <!-- Demo DOM module -->
 <dom-module id="px-dropdown-demo">
   <template>
-    <style include="px-demo-styles" is="custom-style"></style>
+    <style include="px-demo-styles" is="custom-style">
+      :root {
+        --px-btn-height: 60px;
+      }
+    </style>
     <!-- Header -->
     <px-demo-header
       module-name="px-dropdown"
-      description="Dropdowns have two primary use cases. First, as a form control, dropdown lists are ideal for a user to choose from a preconfigured list of options – ideally, between 5 and 15. If there are fewer than 5 options, consider using a radio button. For very large lists of options, consider adding typeahead functionality in addition to, or instead of, a dropdown. The second primary use case for a dropdown list is as a filter or navigation item, where invoking an option from the dropdown menu results in an action of some kind.">
+      description="Dropdowns have two primary use cases. First, as a form control, dropdown lists are ideal for a user to choose from a preconfigured list of options – ideally, between 5 and 15. If there are fewer than 5 options, consider using a radio button. For very large lists of options, consider adding typeahead functionality in addition to, or instead of, a dropdown. The second primary use case for a dropdown list is as a filter or navigation item, where invoking an option from the dropdown menu results in an action of some kind."
+      mobile tablet desktop>
     </px-demo-header>
 
     <!-- Interactive -->

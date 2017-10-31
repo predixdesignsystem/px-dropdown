@@ -1,3 +1,7 @@
+v4.0.17
+==================
+* add device flags
+
 v4.0.16
 ==================
 * remove web-animations (#62)
