@@ -1,3 +1,7 @@
+v4.1.0
+==================
+* Polymer 1.x/2.x hybrid element support
+
 v4.0.18
 ==================
 * fix demo

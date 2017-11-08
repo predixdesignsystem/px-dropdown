@@ -1,6 +1,6 @@
 {
   "name": "px-dropdown",
-  "version": "4.0.18",
+  "version": "4.1.0",
   "main": [
     "px-dropdown.html"
   ],
@@ -43,7 +43,8 @@
     "px-colors-design": "^1.0.0",
     "px-box-sizing-design": "^1.0.0",
     "px-helpers-design": "^1.0.0",
-    "web-component-tester": "^6.0.0"
+    "web-component-tester": "^6.0.0",
+    "px-demo": "^3.0.0"
   },
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
