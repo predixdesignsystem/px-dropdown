@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "polymer": "#1.9 - 2",
-    "px-icon-set": "polymer2.0-preview",
+    "px-icon-set": "^2.0.0",
     "iron-dropdown": "^2.0.0",
     "iron-a11y-keys": "^2.0.0",
     "web-animations-js": "^2.2.0"
