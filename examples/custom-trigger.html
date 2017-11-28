@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>px-dropdown Demo: Custom Trigger</title>
+
+  <!-- Load webcomponentsjs + Polymer -->
+  <script>
+  (function() {
+    'use strict';
+
+    var onload = function() {
+      // For native Imports, manually fire WebComponentsReady so user code
+      // can use the same code path for native and polyfill'd imports.
+      if (!window.HTMLImports) {
+        document.dispatchEvent(
+          new CustomEvent('WebComponentsReady', {bubbles: true})
+        );
+      }
+    };
+
+    var webComponentsSupported = (
+      'registerElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template')
+    );
+
+    if (!webComponentsSupported) {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = '../../webcomponentsjs/webcomponents-lite.js';
+      script.onload = onload;
+      document.head.appendChild(script);
+    } else {
+      onload();
+    }
+  })();
+  </script>
+  <link rel="import" href="../../polymer/polymer.html"/>
+
+  <!-- Load theme -->
+  <link rel="import" href="../../px-theme/px-theme-styles.html"/>
+  <custom-style>
+    <style include="px-theme-styles" is="custom-style"></style>
+  </custom-style>
+
+  <!-- Load components -->
+  <link rel="import" href="../px-dropdown.html"/>
+  <style>
+    html {
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <px-dropdown
+      items='[
+        {"key":"1","val":"iPhone","icon":"px-utl:phone","color":"red"},
+        {"key":"2","val":"Android","icon":"px-utl:phone","color":"green"},
+        {"key":"3","val":"Blackberry","icon":"px-utl:phone","color":"blue"},
+        {"key":"4","val":"Windows Phone","icon":"px-utl:phone","color":"orange"},
+        {"key":"5","val":"Flip Phone","disabled":true,"icon":"px-utl:phone","color":"#C5D1D8"}
+      ]'
+      sort-mode="key">
+      <button slot="trigger">Custom dropdown button</button>
+  </px-dropdown>
+</body>
+</html>

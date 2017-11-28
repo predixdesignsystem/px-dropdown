@@ -7,34 +7,58 @@
 <link rel="import" href="css/px-dropdown-styles.html"/>
 
 <!--
-This element provides a dropdown from which users can select one or more values.
+A dropdown from which users can select one or more values. Acts like a native
+browser <select> element with more fine-tuned interaction behaviors and a
+configurable UI.
 
-It can also be used in conjunction with px-validation, similar to px-forms-design, to apply validation states - simply add the `validation-error`, `validation-warning`, and `validation-success` classes to alter the border color of the component.
+Dropdown can be used in conjunction with px-validation to apply validation states.
+Add the `validation-error`, `validation-warning`, or `validation-success` classes
+to alter the border color of the component.
 
 ### Usage
 
-Simple:
+#### Simple
+
 ```
 <px-dropdown items='["One","Two"]'></px-dropdown>
 <px-dropdown items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}]'></px-dropdown>
 ```
 
-Complex:
+#### Complex
+
 ```
-<px-dropdown items='[{"key":"one", "val": "One", "selected": "true"}]'
-             display-value="Click me"
-             prevent-close-on-outside-click="true"
-             allow-outside-scroll="true"
-             multi="true"
-             select-by="key"
-             selected-values='["1","3"]'
-             bound-target=".parentDiv"
-             search-mode="true"
-             sort-mode="val">
+<px-dropdown
+    items='[{"key":"one", "val": "One", "selected": "true"}]'
+    display-value="Click me"
+    prevent-close-on-outside-click="true"
+    allow-outside-scroll="true"
+    multi="true"
+    select-by="key"
+    selected-values='["1","3"]'
+    bound-target=".parentDiv"
+    search-mode="true"
+    sort-mode="val">
+</px-dropdown>
+```
+
+#### Custom trigger
+
+By default, the `displayValue` or `icon` properties can be used to customize
+the information shown in the dropdown trigger button. Additional properties
+are available to further customize the trigger. To create a custom trigger which
+does not match any of the available configurations, pass an element into the
+`trigger` slot. This element can be anything — a button, a div, some text. The
+dropdown will attach a tap event listener to the element to listen for user
+interactions which should open the dropdown.
+
+```
+<px-dropdown items='[{"key":"one", "val": "One", "selected": "true"}]'>
+  <button slot="trigger">Unstyled dropdown trigger</button>
 </px-dropdown>
 ```
 
 ### Styling
+
 The following custom properties are available for styling of the dropdown content.
 See the documentation for px-buttons-design for variables related to the styling of the invoking button.
 
@@ -66,19 +90,23 @@ Custom property | Description
       target="[[_keyBindingsTarget]]"
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
-    <div id="button" slot="dropdown-trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" on-tap="toggle" tabindex="0">
-      <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">
-        <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
-      </template>
-      <template is="dom-if" if="{{_isEqual(buttonStyle,'icon')}}">
-        <px-icon icon="{{icon}}"></px-icon>
-      </template>
-      <template is="dom-if" if="{{_showClearButton(disableClear,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
-        <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="_clear"></px-icon>
-      </template>
-      <template is="dom-if" if="{{_showChevron(disableClear,hideChevron,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
-        <px-icon class="dropdown-icon" icon="px-utl:chevron"></px-icon>
-      </template>
+    <div on-tap="toggle" id="trigger">
+      <slot name="trigger">
+        <div id="button" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
+            <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">
+              <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
+            </template>
+            <template is="dom-if" if="{{_isEqual(buttonStyle,'icon')}}">
+              <px-icon icon="{{icon}}"></px-icon>
+            </template>
+          <template is="dom-if" if="{{_showClearButton(disableClear,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
+            <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="_clear"></px-icon>
+          </template>
+          <template is="dom-if" if="{{_showChevron(disableClear,hideChevron,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
+            <px-icon class="dropdown-icon" icon="px-utl:chevron"></px-icon>
+          </template>
+        </div>
+      </slot>
     </div>
     <iron-dropdown
       id="dropdown"
@@ -399,7 +427,7 @@ Custom property | Description
      */
     toggle: function() {
       this.$.dropdown.toggle();
-      this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.button).width;
+      this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.trigger).width;
     },
     /**
      * Clears all of the selections when the clear button is pressed.
@@ -416,10 +444,10 @@ Custom property | Description
       this.$.dropdown.close();
     },
     /**
-     * Forces the width of the dropdown to be at least as wide as the button.
+     * Forces the width of the dropdown to be at least as wide as the trigger.
      */
     attached: function() {
-      this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.button).width;
+      this.$.dropdown.style.minWidth = window.getComputedStyle(this.$.trigger).width;
       this._updateSelection();
     },
     /**
@@ -735,7 +763,7 @@ Custom property | Description
           event.detail.keyboardEvent.preventDefault();
           break;
         case 'esc':
-          this.$.button.focus();
+          this.$.trigger.focus();
           this.$.dropdown.close();
           break;
         case 'tab':
@@ -765,7 +793,7 @@ Custom property | Description
           // If searchbox is focused, move to the first option
           else if (searchFocused) {
             Polymer.dom(this.$.dropdown).querySelector('#searchbox').blur();
-            this.$.button.focus();
+            this.$.trigger.focus();
             this._setFocusedOption(options[0]);
           }
           // Else focus the first item in the list
