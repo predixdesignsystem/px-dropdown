@@ -54,5 +54,13 @@
         </px-dropdown>
       </template>
     </test-fixture>
+
+    <test-fixture id="dropdown-custom-trigger-fixture">
+      <template>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' sort-mode="val">
+          <button slot="trigger" id="custom-trigger">Custom trigger button</button>
+        </px-dropdown>
+      </template>
+    </test-fixture>
   </body>
 </html>

@@ -335,3 +335,30 @@ describe('Disabled element tests for px-dropdown', function (done) {
     }
   );
 });
+
+describe('Custom trigger tests for px-dropdown', function() {
+  let px_dropdown;
+  let px_dropdown_custom_trigger;
+
+  beforeEach(function(done) {
+    px_dropdown = fixture('dropdown-custom-trigger-fixture');
+    flush(()=>{
+      px_dropdown_custom_trigger = Polymer.dom(px_dropdown).querySelector('#custom-trigger');
+      done();
+    });
+  });
+
+  it('Distributes the custom trigger in the `trigger` slot', function() {
+    const triggerSize = px_dropdown_custom_trigger.getBoundingClientRect();
+    expect(triggerSize.width > 0).to.be.true;
+    expect(triggerSize.height > 0).to.be.true;
+  });
+
+  it('Opens the dropdown when the user clicks on the custom trigger', function() {
+    MockInteractions.tap(px_dropdown_custom_trigger);
+
+    flush(() => {
+      expect(px_dropdown.opened).to.be.true;
+    });
+  });
+});
