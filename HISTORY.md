@@ -1,3 +1,8 @@
+v4.2.0
+==================
+* Adds `trigger` slot to support developer-defined custom trigger, see docs for
+  more information
+
 v4.1.0
 ==================
 * Polymer 1.x/2.x hybrid element support
