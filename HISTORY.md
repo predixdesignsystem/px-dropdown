@@ -1,3 +1,7 @@
+v4.2.1
+==================
+* Add missing style var to docs
+
 v4.2.0
 ==================
 * Adds `trigger` slot to support developer-defined custom trigger, see docs for
