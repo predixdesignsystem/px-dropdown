@@ -91,7 +91,7 @@ Custom property | Description
       target="[[_keyBindingsTarget]]"
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
-    <div on-tap="toggle" id="trigger">
+    <div on-tap="toggle" id="trigger" class="trigger">
       <slot name="trigger">
         <div id="button" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
             <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">

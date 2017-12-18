@@ -1,3 +1,7 @@
+v4.2.2
+==================
+* fix sizing issues (#67)
+
 v4.2.1
 ==================
 * Add missing style var to docs

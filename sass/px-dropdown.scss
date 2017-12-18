@@ -59,6 +59,9 @@ px-icon {
   font-size: var(--px-dropdown-content-font-size, inherit);
   color: var(--px-dropdown-text-color, inherit);
 }
+.trigger {
+  width: inherit;
+}
 .dropdown-trigger {
   max-width: inherit;
   width: inherit;
