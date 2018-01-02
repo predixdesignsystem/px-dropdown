@@ -267,8 +267,7 @@ Custom property | Description
         notify: true,
         value: function () {
           return [];
-        },
-        observer: '_itemsChanged'
+        }
       },
       /**
        * If set to true, multiple values can be selected in the dropdown.
@@ -455,7 +454,8 @@ Custom property | Description
       'iron-deselect' : '_handleDeselection'
     },
     observers: [
-      '_initSort(sortMode, items)'
+      '_initSort(sortMode, items)',
+      '_itemsChanged(items, items.*)'
     ],
     /**
      * Opens the dropdown when the button is pressed.
@@ -520,22 +520,23 @@ Custom property | Description
       this._displayValueSelected = this.displayValue;
     },
     /**
-     * Any time that `items` changes, this method will convert an array
-     * of simple strings to an array of objects.
+     * Any time that `items` changes, this method will convert any
+     * simple strings in the array to an object with key/val.
      */
     _itemsChanged: function(items) {
-      if(items != null && items[0] && typeof items[0] === 'string') {
-        var computedItems = [];
+      if(items != null) {
         items.forEach(function(item, idx) {
-          computedItems.push({"key":idx, "val":item});
-        })
-        this.items = computedItems;
+          if(typeof item === 'string') {
+            this.items[idx] = {"key":idx, "val":item};
+          }
+        }.bind(this));
       }
       if(this.clearSelectionsOnChange) {
         this.set('selected', null);
         this.set('selectedValues', []);
       }
       this._updateSelection();
+      this._notifyResize();
     },
     /**
      * Iterates over the `items` array and adds items with the
@@ -715,7 +716,7 @@ Custom property | Description
      * Initializes the sort function for the dom-repeat inside of iron-selector.
      */
     _initSort: function (sortMode, items) {
-      if (! (sortMode === undefined || items === undefined)) {
+      if(sortMode !== undefined && items !== undefined) {
         this.$.dropdownItems.sort = '_computeSort';
         this.$.dropdownItems.render();
       }

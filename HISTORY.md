@@ -1,3 +1,7 @@
+v4.3.1
+==================
+* make _itemsChanged more flexible
+
 v4.3.0
 ==================
 * add app-localize-behavior (#68)
