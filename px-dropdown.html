@@ -4,6 +4,7 @@
 <link rel="import" href="../iron-dropdown/iron-dropdown.html"/>
 <link rel="import" href="../iron-selector/iron-selector.html"/>
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html"/>
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html"/>
 <link rel="import" href="css/px-dropdown-styles.html"/>
 
 <!--
@@ -165,6 +166,10 @@ Custom property | Description
   Polymer({
 
     is: 'px-dropdown',
+
+    behaviors: [
+      Polymer.AppLocalizeBehavior
+    ],
 
     properties: {
 
@@ -391,6 +396,35 @@ Custom property | Description
         value: false
       },
       /**
+       * A valid IETF language tag as a string that `app-localize-behavior` will
+       * use to localize this component.
+       *
+       * See https://github.com/PolymerElements/app-localize-behavior for API
+       * documentation and more information.
+       */
+       language: {
+        type: String,
+        value: 'en'
+      },
+      useKeyIfMissing: {
+        type: Boolean,
+        value: true
+      },
+      /**
+      * A dictionary of strings used within the component for AppLocalizeBehavior
+      * to use, based on the selected `language` property.
+      */
+      resources: {
+        type: Object,
+        value: function() {
+          return {
+            'en': {
+              "selected": "selected"
+            }
+          }
+        }
+      },
+      /**
        * Binding target for iron-a11y-keys
        */
       _keyBindingsTarget: {
@@ -567,7 +601,7 @@ Custom property | Description
         this._displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
       }
       else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
-        this._displayValueSelected = this.selectedValues.length + ' selected';
+        this._displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
       }
       else if(!this.hideSelected) {
         this._displayValueSelected = this.$.selector.selectedItem ? this.$.selector.selectedItem.val : this.displayValue;
@@ -599,7 +633,7 @@ Custom property | Description
         this._displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
       }
       else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
-        this._displayValueSelected = this.selectedValues.length + ' selected';
+        this._displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
       }
       else {
         this._displayValueSelected = this.displayValue;

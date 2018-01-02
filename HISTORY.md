@@ -1,3 +1,7 @@
+v4.3.0
+==================
+* add app-localize-behavior (#68)
+
 v4.2.2
 ==================
 * fix sizing issues (#67)
