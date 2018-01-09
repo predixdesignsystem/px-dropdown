@@ -243,6 +243,15 @@ Custom property | Description
         value: false
       },
       /**
+       * If set to true, users can still open the dropdown and click on items,
+       * but they will not be selected. Use this property in use cases where
+       * the dropdown is used as a menu instead of a form input.
+       */
+      disableSelect: {
+        type: Boolean,
+        value: false
+      },
+      /**
        * The text that is displayed in the label of the dropdown.
        * Updated when the selections change.
        */
@@ -579,18 +588,25 @@ Custom property | Description
       }
     },
     /**
-     * When iron-activate is fired, this method checks whether the item is disabled.
+     * When iron-activate is fired, this method checks whether the item is disabled
+     * or if selection is disabled in the dropdown overall (for use in menus).
      * If so, it cancels the event so that iron-select is not called.
      */
     _handleActivate: function(evt) {
-      /**
-       * Event fired when any given element is clicked in the dropdown.
-       *
-       * @event px-dropdown-click
-       */
-      this.fire('px-dropdown-click', evt);
       if(evt.detail.item.hasAttribute('disabled')) {
         evt.preventDefault();
+      }
+      else {
+        /**
+        * Event fired when any non-disabled element is clicked in the dropdown.
+        *
+        * @event px-dropdown-click
+        */
+        this.fire('px-dropdown-click', evt);
+      }
+      if(this.disableSelect) {
+        evt.preventDefault();
+        this.$.dropdown.close();
       }
     },
     /**

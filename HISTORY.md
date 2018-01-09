@@ -1,3 +1,7 @@
+v4.3.2
+==================
+* add disableSelect property for use in menus
+
 v4.3.1
 ==================
 * make _itemsChanged more flexible
