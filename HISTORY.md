@@ -1,3 +1,7 @@
+v4.3.3
+==================
+* remove min btn width
+
 v4.3.2
 ==================
 * add disableSelect property for use in menus

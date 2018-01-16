@@ -37,6 +37,7 @@ $inuit-enable-btn--icon: true;
     cursor: not-allowed;
   }
   color: var(--px-dropdown-text-color, inherit);
+  --px-btn-min-width: 0;
 }
 :host.validation-error .dropdown-trigger {
   border-color: var(--px-validation-error-text-color, red);
