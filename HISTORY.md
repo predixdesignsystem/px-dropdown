@@ -1,3 +1,7 @@
+v4.3.4
+==================
+* fix v4.3.1 to work in Polymer 1
+
 v4.3.3
 ==================
 * remove min btn width

@@ -146,7 +146,7 @@ Custom property | Description
           selected-values="{{selectedValues}}"
           selected-items="{{selectedItems}}"
           attr-for-selected="{{selectBy}}">
-          <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
+          <template is="dom-repeat" id="dropdownItems" items="{{_computedItems}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
                 <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
@@ -274,6 +274,16 @@ Custom property | Description
       items: {
         type: Array,
         notify: true,
+        value: function () {
+          return [];
+        }
+      },
+      /**
+       * Internal representation of the items array, in case simple strings are
+       * passed in, so that appropriate key/val pairs can be generated.
+       */
+       _computedItems: {
+        type: Array,
         value: function () {
           return [];
         }
@@ -463,7 +473,7 @@ Custom property | Description
       'iron-deselect' : '_handleDeselection'
     },
     observers: [
-      '_initSort(sortMode, items)',
+      '_initSort(sortMode, _computedItems)',
       '_itemsChanged(items, items.*)'
     ],
     /**
@@ -533,13 +543,18 @@ Custom property | Description
      * simple strings in the array to an object with key/val.
      */
     _itemsChanged: function(items) {
-      if(items != null) {
+      var newComputedItems = [];
+      if(items !== null) {
         items.forEach(function(item, idx) {
           if(typeof item === 'string') {
-            this.items[idx] = {"key":idx, "val":item};
+            newComputedItems[idx] = {"key":idx, "val":item};
+          }
+          else {
+            newComputedItems[idx] = item;
           }
         }.bind(this));
       }
+      this._computedItems = newComputedItems;
       if(this.clearSelectionsOnChange) {
         this.set('selected', null);
         this.set('selectedValues', []);
