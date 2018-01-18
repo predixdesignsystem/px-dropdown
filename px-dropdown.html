@@ -147,7 +147,7 @@ Custom property | Description
           selected-items="{{selectedItems}}"
           attr-for-selected="{{selectBy}}">
           <template is="dom-repeat" id="dropdownItems" items="{{_computedItems}}" strip-whitespace>
-            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
+            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" disable-select="{{item.disableSelect}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{multi}}">
                 <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
               </template>
@@ -263,7 +263,8 @@ Custom property | Description
        * Each item can either be a simple string, or an object consisting of:
        * * 'key' - a unique identifier (number or string)
        * * 'val' - the actual text that is displayed
-       * * 'disabled' - whether the item should be disabled for selection (optional)
+       * * 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)
+       * * 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)
        * * 'selected' - whether the item should be selected at instantiation (optional)
        * * 'icon' - an icon name from the px-icon-set to display next to the item (optional)
        * * 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)
@@ -543,6 +544,7 @@ Custom property | Description
      * simple strings in the array to an object with key/val.
      */
     _itemsChanged: function(items) {
+      if(items === undefined) return;
       var newComputedItems = [];
       if(items !== null) {
         items.forEach(function(item, idx) {
@@ -607,21 +609,25 @@ Custom property | Description
      * or if selection is disabled in the dropdown overall (for use in menus).
      * If so, it cancels the event so that iron-select is not called.
      */
+    /**
+    * Event fired when any non-disabled element is clicked in the dropdown.
+    * If disableSelect is set on the entire dropdown or individual item,
+    * the event is still fired and the dropdown is closed, but the item
+    * is not selected. Useful for menu dropdowns, as opposed to selection dropdowns.
+    *
+    * @event px-dropdown-click
+    */
     _handleActivate: function(evt) {
       if(evt.detail.item.hasAttribute('disabled')) {
         evt.preventDefault();
       }
-      else {
-        /**
-        * Event fired when any non-disabled element is clicked in the dropdown.
-        *
-        * @event px-dropdown-click
-        */
-        this.fire('px-dropdown-click', evt);
-      }
-      if(this.disableSelect) {
+      else if (this.disableSelect || evt.detail.item.disableSelect) {
         evt.preventDefault();
+        this.fire('px-dropdown-click', evt);
         this.$.dropdown.close();
+      }
+      else {
+        this.fire('px-dropdown-click', evt);
       }
     },
     /**

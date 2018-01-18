@@ -17,13 +17,19 @@
   <div style="width:250px">
     <p>Single Select</p>
     <px-dropdown
-      items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'>
+      items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"I am a menu item so I cannot be selected","disableSelect":true},{"key":"5","val":"Flip Phone","disabled":true}]'>
     </px-dropdown>
     </br>
     <p>Multi Select</p>
     <px-dropdown
       items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
       multi>
+    </px-dropdown>
+    </br>
+    <p>Disable Select (Like a Menu)</p>
+    <px-dropdown
+      items='[{"key":"1","val":"Do something"},{"key":"2","val":"Do something else"},{"key":"3","val":"Do one"}]'
+      disable-select>
     </px-dropdown>
     </br>
     <p>Search Mode</p>

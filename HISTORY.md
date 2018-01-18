@@ -1,3 +1,7 @@
+v4.4.0
+==================
+* allow disableSelect on individual items
+
 v4.3.4
 ==================
 * fix v4.3.1 to work in Polymer 1
