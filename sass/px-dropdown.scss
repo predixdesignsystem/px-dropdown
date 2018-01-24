@@ -52,9 +52,10 @@ $inuit-enable-btn--icon: true;
   color: inherit;
 }
 
-px-icon {
+.dropdown-icon {
   --iron-icon-width: calculateRem(16px);
   --iron-icon-height: calculateRem(16px);
+  margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown{
   font-size: var(--px-dropdown-content-font-size, inherit);
@@ -73,6 +74,7 @@ px-icon {
   outline: none;
   max-width: var(--px-dropdown-max-width, 400px);
   font-weight: var(--px-dropdown-font-weight, normal);
+  height: auto;
 }
 .dropdown-label {
   overflow: hidden;
@@ -80,9 +82,9 @@ px-icon {
   text-overflow: ellipsis;
   text-align: left;
 }
-.dropdown-icon {
+.custom-icon {
   --iron-icon-width: var(--px-dropdown-icon-size, calculateRem(16px));
-  margin-left: $inuit-base-spacing-unit--tiny;
+  --iron-icon-height: var(--px-dropdown-icon-size, calculateRem(16px));
 }
 .dropdown-content {
   background-color: var(--px-dropdown-bg-color, white);

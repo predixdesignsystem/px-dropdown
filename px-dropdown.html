@@ -99,7 +99,7 @@ Custom property | Description
               <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
             </template>
             <template is="dom-if" if="{{_isEqual(buttonStyle,'icon')}}">
-              <px-icon icon="{{icon}}"></px-icon>
+              <px-icon class="custom-icon" icon="{{icon}}"></px-icon>
             </template>
           <template is="dom-if" if="{{_showClearButton(disableClear,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
             <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="_clear"></px-icon>

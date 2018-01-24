@@ -1,3 +1,7 @@
+v4.4.1
+==================
+* fix icon size (#70)
+
 v4.4.0
 ==================
 * allow disableSelect on individual items
