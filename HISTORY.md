@@ -1,3 +1,7 @@
+v4.4.1
+==================
+* add missing icon size property to px-icon
+
 v4.4.0
 ==================
 * allow disableSelect on individual items

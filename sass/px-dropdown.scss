@@ -82,6 +82,7 @@ px-icon {
 }
 .dropdown-icon {
   --iron-icon-width: var(--px-dropdown-icon-size, calculateRem(16px));
+  --iron-icon-height: var(--px-dropdown-icon-size, calculateRem(16px));
   margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown-content {
