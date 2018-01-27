@@ -4,6 +4,7 @@
 <link rel="import" href="../iron-dropdown/iron-dropdown.html"/>
 <link rel="import" href="../iron-selector/iron-selector.html"/>
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html"/>
+<link rel="import" href="../iron-media-query/iron-media-query.html"/>
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html"/>
 <link rel="import" href="css/px-dropdown-styles.html"/>
 
@@ -74,9 +75,14 @@ Custom property | Description
 `--px-dropdown-text-color` | Text color of a regular dropdown menu item
 `--px-dropdown-text-color--disabled` | Text color of a disabled dropdown menu item
 `--px-dropdown-text-color--selected` | Text color of a selected dropdown menu item
-`--px-dropdown-icon-size` | Sets the size for the icon on the dropdown trigger
-`--px-dropdown-content-font-size` | Sets the size of the font for the dropdown menu container
-`--px-dropdown-font-weight` | Sets the weight of the font for the dropdown trigger button
+`--px-dropdown-icon-size` | Size for the icon in the dropdown trigger
+`--px-dropdown-font-weight` | Font weight for the dropdown trigger button
+`--px-dropdown-item-icon-size` | Size of the optional icon in each dropdown item
+`--px-dropdown-item-padding` | Padding of each dropdown item
+`--px-dropdown-item-height` | Height of each dropdown item
+`--px-dropdown-content-font-size` | Font size in the dropdown menu container
+`--px-dropdown-caret-left` | Horizontal offset of the caret when dropdown aligned left
+`--px-dropdown-caret-right` | Horizontal offset of the caret when dropdown aligned right
 
 @element px-dropdown
 @blurb Element providing a dropdown solution.
@@ -86,6 +92,7 @@ Custom property | Description
 <dom-module id="px-dropdown">
   <template>
     <style include="px-dropdown-styles"></style>
+    <iron-media-query query$="(max-width: {{mobileAt}}px)" query-matches="{{mobile}}"></iron-media-query>
     <iron-a11y-keys
       id="keys"
       keys="up down space enter tab esc"
@@ -112,19 +119,24 @@ Custom property | Description
     </div>
     <iron-dropdown
       id="dropdown"
-      class="dropdown"
+      class$="dropdown {{_getCaretClass(showCaret,mobile,verticalAlign,horizontalAlign)}}"
       auto-fit-on-attach
-      fit-into="{{_getElement(boundTarget)}}"
-      no-overlap
-      dynamic-align
+      fit-into="{{_getFitElement(boundTarget)}}"
+      position-target="{{_getPositionElement(mobile)}}"
+      dynamic-align="{{!disableDynamicAlign}}"
+      vertical-offset="{{_getOffset(showCaret,triggerHeight,mobile)}}"
+      vertical-align="{{_getVertical(verticalAlign,mobile)}}"
+      horizontal-align="{{_getHorizontal(horizontalAlign,mobile)}}"
       opened="{{opened}}"
       hover="{{hover}}"
       no-cancel-on-outside-click="{{preventCloseOnOutsideClick}}"
       allow-outside-scroll="{{allowOutsideScroll}}"
-      disabled$="{{disabled}}">
+      disabled$="{{disabled}}"
+      with-backdrop="{{mobile}}">
       <div slot="dropdown-content" class="dropdown-content shadow-temporary">
+        <slot name="header"></slot>
         <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
-          <div class="u-p-">
+          <div class="u-p- fixed">
             <div class="search__form">
               <input
                 id="searchbox"
@@ -141,6 +153,7 @@ Custom property | Description
         </template>
         <iron-selector
           id="selector"
+          class="selector"
           multi="{{multi}}"
           selected="{{selected}}"
           selected-values="{{selectedValues}}"
@@ -148,16 +161,27 @@ Custom property | Description
           attr-for-selected="{{selectBy}}">
           <template is="dom-repeat" id="dropdownItems" items="{{_computedItems}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" disable-select="{{item.disableSelect}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
-              <template is="dom-if" if="{{multi}}">
+              <template is="dom-if" if="{{_showCheckmark(multi,mobile)}}">
                 <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
               </template>
               <template is="dom-if" if="{{item.icon}}">
-                <px-icon icon="{{item.icon}}" class="item-icon u-pr--" style$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
+                <px-icon icon="{{item.icon}}" class="item-icon u-mr-" style$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
               </template>
               <span class="dropdown-option__item truncate">{{item.val}}</span>
             </div>
           </template>
         </iron-selector>
+        <template is="dom-if" if="{{_showButtons(mobile,hideMobileButtons)}}">
+          <div class="flex flex--middle flex--right u-m- fixed">
+            <template is="dom-if" if="{{!disableClear}}">
+              <button class$="btn {{_showMobileClearButton(mobile,disableClear,selected,selectedValues,selectedValues.*)}}" on-tap="_clear">[[localize('Clear')]]</button>
+            </template>
+            <template is="dom-if" if="{{multi}}">
+              <button class="btn btn--primary u-ml-" on-tap="toggle">[[localize('Apply')]]</button>
+            </template>
+          </div>
+        </template>
+        <slot name="footer"></slot>
       </div>
     </iron-dropdown>
   </template>
@@ -415,6 +439,76 @@ Custom property | Description
         value: false
       },
       /**
+      * The height of the trigger element, used for calculating offset distance
+      * for the dropdown. Set this value if you use the `trigger` slot.
+      */
+      triggerHeight: {
+        type: Number,
+        value: 30
+      },
+      /**
+      * By default, the dropdown menu will be flush against the trigger.
+      * Enable this property to show a caret between the two. Useful
+      * in iconic menus and used by the application/product switcher.
+      */
+      showCaret: {
+        type: Boolean,
+        value: false
+      },
+      /**
+      * By default the dropdown will attempt to automatically align itself
+      * vertically and horizontally based on the available space. Set this flag
+      * to turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.
+      */
+      disableDynamicAlign: {
+        type: Boolean,
+        value: false
+      },
+      /**
+      * Vertical alignment of the dropdown relative to the trigger.
+      * Should be one of `top` or `bottom` where `top` means that the dropdown
+      * and trigger are aligned at the top, so the dropdown will extend _below_ the trigger.
+      * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+      */
+      verticalAlign: {
+        type: String,
+        value: 'top'
+      },
+      /**
+      * Horizontal alignment of the dropdown relative to the trigger.
+      * Should be one of `left` or `right` where `left` means that the dropdown
+      * and trigger are aligned on their left side, so the dropdown will extend _to the right_.
+      * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+      */
+      horizontalAlign: {
+        type: String,
+        value: 'left',
+        observer: '_changeHorizontal'
+      },
+      /**
+      * Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.
+      * Automatically detected based on the breakpoint specified in `mobileAt`.
+      */
+      mobile: {
+        type: Boolean,
+        reflectToAttribute: true
+      },
+      /**
+      * The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.
+      */
+      mobileAt: {
+        type: Number,
+        value: 400
+      },
+      /**
+      * By default, the mobile dropdown will show Apply/Clear buttons.
+      * Set this property to hide them.
+      */
+      hideMobileButtons: {
+        type: Boolean,
+        value: false
+      },
+      /**
        * A valid IETF language tag as a string that `app-localize-behavior` will
        * use to localize this component.
        *
@@ -438,7 +532,9 @@ Custom property | Description
         value: function() {
           return {
             'en': {
-              "selected": "selected"
+              "selected": "selected",
+              "Clear": "Clear",
+              "Apply": "Apply"
             }
           }
         }
@@ -496,7 +592,7 @@ Custom property | Description
           item.checked = false;
         });
       }
-      this.$.dropdown.close();
+      if(!this.mobile) this.$.dropdown.close();
     },
     /**
      * Forces the width of the dropdown to be at least as wide as the trigger.
@@ -530,8 +626,14 @@ Custom property | Description
     /**
      * Searches the DOM for the `boundTarget` element.
      */
-    _getElement: function(target) {
+    _getFitElement: function(target) {
       return Polymer.dom(document).querySelector(target);
+    },
+    /**
+     * Determines the position target element based on `mobile`.
+     */
+    _getPositionElement: function(mobile) {
+      return mobile ? window : this;
     },
     /**
      * When `displayValue` update `_displayValueSelected`
@@ -732,6 +834,17 @@ Custom property | Description
       }
     },
     /**
+     * Determines whether to display the clear button inside the dropdown in mobile mode.
+     */
+    _showMobileClearButton(mobile, disableClear, selected, selectedValues) {
+      if(mobile && (typeof selected === 'string' || typeof selected === 'number' || selectedValues.length > 0)) {
+        return '';
+      }
+      else {
+        return 'btn--disabled';
+      }
+    },
+    /**
      * Determines whether to display the chevron button inside the dropdown.
      */
     _showChevron: function(disableClear, hideChevron, buttonStyle, opened, selected, selectedValues) {
@@ -902,7 +1015,7 @@ Custom property | Description
      * Event handler when the mouse hovers over a dropdown list item.
      */
     _hoverOn: function (event) {
-      if (!this._keyboardBeingUsed) {
+      if (!this._keyboardBeingUsed && !this.mobile) {
         var currHighlightedItem = this.querySelector('.dropdown-option.focused');
         if (currHighlightedItem) {
           this.toggleClass('focused',false,currHighlightedItem);
@@ -915,6 +1028,42 @@ Custom property | Description
      */
     _hoverOff: function (event) {
       this.toggleClass('focused',false,Polymer.dom(event).localTarget);
+    },
+    /**
+    * Calculates classes for the caret based on the horizontal and vertical alignment.
+    */
+    _getCaretClass: function(showCaret, mobile, verticalAlign, horizontalAlign) {
+      return (showCaret && !mobile) ? verticalAlign + ' ' + horizontalAlign : '';
+    },
+    /**
+    * Calculates offset for the dropdown based on whether caret is shown.
+    */
+    _getOffset: function(showCaret, triggerHeight, mobile) {
+      return mobile ? 0 : showCaret ? triggerHeight + 5 : triggerHeight;
+    },
+    /**
+    * When horizontalAlign is `right`, the dropdown trigger should also align itself
+    * to the right side of the container.
+    */
+    _changeHorizontal: function() {
+      if(this.horizontalAlign === 'right') {
+        this.style.flexDirection = 'row-reverse';
+      }
+      else {
+        this.style.flexDirection = 'row';
+      }
+    },
+    _getVertical(verticalAlign, mobile) {
+      return mobile ? 'middle' : verticalAlign;
+    },
+    _getHorizontal(horizontalAlign, mobile) {
+      return mobile ? 'left' : horizontalAlign;
+    },
+    _showCheckmark(multi, mobile) {
+      return multi && !mobile;
+    },
+    _showButtons(mobile,hideMobileButtons) {
+      return mobile && !hideMobileButtons;
     }
   });
 </script>
