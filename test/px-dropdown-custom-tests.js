@@ -7,7 +7,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
     px_dropdown = fixture('dropdown-fixture');
     flush(()=>{
       px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
       done();
     });
   });
@@ -24,7 +24,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Keyboard down: px-dropdown item should get focus on pressing down arrow',
     function (done) {
-      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
           firstItem = px_dropdown_content.querySelector('.dropdown-option');
 
@@ -43,7 +43,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Keyboard enter: px-dropdown item should be selected on pressing enter',
     function (done) {
-      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger'),
           px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
           firstItem = px_dropdown_content.querySelector('.dropdown-option');
 
@@ -86,7 +86,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
             done();
           }.bind(this),50);
         }.bind(this);
-      var px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      var px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
       px_dropdown_button.addEventListener('click', clickHandle);
       px_dropdown_button.click();
       px_dropdown_button.removeEventListener('click', clickHandle);
@@ -183,7 +183,7 @@ describe('Custom Automation Tests for search feature px-dropdown', function (don
     px_dropdown = fixture('dropdown-search-fixture');
     flush(()=>{
       px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
       done();
     });
   });
@@ -206,7 +206,7 @@ describe('Custom Automation Tests for sort feature px-dropdown', function (done)
     px_dropdown = fixture('dropdown-sort-fixture');
     flush(()=>{
       px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
       done();
     });
   });
@@ -250,7 +250,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
     px_dropdown = fixture('dropdown-fixture');
     flush(()=>{
       px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
       done();
     });
   });
@@ -277,7 +277,7 @@ describe('Multi select tests for px-dropdown', function (done) {
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-multi-element-fixture');
     flush(()=>{
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button');
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
       done();
     });
   });
@@ -319,7 +319,7 @@ describe('Disabled element tests for px-dropdown', function (done) {
   it('Selecting a disabled element does not fire a click event',
     function (done) {
       px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#button'),
+      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger'),
       dropdown_option = Polymer.dom(px_dropdown.root).querySelectorAll('.dropdown-option')[1];
 
       dropdown_option.disabled = true;
