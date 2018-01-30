@@ -50,11 +50,12 @@ are available to further customize the trigger. To create a custom trigger which
 does not match any of the available configurations, pass an element into the
 `trigger` slot. This element can be anything — a button, a div, some text, etc. The
 dropdown will attach a tap event listener to the element to listen for user
-interactions which should open the dropdown.
+interactions which should open the dropdown. You should also give the element a
+`tabindex=0` and `id=trigger` to maintain keyboard accessibility.
 
 ```
 <px-dropdown items='[{"key":"one", "val": "One", "selected": "true"}]'>
-  <button slot="trigger">Unstyled dropdown trigger</button>
+  <button slot="trigger" id="trigger" tabindex="0">Unstyled dropdown trigger</button>
 </px-dropdown>
 ```
 
@@ -92,9 +93,9 @@ Custom property | Description
       target="[[_keyBindingsTarget]]"
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
-    <div on-tap="toggle" id="trigger" class="trigger">
+    <div on-tap="toggle" class="trigger">
       <slot name="trigger">
-        <div id="button" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
+        <div id="trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
             <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">
               <div id="label" title="{{_displayValueSelected}}" class="dropdown-label">{{_displayValueSelected}}</div>
             </template>
@@ -765,7 +766,6 @@ Custom property | Description
      */
     _bindMouse: function () {
       this._keyboardBeingUsed = false;
-      this.$.dropdown.classList.remove('no-mouse-event');
       this.removeEventListener('mousemove', this._bindMouse);
     },
     /**
@@ -814,6 +814,7 @@ Custom property | Description
      */
     _handleKeyPress: function (event) {
       this._keyboardBeingUsed = true;
+      this.addEventListener('mousemove', this._bindMouse.bind(this));
       var keyPressed = event.detail.combo,
           options = this.$.selector.getEffectiveChildren().filter(function(node) {
             return (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'DIV'
