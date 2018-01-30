@@ -50,7 +50,9 @@
           sort-mode="{{props.sortMode.value}}"
           search-mode="{{props.searchMode.value}}"
           button-style="{{props.buttonStyle.value}}"
-          icon="{{props.icon.value}}">
+          icon="{{props.icon.value}}"
+          show-caret="{{props.showCaret.value}}"
+          trigger-height="{{props.triggerHeight.value}}">
         </px-dropdown>
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>
@@ -98,6 +100,8 @@
               searchMode: true,
               disableClear: false,
               disableSelect: false,
+              showCaret: false,
+              triggerHeight: 30,
               items: [{"key":"1", "val": "iPhone"},{"key":"2", "val": "Android"},{"key":"3", "val": "Blackberry"},{"key":"4", "val": "Windows Phone"},{"key":"5", "val": "Flip Phone", "disabled": true}]
             },
             {
@@ -108,6 +112,8 @@
               searchMode: false,
               disableClear: true,
               disableSelect: true,
+              showCaret: true,
+              triggerHeight: 20,
               items: [{"key":"1", "val": "iPhone", "icon":"px-utl:phone","color":"red"},{"key":"2", "val": "Android", "icon":"px-utl:phone","color":"green"},{"key":"3", "val": "Blackberry", "icon":"px-utl:phone","color":"blue"},{"key":"4", "val": "Windows Phone", "icon":"px-utl:phone","color":"orange"},{"key":"5", "val": "Flip Phone", "disabled": true, "icon":"px-utl:phone","color":"#C5D1D8"}]
             }
           ];
@@ -184,6 +190,14 @@
         type: Boolean,
         defaultValue: false,
         inputType: 'toggle'
+      },
+      showCaret: {
+        type: Boolean,
+        defaultValue: false
+      },
+      triggerHeight: {
+        type: Number,
+        defaultValue: 30
       }
     }
   });
