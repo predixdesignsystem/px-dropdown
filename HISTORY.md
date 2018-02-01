@@ -1,3 +1,7 @@
+v4.5.2
+==================
+* revert simple_demo change
+
 v4.5.1
 ==================
 * add min width/height vars for product-switcher
