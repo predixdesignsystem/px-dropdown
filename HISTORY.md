@@ -1,5 +1,9 @@
 v4.5.0
 ==================
+* add min width/height vars for product-switcher
+
+v4.5.0
+==================
 * add mobile responsiveness
 * add caret and header/footer slots to support px-product-switcher
 

@@ -92,6 +92,8 @@ $inuit-enable-btn--primary: true;
   border: 1px solid var(--px-dropdown-border-color, gray);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
+  min-width: var(--px-dropdown-min-width);
+  min-height: var(--px-dropdown-min-height);
   display: flex;
   flex-direction: column;
 }
@@ -99,6 +101,8 @@ $inuit-enable-btn--primary: true;
   max-width: 90vw;
   max-height: 80vh;
   width: 90vw;
+  min-width: 0;
+  min-height: 0;
   margin-left: 5vw;
 }
 .selector {
