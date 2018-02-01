@@ -1,4 +1,4 @@
-v4.5.0
+v4.5.1
 ==================
 * add min width/height vars for product-switcher
 
