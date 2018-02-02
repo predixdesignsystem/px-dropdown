@@ -1,3 +1,7 @@
+v4.5.3
+==================
+* update demo to be clearer
+
 v4.5.2
 ==================
 * revert simple_demo change
