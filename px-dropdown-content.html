@@ -16,7 +16,7 @@
     <iron-a11y-keys
       id="keys"
       keys="up down space enter tab esc"
-      target="[[_keyBindingsTarget]]"
+      target="[[keyBindingsTarget]]"
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
     <iron-dropdown
@@ -320,8 +320,7 @@
       */
       horizontalAlign: {
         type: String,
-        value: 'left',
-        observer: '_changeHorizontal'
+        value: 'left'
       },
       /**
       * Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.
@@ -379,11 +378,8 @@
       /**
        * Binding target for iron-a11y-keys
        */
-      _keyBindingsTarget: {
-        type: Object,
-        value: function () {
-          return this;
-        }
+      keyBindingsTarget: {
+        type: HTMLElement
       },
       /**
        * The currently "focused" option in the dropdown list.
@@ -649,7 +645,6 @@
           event.detail.keyboardEvent.preventDefault();
           break;
         case 'esc':
-          this.$.trigger.focus();
           this.$.dropdown.close();
           break;
         case 'tab':
@@ -740,18 +735,6 @@
     */
     _getOffset: function(showCaret, triggerHeight, mobile) {
       return mobile ? 0 : showCaret ? triggerHeight + 5 : triggerHeight;
-    },
-    /**
-    * When horizontalAlign is `right`, the dropdown trigger should also align itself
-    * to the right side of the container.
-    */
-    _changeHorizontal: function() {
-      if(this.horizontalAlign === 'right') {
-        this.style.flexDirection = 'row-reverse';
-      }
-      else {
-        this.style.flexDirection = 'row';
-      }
     },
     _getVertical(verticalAlign, mobile) {
       return mobile ? 'middle' : verticalAlign;

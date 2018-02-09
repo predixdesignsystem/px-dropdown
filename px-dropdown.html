@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html"/>
 <link rel="import" href="css/px-dropdown-styles.html"/>
 
 <link rel="import" href="px-dropdown-trigger.html"/>
@@ -93,12 +92,6 @@ Custom property | Description
   <template>
     <style include="px-dropdown-styles"></style>
     <iron-media-query query$="(max-width: {{mobileAt}}px)" query-matches="{{mobile}}"></iron-media-query>
-    <iron-a11y-keys
-      id="keys"
-      keys="up down space enter tab esc"
-      target="[[_keyBindingsTarget]]"
-      on-keys-pressed="_handleKeyPress">
-    </iron-a11y-keys>
     <px-dropdown-trigger
       id="trigger"
       trigger="{{openTrigger}}"
@@ -106,7 +99,6 @@ Custom property | Description
       language="[[language]]"
       resources="[[resources]]"
       use-key-if-missing="[[useKeyIfMissing]]"
-      key-bindings-target="[[_keyBindingsTarget]]"
       disabled="[[disabled]]"
       hide-chevron="[[hideChevron]]"
       display-value="[[displayValue]]"
@@ -123,11 +115,11 @@ Custom property | Description
       items="[[_computedItems]]"
       multi="[[multi]]"
       opened="{{opened}}"
+      key-bindings-target="[[_keyBindingsTarget]]"
       display-value="[[displayValue]]"
       language="[[language]]"
       resources="[[resources]]"
       use-key-if-missing="[[useKeyIfMissing]]"
-      key-bindings-target="[[_keyBindingsTarget]]"
       disabled="[[disabled]]"
       bound-target="[[boundTarget]]"
       prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]"
@@ -497,7 +489,7 @@ Custom property | Description
        * Binding target for iron-a11y-keys
        */
       _keyBindingsTarget: {
-        type: Object,
+        type: HTMLElement,
         value: function () {
           return this;
         }
@@ -667,143 +659,15 @@ Custom property | Description
       this.$.content._notifyResize();
     },
     /**
-     * Event handler for mouse move event. We enable mouse events when user moves the mouse.
-     * Mouse events are disabled when user uses the keyboard to interact with the dropdown.
-     * @private
-     */
-    _bindMouse: function () {
-      this._keyboardBeingUsed = false;
-      this.removeEventListener('mousemove', this._bindMouse);
-    },
-    /**
-     * The sort function used by the dom-repeat inside of iron-selector to
-     * sort the items by either 'key' or 'val' based on `sortMode`.
-     */
-    _computeSort: function (a, b) {
-      var sortValue = 0;
-      if (!this.sortMode) {
-        return -1;
+    * When horizontalAlign is `right`, the dropdown trigger should also align itself
+    * to the right side of the container.
+    */
+    _changeHorizontal: function() {
+      if(this.horizontalAlign === 'right') {
+        this.style.flexDirection = 'row-reverse';
       }
-
-      if (this.sortMode && sortValue === 0) {
-        if (this.sortMode === 'key') {
-          sortValue = a.key - b.key;
-        }
-        if (this.sortMode === 'val') {
-          var nameA = a.val.toUpperCase(),
-            nameB = b.val.toUpperCase();
-
-          if (nameA < nameB) {
-            sortValue--;
-          }
-          if (nameA > nameB) {
-            sortValue++;
-          }
-        }
-      }
-
-      return sortValue;
-    },
-    /**
-     * Adds or removes the focused class for keyboard navigation.
-     */
-    _setFocusedOption: function(newOption, oldOption) {
-      this._focusedOption = newOption;
-      if(newOption) {
-        this.toggleClass('focused',true,newOption);
-      }
-      if(oldOption) {
-        this.toggleClass('focused',false,oldOption);
-      }
-    },
-    /**
-     * Keypress event handler for iron-a11y-keys.
-     */
-    _handleKeyPress: function (event) {
-      this._keyboardBeingUsed = true;
-      this.addEventListener('mousemove', this._bindMouse.bind(this));
-      var keyPressed = event.detail.combo,
-          options = this.$.selector.getEffectiveChildren().filter(function(node) {
-            return (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'DIV'
-                    && !node.hasAttribute('disabled') && !node.classList.contains('hidden'));
-          }),
-          focused = options.indexOf(this._focusedOption),
-          searchFocused = this.searchMode && Polymer.dom(this.$.content).querySelector(':focus') === Polymer.dom(this.$.content).querySelector('#searchbox');
-      switch (keyPressed) {
-        case 'space':
-        case 'enter':
-          if(searchFocused) break;
-          // If closed, open it
-          if(!this.opened) {
-            this.$.content.toggle();
-          }
-          // If opened, select currently focused item
-          else if(focused !== -1) {
-            options[focused].click();
-          }
-          event.detail.keyboardEvent.preventDefault();
-          break;
-        case 'esc':
-          this.$.trigger.focus();
-          this.$.content.close();
-          break;
-        case 'tab':
-          // Close dropdown and (default behavior) move to next item
-          if(this.opened) {
-            this.$.content.close();
-          }
-          break;
-        case 'down':
-          // If closed, open it
-          if(!this.opened) {
-            this.$.content.toggle();
-          }
-          // If something is focused, move to the next sibling
-          if(focused > -1 && focused < options.length - 1) {
-            this._setFocusedOption(options[focused + 1], options[focused]);
-            this.$.content.querySelector('.dropdown-content').scrollTop += options[focused+1].offsetHeight;
-          }
-          // If last element is focused, do nothing
-          else if (focused === options.length - 1) {
-            break;
-          }
-          // If nothing is focused and search-mode is true, move to the search box
-          else if (focused === -1 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.content).querySelector('#searchbox').focus();
-          }
-          // If searchbox is focused, move to the first option
-          else if (searchFocused) {
-            Polymer.dom(this.$.content).querySelector('#searchbox').blur();
-            this.$.trigger.focus();
-            this._setFocusedOption(options[0]);
-          }
-          // Else focus the first item in the list
-          else {
-            this._setFocusedOption(options[0]);
-          }
-          event.detail.keyboardEvent.preventDefault();
-          break;
-        case 'up':
-          // If closed, open it
-          if(!this.opened) {
-            this.toggle();
-          }
-          // If something is focused, move to the previous sibling
-          if(focused > 0) {
-            this._setFocusedOption(options[focused - 1], options[focused]);
-            Polymer.dom(this.$.content).querySelector('.dropdown-content').scrollTop -= options[focused].offsetHeight;
-          }
-          // If the first item is focused and search-mode is true, move to the search box
-          else if (focused === 0 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.content).querySelector('#searchbox').focus();
-            this._setFocusedOption(null, options[0]);
-          }
-          // Else focus the last item in the list
-          else if (focused === -1 && !searchFocused) {
-            this._setFocusedOption(options[options.length - 1]);
-          }
-          event.detail.keyboardEvent.preventDefault();
-          break;
+      else {
+        this.style.flexDirection = 'row';
       }
     }
   });
