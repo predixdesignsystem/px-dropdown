@@ -1,95 +1,15 @@
 <link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../px-icon-set/px-icon-set.html"/>
+<link rel="import" href="../px-icon-set/px-icon.html"/>
+<link rel="import" href="../iron-dropdown/iron-dropdown.html"/>
+<link rel="import" href="../iron-selector/iron-selector.html"/>
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html"/>
+<link rel="import" href="../iron-media-query/iron-media-query.html"/>
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html"/>
 <link rel="import" href="css/px-dropdown-styles.html"/>
 
-<link rel="import" href="px-dropdown-trigger.html"/>
-<link rel="import" href="px-dropdown-content.html"/>
 
-<!--
-A dropdown from which users can select one or more values. Acts like a native
-browser "select" element with more fine-tuned interaction behaviors and a
-configurable UI.
-
-Dropdown can be used in conjunction with px-validation to apply validation states.
-Add the `validation-error`, `validation-warning`, or `validation-success` classes
-to alter the border color of the component.
-
-### Usage
-
-#### Simple
-
-```
-<px-dropdown items='["One","Two"]'></px-dropdown>
-<px-dropdown items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}]'></px-dropdown>
-```
-
-#### Complex
-
-```
-<px-dropdown
-    items='[{"key":"one", "val": "One", "selected": "true"}]'
-    display-value="Click me"
-    prevent-close-on-outside-click="true"
-    allow-outside-scroll="true"
-    multi="true"
-    select-by="key"
-    selected-values='["1","3"]'
-    bound-target=".parentDiv"
-    search-mode="true"
-    sort-mode="val">
-</px-dropdown>
-```
-
-#### Custom trigger
-
-By default, the `displayValue` or `icon` properties can be used to customize
-the information shown in the dropdown trigger button. Additional properties
-are available to further customize the trigger. To create a custom trigger which
-does not match any of the available configurations, pass an element into the
-`trigger` slot. This element can be anything — a button, a div, some text, etc. The
-dropdown will attach a tap event listener to the element to listen for user
-interactions which should open the dropdown. You should also give the element a
-`tabindex=0` and `id=trigger` to maintain keyboard accessibility.
-
-```
-<px-dropdown items='[{"key":"one", "val": "One", "selected": "true"}]'>
-  <button slot="trigger" id="trigger" tabindex="0">Unstyled dropdown trigger</button>
-</px-dropdown>
-```
-
-### Styling
-
-The following custom properties are available for styling of the dropdown content.
-See the documentation for px-buttons-design for variables related to the styling of the invoking button.
-
-Custom property | Description
-:----------------|:-------------
-`--px-dropdown-min-height` | Min height for the dropdown menu container
-`--px-dropdown-min-width` | Min width for the dropdown menu container
-`--px-dropdown-max-height` | Max height for the dropdown menu container
-`--px-dropdown-max-width` | Max width for the dropdown menu container
-`--px-dropdown-border-color` | Border color for the dropdown menu container
-`--px-dropdown-bg-color` | Background color for the dropdown menu container
-`--px-dropdown-bg-color--hover` | Background color of a hovered menu item
-`--px-dropdown-bg-color--selected` | Background color of a selected menu item
-`--px-dropdown-text-color` | Text color of a regular dropdown menu item
-`--px-dropdown-text-color--disabled` | Text color of a disabled dropdown menu item
-`--px-dropdown-text-color--selected` | Text color of a selected dropdown menu item
-`--px-dropdown-icon-size` | Size for the icon in the dropdown trigger
-`--px-dropdown-font-weight` | Font weight for the dropdown trigger button
-`--px-dropdown-item-icon-size` | Size of the optional icon in each dropdown item
-`--px-dropdown-item-padding` | Padding of each dropdown item
-`--px-dropdown-item-height` | Height of each dropdown item
-`--px-dropdown-content-font-size` | Font size in the dropdown menu container
-`--px-dropdown-caret-left` | Horizontal offset of the caret when dropdown aligned left
-`--px-dropdown-caret-right` | Horizontal offset of the caret when dropdown aligned right
-
-@element px-dropdown
-@blurb Element providing a dropdown solution.
-@homepage index.html
-@demo index.html
--->
-<dom-module id="px-dropdown">
+<dom-module id="px-dropdown-content">
   <template>
     <style include="px-dropdown-styles"></style>
     <iron-media-query query$="(max-width: {{mobileAt}}px)" query-matches="{{mobile}}"></iron-media-query>
@@ -99,64 +19,83 @@ Custom property | Description
       target="[[_keyBindingsTarget]]"
       on-keys-pressed="_handleKeyPress">
     </iron-a11y-keys>
-    <px-dropdown-trigger
-      id="trigger"
-      trigger="{{openTrigger}}"
-      opened="[[opened]]"
-      language="[[language]]"
-      resources="[[resources]]"
-      use-key-if-missing="[[useKeyIfMissing]]"
-      key-bindings-target="[[_keyBindingsTarget]]"
-      disabled="[[disabled]]"
-      hide-chevron="[[hideChevron]]"
-      display-value="[[displayValue]]"
-      disable-clear="[[disableClear]]"
-      selected="[[selected]]"
-      selected-values="[[selectedValues]]"
-      button-style="[[buttonStyle]]"
-      icon="[[icon]]"
-      display-value-selected="{{_displayValueSelected}}">
-    </px-dropdown-trigger>
-    <px-dropdown-content
-      id="content"
-      open-trigger="[[openTrigger]]"
-      items="[[_computedItems]]"
-      multi="[[multi]]"
+    <iron-dropdown
+      id="dropdown"
+      class$="dropdown {{_getCaretClass(showCaret,mobile,verticalAlign,horizontalAlign)}}"
+      auto-fit-on-attach
+      fit-into="{{_getFitElement(boundTarget)}}"
+      position-target="{{_getPositionElement(mobile,openTrigger)}}"
+      dynamic-align="{{!disableDynamicAlign}}"
+      vertical-offset="{{_getOffset(showCaret,triggerHeight,mobile)}}"
+      vertical-align="{{_getVertical(verticalAlign,mobile)}}"
+      horizontal-align="{{_getHorizontal(horizontalAlign,mobile)}}"
       opened="{{opened}}"
-      display-value="[[displayValue]]"
-      language="[[language]]"
-      resources="[[resources]]"
-      use-key-if-missing="[[useKeyIfMissing]]"
-      key-bindings-target="[[_keyBindingsTarget]]"
-      disabled="[[disabled]]"
-      bound-target="[[boundTarget]]"
-      prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]"
-      disable-select="[[disableSelect]]"
-      select-by="[[selectBy]]"
-      selected="{{selected}}"
-      selected-values="{{selectedValues}}"
-      selected-items="{{selectedItems}}"
-      trigger-height="[[triggerHeight]]"
-      show-caret="[[showCaret]]"
-      disable-dynamic-align="[[disableDynamicAlign]]"
-      vertical-align="[[verticalAlign]]"
-      horizontal-align="[[horizontalAlign]]"
-      mobile="{{mobile}}"
-      mobile-at="[[mobileAt]]"
-      hide-mobile-buttons="[[hideMobileButtons]]"
-      search-mode="[[searchMode]]"
-      search-term="[[searchTerm]]"
-      sort-mode="[[sortMode]]"
-      hide-selected="[[hideSelected]]"
-      allow-outside-scroll="[[allowOutsideScroll]]"
-      display-value-selected="{{_displayValueSelected}}">
-    </px-dropdown-content>
+      hover="{{hover}}"
+      no-cancel-on-outside-click="{{preventCloseOnOutsideClick}}"
+      allow-outside-scroll="{{allowOutsideScroll}}"
+      disabled$="{{disabled}}"
+      with-backdrop="{{mobile}}">
+      <div slot="dropdown-content" class="dropdown-content shadow-temporary">
+        <slot name="header"></slot>
+        <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
+          <div class="u-p- fixed">
+            <div class="search__form">
+              <input
+                id="searchbox"
+                class="text-input search__box"
+                disabled$="[[disabled]]"
+                placeholder="{{placeholder}}"
+                value="{{searchTerm::input}}"
+                on-input="_notifyResize"
+                autocomplete="off">
+              </input>
+              <px-icon class="search__icon" icon="px-utl:search"></px-icon>
+            </div>
+          </div>
+        </template>
+        <iron-selector
+          id="selector"
+          class="selector"
+          multi="{{multi}}"
+          selected="{{selected}}"
+          selected-values="{{selectedValues}}"
+          selected-items="{{selectedItems}}"
+          attr-for-selected="{{selectBy}}">
+          <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
+            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" disable-select="{{item.disableSelect}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
+              <template is="dom-if" if="{{_showCheckmark(multi,mobile)}}">
+                <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
+              </template>
+              <template is="dom-if" if="{{item.icon}}">
+                <px-icon icon="{{item.icon}}" class="item-icon u-mr-" style$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
+              </template>
+              <span class="dropdown-option__item truncate">{{item.val}}</span>
+            </div>
+          </template>
+        </iron-selector>
+        <template is="dom-if" if="{{_showButtons(mobile,hideMobileButtons)}}">
+          <div class="flex flex--middle flex--right u-m- fixed">
+            <template is="dom-if" if="{{!disableClear}}">
+              <button class$="btn {{_showMobileClearButton(mobile,disableClear,selected,selectedValues,selectedValues.*)}}" on-tap="_handleClearTapped">[[localize('Clear')]]</button>
+            </template>
+            <template is="dom-if" if="{{multi}}">
+              <button class="btn btn--primary u-ml-" on-tap="toggle">[[localize('Apply')]]</button>
+            </template>
+          </div>
+        </template>
+        <slot name="footer"></slot>
+      </div>
+    </iron-dropdown>
   </template>
 </dom-module>
 <script>
   Polymer({
 
-    is: 'px-dropdown',
+    is: 'px-dropdown-content',
+
+    behaviors: [
+      Polymer.AppLocalizeBehavior
+    ],
 
     properties: {
 
@@ -165,8 +104,7 @@ Custom property | Description
        * will open the dropdown.
        */
        openTrigger: {
-        type: HTMLElement,
-        observer: '_openTriggerChanged'
+        type: HTMLElement
       },
 
       /**
@@ -178,10 +116,11 @@ Custom property | Description
         value: false
       },
       /**
-       * Whether or not to hide the chevron icon from the dropdown.
+       * A flag which reflects whether the dropdown is being hovered over.
        */
-      hideChevron: {
+      hover: {
         type: Boolean,
+        notify: true,
         value: false
       },
       /**
@@ -198,16 +137,6 @@ Custom property | Description
       preventCloseOnOutsideClick: {
         type: Boolean,
         value: false
-      },
-      /**
-       * The placeholder text to display in the dropdown. If the
-       * selected value(s) are cleared out, the displayValue will be
-       * replaced in the dropdown.
-       */
-      displayValue: {
-        type: String,
-        notify: true,
-        value: 'Select'
       },
       /**
        * If set to true, users are unable to clear out the dropdown
@@ -234,8 +163,9 @@ Custom property | Description
        * The text that is displayed in the label of the dropdown.
        * Updated when the selections change.
        */
-       _displayValueSelected: {
-        type: String
+      displayValueSelected: {
+        type: String,
+        notify: true
       },
       /**
        * An array that contains the list of items which show up in the dropdown.
@@ -259,16 +189,6 @@ Custom property | Description
         }
       },
       /**
-       * Internal representation of the items array, in case simple strings are
-       * passed in, so that appropriate key/val pairs can be generated.
-       */
-       _computedItems: {
-        type: Array,
-        value: function () {
-          return [];
-        }
-      },
-      /**
        * If set to true, multiple values can be selected in the dropdown.
        * Selected values are reflected in the `selectedValues` property.
        * If set to false, a single selected value is reflected in `selected`.
@@ -283,8 +203,7 @@ Custom property | Description
        */
       selectBy: {
         type: String,
-        value: 'key',
-        observer: '_updateSelection'
+        value: 'key'
       },
       /**
        * Gets or sets the selected item when `multi` is false.
@@ -326,14 +245,6 @@ Custom property | Description
         value: false
       },
       /**
-       * Style for the button that invokes the dropdown.
-       * One of 'default','bare','bare--primary', 'tertiary', or 'icon'.
-       */
-      buttonStyle: {
-        type: String,
-        value: 'default'
-      },
-      /**
        * Whether the dropdown should be disabled and non-interactive.
        */
       disabled: {
@@ -354,7 +265,8 @@ Custom property | Description
        */
       searchTerm: {
         type: String,
-        value: ''
+        value: '',
+        observer: '_computeFilter'
       },
       /**
        * What to sort the dropdown items by - one of "key" or "val".
@@ -363,34 +275,6 @@ Custom property | Description
        */
       sortMode: {
         type: String
-      },
-      /**
-       * If set to true, the display-value will always show up in the
-       * invoking button of the dropdown. Useful in cases like the
-       * px-data-table, where "Show/Hide Columns" should always appear.
-       */
-      hideSelected: {
-        type: Boolean,
-        value: false
-      },
-      /**
-       * If buttonStyle is set to 'icon' this property will dictate
-       * which icon will be displayed inside of the dropdown button.
-       * The `displayValue`, selected values, and chevron will not be displayed.
-       * Perfect for icon-invoked menus. The value of this property should
-       * be a valid px-icon name, e.g. 'px-utl:app-settings'
-       */
-      icon: {
-        type: String,
-        value: ''
-      },
-      /**
-      * Set this property if you would like the `selected` and `selectedValues`
-      * properties to be cleared whenever mutations are made to the `items` array.
-      */
-      clearSelectionsOnChange: {
-        type: Boolean,
-        value: false
       },
       /**
       * The height of the trigger element, used for calculating offset distance
@@ -469,7 +353,7 @@ Custom property | Description
        * See https://github.com/PolymerElements/app-localize-behavior for API
        * documentation and more information.
        */
-      language: {
+       language: {
         type: String,
         value: 'en'
       },
@@ -486,7 +370,6 @@ Custom property | Description
         value: function() {
           return {
             'en': {
-              "selected": "selected",
               "Clear": "Clear",
               "Apply": "Apply"
             }
@@ -518,153 +401,175 @@ Custom property | Description
         value: false
       }
     },
+    listeners: {
+      'iron-activate' : '_handleActivate',
+      'iron-select' : '_handleSelection',
+      'iron-deselect' : '_handleDeselection'
+    },
     observers: [
-      '_itemsChanged(items, items.*)'
+      '_initSort(sortMode, items)'
     ],
-    /**
-    * Bind to open trigger, open/close on trigger tap.
-    */
-    _openTriggerChanged(newTrigger, oldTrigger) {
-      if (oldTrigger && oldTrigger instanceof HTMLElement && this._handleOpenTriggerTapped) {
-        oldTrigger.removeEventListener('trigger-tapped', this._handleOpenTriggerTapped);
-        oldTrigger.removeEventListener('clear-tapped', this._handleClearTapped);
-        oldTrigger.removeEventListener('close-dropdown', this._close);
-      }
-      if (newTrigger && newTrigger instanceof HTMLElement) {
-        newTrigger.addEventListener('trigger-tapped', this._handleOpenTriggerTapped.bind(this), false);
-        newTrigger.addEventListener('clear-tapped', this._handleClearTapped.bind(this), false);
-        newTrigger.addEventListener('close-dropdown', this._close.bind(this), false);
-      }
-    },
-    /**
-     * Opens the dropdown when the button is pressed.
-     */
-    _handleOpenTriggerTapped: function() {
-      this.$.content.toggle();
-      // this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
-    },
-    _close: function() {
-      this.$.content.close();
-    },
-    /**
-     * Clears all of the selections when the clear button is pressed.
-     */
-    _handleClearTapped: function(evt) {
-      evt.stopPropagation();
-      this.$.content._handleClearTapped();
-    },
-    /**
-     * Opens the dropdown when the button is pressed.
-     */
+
     toggle: function() {
-      this.$.content.toggle();
-      this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+      this.$.dropdown.toggle();
     },
-    /**
-     * Forces the width of the dropdown to be at least as wide as the trigger.
-     */
-    attached: function() {
-      this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
-      this._updateSelection();
+    close: function() {
+      this.$.dropdown.close();
     },
-    /**
-     * Any time that `items` changes, this method will convert any
-     * simple strings in the array to an object with key/val.
-     */
-    _itemsChanged: function(items) {
-      if(items === undefined) return;
-      var newComputedItems = [];
-      if(items !== null) {
-        items.forEach(function(item, idx) {
-          if(typeof item === 'string') {
-            newComputedItems[idx] = {"key":idx, "val":item};
-          }
-          else {
-            newComputedItems[idx] = item;
-          }
-        }.bind(this));
+    open: function() {
+      this.$.dropdown.open();
+    },
+    _handleClearTapped: function() {
+      this.set('selected', null);
+      this.set('selectedValues', []);
+      if(this.multi) {
+        Polymer.dom(this.$.dropdown).querySelectorAll('input#option:checked').forEach(function(item) {
+          item.checked = false;
+        });
       }
-      this._computedItems = newComputedItems;
-      if(this.clearSelectionsOnChange) {
-        this.set('selected', null);
-        this.set('selectedValues', []);
-      }
-      this._updateSelection();
-      this._notifyResize();
+      if(!this.mobile) this.$.dropdown.close();
     },
     /**
-     * Iterates over the `items` array and adds items with the
-     * `selected` property to the `selectedValues` array (for multi) or
-     * updates `selected` (for single). Note: if you specify more than
-     * one item as `selected` but `multi` is not enabled, only the *first*
-     * selected item will be chosen. Does NOT remove items if their selected
-     * property gets changed to false or removed - use `clearSelectionsOnChange`
-     * or mutate the `selected` / `selectedValues` properties instead.
+     * Searches the DOM for the `boundTarget` element.
      */
-    _updateSelection: function() {
-      if(this.items && this.items.length > 0) {
-        if(this.multi) {
-          var length = this.items.length,
-              selected = this.selectedValues,
-              i;
-          for(i=0; i<length; i++) {
-            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
-              if(selected && selected.indexOf(this.items[i][this.selectBy]) === -1) {
-                selected.push(this.items[i][this.selectBy]);
-              }
-            }
-          }
-          this.set('selectedValues', []);
-          this.set('selectedValues', selected);
-        }
-        else {
-          var length = this.items.length,
-              selected = this.selected,
-              i;
-          for(i=0; i<length; i++) {
-            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
-              if(selected !== this.items[i][this.selectBy]) {
-                this.set('selected', this.items[i][this.selectBy]);
-                break;
-              }
-            }
-          }
-        }
+    _getFitElement: function(target) {
+      return Polymer.dom(document).querySelector(target);
+    },
+    /**
+     * Determines the position target element based on `mobile`.
+     */
+    _getPositionElement: function(mobile, openTrigger) {
+      return mobile ? window : openTrigger;
+    },
+    /**
+     * When iron-activate is fired, this method checks whether the item is disabled
+     * or if selection is disabled in the dropdown overall (for use in menus).
+     * If so, it cancels the event so that iron-select is not called.
+     */
+    /**
+    * Event fired when any non-disabled element is clicked in the dropdown.
+    * If disableSelect is set on the entire dropdown or individual item,
+    * the event is still fired and the dropdown is closed, but the item
+    * is not selected. Useful for menu dropdowns, as opposed to selection dropdowns.
+    *
+    * @event px-dropdown-click
+    */
+    _handleActivate: function(evt) {
+      if(evt.detail.item.hasAttribute('disabled')) {
+        evt.preventDefault();
+      }
+      else if (this.disableSelect || evt.detail.item.disableSelect) {
+        evt.preventDefault();
+        this.fire('px-dropdown-click', evt);
+        this.$.dropdown.close();
+      }
+      else {
+        this.fire('px-dropdown-click', evt);
       }
     },
     /**
-      * Event fired when any non-disabled element is clicked in the dropdown.
-      * If disableSelect is set on the entire dropdown or individual item,
-      * the event is still fired and the dropdown is closed, but the item
-      * is not selected. Useful for menu dropdowns, as opposed to selection dropdowns.
-      *
-      * @event px-dropdown-click
-      */
+     * Handles the selection event from iron-selector to update
+     * the label displayed inside the dropdown.
+     */
+    _handleSelection: function(evt) {
+      if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
+        this.displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
+      }
+      else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
+        this.displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
+      }
+      else if(!this.hideSelected) {
+        this.displayValueSelected = this.$.selector.selectedItem ? this.$.selector.selectedItem.val : this.displayValue;
+        this.$.dropdown.close();
+      }
+      this.$.dropdown.notifyResize();
+      /**
+       * Event fired when any given element is selected or deselected in the list.
+       * `evt.detail` contains:
+       * ```
+       * { val: "text of the changed element",
+       *   key: "key of the changed element",
+       *   selected: true/false }
+       * ```
+       * @event px-dropdown-selection-changed
+       */
+      this.fire('px-dropdown-selection-changed', {
+        val: evt.detail.item.val,
+        key: evt.detail.item.key,
+        selected: true
+      });
+    },
     /**
-      * Event fired when any given element is selected or deselected in the list.
-      * `evt.detail` contains:
-      * ```
-      * { val: "text of the changed element",
-      *   key: "key of the changed element",
-      *   selected: true/false }
-      * ```
-      * @event px-dropdown-selection-changed
-      */
-    /**
-      * Event fired when any given element is selected or deselected in the list.
-      * `evt.detail` contains:
-      * ```
-      * { val: "text of the changed element",
-      *   key: "key of the changed element",
-      *   selected: true/false }
-      * ```
-      * @event px-dropdown-selection-changed
-      */
+     * Handles the de-selection event from iron-selector to update
+     * the label displayed inside the dropdown.
+     */
+    _handleDeselection: function(evt) {
+      if(this.multi && this.$.selector.selectedItems.length === 1 && !this.hideSelected) {
+        this.displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
+      }
+      else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
+        this.displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
+      }
+      else {
+        this.displayValueSelected = this.displayValue;
+      }
+      this.$.dropdown.notifyResize();
+      /**
+       * Event fired when any given element is selected or deselected in the list.
+       * `evt.detail` contains:
+       * ```
+       * { val: "text of the changed element",
+       *   key: "key of the changed element",
+       *   selected: true/false }
+       * ```
+       * @event px-dropdown-selection-changed
+       */
+      this.fire('px-dropdown-selection-changed', {
+        val: evt.detail.item.val,
+        key: evt.detail.item.key,
+        selected: false
+      });
+    },
     /**
      * Resizes the dropdown when the search term is changed.
      */
     _notifyResize: function() {
-      this.$.content._notifyResize();
+      this.$.dropdown.notifyResize();
+    },
+    /**
+     * Filter function used by the dom-repeat inside the iron-selector,
+     * based on the searchTerm entered in the search box.
+     */
+    _computeFilter: function () {
+      if (this.searchMode) {
+        var term = this.searchTerm.toLowerCase(),
+            items = this.$.dropdown.querySelectorAll('.dropdown-option'),
+            length = items.length,
+            i;
+        for(i=0; i<length; i++) {
+          this.toggleClass('hidden', items[i].val.toString().toLowerCase().indexOf(term) === -1 && items[i].key.toString().toLowerCase().indexOf(term) === -1, items[i]);
+        }
+      }
+    },
+    /**
+     * Determines whether to display the clear button inside the dropdown in mobile mode.
+     */
+    _showMobileClearButton(mobile, disableClear, selected, selectedValues) {
+      if(mobile && (typeof selected === 'string' || typeof selected === 'number' || selectedValues.length > 0)) {
+        return '';
+      }
+      else {
+        return 'btn--disabled';
+      }
+    },
+    /**
+     * Initializes the sort function for the dom-repeat inside of iron-selector.
+     */
+    _initSort: function (sortMode, items) {
+      if(sortMode !== undefined && items !== undefined) {
+        this.$.dropdownItems.sort = '_computeSort';
+        this.$.dropdownItems.render();
+      }
     },
     /**
      * Event handler for mouse move event. We enable mouse events when user moves the mouse.
@@ -728,14 +633,14 @@ Custom property | Description
                     && !node.hasAttribute('disabled') && !node.classList.contains('hidden'));
           }),
           focused = options.indexOf(this._focusedOption),
-          searchFocused = this.searchMode && Polymer.dom(this.$.content).querySelector(':focus') === Polymer.dom(this.$.content).querySelector('#searchbox');
+          searchFocused = this.searchMode && Polymer.dom(this.$.dropdown).querySelector(':focus') === Polymer.dom(this.$.dropdown).querySelector('#searchbox');
       switch (keyPressed) {
         case 'space':
         case 'enter':
           if(searchFocused) break;
           // If closed, open it
           if(!this.opened) {
-            this.$.content.toggle();
+            this.toggle();
           }
           // If opened, select currently focused item
           else if(focused !== -1) {
@@ -745,23 +650,23 @@ Custom property | Description
           break;
         case 'esc':
           this.$.trigger.focus();
-          this.$.content.close();
+          this.$.dropdown.close();
           break;
         case 'tab':
           // Close dropdown and (default behavior) move to next item
           if(this.opened) {
-            this.$.content.close();
+            this.$.dropdown.close();
           }
           break;
         case 'down':
           // If closed, open it
           if(!this.opened) {
-            this.$.content.toggle();
+            this.toggle();
           }
           // If something is focused, move to the next sibling
           if(focused > -1 && focused < options.length - 1) {
             this._setFocusedOption(options[focused + 1], options[focused]);
-            this.$.content.querySelector('.dropdown-content').scrollTop += options[focused+1].offsetHeight;
+            this.$.dropdown.querySelector('.dropdown-content').scrollTop += options[focused+1].offsetHeight;
           }
           // If last element is focused, do nothing
           else if (focused === options.length - 1) {
@@ -769,11 +674,11 @@ Custom property | Description
           }
           // If nothing is focused and search-mode is true, move to the search box
           else if (focused === -1 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.content).querySelector('#searchbox').focus();
+            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
           }
           // If searchbox is focused, move to the first option
           else if (searchFocused) {
-            Polymer.dom(this.$.content).querySelector('#searchbox').blur();
+            Polymer.dom(this.$.dropdown).querySelector('#searchbox').blur();
             this.$.trigger.focus();
             this._setFocusedOption(options[0]);
           }
@@ -791,11 +696,11 @@ Custom property | Description
           // If something is focused, move to the previous sibling
           if(focused > 0) {
             this._setFocusedOption(options[focused - 1], options[focused]);
-            Polymer.dom(this.$.content).querySelector('.dropdown-content').scrollTop -= options[focused].offsetHeight;
+            Polymer.dom(this.$.dropdown).querySelector('.dropdown-content').scrollTop -= options[focused].offsetHeight;
           }
           // If the first item is focused and search-mode is true, move to the search box
           else if (focused === 0 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.content).querySelector('#searchbox').focus();
+            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
             this._setFocusedOption(null, options[0]);
           }
           // Else focus the last item in the list
@@ -805,6 +710,60 @@ Custom property | Description
           event.detail.keyboardEvent.preventDefault();
           break;
       }
+    },
+    /**
+     * Event handler when the mouse hovers over a dropdown list item.
+     */
+    _hoverOn: function (event) {
+      if (!this._keyboardBeingUsed && !this.mobile) {
+        var currHighlightedItem = this.querySelector('.dropdown-option.focused');
+        if (currHighlightedItem) {
+          this.toggleClass('focused',false,currHighlightedItem);
+        }
+        this.toggleClass('focused',true,Polymer.dom(event).localTarget);
+      }
+    },
+    /**
+     * Event handler when the mouse hovers out of a dropdown list item.
+     */
+    _hoverOff: function (event) {
+      this.toggleClass('focused',false,Polymer.dom(event).localTarget);
+    },
+    /**
+    * Calculates classes for the caret based on the horizontal and vertical alignment.
+    */
+    _getCaretClass: function(showCaret, mobile, verticalAlign, horizontalAlign) {
+      return (showCaret && !mobile) ? verticalAlign + ' ' + horizontalAlign : '';
+    },
+    /**
+    * Calculates offset for the dropdown based on whether caret is shown.
+    */
+    _getOffset: function(showCaret, triggerHeight, mobile) {
+      return mobile ? 0 : showCaret ? triggerHeight + 5 : triggerHeight;
+    },
+    /**
+    * When horizontalAlign is `right`, the dropdown trigger should also align itself
+    * to the right side of the container.
+    */
+    _changeHorizontal: function() {
+      if(this.horizontalAlign === 'right') {
+        this.style.flexDirection = 'row-reverse';
+      }
+      else {
+        this.style.flexDirection = 'row';
+      }
+    },
+    _getVertical(verticalAlign, mobile) {
+      return mobile ? 'middle' : verticalAlign;
+    },
+    _getHorizontal(horizontalAlign, mobile) {
+      return mobile ? 'left' : horizontalAlign;
+    },
+    _showCheckmark(multi, mobile) {
+      return multi && !mobile;
+    },
+    _showButtons(mobile,hideMobileButtons) {
+      return mobile && !hideMobileButtons;
     }
   });
 </script>

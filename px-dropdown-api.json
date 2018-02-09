@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "A dropdown from which users can select one or more values. Acts like a native\nbrowser \"select\" element with more fine-tuned interaction behaviors and a\nconfigurable UI.\n\nDropdown can be used in conjunction with px-validation to apply validation states.\nAdd the `validation-error`, `validation-warning`, or `validation-success` classes\nto alter the border color of the component.\n\n### Usage\n\n#### Simple\n\n```\n<px-dropdown items='[\"One\",\"Two\"]'></px-dropdown>\n<px-dropdown items='[{\"key\":\"one\", \"val\": \"One\"}, {\"key\":\"two\", \"val\": \"Two\"}]'></px-dropdown>\n```\n\n#### Complex\n\n```\n<px-dropdown\n    items='[{\"key\":\"one\", \"val\": \"One\", \"selected\": \"true\"}]'\n    display-value=\"Click me\"\n    prevent-close-on-outside-click=\"true\"\n    allow-outside-scroll=\"true\"\n    multi=\"true\"\n    select-by=\"key\"\n    selected-values='[\"1\",\"3\"]'\n    bound-target=\".parentDiv\"\n    search-mode=\"true\"\n    sort-mode=\"val\">\n</px-dropdown>\n```\n\n#### Custom trigger\n\nBy default, the `displayValue` or `icon` properties can be used to customize\nthe information shown in the dropdown trigger button. Additional properties\nare available to further customize the trigger. To create a custom trigger which\ndoes not match any of the available configurations, pass an element into the\n`trigger` slot. This element can be anything — a button, a div, some text, etc. The\ndropdown will attach a tap event listener to the element to listen for user\ninteractions which should open the dropdown. You should also give the element a\n`tabindex=0` and `id=trigger` to maintain keyboard accessibility.\n\n```\n<px-dropdown items='[{\"key\":\"one\", \"val\": \"One\", \"selected\": \"true\"}]'>\n  <button slot=\"trigger\" id=\"trigger\" tabindex=\"0\">Unstyled dropdown trigger</button>\n</px-dropdown>\n```\n\n### Styling\n\nThe following custom properties are available for styling of the dropdown content.\nSee the documentation for px-buttons-design for variables related to the styling of the invoking button.\n\nCustom property | Description\n:----------------|:-------------\n`--px-dropdown-min-height` | Min height for the dropdown menu container\n`--px-dropdown-min-width` | Min width for the dropdown menu container\n`--px-dropdown-max-height` | Max height for the dropdown menu container\n`--px-dropdown-max-width` | Max width for the dropdown menu container\n`--px-dropdown-border-color` | Border color for the dropdown menu container\n`--px-dropdown-bg-color` | Background color for the dropdown menu container\n`--px-dropdown-bg-color--hover` | Background color of a hovered menu item\n`--px-dropdown-bg-color--selected` | Background color of a selected menu item\n`--px-dropdown-text-color` | Text color of a regular dropdown menu item\n`--px-dropdown-text-color--disabled` | Text color of a disabled dropdown menu item\n`--px-dropdown-text-color--selected` | Text color of a selected dropdown menu item\n`--px-dropdown-icon-size` | Size for the icon in the dropdown trigger\n`--px-dropdown-font-weight` | Font weight for the dropdown trigger button\n`--px-dropdown-item-icon-size` | Size of the optional icon in each dropdown item\n`--px-dropdown-item-padding` | Padding of each dropdown item\n`--px-dropdown-item-height` | Height of each dropdown item\n`--px-dropdown-content-font-size` | Font size in the dropdown menu container\n`--px-dropdown-caret-left` | Horizontal offset of the caret when dropdown aligned left\n`--px-dropdown-caret-right` | Horizontal offset of the caret when dropdown aligned right",
+      "description": "",
       "summary": "",
-      "path": "px-dropdown.html",
+      "path": "px-dropdown-trigger.html",
       "properties": [
         {
           "name": "__localizationCache",
@@ -14,11 +14,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 92,
+              "line": 127,
               "column": 2
             },
             "end": {
-              "line": 96,
+              "line": 131,
               "column": 3
             }
           },
@@ -30,42 +30,44 @@
         {
           "name": "language",
           "type": "string",
-          "description": "A valid IETF language tag as a string that `app-localize-behavior` will\nuse to localize this component.\n\nSee https://github.com/PolymerElements/app-localize-behavior for API\ndocumentation and more information.",
+          "description": "The language used for translation.",
           "privacy": "public",
           "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 520,
-              "column": 7
+              "line": 149,
+              "column": 4
             },
             "end": {
-              "line": 523,
-              "column": 7
+              "line": 151,
+              "column": 5
             }
           },
           "metadata": {
             "polymer": {}
           },
-          "defaultValue": "\"en\""
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "resources",
           "type": "Object",
-          "description": "A dictionary of strings used within the component for AppLocalizeBehavior\nto use, based on the selected `language` property.",
+          "description": "The dictionary of localized messages, for each of the languages that\nare going to be used. See http://formatjs.io/guides/message-syntax/ for\nmore information on the message syntax.\n\nFor example, a valid dictionary would be:\nthis.resources = {\n 'en': { 'greeting': 'Hello!' }, 'fr' : { 'greeting': 'Bonjour!' }\n}",
           "privacy": "public",
           "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 532,
-              "column": 6
+              "line": 163,
+              "column": 4
             },
             "end": {
-              "line": 543,
-              "column": 7
+              "line": 165,
+              "column": 5
             }
           },
           "metadata": {
             "polymer": {}
           },
-          "defaultValue": "{\"en\":{\"selected\":\"selected\",\"Clear\":\"Clear\",\"Apply\":\"Apply\"}}"
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "formats",
@@ -75,11 +77,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 141,
+              "line": 176,
               "column": 4
             },
             "end": {
-              "line": 144,
+              "line": 179,
               "column": 5
             }
           },
@@ -92,22 +94,24 @@
         {
           "name": "useKeyIfMissing",
           "type": "boolean",
-          "description": "",
+          "description": "If true, will use the provided key when\nthe translation does not exist for that key.",
           "privacy": "public",
           "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 524,
-              "column": 6
+              "line": 185,
+              "column": 4
             },
             "end": {
-              "line": 527,
-              "column": 7
+              "line": 188,
+              "column": 5
             }
           },
           "metadata": {
             "polymer": {}
           },
-          "defaultValue": "true"
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "localize",
@@ -117,11 +121,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 160,
+              "line": 195,
               "column": 4
             },
             "end": {
-              "line": 163,
+              "line": 198,
               "column": 5
             }
           },
@@ -140,11 +144,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 168,
+              "line": 203,
               "column": 4
             },
             "end": {
-              "line": 171,
+              "line": 206,
               "column": 5
             }
           },
@@ -161,11 +165,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 205,
-              "column": 6
+              "line": 55,
+              "column": 7
             },
             "end": {
-              "line": 209,
+              "line": 59,
               "column": 7
             }
           },
@@ -177,48 +181,27 @@
           "defaultValue": "false"
         },
         {
-          "name": "hover",
-          "type": "boolean",
-          "description": "A flag which reflects whether the dropdown is being hovered over.",
+          "name": "trigger",
+          "type": "HTMLElement",
+          "description": "Read-only reference to the trigger element. Data-bind this property\ninto the px-context-browser `openTrigger` or `favoritedTrigger`\nproperty to open the context browser when this icon is tapped.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 213,
+              "line": 66,
               "column": 6
             },
             "end": {
-              "line": 217,
+              "line": 71,
               "column": 7
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
-            }
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "focusedItem",
-          "type": "Object",
-          "description": "Returns the currently focused item in the dropdown list.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 221,
-              "column": 6
-            },
-            "end": {
-              "line": 225,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_focusedItemChanged\"",
+              "notify": true,
               "readOnly": true
             }
-          }
+          },
+          "defaultValue": "null"
         },
         {
           "name": "hideChevron",
@@ -227,50 +210,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 229,
+              "line": 76,
               "column": 6
             },
             "end": {
-              "line": 232,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "boundTarget",
-          "type": "string",
-          "description": "A CSS selector which specifies the bounding target the dropdown will be\ndisplayed within. Defaults to `window`.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 237,
-              "column": 6
-            },
-            "end": {
-              "line": 239,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "preventCloseOnOutsideClick",
-          "type": "boolean",
-          "description": "Whether the dropdown will close when a user clicks\noutside of it. Set to true to prevent dropdown from closing.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 244,
-              "column": 6
-            },
-            "end": {
-              "line": 247,
+              "line": 79,
               "column": 7
             }
           },
@@ -286,11 +230,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 253,
+              "line": 85,
               "column": 6
             },
             "end": {
-              "line": 258,
+              "line": 90,
               "column": 7
             }
           },
@@ -303,57 +247,17 @@
           "defaultValue": "\"Select\""
         },
         {
-          "name": "disableClear",
-          "type": "boolean",
-          "description": "If set to true, users are unable to clear out the dropdown\nonce a selection has been made. Useful for required single-select\ndropdowns where an empty state would be undesirable. Not recommended\nfor multi-select dropdowns, as it means the user will simply lose the ability\nto quickly deselect all checked options (there is currently no mechanism\nwhich requires a user to select at least one option).",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 267,
-              "column": 6
-            },
-            "end": {
-              "line": 270,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "disableSelect",
-          "type": "boolean",
-          "description": "If set to true, users can still open the dropdown and click on items,\nbut they will not be selected. Use this property in use cases where\nthe dropdown is used as a menu instead of a form input.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 276,
-              "column": 6
-            },
-            "end": {
-              "line": 279,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
           "name": "_displayValueSelected",
           "type": "string",
           "description": "The text that is displayed in the label of the dropdown.\nUpdated when the selections change.",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 284,
+              "line": 95,
               "column": 6
             },
             "end": {
-              "line": 286,
+              "line": 97,
               "column": 7
             }
           },
@@ -362,187 +266,17 @@
           }
         },
         {
-          "name": "items",
-          "type": "Array",
-          "description": "An array that contains the list of items which show up in the dropdown.\nEach item can either be a simple string, or an object consisting of:\n* 'key' - a unique identifier (number or string)\n* 'val' - the actual text that is displayed\n* 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)\n* 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)\n* 'selected' - whether the item should be selected at instantiation (optional)\n* 'icon' - an icon name from the px-icon-set to display next to the item (optional)\n* 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)\n\nNote: if you specify more than one item as `selected`, but `multi` is not enabled,\nonly the *first* selected item will be chosen. See also `clearSelectionsOnChange`.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 301,
-              "column": 6
-            },
-            "end": {
-              "line": 307,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          },
-          "defaultValue": "[]"
-        },
-        {
-          "name": "_computedItems",
-          "type": "Array",
-          "description": "Internal representation of the items array, in case simple strings are\npassed in, so that appropriate key/val pairs can be generated.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 312,
-              "column": 7
-            },
-            "end": {
-              "line": 317,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "[]"
-        },
-        {
-          "name": "multi",
-          "type": "boolean",
-          "description": "If set to true, multiple values can be selected in the dropdown.\nSelected values are reflected in the `selectedValues` property.\nIf set to false, a single selected value is reflected in `selected`.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 323,
-              "column": 6
-            },
-            "end": {
-              "line": 326,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "selectBy",
-          "type": "string",
-          "description": "Which property of each dropdown item will be used to get/set\nthe selected items - should be one of \"key\" or \"val\".",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 331,
-              "column": 6
-            },
-            "end": {
-              "line": 335,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_updateSelection\""
-            }
-          },
-          "defaultValue": "\"key\""
-        },
-        {
-          "name": "selected",
-          "type": "string",
-          "description": "Gets or sets the selected item when `multi` is false.\nWill either be a single key or value based on `selectBy`.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 340,
-              "column": 6
-            },
-            "end": {
-              "line": 344,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          },
-          "defaultValue": "null"
-        },
-        {
-          "name": "selectedValues",
-          "type": "Array",
-          "description": "Gets or sets the selected items when `multi` is true.\nWill either be an array of keys or values based on `selectBy`.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 349,
-              "column": 6
-            },
-            "end": {
-              "line": 355,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "notify": true
-            }
-          },
-          "defaultValue": "[]"
-        },
-        {
-          "name": "selectedItems",
-          "type": "Array",
-          "description": "A read-only array of the selected `<div>` elements in the dropdown.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 359,
-              "column": 6
-            },
-            "end": {
-              "line": 365,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "readOnly": true
-            }
-          },
-          "defaultValue": "[]"
-        },
-        {
-          "name": "allowOutsideScroll",
-          "type": "boolean",
-          "description": "By default, the dropdown will constrain scrolling on the page to\nitself when opened. Set to true in order to allow scrolling of\nthe page while the dropdown is open.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 371,
-              "column": 6
-            },
-            "end": {
-              "line": 374,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
           "name": "buttonStyle",
           "type": "string",
           "description": "Style for the button that invokes the dropdown.\nOne of 'default','bare','bare--primary', 'tertiary', or 'icon'.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 379,
+              "line": 102,
               "column": 6
             },
             "end": {
-              "line": 382,
+              "line": 105,
               "column": 7
             }
           },
@@ -552,98 +286,17 @@
           "defaultValue": "\"default\""
         },
         {
-          "name": "disabled",
-          "type": "boolean",
-          "description": "Whether the dropdown should be disabled and non-interactive.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 386,
-              "column": 6
-            },
-            "end": {
-              "line": 389,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "searchMode",
-          "type": "boolean",
-          "description": "If true, the dropdown will include a search box, whereby the\ndropdown items can be filtered with a search term.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 394,
-              "column": 6
-            },
-            "end": {
-              "line": 397,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "searchTerm",
-          "type": "string",
-          "description": "The value of the search box, used for filtering the dropdown\nitems when searchMode is true.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 402,
-              "column": 6
-            },
-            "end": {
-              "line": 406,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_computeFilter\""
-            }
-          },
-          "defaultValue": "\"\""
-        },
-        {
-          "name": "sortMode",
-          "type": "string",
-          "description": "What to sort the dropdown items by - one of \"key\" or \"val\".\nBy default, the items will be displayed in the order they are\npassed into the component.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 412,
-              "column": 6
-            },
-            "end": {
-              "line": 414,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
           "name": "hideSelected",
           "type": "boolean",
           "description": "If set to true, the display-value will always show up in the\ninvoking button of the dropdown. Useful in cases like the\npx-data-table, where \"Show/Hide Columns\" should always appear.",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 420,
+              "line": 111,
               "column": 6
             },
             "end": {
-              "line": 423,
+              "line": 114,
               "column": 7
             }
           },
@@ -659,11 +312,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 431,
+              "line": 122,
               "column": 6
             },
             "end": {
-              "line": 434,
+              "line": 125,
               "column": 7
             }
           },
@@ -671,245 +324,6 @@
             "polymer": {}
           },
           "defaultValue": "\"\""
-        },
-        {
-          "name": "clearSelectionsOnChange",
-          "type": "boolean",
-          "description": "Set this property if you would like the `selected` and `selectedValues`\nproperties to be cleared whenever mutations are made to the `items` array.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 439,
-              "column": 6
-            },
-            "end": {
-              "line": 442,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "triggerHeight",
-          "type": "number",
-          "description": "The height of the trigger element, used for calculating offset distance\nfor the dropdown. Set this value if you use the `trigger` slot.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 447,
-              "column": 6
-            },
-            "end": {
-              "line": 450,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "30"
-        },
-        {
-          "name": "showCaret",
-          "type": "boolean",
-          "description": "By default, the dropdown menu will be flush against the trigger.\nEnable this property to show a caret between the two. Useful\nin iconic menus and used by the application/product switcher.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 456,
-              "column": 6
-            },
-            "end": {
-              "line": 459,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "disableDynamicAlign",
-          "type": "boolean",
-          "description": "By default the dropdown will attempt to automatically align itself\nvertically and horizontally based on the available space. Set this flag\nto turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 465,
-              "column": 6
-            },
-            "end": {
-              "line": 468,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "verticalAlign",
-          "type": "string",
-          "description": "Vertical alignment of the dropdown relative to the trigger.\nShould be one of `top` or `bottom` where `top` means that the dropdown\nand trigger are aligned at the top, so the dropdown will extend _below_ the trigger.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 475,
-              "column": 6
-            },
-            "end": {
-              "line": 478,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "\"top\""
-        },
-        {
-          "name": "horizontalAlign",
-          "type": "string",
-          "description": "Horizontal alignment of the dropdown relative to the trigger.\nShould be one of `left` or `right` where `left` means that the dropdown\nand trigger are aligned on their left side, so the dropdown will extend _to the right_.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 485,
-              "column": 6
-            },
-            "end": {
-              "line": 489,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {
-              "observer": "\"_changeHorizontal\""
-            }
-          },
-          "defaultValue": "\"left\""
-        },
-        {
-          "name": "mobile",
-          "type": "boolean",
-          "description": "Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.\nAutomatically detected based on the breakpoint specified in `mobileAt`.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 494,
-              "column": 6
-            },
-            "end": {
-              "line": 497,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "mobileAt",
-          "type": "number",
-          "description": "The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 501,
-              "column": 6
-            },
-            "end": {
-              "line": 504,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "400"
-        },
-        {
-          "name": "hideMobileButtons",
-          "type": "boolean",
-          "description": "By default, the mobile dropdown will show Apply/Clear buttons.\nSet this property to hide them.",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 509,
-              "column": 6
-            },
-            "end": {
-              "line": 512,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
-        },
-        {
-          "name": "_keyBindingsTarget",
-          "type": "Object",
-          "description": "Binding target for iron-a11y-keys",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 547,
-              "column": 6
-            },
-            "end": {
-              "line": 552,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "_focusedOption",
-          "type": "HTMLElement",
-          "description": "The currently \"focused\" option in the dropdown list.\nUsed for handling of keyboard events.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 557,
-              "column": 6
-            },
-            "end": {
-              "line": 559,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          }
-        },
-        {
-          "name": "_keyboardBeingUsed",
-          "type": "boolean",
-          "description": "Used to capture if the user is using the keyboard to interact with the dropdown.\nUsed to disable all mouse events.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 564,
-              "column": 6
-            },
-            "end": {
-              "line": 567,
-              "column": 7
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "false"
         }
       ],
       "methods": [
@@ -920,11 +334,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 174,
+              "line": 209,
               "column": 2
             },
             "end": {
-              "line": 202,
+              "line": 242,
               "column": 3
             }
           },
@@ -932,6 +346,12 @@
           "params": [
             {
               "name": "path"
+            },
+            {
+              "name": "language"
+            },
+            {
+              "name": "merge"
             }
           ],
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
@@ -943,11 +363,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 207,
+              "line": 247,
               "column": 2
             },
             "end": {
-              "line": 247,
+              "line": 287,
               "column": 3
             }
           },
@@ -972,11 +392,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 249,
+              "line": 289,
               "column": 2
             },
             "end": {
-              "line": 252,
+              "line": 317,
               "column": 3
             }
           },
@@ -984,6 +404,12 @@
           "params": [
             {
               "name": "event"
+            },
+            {
+              "name": "language"
+            },
+            {
+              "name": "merge"
             }
           ],
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
@@ -995,11 +421,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 254,
+              "line": 319,
               "column": 2
             },
             "end": {
-              "line": 256,
+              "line": 321,
               "column": 3
             }
           },
@@ -1018,11 +444,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 258,
+              "line": 323,
               "column": 2
             },
             "end": {
-              "line": 266,
+              "line": 331,
               "column": 3
             }
           },
@@ -1035,16 +461,16 @@
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
-          "name": "toggle",
-          "description": "Opens the dropdown when the button is pressed.",
-          "privacy": "public",
+          "name": "attached",
+          "description": "",
+          "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 581,
+              "line": 128,
               "column": 4
             },
             "end": {
-              "line": 584,
+              "line": 130,
               "column": 5
             }
           },
@@ -1052,16 +478,33 @@
           "params": []
         },
         {
-          "name": "_clear",
-          "description": "Clears all of the selections when the clear button is pressed.",
+          "name": "detached",
+          "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 588,
+              "line": 132,
               "column": 4
             },
             "end": {
-              "line": 598,
+              "line": 134,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_handleTapped",
+          "description": "Fires an event to the main px-dropdown component to toggle the open state.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 139,
+              "column": 4
+            },
+            "end": {
+              "line": 144,
               "column": 5
             }
           },
@@ -1073,16 +516,16 @@
           ]
         },
         {
-          "name": "attached",
-          "description": "Forces the width of the dropdown to be at least as wide as the trigger.",
-          "privacy": "protected",
+          "name": "clear",
+          "description": "Fires an event to the main px-dropdown component to clear all selections.",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 602,
+              "line": 148,
               "column": 4
             },
             "end": {
-              "line": 605,
+              "line": 150,
               "column": 5
             }
           },
@@ -1095,11 +538,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 609,
+              "line": 154,
               "column": 4
             },
             "end": {
-              "line": 611,
+              "line": 156,
               "column": 5
             }
           },
@@ -1119,11 +562,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 615,
+              "line": 160,
               "column": 4
             },
             "end": {
-              "line": 617,
+              "line": 162,
               "column": 5
             }
           },
@@ -1136,58 +579,16 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 621,
+              "line": 166,
               "column": 4
             },
             "end": {
-              "line": 627,
+              "line": 172,
               "column": 5
             }
           },
           "metadata": {},
           "params": []
-        },
-        {
-          "name": "_getFitElement",
-          "description": "Searches the DOM for the `boundTarget` element.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 631,
-              "column": 4
-            },
-            "end": {
-              "line": 633,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "target"
-            }
-          ]
-        },
-        {
-          "name": "_getPositionElement",
-          "description": "Determines the position target element based on `mobile`.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 637,
-              "column": 4
-            },
-            "end": {
-              "line": 639,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "mobile"
-            }
-          ]
         },
         {
           "name": "_displayValueChanged",
@@ -1195,146 +596,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 643,
+              "line": 176,
               "column": 4
             },
             "end": {
-              "line": 645,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_itemsChanged",
-          "description": "Any time that `items` changes, this method will convert any\nsimple strings in the array to an object with key/val.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 650,
-              "column": 4
-            },
-            "end": {
-              "line": 670,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "items"
-            }
-          ]
-        },
-        {
-          "name": "_updateSelection",
-          "description": "Iterates over the `items` array and adds items with the\n`selected` property to the `selectedValues` array (for multi) or\nupdates `selected` (for single). Note: if you specify more than\none item as `selected` but `multi` is not enabled, only the *first*\nselected item will be chosen. Does NOT remove items if their selected\nproperty gets changed to false or removed - use `clearSelectionsOnChange`\nor mutate the `selected` / `selectedValues` properties instead.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 680,
-              "column": 4
-            },
-            "end": {
-              "line": 710,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_handleActivate",
-          "description": "Event fired when any non-disabled element is clicked in the dropdown.\nIf disableSelect is set on the entire dropdown or individual item,\nthe event is still fired and the dropdown is closed, but the item\nis not selected. Useful for menu dropdowns, as opposed to selection dropdowns.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 724,
-              "column": 4
-            },
-            "end": {
-              "line": 736,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "evt"
-            }
-          ]
-        },
-        {
-          "name": "_handleSelection",
-          "description": "Handles the selection event from iron-selector to update\nthe label displayed inside the dropdown.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 741,
-              "column": 4
-            },
-            "end": {
-              "line": 768,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "evt"
-            }
-          ]
-        },
-        {
-          "name": "_handleDeselection",
-          "description": "Handles the de-selection event from iron-selector to update\nthe label displayed inside the dropdown.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 773,
-              "column": 4
-            },
-            "end": {
-              "line": 799,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "evt"
-            }
-          ]
-        },
-        {
-          "name": "_notifyResize",
-          "description": "Resizes the dropdown when the search term is changed.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 803,
-              "column": 4
-            },
-            "end": {
-              "line": 805,
-              "column": 5
-            }
-          },
-          "metadata": {},
-          "params": []
-        },
-        {
-          "name": "_computeFilter",
-          "description": "Filter function used by the dom-repeat inside the iron-selector,\nbased on the searchTerm entered in the search box.",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 810,
-              "column": 4
-            },
-            "end": {
-              "line": 820,
+              "line": 178,
               "column": 5
             }
           },
@@ -1347,11 +613,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 824,
+              "line": 182,
               "column": 4
             },
             "end": {
-              "line": 837,
+              "line": 195,
               "column": 5
             }
           },
@@ -1380,11 +646,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 841,
+              "line": 199,
               "column": 4
             },
             "end": {
-              "line": 848,
+              "line": 206,
               "column": 5
             }
           },
@@ -1410,11 +676,1591 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 852,
+              "line": 210,
               "column": 4
             },
             "end": {
-              "line": 866,
+              "line": 224,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "disableClear"
+            },
+            {
+              "name": "hideChevron"
+            },
+            {
+              "name": "buttonStyle"
+            },
+            {
+              "name": "opened"
+            },
+            {
+              "name": "selected"
+            },
+            {
+              "name": "selectedValues"
+            }
+          ]
+        },
+        {
+          "name": "_bindMouse",
+          "description": "Event handler for mouse move event. We enable mouse events when user moves the mouse.\nMouse events are disabled when user uses the keyboard to interact with the dropdown.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 230,
+              "column": 5
+            },
+            "end": {
+              "line": 233,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_handleKeyPress",
+          "description": "Keypress event handler for iron-a11y-keys.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 237,
+              "column": 4
+            },
+            "end": {
+              "line": 309,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 38,
+          "column": 10
+        },
+        "end": {
+          "line": 310,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "language",
+          "description": "The language used for translation.",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 149,
+              "column": 4
+            },
+            "end": {
+              "line": 151,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "string",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "resources",
+          "description": "The dictionary of localized messages, for each of the languages that\nare going to be used. See http://formatjs.io/guides/message-syntax/ for\nmore information on the message syntax.\n\nFor example, a valid dictionary would be:\nthis.resources = {\n 'en': { 'greeting': 'Hello!' }, 'fr' : { 'greeting': 'Bonjour!' }\n}",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 163,
+              "column": 4
+            },
+            "end": {
+              "line": 165,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Object",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "formats",
+          "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 176,
+              "column": 4
+            },
+            "end": {
+              "line": 179,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Object",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "use-key-if-missing",
+          "description": "If true, will use the provided key when\nthe translation does not exist for that key.",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 185,
+              "column": 4
+            },
+            "end": {
+              "line": 188,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "localize",
+          "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 195,
+              "column": 4
+            },
+            "end": {
+              "line": 198,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Function",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "bubble-event",
+          "description": "If true, will bubble up the event to the parents",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 203,
+              "column": 4
+            },
+            "end": {
+              "line": 206,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "opened",
+          "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
+          "sourceRange": {
+            "start": {
+              "line": 55,
+              "column": 7
+            },
+            "end": {
+              "line": 59,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "trigger",
+          "description": "Read-only reference to the trigger element. Data-bind this property\ninto the px-context-browser `openTrigger` or `favoritedTrigger`\nproperty to open the context browser when this icon is tapped.",
+          "sourceRange": {
+            "start": {
+              "line": 66,
+              "column": 6
+            },
+            "end": {
+              "line": 71,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "HTMLElement"
+        },
+        {
+          "name": "hide-chevron",
+          "description": "Whether or not to hide the chevron icon from the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 76,
+              "column": 6
+            },
+            "end": {
+              "line": 79,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "display-value",
+          "description": "The placeholder text to display in the dropdown. If the\nselected value(s) are cleared out, the displayValue will be\nreplaced in the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 85,
+              "column": 6
+            },
+            "end": {
+              "line": 90,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "button-style",
+          "description": "Style for the button that invokes the dropdown.\nOne of 'default','bare','bare--primary', 'tertiary', or 'icon'.",
+          "sourceRange": {
+            "start": {
+              "line": 102,
+              "column": 6
+            },
+            "end": {
+              "line": 105,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "hide-selected",
+          "description": "If set to true, the display-value will always show up in the\ninvoking button of the dropdown. Useful in cases like the\npx-data-table, where \"Show/Hide Columns\" should always appear.",
+          "sourceRange": {
+            "start": {
+              "line": 111,
+              "column": 6
+            },
+            "end": {
+              "line": 114,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "icon",
+          "description": "If buttonStyle is set to 'icon' this property will dictate\nwhich icon will be displayed inside of the dropdown button.\nThe `displayValue`, selected values, and chevron will not be displayed.\nPerfect for icon-invoked menus. The value of this property should\nbe a valid px-icon name, e.g. 'px-utl:app-settings'",
+          "sourceRange": {
+            "start": {
+              "line": 122,
+              "column": 6
+            },
+            "end": {
+              "line": 125,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "app-localize-resources-error",
+          "description": "app-localize-resources-error",
+          "metadata": {},
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "app-localize-resources-loaded",
+          "description": "app-localize-resources-loaded",
+          "metadata": {},
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "opened-changed",
+          "description": "Fired when the `opened` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "trigger-changed",
+          "description": "Fired when the `trigger` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "display-value-changed",
+          "description": "Fired when the `displayValue` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [
+        {
+          "description": "",
+          "name": "trigger",
+          "range": {
+            "file": "px-dropdown-trigger.html",
+            "start": {
+              "line": 18,
+              "column": 6
+            },
+            "end": {
+              "line": 33,
+              "column": 13
+            }
+          }
+        }
+      ],
+      "tagname": "px-dropdown-trigger"
+    },
+    {
+      "description": "",
+      "summary": "",
+      "path": "px-dropdown-content.html",
+      "properties": [
+        {
+          "name": "__localizationCache",
+          "type": "Object",
+          "description": "Internal singleton cache. This is the private implementation of the\nbehaviour; don't interact with it directly.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 127,
+              "column": 2
+            },
+            "end": {
+              "line": 131,
+              "column": 3
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "description": "A valid IETF language tag as a string that `app-localize-behavior` will\nuse to localize this component.\n\nSee https://github.com/PolymerElements/app-localize-behavior for API\ndocumentation and more information.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 364,
+              "column": 7
+            },
+            "end": {
+              "line": 367,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"en\""
+        },
+        {
+          "name": "resources",
+          "type": "Object",
+          "description": "A dictionary of strings used within the component for AppLocalizeBehavior\nto use, based on the selected `language` property.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 376,
+              "column": 6
+            },
+            "end": {
+              "line": 386,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "{\"en\":{\"Clear\":\"Clear\",\"Apply\":\"Apply\"}}"
+        },
+        {
+          "name": "formats",
+          "type": "Object",
+          "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 176,
+              "column": 4
+            },
+            "end": {
+              "line": 179,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "{}",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "useKeyIfMissing",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 368,
+              "column": 6
+            },
+            "end": {
+              "line": 371,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "true"
+        },
+        {
+          "name": "localize",
+          "type": "Function",
+          "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 195,
+              "column": 4
+            },
+            "end": {
+              "line": 198,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "bubbleEvent",
+          "type": "boolean",
+          "description": "If true, will bubble up the event to the parents",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 203,
+              "column": 4
+            },
+            "end": {
+              "line": 206,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "openTrigger",
+          "type": "HTMLElement",
+          "description": "Bind to a `<px-dropdown-trigger>` element. A tap on the trigger\nwill open the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 105,
+              "column": 7
+            },
+            "end": {
+              "line": 108,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_openTriggerChanged\""
+            }
+          }
+        },
+        {
+          "name": "opened",
+          "type": "boolean",
+          "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 113,
+              "column": 6
+            },
+            "end": {
+              "line": 117,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "hover",
+          "type": "boolean",
+          "description": "A flag which reflects whether the dropdown is being hovered over.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 121,
+              "column": 6
+            },
+            "end": {
+              "line": 125,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "boundTarget",
+          "type": "string",
+          "description": "A CSS selector which specifies the bounding target the dropdown will be\ndisplayed within. Defaults to `window`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 6
+            },
+            "end": {
+              "line": 132,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "preventCloseOnOutsideClick",
+          "type": "boolean",
+          "description": "Whether the dropdown will close when a user clicks\noutside of it. Set to true to prevent dropdown from closing.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 137,
+              "column": 6
+            },
+            "end": {
+              "line": 140,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disableClear",
+          "type": "boolean",
+          "description": "If set to true, users are unable to clear out the dropdown\nonce a selection has been made. Useful for required single-select\ndropdowns where an empty state would be undesirable. Not recommended\nfor multi-select dropdowns, as it means the user will simply lose the ability\nto quickly deselect all checked options (there is currently no mechanism\nwhich requires a user to select at least one option).",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 149,
+              "column": 6
+            },
+            "end": {
+              "line": 152,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disableSelect",
+          "type": "boolean",
+          "description": "If set to true, users can still open the dropdown and click on items,\nbut they will not be selected. Use this property in use cases where\nthe dropdown is used as a menu instead of a form input.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 158,
+              "column": 6
+            },
+            "end": {
+              "line": 161,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_displayValueSelected",
+          "type": "string",
+          "description": "The text that is displayed in the label of the dropdown.\nUpdated when the selections change.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 166,
+              "column": 6
+            },
+            "end": {
+              "line": 168,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "items",
+          "type": "Array",
+          "description": "An array that contains the list of items which show up in the dropdown.\nEach item can either be a simple string, or an object consisting of:\n* 'key' - a unique identifier (number or string)\n* 'val' - the actual text that is displayed\n* 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)\n* 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)\n* 'selected' - whether the item should be selected at instantiation (optional)\n* 'icon' - an icon name from the px-icon-set to display next to the item (optional)\n* 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)\n\nNote: if you specify more than one item as `selected`, but `multi` is not enabled,\nonly the *first* selected item will be chosen. See also `clearSelectionsOnChange`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 183,
+              "column": 6
+            },
+            "end": {
+              "line": 189,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "multi",
+          "type": "boolean",
+          "description": "If set to true, multiple values can be selected in the dropdown.\nSelected values are reflected in the `selectedValues` property.\nIf set to false, a single selected value is reflected in `selected`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 195,
+              "column": 6
+            },
+            "end": {
+              "line": 198,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "selectBy",
+          "type": "string",
+          "description": "Which property of each dropdown item will be used to get/set\nthe selected items - should be one of \"key\" or \"val\".",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 203,
+              "column": 6
+            },
+            "end": {
+              "line": 207,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateSelection\""
+            }
+          },
+          "defaultValue": "\"key\""
+        },
+        {
+          "name": "selected",
+          "type": "string",
+          "description": "Gets or sets the selected item when `multi` is false.\nWill either be a single key or value based on `selectBy`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 212,
+              "column": 6
+            },
+            "end": {
+              "line": 216,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "selectedValues",
+          "type": "Array",
+          "description": "Gets or sets the selected items when `multi` is true.\nWill either be an array of keys or values based on `selectBy`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 221,
+              "column": 6
+            },
+            "end": {
+              "line": 227,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "selectedItems",
+          "type": "Array",
+          "description": "A read-only array of the selected `<div>` elements in the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 231,
+              "column": 6
+            },
+            "end": {
+              "line": 237,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "allowOutsideScroll",
+          "type": "boolean",
+          "description": "By default, the dropdown will constrain scrolling on the page to\nitself when opened. Set to true in order to allow scrolling of\nthe page while the dropdown is open.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 243,
+              "column": 6
+            },
+            "end": {
+              "line": 246,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Whether the dropdown should be disabled and non-interactive.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 250,
+              "column": 6
+            },
+            "end": {
+              "line": 253,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "searchMode",
+          "type": "boolean",
+          "description": "If true, the dropdown will include a search box, whereby the\ndropdown items can be filtered with a search term.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 258,
+              "column": 6
+            },
+            "end": {
+              "line": 261,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "searchTerm",
+          "type": "string",
+          "description": "The value of the search box, used for filtering the dropdown\nitems when searchMode is true.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 266,
+              "column": 6
+            },
+            "end": {
+              "line": 270,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_computeFilter\""
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "sortMode",
+          "type": "string",
+          "description": "What to sort the dropdown items by - one of \"key\" or \"val\".\nBy default, the items will be displayed in the order they are\npassed into the component.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 276,
+              "column": 6
+            },
+            "end": {
+              "line": 278,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "clearSelectionsOnChange",
+          "type": "boolean",
+          "description": "Set this property if you would like the `selected` and `selectedValues`\nproperties to be cleared whenever mutations are made to the `items` array.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 283,
+              "column": 6
+            },
+            "end": {
+              "line": 286,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "triggerHeight",
+          "type": "number",
+          "description": "The height of the trigger element, used for calculating offset distance\nfor the dropdown. Set this value if you use the `trigger` slot.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 291,
+              "column": 6
+            },
+            "end": {
+              "line": 294,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "30"
+        },
+        {
+          "name": "showCaret",
+          "type": "boolean",
+          "description": "By default, the dropdown menu will be flush against the trigger.\nEnable this property to show a caret between the two. Useful\nin iconic menus and used by the application/product switcher.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 300,
+              "column": 6
+            },
+            "end": {
+              "line": 303,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disableDynamicAlign",
+          "type": "boolean",
+          "description": "By default the dropdown will attempt to automatically align itself\nvertically and horizontally based on the available space. Set this flag\nto turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 309,
+              "column": 6
+            },
+            "end": {
+              "line": 312,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "description": "Vertical alignment of the dropdown relative to the trigger.\nShould be one of `top` or `bottom` where `top` means that the dropdown\nand trigger are aligned at the top, so the dropdown will extend _below_ the trigger.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 319,
+              "column": 6
+            },
+            "end": {
+              "line": 322,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"top\""
+        },
+        {
+          "name": "horizontalAlign",
+          "type": "string",
+          "description": "Horizontal alignment of the dropdown relative to the trigger.\nShould be one of `left` or `right` where `left` means that the dropdown\nand trigger are aligned on their left side, so the dropdown will extend _to the right_.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 329,
+              "column": 6
+            },
+            "end": {
+              "line": 333,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_changeHorizontal\""
+            }
+          },
+          "defaultValue": "\"left\""
+        },
+        {
+          "name": "mobile",
+          "type": "boolean",
+          "description": "Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.\nAutomatically detected based on the breakpoint specified in `mobileAt`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 338,
+              "column": 6
+            },
+            "end": {
+              "line": 341,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "mobileAt",
+          "type": "number",
+          "description": "The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 345,
+              "column": 6
+            },
+            "end": {
+              "line": 348,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "400"
+        },
+        {
+          "name": "hideMobileButtons",
+          "type": "boolean",
+          "description": "By default, the mobile dropdown will show Apply/Clear buttons.\nSet this property to hide them.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 353,
+              "column": 6
+            },
+            "end": {
+              "line": 356,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_keyBindingsTarget",
+          "type": "Object",
+          "description": "Binding target for iron-a11y-keys",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 390,
+              "column": 6
+            },
+            "end": {
+              "line": 395,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_focusedOption",
+          "type": "HTMLElement",
+          "description": "The currently \"focused\" option in the dropdown list.\nUsed for handling of keyboard events.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 400,
+              "column": 6
+            },
+            "end": {
+              "line": 402,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_keyboardBeingUsed",
+          "type": "boolean",
+          "description": "Used to capture if the user is using the keyboard to interact with the dropdown.\nUsed to disable all mouse events.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 407,
+              "column": 6
+            },
+            "end": {
+              "line": 410,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [
+        {
+          "name": "loadResources",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 209,
+              "column": 2
+            },
+            "end": {
+              "line": 242,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "path"
+            },
+            {
+              "name": "language"
+            },
+            {
+              "name": "merge"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__computeLocalize",
+          "description": "Returns a computed `localize` method, based on the current `language`.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 247,
+              "column": 2
+            },
+            "end": {
+              "line": 287,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "language"
+            },
+            {
+              "name": "resources"
+            },
+            {
+              "name": "formats"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__onRequestResponse",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 289,
+              "column": 2
+            },
+            "end": {
+              "line": 317,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            },
+            {
+              "name": "language"
+            },
+            {
+              "name": "merge"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__onRequestError",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 319,
+              "column": 2
+            },
+            "end": {
+              "line": 321,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__checkLocalizationCache",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 323,
+              "column": 2
+            },
+            "end": {
+              "line": 331,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "proto"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "attached",
+          "description": "Forces the width of the dropdown to be at least as wide as the trigger.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 424,
+              "column": 4
+            },
+            "end": {
+              "line": 427,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "toggle",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 428,
+              "column": 4
+            },
+            "end": {
+              "line": 430,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "close",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 431,
+              "column": 4
+            },
+            "end": {
+              "line": 433,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "open",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 434,
+              "column": 4
+            },
+            "end": {
+              "line": 436,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_getFitElement",
+          "description": "Searches the DOM for the `boundTarget` element.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 440,
+              "column": 4
+            },
+            "end": {
+              "line": 442,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "target"
+            }
+          ]
+        },
+        {
+          "name": "_getPositionElement",
+          "description": "Determines the position target element based on `mobile`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 446,
+              "column": 4
+            },
+            "end": {
+              "line": 448,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "mobile"
+            },
+            {
+              "name": "openTrigger"
+            }
+          ]
+        },
+        {
+          "name": "_updateSelection",
+          "description": "Iterates over the `items` array and adds items with the\n`selected` property to the `selectedValues` array (for multi) or\nupdates `selected` (for single). Note: if you specify more than\none item as `selected` but `multi` is not enabled, only the *first*\nselected item will be chosen. Does NOT remove items if their selected\nproperty gets changed to false or removed - use `clearSelectionsOnChange`\nor mutate the `selected` / `selectedValues` properties instead.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 458,
+              "column": 4
+            },
+            "end": {
+              "line": 488,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_handleActivate",
+          "description": "Event fired when any non-disabled element is clicked in the dropdown.\nIf disableSelect is set on the entire dropdown or individual item,\nthe event is still fired and the dropdown is closed, but the item\nis not selected. Useful for menu dropdowns, as opposed to selection dropdowns.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 502,
+              "column": 4
+            },
+            "end": {
+              "line": 514,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_handleSelection",
+          "description": "Handles the selection event from iron-selector to update\nthe label displayed inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 519,
+              "column": 4
+            },
+            "end": {
+              "line": 546,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_handleDeselection",
+          "description": "Handles the de-selection event from iron-selector to update\nthe label displayed inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 551,
+              "column": 4
+            },
+            "end": {
+              "line": 577,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_notifyResize",
+          "description": "Resizes the dropdown when the search term is changed.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 581,
+              "column": 4
+            },
+            "end": {
+              "line": 583,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_computeFilter",
+          "description": "Filter function used by the dom-repeat inside the iron-selector,\nbased on the searchTerm entered in the search box.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 588,
+              "column": 4
+            },
+            "end": {
+              "line": 598,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_showClearButton",
+          "description": "Determines whether to display the clear button inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 602,
+              "column": 4
+            },
+            "end": {
+              "line": 615,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "disableClear"
+            },
+            {
+              "name": "buttonStyle"
+            },
+            {
+              "name": "opened"
+            },
+            {
+              "name": "selected"
+            },
+            {
+              "name": "selectedValues"
+            }
+          ]
+        },
+        {
+          "name": "_showMobileClearButton",
+          "description": "Determines whether to display the clear button inside the dropdown in mobile mode.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 619,
+              "column": 4
+            },
+            "end": {
+              "line": 626,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "mobile"
+            },
+            {
+              "name": "disableClear"
+            },
+            {
+              "name": "selected"
+            },
+            {
+              "name": "selectedValues"
+            }
+          ]
+        },
+        {
+          "name": "_showChevron",
+          "description": "Determines whether to display the chevron button inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 630,
+              "column": 4
+            },
+            "end": {
+              "line": 644,
               "column": 5
             }
           },
@@ -1446,11 +2292,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 870,
+              "line": 648,
               "column": 4
             },
             "end": {
-              "line": 875,
+              "line": 653,
               "column": 5
             }
           },
@@ -1470,11 +2316,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 881,
+              "line": 659,
               "column": 4
             },
             "end": {
-              "line": 884,
+              "line": 662,
               "column": 5
             }
           },
@@ -1487,11 +2333,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 889,
+              "line": 667,
               "column": 4
             },
             "end": {
-              "line": 913,
+              "line": 691,
               "column": 5
             }
           },
@@ -1511,11 +2357,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 917,
+              "line": 695,
               "column": 4
             },
             "end": {
-              "line": 925,
+              "line": 703,
               "column": 5
             }
           },
@@ -1535,11 +2381,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 929,
+              "line": 707,
               "column": 4
             },
             "end": {
-              "line": 1015,
+              "line": 793,
               "column": 5
             }
           },
@@ -1556,11 +2402,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1019,
+              "line": 797,
               "column": 4
             },
             "end": {
-              "line": 1027,
+              "line": 805,
               "column": 5
             }
           },
@@ -1577,11 +2423,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1031,
+              "line": 809,
               "column": 4
             },
             "end": {
-              "line": 1033,
+              "line": 811,
               "column": 5
             }
           },
@@ -1598,11 +2444,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1037,
+              "line": 815,
               "column": 4
             },
             "end": {
-              "line": 1039,
+              "line": 817,
               "column": 5
             }
           },
@@ -1628,11 +2474,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1043,
+              "line": 821,
               "column": 4
             },
             "end": {
-              "line": 1045,
+              "line": 823,
               "column": 5
             }
           },
@@ -1655,11 +2501,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1050,
+              "line": 828,
               "column": 4
             },
             "end": {
-              "line": 1057,
+              "line": 835,
               "column": 5
             }
           },
@@ -1672,11 +2518,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1058,
+              "line": 836,
               "column": 4
             },
             "end": {
-              "line": 1060,
+              "line": 838,
               "column": 5
             }
           },
@@ -1696,11 +2542,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1061,
+              "line": 839,
               "column": 4
             },
             "end": {
-              "line": 1063,
+              "line": 841,
               "column": 5
             }
           },
@@ -1720,11 +2566,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1064,
+              "line": 842,
               "column": 4
             },
             "end": {
-              "line": 1066,
+              "line": 844,
               "column": 5
             }
           },
@@ -1744,11 +2590,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 1067,
+              "line": 845,
               "column": 4
             },
             "end": {
-              "line": 1069,
+              "line": 847,
               "column": 5
             }
           },
@@ -1764,20 +2610,15 @@
         }
       ],
       "staticMethods": [],
-      "demos": [
-        {
-          "url": "index.html",
-          "description": ""
-        }
-      ],
+      "demos": [],
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 192,
+          "line": 91,
           "column": 10
         },
         "end": {
-          "line": 1070,
+          "line": 848,
           "column": 3
         }
       },
@@ -1789,11 +2630,11 @@
           "description": "A valid IETF language tag as a string that `app-localize-behavior` will\nuse to localize this component.\n\nSee https://github.com/PolymerElements/app-localize-behavior for API\ndocumentation and more information.",
           "sourceRange": {
             "start": {
-              "line": 520,
+              "line": 364,
               "column": 7
             },
             "end": {
-              "line": 523,
+              "line": 367,
               "column": 7
             }
           },
@@ -1805,11 +2646,11 @@
           "description": "A dictionary of strings used within the component for AppLocalizeBehavior\nto use, based on the selected `language` property.",
           "sourceRange": {
             "start": {
-              "line": 532,
+              "line": 376,
               "column": 6
             },
             "end": {
-              "line": 543,
+              "line": 386,
               "column": 7
             }
           },
@@ -1822,11 +2663,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 141,
+              "line": 176,
               "column": 4
             },
             "end": {
-              "line": 144,
+              "line": 179,
               "column": 5
             }
           },
@@ -1839,11 +2680,11 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 524,
+              "line": 368,
               "column": 6
             },
             "end": {
-              "line": 527,
+              "line": 371,
               "column": 7
             }
           },
@@ -1856,11 +2697,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 160,
+              "line": 195,
               "column": 4
             },
             "end": {
-              "line": 163,
+              "line": 198,
               "column": 5
             }
           },
@@ -1874,11 +2715,11 @@
           "sourceRange": {
             "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
             "start": {
-              "line": 168,
+              "line": 203,
               "column": 4
             },
             "end": {
-              "line": 171,
+              "line": 206,
               "column": 5
             }
           },
@@ -1887,15 +2728,31 @@
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
+          "name": "open-trigger",
+          "description": "Bind to a `<px-dropdown-trigger>` element. A tap on the trigger\nwill open the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 105,
+              "column": 7
+            },
+            "end": {
+              "line": 108,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "HTMLElement"
+        },
+        {
           "name": "opened",
           "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
           "sourceRange": {
             "start": {
-              "line": 205,
+              "line": 113,
               "column": 6
             },
             "end": {
-              "line": 209,
+              "line": 117,
               "column": 7
             }
           },
@@ -1907,43 +2764,11 @@
           "description": "A flag which reflects whether the dropdown is being hovered over.",
           "sourceRange": {
             "start": {
-              "line": 213,
+              "line": 121,
               "column": 6
             },
             "end": {
-              "line": 217,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
-          "name": "focused-item",
-          "description": "Returns the currently focused item in the dropdown list.",
-          "sourceRange": {
-            "start": {
-              "line": 221,
-              "column": 6
-            },
-            "end": {
-              "line": 225,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "type": "Object"
-        },
-        {
-          "name": "hide-chevron",
-          "description": "Whether or not to hide the chevron icon from the dropdown.",
-          "sourceRange": {
-            "start": {
-              "line": 229,
-              "column": 6
-            },
-            "end": {
-              "line": 232,
+              "line": 125,
               "column": 7
             }
           },
@@ -1955,11 +2780,11 @@
           "description": "A CSS selector which specifies the bounding target the dropdown will be\ndisplayed within. Defaults to `window`.",
           "sourceRange": {
             "start": {
-              "line": 237,
+              "line": 130,
               "column": 6
             },
             "end": {
-              "line": 239,
+              "line": 132,
               "column": 7
             }
           },
@@ -1971,11 +2796,11 @@
           "description": "Whether the dropdown will close when a user clicks\noutside of it. Set to true to prevent dropdown from closing.",
           "sourceRange": {
             "start": {
-              "line": 244,
+              "line": 137,
               "column": 6
             },
             "end": {
-              "line": 247,
+              "line": 140,
               "column": 7
             }
           },
@@ -1983,31 +2808,15 @@
           "type": "boolean"
         },
         {
-          "name": "display-value",
-          "description": "The placeholder text to display in the dropdown. If the\nselected value(s) are cleared out, the displayValue will be\nreplaced in the dropdown.",
-          "sourceRange": {
-            "start": {
-              "line": 253,
-              "column": 6
-            },
-            "end": {
-              "line": 258,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "type": "string"
-        },
-        {
           "name": "disable-clear",
           "description": "If set to true, users are unable to clear out the dropdown\nonce a selection has been made. Useful for required single-select\ndropdowns where an empty state would be undesirable. Not recommended\nfor multi-select dropdowns, as it means the user will simply lose the ability\nto quickly deselect all checked options (there is currently no mechanism\nwhich requires a user to select at least one option).",
           "sourceRange": {
             "start": {
-              "line": 267,
+              "line": 149,
               "column": 6
             },
             "end": {
-              "line": 270,
+              "line": 152,
               "column": 7
             }
           },
@@ -2019,11 +2828,11 @@
           "description": "If set to true, users can still open the dropdown and click on items,\nbut they will not be selected. Use this property in use cases where\nthe dropdown is used as a menu instead of a form input.",
           "sourceRange": {
             "start": {
-              "line": 276,
+              "line": 158,
               "column": 6
             },
             "end": {
-              "line": 279,
+              "line": 161,
               "column": 7
             }
           },
@@ -2035,11 +2844,11 @@
           "description": "An array that contains the list of items which show up in the dropdown.\nEach item can either be a simple string, or an object consisting of:\n* 'key' - a unique identifier (number or string)\n* 'val' - the actual text that is displayed\n* 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)\n* 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)\n* 'selected' - whether the item should be selected at instantiation (optional)\n* 'icon' - an icon name from the px-icon-set to display next to the item (optional)\n* 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)\n\nNote: if you specify more than one item as `selected`, but `multi` is not enabled,\nonly the *first* selected item will be chosen. See also `clearSelectionsOnChange`.",
           "sourceRange": {
             "start": {
-              "line": 301,
+              "line": 183,
               "column": 6
             },
             "end": {
-              "line": 307,
+              "line": 189,
               "column": 7
             }
           },
@@ -2051,11 +2860,11 @@
           "description": "If set to true, multiple values can be selected in the dropdown.\nSelected values are reflected in the `selectedValues` property.\nIf set to false, a single selected value is reflected in `selected`.",
           "sourceRange": {
             "start": {
-              "line": 323,
+              "line": 195,
               "column": 6
             },
             "end": {
-              "line": 326,
+              "line": 198,
               "column": 7
             }
           },
@@ -2067,11 +2876,11 @@
           "description": "Which property of each dropdown item will be used to get/set\nthe selected items - should be one of \"key\" or \"val\".",
           "sourceRange": {
             "start": {
-              "line": 331,
+              "line": 203,
               "column": 6
             },
             "end": {
-              "line": 335,
+              "line": 207,
               "column": 7
             }
           },
@@ -2083,11 +2892,11 @@
           "description": "Gets or sets the selected item when `multi` is false.\nWill either be a single key or value based on `selectBy`.",
           "sourceRange": {
             "start": {
-              "line": 340,
+              "line": 212,
               "column": 6
             },
             "end": {
-              "line": 344,
+              "line": 216,
               "column": 7
             }
           },
@@ -2099,11 +2908,11 @@
           "description": "Gets or sets the selected items when `multi` is true.\nWill either be an array of keys or values based on `selectBy`.",
           "sourceRange": {
             "start": {
-              "line": 349,
+              "line": 221,
               "column": 6
             },
             "end": {
-              "line": 355,
+              "line": 227,
               "column": 7
             }
           },
@@ -2115,11 +2924,11 @@
           "description": "A read-only array of the selected `<div>` elements in the dropdown.",
           "sourceRange": {
             "start": {
-              "line": 359,
+              "line": 231,
               "column": 6
             },
             "end": {
-              "line": 365,
+              "line": 237,
               "column": 7
             }
           },
@@ -2131,11 +2940,11 @@
           "description": "By default, the dropdown will constrain scrolling on the page to\nitself when opened. Set to true in order to allow scrolling of\nthe page while the dropdown is open.",
           "sourceRange": {
             "start": {
-              "line": 371,
+              "line": 243,
               "column": 6
             },
             "end": {
-              "line": 374,
+              "line": 246,
               "column": 7
             }
           },
@@ -2143,31 +2952,15 @@
           "type": "boolean"
         },
         {
-          "name": "button-style",
-          "description": "Style for the button that invokes the dropdown.\nOne of 'default','bare','bare--primary', 'tertiary', or 'icon'.",
-          "sourceRange": {
-            "start": {
-              "line": 379,
-              "column": 6
-            },
-            "end": {
-              "line": 382,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "type": "string"
-        },
-        {
           "name": "disabled",
           "description": "Whether the dropdown should be disabled and non-interactive.",
           "sourceRange": {
             "start": {
-              "line": 386,
+              "line": 250,
               "column": 6
             },
             "end": {
-              "line": 389,
+              "line": 253,
               "column": 7
             }
           },
@@ -2179,11 +2972,11 @@
           "description": "If true, the dropdown will include a search box, whereby the\ndropdown items can be filtered with a search term.",
           "sourceRange": {
             "start": {
-              "line": 394,
+              "line": 258,
               "column": 6
             },
             "end": {
-              "line": 397,
+              "line": 261,
               "column": 7
             }
           },
@@ -2195,11 +2988,11 @@
           "description": "The value of the search box, used for filtering the dropdown\nitems when searchMode is true.",
           "sourceRange": {
             "start": {
-              "line": 402,
+              "line": 266,
               "column": 6
             },
             "end": {
-              "line": 406,
+              "line": 270,
               "column": 7
             }
           },
@@ -2211,43 +3004,11 @@
           "description": "What to sort the dropdown items by - one of \"key\" or \"val\".\nBy default, the items will be displayed in the order they are\npassed into the component.",
           "sourceRange": {
             "start": {
-              "line": 412,
+              "line": 276,
               "column": 6
             },
             "end": {
-              "line": 414,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "type": "string"
-        },
-        {
-          "name": "hide-selected",
-          "description": "If set to true, the display-value will always show up in the\ninvoking button of the dropdown. Useful in cases like the\npx-data-table, where \"Show/Hide Columns\" should always appear.",
-          "sourceRange": {
-            "start": {
-              "line": 420,
-              "column": 6
-            },
-            "end": {
-              "line": 423,
-              "column": 7
-            }
-          },
-          "metadata": {},
-          "type": "boolean"
-        },
-        {
-          "name": "icon",
-          "description": "If buttonStyle is set to 'icon' this property will dictate\nwhich icon will be displayed inside of the dropdown button.\nThe `displayValue`, selected values, and chevron will not be displayed.\nPerfect for icon-invoked menus. The value of this property should\nbe a valid px-icon name, e.g. 'px-utl:app-settings'",
-          "sourceRange": {
-            "start": {
-              "line": 431,
-              "column": 6
-            },
-            "end": {
-              "line": 434,
+              "line": 278,
               "column": 7
             }
           },
@@ -2259,11 +3020,11 @@
           "description": "Set this property if you would like the `selected` and `selectedValues`\nproperties to be cleared whenever mutations are made to the `items` array.",
           "sourceRange": {
             "start": {
-              "line": 439,
+              "line": 283,
               "column": 6
             },
             "end": {
-              "line": 442,
+              "line": 286,
               "column": 7
             }
           },
@@ -2275,11 +3036,11 @@
           "description": "The height of the trigger element, used for calculating offset distance\nfor the dropdown. Set this value if you use the `trigger` slot.",
           "sourceRange": {
             "start": {
-              "line": 447,
+              "line": 291,
               "column": 6
             },
             "end": {
-              "line": 450,
+              "line": 294,
               "column": 7
             }
           },
@@ -2291,11 +3052,11 @@
           "description": "By default, the dropdown menu will be flush against the trigger.\nEnable this property to show a caret between the two. Useful\nin iconic menus and used by the application/product switcher.",
           "sourceRange": {
             "start": {
-              "line": 456,
+              "line": 300,
               "column": 6
             },
             "end": {
-              "line": 459,
+              "line": 303,
               "column": 7
             }
           },
@@ -2307,11 +3068,11 @@
           "description": "By default the dropdown will attempt to automatically align itself\nvertically and horizontally based on the available space. Set this flag\nto turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.",
           "sourceRange": {
             "start": {
-              "line": 465,
+              "line": 309,
               "column": 6
             },
             "end": {
-              "line": 468,
+              "line": 312,
               "column": 7
             }
           },
@@ -2323,11 +3084,11 @@
           "description": "Vertical alignment of the dropdown relative to the trigger.\nShould be one of `top` or `bottom` where `top` means that the dropdown\nand trigger are aligned at the top, so the dropdown will extend _below_ the trigger.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
           "sourceRange": {
             "start": {
-              "line": 475,
+              "line": 319,
               "column": 6
             },
             "end": {
-              "line": 478,
+              "line": 322,
               "column": 7
             }
           },
@@ -2339,11 +3100,11 @@
           "description": "Horizontal alignment of the dropdown relative to the trigger.\nShould be one of `left` or `right` where `left` means that the dropdown\nand trigger are aligned on their left side, so the dropdown will extend _to the right_.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
           "sourceRange": {
             "start": {
-              "line": 485,
+              "line": 329,
               "column": 6
             },
             "end": {
-              "line": 489,
+              "line": 333,
               "column": 7
             }
           },
@@ -2355,11 +3116,11 @@
           "description": "Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.\nAutomatically detected based on the breakpoint specified in `mobileAt`.",
           "sourceRange": {
             "start": {
-              "line": 494,
+              "line": 338,
               "column": 6
             },
             "end": {
-              "line": 497,
+              "line": 341,
               "column": 7
             }
           },
@@ -2371,11 +3132,11 @@
           "description": "The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.",
           "sourceRange": {
             "start": {
-              "line": 501,
+              "line": 345,
               "column": 6
             },
             "end": {
-              "line": 504,
+              "line": 348,
               "column": 7
             }
           },
@@ -2387,11 +3148,11 @@
           "description": "By default, the mobile dropdown will show Apply/Clear buttons.\nSet this property to hide them.",
           "sourceRange": {
             "start": {
-              "line": 509,
+              "line": 353,
               "column": 6
             },
             "end": {
-              "line": 512,
+              "line": 356,
               "column": 7
             }
           },
@@ -2440,6 +3201,2409 @@
         },
         {
           "type": "CustomEvent",
+          "name": "items-changed",
+          "description": "Fired when the `items` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "selected-changed",
+          "description": "Fired when the `selected` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "selected-values-changed",
+          "description": "Fired when the `selectedValues` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [
+        {
+          "description": "",
+          "name": "header",
+          "range": {
+            "file": "px-dropdown-content.html",
+            "start": {
+              "line": 38,
+              "column": 8
+            },
+            "end": {
+              "line": 38,
+              "column": 35
+            }
+          }
+        },
+        {
+          "description": "",
+          "name": "footer",
+          "range": {
+            "file": "px-dropdown-content.html",
+            "start": {
+              "line": 85,
+              "column": 8
+            },
+            "end": {
+              "line": 85,
+              "column": 35
+            }
+          }
+        }
+      ],
+      "tagname": "px-dropdown-content"
+    },
+    {
+      "description": "A dropdown from which users can select one or more values. Acts like a native\nbrowser \"select\" element with more fine-tuned interaction behaviors and a\nconfigurable UI.\n\nDropdown can be used in conjunction with px-validation to apply validation states.\nAdd the `validation-error`, `validation-warning`, or `validation-success` classes\nto alter the border color of the component.\n\n### Usage\n\n#### Simple\n\n```\n<px-dropdown items='[\"One\",\"Two\"]'></px-dropdown>\n<px-dropdown items='[{\"key\":\"one\", \"val\": \"One\"}, {\"key\":\"two\", \"val\": \"Two\"}]'></px-dropdown>\n```\n\n#### Complex\n\n```\n<px-dropdown\n    items='[{\"key\":\"one\", \"val\": \"One\", \"selected\": \"true\"}]'\n    display-value=\"Click me\"\n    prevent-close-on-outside-click=\"true\"\n    allow-outside-scroll=\"true\"\n    multi=\"true\"\n    select-by=\"key\"\n    selected-values='[\"1\",\"3\"]'\n    bound-target=\".parentDiv\"\n    search-mode=\"true\"\n    sort-mode=\"val\">\n</px-dropdown>\n```\n\n#### Custom trigger\n\nBy default, the `displayValue` or `icon` properties can be used to customize\nthe information shown in the dropdown trigger button. Additional properties\nare available to further customize the trigger. To create a custom trigger which\ndoes not match any of the available configurations, pass an element into the\n`trigger` slot. This element can be anything — a button, a div, some text, etc. The\ndropdown will attach a tap event listener to the element to listen for user\ninteractions which should open the dropdown. You should also give the element a\n`tabindex=0` and `id=trigger` to maintain keyboard accessibility.\n\n```\n<px-dropdown items='[{\"key\":\"one\", \"val\": \"One\", \"selected\": \"true\"}]'>\n  <button slot=\"trigger\" id=\"trigger\" tabindex=\"0\">Unstyled dropdown trigger</button>\n</px-dropdown>\n```\n\n### Styling\n\nThe following custom properties are available for styling of the dropdown content.\nSee the documentation for px-buttons-design for variables related to the styling of the invoking button.\n\nCustom property | Description\n:----------------|:-------------\n`--px-dropdown-min-height` | Min height for the dropdown menu container\n`--px-dropdown-min-width` | Min width for the dropdown menu container\n`--px-dropdown-max-height` | Max height for the dropdown menu container\n`--px-dropdown-max-width` | Max width for the dropdown menu container\n`--px-dropdown-border-color` | Border color for the dropdown menu container\n`--px-dropdown-bg-color` | Background color for the dropdown menu container\n`--px-dropdown-bg-color--hover` | Background color of a hovered menu item\n`--px-dropdown-bg-color--selected` | Background color of a selected menu item\n`--px-dropdown-text-color` | Text color of a regular dropdown menu item\n`--px-dropdown-text-color--disabled` | Text color of a disabled dropdown menu item\n`--px-dropdown-text-color--selected` | Text color of a selected dropdown menu item\n`--px-dropdown-icon-size` | Size for the icon in the dropdown trigger\n`--px-dropdown-font-weight` | Font weight for the dropdown trigger button\n`--px-dropdown-item-icon-size` | Size of the optional icon in each dropdown item\n`--px-dropdown-item-padding` | Padding of each dropdown item\n`--px-dropdown-item-height` | Height of each dropdown item\n`--px-dropdown-content-font-size` | Font size in the dropdown menu container\n`--px-dropdown-caret-left` | Horizontal offset of the caret when dropdown aligned left\n`--px-dropdown-caret-right` | Horizontal offset of the caret when dropdown aligned right",
+      "summary": "",
+      "path": "px-dropdown.html",
+      "properties": [
+        {
+          "name": "__localizationCache",
+          "type": "Object",
+          "description": "Internal singleton cache. This is the private implementation of the\nbehaviour; don't interact with it directly.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 127,
+              "column": 2
+            },
+            "end": {
+              "line": 131,
+              "column": 3
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "description": "A valid IETF language tag as a string that `app-localize-behavior` will\nuse to localize this component.\n\nSee https://github.com/PolymerElements/app-localize-behavior for API\ndocumentation and more information.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 464,
+              "column": 6
+            },
+            "end": {
+              "line": 467,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"en\""
+        },
+        {
+          "name": "resources",
+          "type": "Object",
+          "description": "A dictionary of strings used within the component for AppLocalizeBehavior\nto use, based on the selected `language` property.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 476,
+              "column": 6
+            },
+            "end": {
+              "line": 487,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "{\"en\":{\"selected\":\"selected\",\"Clear\":\"Clear\",\"Apply\":\"Apply\"}}"
+        },
+        {
+          "name": "formats",
+          "type": "Object",
+          "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 176,
+              "column": 4
+            },
+            "end": {
+              "line": 179,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "{}",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "useKeyIfMissing",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 468,
+              "column": 6
+            },
+            "end": {
+              "line": 471,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "true"
+        },
+        {
+          "name": "localize",
+          "type": "Function",
+          "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 195,
+              "column": 4
+            },
+            "end": {
+              "line": 198,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "bubbleEvent",
+          "type": "boolean",
+          "description": "If true, will bubble up the event to the parents",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 203,
+              "column": 4
+            },
+            "end": {
+              "line": 206,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "openTrigger",
+          "type": "HTMLElement",
+          "description": "Bind to a `<px-dropdown-trigger>` element. A tap on the trigger\nwill open the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 165,
+              "column": 7
+            },
+            "end": {
+              "line": 168,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_openTriggerChanged\""
+            }
+          }
+        },
+        {
+          "name": "opened",
+          "type": "boolean",
+          "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 173,
+              "column": 6
+            },
+            "end": {
+              "line": 177,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "hideChevron",
+          "type": "boolean",
+          "description": "Whether or not to hide the chevron icon from the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 181,
+              "column": 6
+            },
+            "end": {
+              "line": 184,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "boundTarget",
+          "type": "string",
+          "description": "A CSS selector which specifies the bounding target the dropdown will be\ndisplayed within. Defaults to `window`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 189,
+              "column": 6
+            },
+            "end": {
+              "line": 191,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "preventCloseOnOutsideClick",
+          "type": "boolean",
+          "description": "Whether the dropdown will close when a user clicks\noutside of it. Set to true to prevent dropdown from closing.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 196,
+              "column": 6
+            },
+            "end": {
+              "line": 199,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "displayValue",
+          "type": "string",
+          "description": "The placeholder text to display in the dropdown. If the\nselected value(s) are cleared out, the displayValue will be\nreplaced in the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 205,
+              "column": 6
+            },
+            "end": {
+              "line": 209,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "\"Select\""
+        },
+        {
+          "name": "disableClear",
+          "type": "boolean",
+          "description": "If set to true, users are unable to clear out the dropdown\nonce a selection has been made. Useful for required single-select\ndropdowns where an empty state would be undesirable. Not recommended\nfor multi-select dropdowns, as it means the user will simply lose the ability\nto quickly deselect all checked options (there is currently no mechanism\nwhich requires a user to select at least one option).",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 218,
+              "column": 6
+            },
+            "end": {
+              "line": 221,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disableSelect",
+          "type": "boolean",
+          "description": "If set to true, users can still open the dropdown and click on items,\nbut they will not be selected. Use this property in use cases where\nthe dropdown is used as a menu instead of a form input.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 227,
+              "column": 6
+            },
+            "end": {
+              "line": 230,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "items",
+          "type": "Array",
+          "description": "An array that contains the list of items which show up in the dropdown.\nEach item can either be a simple string, or an object consisting of:\n* 'key' - a unique identifier (number or string)\n* 'val' - the actual text that is displayed\n* 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)\n* 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)\n* 'selected' - whether the item should be selected at instantiation (optional)\n* 'icon' - an icon name from the px-icon-set to display next to the item (optional)\n* 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)\n\nNote: if you specify more than one item as `selected`, but `multi` is not enabled,\nonly the *first* selected item will be chosen. See also `clearSelectionsOnChange`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 245,
+              "column": 6
+            },
+            "end": {
+              "line": 251,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "_computedItems",
+          "type": "Array",
+          "description": "Internal representation of the items array, in case simple strings are\npassed in, so that appropriate key/val pairs can be generated.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 256,
+              "column": 7
+            },
+            "end": {
+              "line": 261,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "multi",
+          "type": "boolean",
+          "description": "If set to true, multiple values can be selected in the dropdown.\nSelected values are reflected in the `selectedValues` property.\nIf set to false, a single selected value is reflected in `selected`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 267,
+              "column": 6
+            },
+            "end": {
+              "line": 270,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "selectBy",
+          "type": "string",
+          "description": "Which property of each dropdown item will be used to get/set\nthe selected items - should be one of \"key\" or \"val\".",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 275,
+              "column": 6
+            },
+            "end": {
+              "line": 279,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_updateSelection\""
+            }
+          },
+          "defaultValue": "\"key\""
+        },
+        {
+          "name": "selected",
+          "type": "string",
+          "description": "Gets or sets the selected item when `multi` is false.\nWill either be a single key or value based on `selectBy`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 284,
+              "column": 6
+            },
+            "end": {
+              "line": 288,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "null"
+        },
+        {
+          "name": "selectedValues",
+          "type": "Array",
+          "description": "Gets or sets the selected items when `multi` is true.\nWill either be an array of keys or values based on `selectBy`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 293,
+              "column": 6
+            },
+            "end": {
+              "line": 299,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "selectedItems",
+          "type": "Array",
+          "description": "A read-only array of the selected `<div>` elements in the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 303,
+              "column": 6
+            },
+            "end": {
+              "line": 309,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          },
+          "defaultValue": "[]"
+        },
+        {
+          "name": "allowOutsideScroll",
+          "type": "boolean",
+          "description": "By default, the dropdown will constrain scrolling on the page to\nitself when opened. Set to true in order to allow scrolling of\nthe page while the dropdown is open.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 315,
+              "column": 6
+            },
+            "end": {
+              "line": 318,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "buttonStyle",
+          "type": "string",
+          "description": "Style for the button that invokes the dropdown.\nOne of 'default','bare','bare--primary', 'tertiary', or 'icon'.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 323,
+              "column": 6
+            },
+            "end": {
+              "line": 326,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"default\""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Whether the dropdown should be disabled and non-interactive.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 330,
+              "column": 6
+            },
+            "end": {
+              "line": 333,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "searchMode",
+          "type": "boolean",
+          "description": "If true, the dropdown will include a search box, whereby the\ndropdown items can be filtered with a search term.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 338,
+              "column": 6
+            },
+            "end": {
+              "line": 341,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "searchTerm",
+          "type": "string",
+          "description": "The value of the search box, used for filtering the dropdown\nitems when searchMode is true.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 346,
+              "column": 6
+            },
+            "end": {
+              "line": 350,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_computeFilter\""
+            }
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "sortMode",
+          "type": "string",
+          "description": "What to sort the dropdown items by - one of \"key\" or \"val\".\nBy default, the items will be displayed in the order they are\npassed into the component.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 356,
+              "column": 6
+            },
+            "end": {
+              "line": 358,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "hideSelected",
+          "type": "boolean",
+          "description": "If set to true, the display-value will always show up in the\ninvoking button of the dropdown. Useful in cases like the\npx-data-table, where \"Show/Hide Columns\" should always appear.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 364,
+              "column": 6
+            },
+            "end": {
+              "line": 367,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "description": "If buttonStyle is set to 'icon' this property will dictate\nwhich icon will be displayed inside of the dropdown button.\nThe `displayValue`, selected values, and chevron will not be displayed.\nPerfect for icon-invoked menus. The value of this property should\nbe a valid px-icon name, e.g. 'px-utl:app-settings'",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 375,
+              "column": 6
+            },
+            "end": {
+              "line": 378,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "clearSelectionsOnChange",
+          "type": "boolean",
+          "description": "Set this property if you would like the `selected` and `selectedValues`\nproperties to be cleared whenever mutations are made to the `items` array.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 383,
+              "column": 6
+            },
+            "end": {
+              "line": 386,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "triggerHeight",
+          "type": "number",
+          "description": "The height of the trigger element, used for calculating offset distance\nfor the dropdown. Set this value if you use the `trigger` slot.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 391,
+              "column": 6
+            },
+            "end": {
+              "line": 394,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "30"
+        },
+        {
+          "name": "showCaret",
+          "type": "boolean",
+          "description": "By default, the dropdown menu will be flush against the trigger.\nEnable this property to show a caret between the two. Useful\nin iconic menus and used by the application/product switcher.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 400,
+              "column": 6
+            },
+            "end": {
+              "line": 403,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disableDynamicAlign",
+          "type": "boolean",
+          "description": "By default the dropdown will attempt to automatically align itself\nvertically and horizontally based on the available space. Set this flag\nto turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 409,
+              "column": 6
+            },
+            "end": {
+              "line": 412,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "description": "Vertical alignment of the dropdown relative to the trigger.\nShould be one of `top` or `bottom` where `top` means that the dropdown\nand trigger are aligned at the top, so the dropdown will extend _below_ the trigger.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 419,
+              "column": 6
+            },
+            "end": {
+              "line": 422,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"top\""
+        },
+        {
+          "name": "horizontalAlign",
+          "type": "string",
+          "description": "Horizontal alignment of the dropdown relative to the trigger.\nShould be one of `left` or `right` where `left` means that the dropdown\nand trigger are aligned on their left side, so the dropdown will extend _to the right_.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 429,
+              "column": 6
+            },
+            "end": {
+              "line": 433,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_changeHorizontal\""
+            }
+          },
+          "defaultValue": "\"left\""
+        },
+        {
+          "name": "mobile",
+          "type": "boolean",
+          "description": "Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.\nAutomatically detected based on the breakpoint specified in `mobileAt`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 438,
+              "column": 6
+            },
+            "end": {
+              "line": 441,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "mobileAt",
+          "type": "number",
+          "description": "The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 445,
+              "column": 6
+            },
+            "end": {
+              "line": 448,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "400"
+        },
+        {
+          "name": "hideMobileButtons",
+          "type": "boolean",
+          "description": "By default, the mobile dropdown will show Apply/Clear buttons.\nSet this property to hide them.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 453,
+              "column": 6
+            },
+            "end": {
+              "line": 456,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "_keyBindingsTarget",
+          "type": "Object",
+          "description": "Binding target for iron-a11y-keys",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 491,
+              "column": 6
+            },
+            "end": {
+              "line": 496,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_focusedOption",
+          "type": "HTMLElement",
+          "description": "The currently \"focused\" option in the dropdown list.\nUsed for handling of keyboard events.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 501,
+              "column": 6
+            },
+            "end": {
+              "line": 503,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_keyboardBeingUsed",
+          "type": "boolean",
+          "description": "Used to capture if the user is using the keyboard to interact with the dropdown.\nUsed to disable all mouse events.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 508,
+              "column": 6
+            },
+            "end": {
+              "line": 511,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [
+        {
+          "name": "loadResources",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 209,
+              "column": 2
+            },
+            "end": {
+              "line": 242,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "path"
+            },
+            {
+              "name": "language"
+            },
+            {
+              "name": "merge"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__computeLocalize",
+          "description": "Returns a computed `localize` method, based on the current `language`.",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 247,
+              "column": 2
+            },
+            "end": {
+              "line": 287,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "language"
+            },
+            {
+              "name": "resources"
+            },
+            {
+              "name": "formats"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__onRequestResponse",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 289,
+              "column": 2
+            },
+            "end": {
+              "line": 317,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            },
+            {
+              "name": "language"
+            },
+            {
+              "name": "merge"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__onRequestError",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 319,
+              "column": 2
+            },
+            "end": {
+              "line": 321,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "__checkLocalizationCache",
+          "description": "",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 323,
+              "column": 2
+            },
+            "end": {
+              "line": 331,
+              "column": 3
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "proto"
+            }
+          ],
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "_openTriggerChanged",
+          "description": "Bind to open trigger, open/close on trigger tap.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 525,
+              "column": 4
+            },
+            "end": {
+              "line": 537,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "newTrigger"
+            },
+            {
+              "name": "oldTrigger"
+            }
+          ]
+        },
+        {
+          "name": "_handleOpenTriggerTapped",
+          "description": "Opens the dropdown when the button is pressed.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 541,
+              "column": 5
+            },
+            "end": {
+              "line": 544,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_close",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 545,
+              "column": 4
+            },
+            "end": {
+              "line": 547,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_handleClearTapped",
+          "description": "Clears all of the selections when the clear button is pressed.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 551,
+              "column": 5
+            },
+            "end": {
+              "line": 561,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "toggle",
+          "description": "Opens the dropdown when the button is pressed.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 565,
+              "column": 4
+            },
+            "end": {
+              "line": 568,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_clear",
+          "description": "Clears all of the selections when the clear button is pressed.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 572,
+              "column": 4
+            },
+            "end": {
+              "line": 582,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "attached",
+          "description": "Forces the width of the dropdown to be at least as wide as the trigger.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 586,
+              "column": 4
+            },
+            "end": {
+              "line": 589,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_itemsChanged",
+          "description": "Any time that `items` changes, this method will convert any\nsimple strings in the array to an object with key/val.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 594,
+              "column": 4
+            },
+            "end": {
+              "line": 614,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "items"
+            }
+          ]
+        },
+        {
+          "name": "_updateSelection",
+          "description": "Iterates over the `items` array and adds items with the\n`selected` property to the `selectedValues` array (for multi) or\nupdates `selected` (for single). Note: if you specify more than\none item as `selected` but `multi` is not enabled, only the *first*\nselected item will be chosen. Does NOT remove items if their selected\nproperty gets changed to false or removed - use `clearSelectionsOnChange`\nor mutate the `selected` / `selectedValues` properties instead.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 624,
+              "column": 4
+            },
+            "end": {
+              "line": 654,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_handleActivate",
+          "description": "Event fired when any non-disabled element is clicked in the dropdown.\nIf disableSelect is set on the entire dropdown or individual item,\nthe event is still fired and the dropdown is closed, but the item\nis not selected. Useful for menu dropdowns, as opposed to selection dropdowns.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 668,
+              "column": 4
+            },
+            "end": {
+              "line": 680,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_handleSelection",
+          "description": "Handles the selection event from iron-selector to update\nthe label displayed inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 685,
+              "column": 4
+            },
+            "end": {
+              "line": 712,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_handleDeselection",
+          "description": "Handles the de-selection event from iron-selector to update\nthe label displayed inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 717,
+              "column": 4
+            },
+            "end": {
+              "line": 743,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "evt"
+            }
+          ]
+        },
+        {
+          "name": "_notifyResize",
+          "description": "Resizes the dropdown when the search term is changed.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 747,
+              "column": 4
+            },
+            "end": {
+              "line": 749,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_computeFilter",
+          "description": "Filter function used by the dom-repeat inside the iron-selector,\nbased on the searchTerm entered in the search box.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 754,
+              "column": 4
+            },
+            "end": {
+              "line": 764,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_showClearButton",
+          "description": "Determines whether to display the clear button inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 768,
+              "column": 4
+            },
+            "end": {
+              "line": 781,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "disableClear"
+            },
+            {
+              "name": "buttonStyle"
+            },
+            {
+              "name": "opened"
+            },
+            {
+              "name": "selected"
+            },
+            {
+              "name": "selectedValues"
+            }
+          ]
+        },
+        {
+          "name": "_showMobileClearButton",
+          "description": "Determines whether to display the clear button inside the dropdown in mobile mode.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 785,
+              "column": 4
+            },
+            "end": {
+              "line": 792,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "mobile"
+            },
+            {
+              "name": "disableClear"
+            },
+            {
+              "name": "selected"
+            },
+            {
+              "name": "selectedValues"
+            }
+          ]
+        },
+        {
+          "name": "_showChevron",
+          "description": "Determines whether to display the chevron button inside the dropdown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 796,
+              "column": 4
+            },
+            "end": {
+              "line": 810,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "disableClear"
+            },
+            {
+              "name": "hideChevron"
+            },
+            {
+              "name": "buttonStyle"
+            },
+            {
+              "name": "opened"
+            },
+            {
+              "name": "selected"
+            },
+            {
+              "name": "selectedValues"
+            }
+          ]
+        },
+        {
+          "name": "_initSort",
+          "description": "Initializes the sort function for the dom-repeat inside of iron-selector.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 814,
+              "column": 4
+            },
+            "end": {
+              "line": 819,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "sortMode"
+            },
+            {
+              "name": "items"
+            }
+          ]
+        },
+        {
+          "name": "_bindMouse",
+          "description": "Event handler for mouse move event. We enable mouse events when user moves the mouse.\nMouse events are disabled when user uses the keyboard to interact with the dropdown.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 825,
+              "column": 4
+            },
+            "end": {
+              "line": 828,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_computeSort",
+          "description": "The sort function used by the dom-repeat inside of iron-selector to\nsort the items by either 'key' or 'val' based on `sortMode`.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 833,
+              "column": 4
+            },
+            "end": {
+              "line": 857,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "a"
+            },
+            {
+              "name": "b"
+            }
+          ]
+        },
+        {
+          "name": "_setFocusedOption",
+          "description": "Adds or removes the focused class for keyboard navigation.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 861,
+              "column": 4
+            },
+            "end": {
+              "line": 869,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "newOption"
+            },
+            {
+              "name": "oldOption"
+            }
+          ]
+        },
+        {
+          "name": "_handleKeyPress",
+          "description": "Keypress event handler for iron-a11y-keys.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 873,
+              "column": 4
+            },
+            "end": {
+              "line": 959,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ]
+        },
+        {
+          "name": "_hoverOn",
+          "description": "Event handler when the mouse hovers over a dropdown list item.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 963,
+              "column": 4
+            },
+            "end": {
+              "line": 971,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ]
+        },
+        {
+          "name": "_hoverOff",
+          "description": "Event handler when the mouse hovers out of a dropdown list item.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 975,
+              "column": 4
+            },
+            "end": {
+              "line": 977,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ]
+        },
+        {
+          "name": "_getCaretClass",
+          "description": "Calculates classes for the caret based on the horizontal and vertical alignment.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 981,
+              "column": 4
+            },
+            "end": {
+              "line": 983,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "showCaret"
+            },
+            {
+              "name": "mobile"
+            },
+            {
+              "name": "verticalAlign"
+            },
+            {
+              "name": "horizontalAlign"
+            }
+          ]
+        },
+        {
+          "name": "_getOffset",
+          "description": "Calculates offset for the dropdown based on whether caret is shown.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 987,
+              "column": 4
+            },
+            "end": {
+              "line": 989,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "showCaret"
+            },
+            {
+              "name": "triggerHeight"
+            },
+            {
+              "name": "mobile"
+            }
+          ]
+        },
+        {
+          "name": "_changeHorizontal",
+          "description": "When horizontalAlign is `right`, the dropdown trigger should also align itself\nto the right side of the container.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 994,
+              "column": 4
+            },
+            "end": {
+              "line": 1001,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_getVertical",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1002,
+              "column": 4
+            },
+            "end": {
+              "line": 1004,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "verticalAlign"
+            },
+            {
+              "name": "mobile"
+            }
+          ]
+        },
+        {
+          "name": "_getHorizontal",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1005,
+              "column": 4
+            },
+            "end": {
+              "line": 1007,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "horizontalAlign"
+            },
+            {
+              "name": "mobile"
+            }
+          ]
+        },
+        {
+          "name": "_showCheckmark",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1008,
+              "column": 4
+            },
+            "end": {
+              "line": 1010,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "multi"
+            },
+            {
+              "name": "mobile"
+            }
+          ]
+        },
+        {
+          "name": "_showButtons",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 1011,
+              "column": 4
+            },
+            "end": {
+              "line": 1013,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "mobile"
+            },
+            {
+              "name": "hideMobileButtons"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 151,
+          "column": 10
+        },
+        "end": {
+          "line": 1014,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "language",
+          "description": "A valid IETF language tag as a string that `app-localize-behavior` will\nuse to localize this component.\n\nSee https://github.com/PolymerElements/app-localize-behavior for API\ndocumentation and more information.",
+          "sourceRange": {
+            "start": {
+              "line": 464,
+              "column": 6
+            },
+            "end": {
+              "line": 467,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "resources",
+          "description": "A dictionary of strings used within the component for AppLocalizeBehavior\nto use, based on the selected `language` property.",
+          "sourceRange": {
+            "start": {
+              "line": 476,
+              "column": 6
+            },
+            "end": {
+              "line": 487,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "formats",
+          "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 176,
+              "column": 4
+            },
+            "end": {
+              "line": 179,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Object",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "use-key-if-missing",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 468,
+              "column": 6
+            },
+            "end": {
+              "line": 471,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "localize",
+          "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 195,
+              "column": 4
+            },
+            "end": {
+              "line": 198,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "Function",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "bubble-event",
+          "description": "If true, will bubble up the event to the parents",
+          "sourceRange": {
+            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 203,
+              "column": 4
+            },
+            "end": {
+              "line": 206,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "type": "boolean",
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "name": "open-trigger",
+          "description": "Bind to a `<px-dropdown-trigger>` element. A tap on the trigger\nwill open the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 165,
+              "column": 7
+            },
+            "end": {
+              "line": 168,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "HTMLElement"
+        },
+        {
+          "name": "opened",
+          "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
+          "sourceRange": {
+            "start": {
+              "line": 173,
+              "column": 6
+            },
+            "end": {
+              "line": 177,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "hide-chevron",
+          "description": "Whether or not to hide the chevron icon from the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 181,
+              "column": 6
+            },
+            "end": {
+              "line": 184,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "bound-target",
+          "description": "A CSS selector which specifies the bounding target the dropdown will be\ndisplayed within. Defaults to `window`.",
+          "sourceRange": {
+            "start": {
+              "line": 189,
+              "column": 6
+            },
+            "end": {
+              "line": 191,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "prevent-close-on-outside-click",
+          "description": "Whether the dropdown will close when a user clicks\noutside of it. Set to true to prevent dropdown from closing.",
+          "sourceRange": {
+            "start": {
+              "line": 196,
+              "column": 6
+            },
+            "end": {
+              "line": 199,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "display-value",
+          "description": "The placeholder text to display in the dropdown. If the\nselected value(s) are cleared out, the displayValue will be\nreplaced in the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 205,
+              "column": 6
+            },
+            "end": {
+              "line": 209,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "disable-clear",
+          "description": "If set to true, users are unable to clear out the dropdown\nonce a selection has been made. Useful for required single-select\ndropdowns where an empty state would be undesirable. Not recommended\nfor multi-select dropdowns, as it means the user will simply lose the ability\nto quickly deselect all checked options (there is currently no mechanism\nwhich requires a user to select at least one option).",
+          "sourceRange": {
+            "start": {
+              "line": 218,
+              "column": 6
+            },
+            "end": {
+              "line": 221,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "disable-select",
+          "description": "If set to true, users can still open the dropdown and click on items,\nbut they will not be selected. Use this property in use cases where\nthe dropdown is used as a menu instead of a form input.",
+          "sourceRange": {
+            "start": {
+              "line": 227,
+              "column": 6
+            },
+            "end": {
+              "line": 230,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "items",
+          "description": "An array that contains the list of items which show up in the dropdown.\nEach item can either be a simple string, or an object consisting of:\n* 'key' - a unique identifier (number or string)\n* 'val' - the actual text that is displayed\n* 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)\n* 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)\n* 'selected' - whether the item should be selected at instantiation (optional)\n* 'icon' - an icon name from the px-icon-set to display next to the item (optional)\n* 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)\n\nNote: if you specify more than one item as `selected`, but `multi` is not enabled,\nonly the *first* selected item will be chosen. See also `clearSelectionsOnChange`.",
+          "sourceRange": {
+            "start": {
+              "line": 245,
+              "column": 6
+            },
+            "end": {
+              "line": 251,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "multi",
+          "description": "If set to true, multiple values can be selected in the dropdown.\nSelected values are reflected in the `selectedValues` property.\nIf set to false, a single selected value is reflected in `selected`.",
+          "sourceRange": {
+            "start": {
+              "line": 267,
+              "column": 6
+            },
+            "end": {
+              "line": 270,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "select-by",
+          "description": "Which property of each dropdown item will be used to get/set\nthe selected items - should be one of \"key\" or \"val\".",
+          "sourceRange": {
+            "start": {
+              "line": 275,
+              "column": 6
+            },
+            "end": {
+              "line": 279,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "selected",
+          "description": "Gets or sets the selected item when `multi` is false.\nWill either be a single key or value based on `selectBy`.",
+          "sourceRange": {
+            "start": {
+              "line": 284,
+              "column": 6
+            },
+            "end": {
+              "line": 288,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "selected-values",
+          "description": "Gets or sets the selected items when `multi` is true.\nWill either be an array of keys or values based on `selectBy`.",
+          "sourceRange": {
+            "start": {
+              "line": 293,
+              "column": 6
+            },
+            "end": {
+              "line": 299,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "selected-items",
+          "description": "A read-only array of the selected `<div>` elements in the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 303,
+              "column": 6
+            },
+            "end": {
+              "line": 309,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "allow-outside-scroll",
+          "description": "By default, the dropdown will constrain scrolling on the page to\nitself when opened. Set to true in order to allow scrolling of\nthe page while the dropdown is open.",
+          "sourceRange": {
+            "start": {
+              "line": 315,
+              "column": 6
+            },
+            "end": {
+              "line": 318,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "button-style",
+          "description": "Style for the button that invokes the dropdown.\nOne of 'default','bare','bare--primary', 'tertiary', or 'icon'.",
+          "sourceRange": {
+            "start": {
+              "line": 323,
+              "column": 6
+            },
+            "end": {
+              "line": 326,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "description": "Whether the dropdown should be disabled and non-interactive.",
+          "sourceRange": {
+            "start": {
+              "line": 330,
+              "column": 6
+            },
+            "end": {
+              "line": 333,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "search-mode",
+          "description": "If true, the dropdown will include a search box, whereby the\ndropdown items can be filtered with a search term.",
+          "sourceRange": {
+            "start": {
+              "line": 338,
+              "column": 6
+            },
+            "end": {
+              "line": 341,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "search-term",
+          "description": "The value of the search box, used for filtering the dropdown\nitems when searchMode is true.",
+          "sourceRange": {
+            "start": {
+              "line": 346,
+              "column": 6
+            },
+            "end": {
+              "line": 350,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "sort-mode",
+          "description": "What to sort the dropdown items by - one of \"key\" or \"val\".\nBy default, the items will be displayed in the order they are\npassed into the component.",
+          "sourceRange": {
+            "start": {
+              "line": 356,
+              "column": 6
+            },
+            "end": {
+              "line": 358,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "hide-selected",
+          "description": "If set to true, the display-value will always show up in the\ninvoking button of the dropdown. Useful in cases like the\npx-data-table, where \"Show/Hide Columns\" should always appear.",
+          "sourceRange": {
+            "start": {
+              "line": 364,
+              "column": 6
+            },
+            "end": {
+              "line": 367,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "icon",
+          "description": "If buttonStyle is set to 'icon' this property will dictate\nwhich icon will be displayed inside of the dropdown button.\nThe `displayValue`, selected values, and chevron will not be displayed.\nPerfect for icon-invoked menus. The value of this property should\nbe a valid px-icon name, e.g. 'px-utl:app-settings'",
+          "sourceRange": {
+            "start": {
+              "line": 375,
+              "column": 6
+            },
+            "end": {
+              "line": 378,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "clear-selections-on-change",
+          "description": "Set this property if you would like the `selected` and `selectedValues`\nproperties to be cleared whenever mutations are made to the `items` array.",
+          "sourceRange": {
+            "start": {
+              "line": 383,
+              "column": 6
+            },
+            "end": {
+              "line": 386,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "trigger-height",
+          "description": "The height of the trigger element, used for calculating offset distance\nfor the dropdown. Set this value if you use the `trigger` slot.",
+          "sourceRange": {
+            "start": {
+              "line": 391,
+              "column": 6
+            },
+            "end": {
+              "line": 394,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "show-caret",
+          "description": "By default, the dropdown menu will be flush against the trigger.\nEnable this property to show a caret between the two. Useful\nin iconic menus and used by the application/product switcher.",
+          "sourceRange": {
+            "start": {
+              "line": 400,
+              "column": 6
+            },
+            "end": {
+              "line": 403,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "disable-dynamic-align",
+          "description": "By default the dropdown will attempt to automatically align itself\nvertically and horizontally based on the available space. Set this flag\nto turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.",
+          "sourceRange": {
+            "start": {
+              "line": 409,
+              "column": 6
+            },
+            "end": {
+              "line": 412,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "vertical-align",
+          "description": "Vertical alignment of the dropdown relative to the trigger.\nShould be one of `top` or `bottom` where `top` means that the dropdown\nand trigger are aligned at the top, so the dropdown will extend _below_ the trigger.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
+          "sourceRange": {
+            "start": {
+              "line": 419,
+              "column": 6
+            },
+            "end": {
+              "line": 422,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "horizontal-align",
+          "description": "Horizontal alignment of the dropdown relative to the trigger.\nShould be one of `left` or `right` where `left` means that the dropdown\nand trigger are aligned on their left side, so the dropdown will extend _to the right_.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
+          "sourceRange": {
+            "start": {
+              "line": 429,
+              "column": 6
+            },
+            "end": {
+              "line": 433,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "mobile",
+          "description": "Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.\nAutomatically detected based on the breakpoint specified in `mobileAt`.",
+          "sourceRange": {
+            "start": {
+              "line": 438,
+              "column": 6
+            },
+            "end": {
+              "line": 441,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "mobile-at",
+          "description": "The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 445,
+              "column": 6
+            },
+            "end": {
+              "line": 448,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "hide-mobile-buttons",
+          "description": "By default, the mobile dropdown will show Apply/Clear buttons.\nSet this property to hide them.",
+          "sourceRange": {
+            "start": {
+              "line": 453,
+              "column": 6
+            },
+            "end": {
+              "line": 456,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "app-localize-resources-error",
+          "description": "app-localize-resources-error",
+          "metadata": {},
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "app-localize-resources-loaded",
+          "description": "app-localize-resources-loaded",
+          "metadata": {},
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "px-dropdown-click",
+          "description": "px-dropdown-click",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "px-dropdown-selection-changed",
+          "description": "px-dropdown-selection-changed",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "opened-changed",
+          "description": "Fired when the `opened` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
           "name": "display-value-changed",
           "description": "Fired when the `displayValue` property changes.",
           "metadata": {}
@@ -2467,53 +5631,7 @@
         "cssVariables": [],
         "selectors": []
       },
-      "slots": [
-        {
-          "description": "",
-          "name": "trigger",
-          "range": {
-            "file": "px-dropdown.html",
-            "start": {
-              "line": 105,
-              "column": 6
-            },
-            "end": {
-              "line": 120,
-              "column": 13
-            }
-          }
-        },
-        {
-          "description": "",
-          "name": "header",
-          "range": {
-            "file": "px-dropdown.html",
-            "start": {
-              "line": 139,
-              "column": 8
-            },
-            "end": {
-              "line": 139,
-              "column": 35
-            }
-          }
-        },
-        {
-          "description": "",
-          "name": "footer",
-          "range": {
-            "file": "px-dropdown.html",
-            "start": {
-              "line": 186,
-              "column": 8
-            },
-            "end": {
-              "line": 186,
-              "column": 35
-            }
-          }
-        }
-      ],
+      "slots": [],
       "tagname": "px-dropdown"
     }
   ]
