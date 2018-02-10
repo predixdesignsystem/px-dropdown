@@ -1,3 +1,7 @@
+v4.5.4
+==================
+* fixing demo pages for IE11
+
 v4.5.3
 ==================
 * update demo to be clearer
