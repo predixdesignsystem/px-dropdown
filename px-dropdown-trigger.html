@@ -1,7 +1,6 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../px-icon-set/px-icon-set.html"/>
 <link rel="import" href="../px-icon-set/px-icon.html"/>
-<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html"/>
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html"/>
 <link rel="import" href="css/px-dropdown-styles.html"/>
 
@@ -9,12 +8,6 @@
 <dom-module id="px-dropdown-trigger">
   <template>
     <style include="px-dropdown-styles"></style>
-    <iron-a11y-keys
-      id="keys"
-      keys="up down space enter tab esc"
-      target="[[_keyBindingsTarget]]"
-      on-keys-pressed="_handleKeyPress">
-    </iron-a11y-keys>
     <div class="trigger">
       <slot name="trigger">
         <div id="trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
@@ -212,91 +205,6 @@
         return false;
       }
 
-    },
-    /**
-     * Event handler for mouse move event. We enable mouse events when user moves the mouse.
-     * Mouse events are disabled when user uses the keyboard to interact with the dropdown.
-     * @private
-     */
-     _bindMouse: function () {
-      this._keyboardBeingUsed = false;
-      this.removeEventListener('mousemove', this._bindMouse);
-    },
-    /**
-     * Keypress event handler for iron-a11y-keys.
-     */
-    _handleKeyPress: function (event) {
-      this._keyboardBeingUsed = true;
-      this.addEventListener('mousemove', this._bindMouse.bind(this));
-      var keyPressed = event.detail.combo;
-      switch (keyPressed) {
-        case 'space':
-        case 'enter':
-          this.fire('trigger-tapped');
-          event.detail.keyboardEvent.preventDefault();
-          break;
-        case 'esc':
-          this.$.trigger.focus();
-          this.fire('close-dropdown');
-          break;
-        case 'tab':
-          // Close dropdown and (default behavior) move to next item
-          if(this.opened) {
-            this.$.dropdown.close();
-          }
-          break;
-        case 'down':
-          // If closed, open it
-          if(!this.opened) {
-            this.toggle();
-          }
-          // If something is focused, move to the next sibling
-          if(focused > -1 && focused < options.length - 1) {
-            this._setFocusedOption(options[focused + 1], options[focused]);
-            this.$.dropdown.querySelector('.dropdown-content').scrollTop += options[focused+1].offsetHeight;
-          }
-          // If last element is focused, do nothing
-          else if (focused === options.length - 1) {
-            break;
-          }
-          // If nothing is focused and search-mode is true, move to the search box
-          else if (focused === -1 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
-          }
-          // If searchbox is focused, move to the first option
-          else if (searchFocused) {
-            Polymer.dom(this.$.dropdown).querySelector('#searchbox').blur();
-            this.$.trigger.focus();
-            this._setFocusedOption(options[0]);
-          }
-          // Else focus the first item in the list
-          else {
-            this._setFocusedOption(options[0]);
-          }
-          event.detail.keyboardEvent.preventDefault();
-          break;
-        case 'up':
-          // If closed, open it
-          if(!this.opened) {
-            this.toggle();
-          }
-          // If something is focused, move to the previous sibling
-          if(focused > 0) {
-            this._setFocusedOption(options[focused - 1], options[focused]);
-            Polymer.dom(this.$.dropdown).querySelector('.dropdown-content').scrollTop -= options[focused].offsetHeight;
-          }
-          // If the first item is focused and search-mode is true, move to the search box
-          else if (focused === 0 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
-            this._setFocusedOption(null, options[0]);
-          }
-          // Else focus the last item in the list
-          else if (focused === -1 && !searchFocused) {
-            this._setFocusedOption(options[options.length - 1]);
-          }
-          event.detail.keyboardEvent.preventDefault();
-          break;
-      }
     }
   });
 </script>
