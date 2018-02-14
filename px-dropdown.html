@@ -4,6 +4,8 @@
 
 <link rel="import" href="px-dropdown-trigger.html"/>
 <link rel="import" href="px-dropdown-content.html"/>
+<link rel="import" href="../px-overlay/px-overlay-content.html"/>
+<link rel="import" href="../px-overlay/px-overlay-behavior.html"/>
 
 <!--
 A dropdown from which users can select one or more values. Acts like a native
@@ -117,46 +119,55 @@ Custom property | Description
       icon="[[icon]]"
       display-value-selected="{{_displayValueSelected}}">
     </px-dropdown-trigger>
-    <px-dropdown-content
-      id="content"
-      open-trigger="[[openTrigger]]"
-      items="[[_computedItems]]"
-      multi="[[multi]]"
-      opened="{{opened}}"
-      display-value="[[displayValue]]"
-      language="[[language]]"
-      resources="[[resources]]"
-      use-key-if-missing="[[useKeyIfMissing]]"
-      key-bindings-target="[[_keyBindingsTarget]]"
-      disabled="[[disabled]]"
-      bound-target="[[boundTarget]]"
-      prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]"
-      disable-select="[[disableSelect]]"
-      select-by="[[selectBy]]"
-      selected="{{selected}}"
-      selected-values="{{selectedValues}}"
-      selected-items="{{selectedItems}}"
-      trigger-height="[[triggerHeight]]"
-      show-caret="[[showCaret]]"
-      disable-dynamic-align="[[disableDynamicAlign]]"
-      vertical-align="[[verticalAlign]]"
-      horizontal-align="[[horizontalAlign]]"
-      mobile="{{mobile}}"
-      mobile-at="[[mobileAt]]"
-      hide-mobile-buttons="[[hideMobileButtons]]"
-      search-mode="[[searchMode]]"
-      search-term="[[searchTerm]]"
-      sort-mode="[[sortMode]]"
-      hide-selected="[[hideSelected]]"
-      allow-outside-scroll="[[allowOutsideScroll]]"
-      display-value-selected="{{_displayValueSelected}}">
-    </px-dropdown-content>
+    <px-overlay-content
+      hoist="[[hoist]]"
+      container-type="[[containerType]]"
+      event-names='["px-dropdown-click","px-dropdown-selection-changed"]'>
+      <px-dropdown-content
+        id="content"
+        open-trigger="[[openTrigger]]"
+        items="[[_computedItems]]"
+        multi="[[multi]]"
+        opened="{{opened}}"
+        display-value="[[displayValue]]"
+        language="[[language]]"
+        resources="[[resources]]"
+        use-key-if-missing="[[useKeyIfMissing]]"
+        key-bindings-target="[[_keyBindingsTarget]]"
+        disabled="[[disabled]]"
+        bound-target="[[boundTarget]]"
+        prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]"
+        disable-select="[[disableSelect]]"
+        select-by="[[selectBy]]"
+        selected="{{selected}}"
+        selected-values="{{selectedValues}}"
+        selected-items="{{selectedItems}}"
+        trigger-height="[[triggerHeight]]"
+        show-caret="[[showCaret]]"
+        disable-dynamic-align="[[disableDynamicAlign]]"
+        vertical-align="[[verticalAlign]]"
+        horizontal-align="[[horizontalAlign]]"
+        mobile="{{mobile}}"
+        mobile-at="[[mobileAt]]"
+        hide-mobile-buttons="[[hideMobileButtons]]"
+        search-mode="[[searchMode]]"
+        search-term="[[searchTerm]]"
+        sort-mode="[[sortMode]]"
+        hide-selected="[[hideSelected]]"
+        allow-outside-scroll="[[allowOutsideScroll]]"
+        display-value-selected="{{_displayValueSelected}}">
+      </px-dropdown-content>
+    </px-overlay-content>
   </template>
 </dom-module>
 <script>
   Polymer({
 
     is: 'px-dropdown',
+
+    behaviors: [
+      PxOverlayBehavior.sharedProperties
+    ],
 
     properties: {
 
@@ -516,6 +527,11 @@ Custom property | Description
       _keyboardBeingUsed: {
         type: Boolean,
         value: false
+      },
+
+      hoist: {
+        type: Boolean,
+        value: false
       }
     },
     observers: [
@@ -558,14 +574,18 @@ Custom property | Description
      */
     toggle: function() {
       this.$.content.toggle();
-      this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+      requestAnimationFrame(() => {
+        this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+      });
     },
     /**
      * Forces the width of the dropdown to be at least as wide as the trigger.
      */
     attached: function() {
-      this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
-      this._updateSelection();
+      requestAnimationFrame(() => {
+        this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+        this._updateSelection();
+      });
     },
     /**
      * Any time that `items` changes, this method will convert any

@@ -31,7 +31,8 @@
     "iron-a11y-keys": "^2.0.0",
     "web-animations-js": "^2.2.0",
     "app-localize-behavior": "^2.0.0",
-    "iron-media-query": "^2.0.0"
+    "iron-media-query": "^2.0.0",
+    "px-overlay": "#master"
   },
   "devDependencies": {
     "px-theme": "^3.0.0",

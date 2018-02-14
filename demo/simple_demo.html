@@ -8,6 +8,7 @@
   <link rel="import" href="../../polymer/polymer.html" />
   <link rel="import" href="../px-dropdown.html" />
   <link rel="import" href="../../px-theme/px-theme-styles.html">
+  <link rel="import" href="../../px-overlay/px-overlay-container.html"/>
 
 </head>
 
@@ -15,20 +16,30 @@
   <custom-style>
     <style include="px-theme-styles" is="custom-style"></style>
   </custom-style>
+  <px-overlay-container container-type="foo"></px-overlay-container>
+  <px-overlay-container container-type="bar"></px-overlay-container>
+  <px-overlay-container container-type="baz"></px-overlay-container>
+
   <div style="width:250px">
     <p>Single Select</p>
     <px-dropdown
+      id="foo"
+      hoist
+      container-type="foo"
       items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"I am a menu item so I cannot be selected","disableSelect":true},{"key":"5","val":"Flip Phone","disabled":true}]'>
     </px-dropdown>
     </br>
     <p>Multi Select</p>
     <px-dropdown
+      hoist
+      container-type="bar"
       items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
       multi>
     </px-dropdown>
     </br>
     <p>Disable Select (Like a Menu)</p>
     <px-dropdown
+      container-type="baz"
       items='[{"key":"1","val":"Do something"},{"key":"2","val":"Do something else"},{"key":"3","val":"Do one"}]'
       disable-select>
     </px-dropdown>
@@ -47,10 +58,24 @@
     </br>
     <p>Slot Usage</p>
     <px-dropdown
+      hoist
+      container-type="doesntexist"
       items='[{"key":"1","val":"Etc/GMT+1"},{"key":"2","val":"Etc/GMT+10"},{"key":"3","val":"Etc/GMT+11"},{"key":"4","val":"Etc/GMT+12"}]'>
       <px-icon id="trigger" icon="px-nav:more" slot="trigger" tabindex="0"></px-icon>
     </px-dropdown>
   </div>
 </body>
+
+<script>
+  const foo = document.getElementById('foo');
+
+  foo.addEventListener("px-dropdown-click", evt => {
+    debugger
+    console.log("foo")
+  });
+  window.addEventListener("px-dropdown-click", evt => {
+    console.log("doc")
+  });
+</script>
 
 </html>
