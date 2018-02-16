@@ -1,3 +1,7 @@
+v4.6.0
+==================
+* Adding px-overlay-content to optionally hoist content.
+
 v4.5.4
 ==================
 * fixing demo pages for IE11
