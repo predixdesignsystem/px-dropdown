@@ -51,7 +51,8 @@
           button-style="{{props.buttonStyle.value}}"
           icon="{{props.icon.value}}"
           show-caret="{{props.showCaret.value}}"
-          trigger-height="{{props.triggerHeight.value}}">
+          trigger-height="{{props.triggerHeight.value}}"
+          hoist="[[props.hoist.value]]">
         </px-dropdown>
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>
@@ -197,7 +198,12 @@
       triggerHeight: {
         type: Number,
         defaultValue: 30
-      }
+      },
+      hoist: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
     }
   });
 </script>
