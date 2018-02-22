@@ -1,6 +1,7 @@
-v4.6.0
+v5.0.0
 ==================
 * Adding px-overlay-content to optionally hoist content.
+* BREAKING CHANGE: You can no longer add slotted content to px-dropdown. To use slotted content, you'll have to use px-dropdown-trigger and px-dropdown-content
 
 v4.5.4
 ==================
