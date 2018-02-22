@@ -6,15 +6,14 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-fixture');
     flush(()=>{
-      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
+      px_dropdown_content = px_dropdown.$.content.$.dropdown;
+      px_dropdown_button = px_dropdown.$.trigger.$.trigger;
       done();
     });
   });
 
   it('Keyboard space: px-dropdown should open upon pressing space',
     function (done) {
-      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
       assert.isTrue(px_dropdown_content.hasAttribute('aria-hidden'));
       MockInteractions.pressSpace(px_dropdown);
       assert.isFalse(px_dropdown_content.hasAttribute('aria-hidden'));
@@ -24,9 +23,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Keyboard down: px-dropdown item should get focus on pressing down arrow',
     function (done) {
-      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger'),
-          px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-          firstItem = px_dropdown_content.querySelector('.dropdown-option');
+      let firstItem = px_dropdown_content.querySelector('.dropdown-option');
 
       //Make sure dropdown is open before running the tests.
       if (px_dropdown_content.hasAttribute('aria-hidden')) {
@@ -43,9 +40,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Keyboard enter: px-dropdown item should be selected on pressing enter',
     function (done) {
-      let px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger'),
-          px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-          firstItem = px_dropdown_content.querySelector('.dropdown-option');
+      let firstItem = px_dropdown_content.querySelector('.dropdown-option');
 
       px_dropdown.selected = null;
 
@@ -86,7 +81,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
             done();
           }.bind(this),50);
         }.bind(this);
-      var px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
+
       px_dropdown_button.addEventListener('click', clickHandle);
       px_dropdown_button.click();
       px_dropdown_button.removeEventListener('click', clickHandle);
@@ -95,7 +90,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Selecting an element changes selected property',
     function (done) {
-      let dropdown_option = Polymer.dom(px_dropdown.root).querySelectorAll('.dropdown-option')[2];
+      let dropdown_option = px_dropdown_content.querySelectorAll('.dropdown-option')[2];
       var item_click = function (e) {
         flush(function(){
           assert.equal(e.detail.val, 'Three');
@@ -112,8 +107,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Compare passed items to what is on the dropdown itself',
     function (done) {
-      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-          selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+      let selector = px_dropdown.$.content.$.selector,
           divs = Polymer.dom(selector.root).querySelectorAll('div'),
           items = px_dropdown.items;
 
@@ -191,7 +185,7 @@ describe('Custom Automation Tests for search feature px-dropdown', function (don
   it('Check that search box appears when in search mode',
     function (done) {
       flush(()=>{
-        let input = Polymer.dom(px_dropdown.root).querySelector('#searchbox');
+        let input = Polymer.dom(px_dropdown.$.content.root).querySelector('#searchbox');
         assert.isTrue(input.classList.contains('text-input'));
         done();
       });
@@ -205,16 +199,15 @@ describe('Custom Automation Tests for sort feature px-dropdown', function (done)
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-sort-fixture');
     flush(()=>{
-      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
+      px_dropdown_content = px_dropdown.$.content.$.dropdown;
+      px_dropdown_button = px_dropdown.$.trigger.$.trigger;
       done();
     });
   });
 
   it('Sort mode: items can be sorted by values or keys',
     function (done) {
-      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.px-dropdown-content'),
-          selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+      let selector = px_dropdown.$.content.$.selector,
           divs = Polymer.dom(selector.root).querySelectorAll('div');
 
       assert.equal(divs[0].textContent.trim(), 'Four');
@@ -227,8 +220,7 @@ describe('Custom Automation Tests for sort feature px-dropdown', function (done)
 
   it('Sort mode: items can be sorted by values or keys',
     function (done) {
-      let px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('.px-dropdown-content'),
-          selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+      let selector = px_dropdown.$.content.$.selector,
           divs = Polymer.dom(selector.root).querySelectorAll('div');
 
       assert.equal(divs[0].textContent.trim(), 'Four');
@@ -248,15 +240,14 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-fixture');
-    flush(()=>{
-      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown');
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
+    flush(() => {
+      px_dropdown_content = px_dropdown.$.content.$.dropdown;
+      px_dropdown_button = px_dropdown.$.trigger.$.trigger;
       done();
     });
   });
 
-  it('Keyboard esc: px-dropdown should close',
-    function () {
+  it('Keyboard esc: px-dropdown should close', function () {
       let firstItem = px_dropdown_content.querySelector('.dropdown-option');
 
       //Make sure dropdown is open before running the tests.
@@ -277,14 +268,14 @@ describe('Multi select tests for px-dropdown', function (done) {
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-multi-element-fixture');
     flush(()=>{
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger');
+      px_dropdown_button = px_dropdown.$.trigger.$.trigger;
       done();
     });
   });
 
   it('Check if in multi mode we can toggle an item',
     function (done) {
-      let selector = Polymer.dom(px_dropdown.root).querySelector('#selector'),
+      let selector = px_dropdown.$.content.$.selector,
       divs = Polymer.dom(selector.root).querySelectorAll('div');
 
       assert.isFalse(divs[0].classList.contains('iron-selected'));
@@ -318,9 +309,9 @@ describe('Disabled element tests for px-dropdown', function (done) {
 
   it('Selecting a disabled element does not fire a click event',
     function (done) {
-      px_dropdown_content = Polymer.dom(px_dropdown.root).querySelector('#dropdown'),
-      px_dropdown_button = Polymer.dom(px_dropdown.root).querySelector('#trigger'),
-      dropdown_option = Polymer.dom(px_dropdown.root).querySelectorAll('.dropdown-option')[1];
+      px_dropdown_content = px_dropdown.$.content.$.dropdown,
+      px_dropdown_button = px_dropdown.$.trigger.$.trigger,
+      dropdown_option = Polymer.dom(px_dropdown.$.content.root).querySelectorAll('.dropdown-option')[1];
 
       dropdown_option.disabled = true;
       var item_click = function (e) {
