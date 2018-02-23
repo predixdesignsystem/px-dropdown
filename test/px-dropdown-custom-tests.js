@@ -108,6 +108,22 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
     }
   );
 
+  it('Selecting an element changes _displayValueSelected property',
+    function (done) {
+      let dropdown_option = px_dropdown_content.querySelectorAll('.dropdown-option')[2];
+      var item_click = function (e) {
+        flush(function(){
+          assert.equal(px_dropdown._displayValueSelected, 'Three');
+          done();
+        });
+      };
+      assert.isUndefined(px_dropdown._displayValueSelected);
+      px_dropdown.addEventListener('px-dropdown-selection-changed', item_click);
+      dropdown_option.click();
+      px_dropdown.removeEventListener('px-dropdown-selection-changed', item_click);
+    }
+  );
+
   it('Compare passed items to what is on the dropdown itself',
     function (done) {
       let selector = px_dropdown.$.content.$.selector,
