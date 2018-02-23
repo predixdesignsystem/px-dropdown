@@ -2,23 +2,10 @@ v4.6.0
 ==================
 * Adding px-overlay-content to optionally hoist content.
 * px-dropdown was broken up into two sub components to facilitate hoisting.
-* Adds JS to dynamically watch for a trigger element to be
-added to the trigger slot so we can avoid breaking the API.
-We can't just pass the trigger down because in v1 Shadow DOM
-slots passed down twice that are empty still wipe out any
+  * Adds JS to dynamically watch for a trigger element to be added to the trigger slot so we can avoid breaking the API. We can't just pass the trigger down because in v1 Shadow DOM slots passed down twice that are empty still wipe out any
 default content.
-* Removes default values from px-dropdown-content to avoid race
-conditions where default properties would get set in px-dropdown,
-get bound down into px-dropdown-content, lifecycle effects would
-run and update selected/selectedValues, then px-dropdown-content
-would have its default properties set and wipe out the work
-causing weird errors.
-* Refactor px-dropdown-content to just listen for click event
-emitting from the trigger
-* Move all code that deals with items into px-dropdown-content
-to cleanly seperate concerns. px-dropdown is just a wrapper
-that connects the trigger and content together and passes
-properties and slotted content down.
+  * Refactor px-dropdown-content to just listen for click event emitting from the trigger
+  * Move all code that deals with items into px-dropdown-content to cleanly seperate concerns. px-dropdown is just a wrapper that connects the trigger and content together and passes properties and slotted content down.
 
 v4.5.4
 ==================
