@@ -94,31 +94,33 @@ Custom property | Description
   <template>
     <style include="px-dropdown-styles"></style>
     <iron-media-query query$="(max-width: {{mobileAt}}px)" query-matches="{{mobile}}"></iron-media-query>
-    <px-dropdown-trigger
-      id="trigger"
-      trigger="{{openTrigger}}"
-      opened="[[opened]]"
-      language="[[language]]"
-      resources="[[resources]]"
-      use-key-if-missing="[[useKeyIfMissing]]"
-      disabled="[[disabled]]"
-      hide-chevron="[[hideChevron]]"
-      display-value="[[displayValue]]"
-      disable-clear="[[disableClear]]"
-      selected="[[selected]]"
-      selected-values="[[selectedValues]]"
-      button-style="[[buttonStyle]]"
-      icon="[[icon]]"
-      display-value-selected="{{_displayValueSelected}}">
-    </px-dropdown-trigger>
+    <div id="target">
+      <slot name="trigger" id="triggerSlot">
+        <px-dropdown-trigger
+          id="trigger"
+          opened="[[opened]]"
+          language="[[language]]"
+          resources="[[resources]]"
+          use-key-if-missing="[[useKeyIfMissing]]"
+          disabled="[[disabled]]"
+          hide-chevron="[[hideChevron]]"
+          display-value="[[displayValue]]"
+          disable-clear="[[disableClear]]"
+          selected="[[selected]]"
+          selected-values="[[selectedValues]]"
+          button-style="[[buttonStyle]]"
+          icon="[[icon]]"
+          display-value-selected="[[_displayValueSelected]]">
+        </px-dropdown-trigger>
+      </slot>
+    </div>
     <px-overlay-content
       hoist="[[hoist]]"
       container-type="[[containerType]]"
       event-names='["px-dropdown-click","px-dropdown-selection-changed"]'>
       <px-dropdown-content
         id="content"
-        open-trigger="[[openTrigger]]"
-        items="[[_computedItems]]"
+        items="[[items]]"
         multi="[[multi]]"
         opened="{{opened}}"
         key-bindings-target="[[_keyBindingsTarget]]"
@@ -154,24 +156,11 @@ Custom property | Description
 </dom-module>
 <script>
   Polymer({
-
     is: 'px-dropdown',
-
     behaviors: [
       PxOverlayBehavior.sharedProperties
     ],
-
     properties: {
-
-      /**
-       * Bind to a `<px-dropdown-trigger>` element. A tap on the trigger
-       * will open the dropdown.
-       */
-       openTrigger: {
-        type: HTMLElement,
-        observer: '_openTriggerChanged'
-      },
-
       /**
        * A flag which reflects if the dropdown trigger has been clicked or not.
        */
@@ -262,16 +251,6 @@ Custom property | Description
         }
       },
       /**
-       * Internal representation of the items array, in case simple strings are
-       * passed in, so that appropriate key/val pairs can be generated.
-       */
-       _computedItems: {
-        type: Array,
-        value: function () {
-          return [];
-        }
-      },
-      /**
        * If set to true, multiple values can be selected in the dropdown.
        * Selected values are reflected in the `selectedValues` property.
        * If set to false, a single selected value is reflected in `selected`.
@@ -286,8 +265,7 @@ Custom property | Description
        */
       selectBy: {
         type: String,
-        value: 'key',
-        observer: '_updateSelection'
+        value: 'key'
       },
       /**
        * Gets or sets the selected item when `multi` is false.
@@ -304,9 +282,6 @@ Custom property | Description
        */
       selectedValues: {
         type: Array,
-        value: function() {
-          return [];
-        },
         notify: true
       },
       /**
@@ -396,71 +371,70 @@ Custom property | Description
         value: false
       },
       /**
-      * The height of the trigger element, used for calculating offset distance
-      * for the dropdown. Set this value if you use the `trigger` slot.
-      */
+       * The height of the trigger element, used for calculating offset distance
+       * for the dropdown. Set this value if you use the `trigger` slot.
+       */
       triggerHeight: {
         type: Number,
         value: 30
       },
       /**
-      * By default, the dropdown menu will be flush against the trigger.
-      * Enable this property to show a caret between the two. Useful
-      * in iconic menus and used by the application/product switcher.
-      */
+       * By default, the dropdown menu will be flush against the trigger.
+       * Enable this property to show a caret between the two. Useful
+       * in iconic menus and used by the application/product switcher.
+       */
       showCaret: {
         type: Boolean,
         value: false
       },
       /**
-      * By default the dropdown will attempt to automatically align itself
-      * vertically and horizontally based on the available space. Set this flag
-      * to turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.
-      */
+       * By default the dropdown will attempt to automatically align itself
+       * vertically and horizontally based on the available space. Set this flag
+       * to turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.
+       */
       disableDynamicAlign: {
         type: Boolean,
         value: false
       },
       /**
-      * Vertical alignment of the dropdown relative to the trigger.
-      * Should be one of `top` or `bottom` where `top` means that the dropdown
-      * and trigger are aligned at the top, so the dropdown will extend _below_ the trigger.
-      * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
-      */
+       * Vertical alignment of the dropdown relative to the trigger.
+       * Should be one of `top` or `bottom` where `top` means that the dropdown
+       * and trigger are aligned at the top, so the dropdown will extend _below_ the trigger.
+       * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+       */
       verticalAlign: {
         type: String,
         value: 'top'
       },
       /**
-      * Horizontal alignment of the dropdown relative to the trigger.
-      * Should be one of `left` or `right` where `left` means that the dropdown
-      * and trigger are aligned on their left side, so the dropdown will extend _to the right_.
-      * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
-      */
+       * Horizontal alignment of the dropdown relative to the trigger.
+       * Should be one of `left` or `right` where `left` means that the dropdown
+       * and trigger are aligned on their left side, so the dropdown will extend _to the right_.
+       * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+       */
       horizontalAlign: {
         type: String,
-        value: 'left',
-        observer: '_changeHorizontal'
+        value: 'left'
       },
       /**
-      * Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.
-      * Automatically detected based on the breakpoint specified in `mobileAt`.
-      */
+       * Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.
+       * Automatically detected based on the breakpoint specified in `mobileAt`.
+       */
       mobile: {
         type: Boolean,
         reflectToAttribute: true
       },
       /**
-      * The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.
-      */
+       * The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.
+       */
       mobileAt: {
         type: Number,
         value: 400
       },
       /**
-      * By default, the mobile dropdown will show Apply/Clear buttons.
-      * Set this property to hide them.
-      */
+       * By default, the mobile dropdown will show Apply/Clear buttons.
+       * Set this property to hide them.
+       */
       hideMobileButtons: {
         type: Boolean,
         value: false
@@ -481,9 +455,9 @@ Custom property | Description
         value: true
       },
       /**
-      * A dictionary of strings used within the component for AppLocalizeBehavior
-      * to use, based on the selected `language` property.
-      */
+       * A dictionary of strings used within the component for AppLocalizeBehavior
+       * to use, based on the selected `language` property.
+       */
       resources: {
         type: Object,
         value: function() {
@@ -520,7 +494,6 @@ Custom property | Description
         type: Boolean,
         value: false
       },
-
       /**
        * Specifies if the dropdown content should get hoisted to a container in order to escape its current stacking context
        */
@@ -529,169 +502,72 @@ Custom property | Description
         value: false
       }
     },
-    observers: [
-      '_itemsChanged(items, items.*)'
-    ],
-    /**
-    * Bind to open trigger, open/close on trigger tap.
-    */
-    _openTriggerChanged(newTrigger, oldTrigger) {
-      if (oldTrigger && oldTrigger instanceof HTMLElement && this._handleOpenTriggerTapped) {
-        oldTrigger.removeEventListener('trigger-tapped', this._handleOpenTriggerTapped);
-        oldTrigger.removeEventListener('clear-tapped', this._handleClearTapped);
-        oldTrigger.removeEventListener('close-dropdown', this._close);
-      }
-      if (newTrigger && newTrigger instanceof HTMLElement) {
-        newTrigger.addEventListener('trigger-tapped', this._handleOpenTriggerTapped.bind(this), false);
-        newTrigger.addEventListener('clear-tapped', this._handleClearTapped.bind(this), false);
-        newTrigger.addEventListener('close-dropdown', this._close.bind(this), false);
-      }
+    created: function() {
+      /**
+       * Finds the trigger element and assigns it to the `openTrigger` property.
+       * Called when the element is first attached and whenever the `slotchange`
+       * event is fired.
+       */
+      this._initOpenTrigger = () => {
+        const trigger = this._getSlottedOpenTrigger();
+        if (trigger) {
+          this.$.content.openTrigger = trigger;
+        }
+      };
+    },
+    attached: function() {
+      this.$.triggerSlot.addEventListener('slotchange', this._initOpenTrigger, false);
+      this._initOpenTrigger();
+
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        // Forces the width of the dropdown to be at least as wide as the trigger
+        this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+      });
+    },
+    detached: function() {
+      this.$.triggerSlot.removeEventListener('slotchange', this._initOpenTrigger);
     },
     /**
-     * Opens the dropdown when the button is pressed.
-     */
-    _handleOpenTriggerTapped: function() {
-      this.$.content.toggle();
-      // this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
-    },
-    _close: function() {
-      this.$.content.close();
-    },
-    /**
-     * Clears all of the selections when the clear button is pressed.
-     */
-    _handleClearTapped: function(evt) {
-      evt.stopPropagation();
-      this.$.content._handleClearTapped();
-    },
-    /**
-     * Opens the dropdown when the button is pressed.
+     * Toggles visibility of the dropdown: opens dropdown if it is closed, and
+     * closes dropdown if it is open.
      */
     toggle: function() {
       this.$.content.toggle();
-      requestAnimationFrame(() => {
+      Polymer.RenderStatus.afterNextRender(this, () => {
         this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
       });
     },
     /**
-     * Forces the width of the dropdown to be at least as wide as the trigger.
+     * Finds the element in the the trigger slot. If the developer passed an
+     * element into the `slot="trigger"` slot, returns that element. Otherwise
+     * returns the default trigger in the Shadow DOM. Works for Polymer 1.x and
+     * Polymer 2.x, which have different APIs for accomplishing this.
+     *
+     * @return {HTMLElement|null} - Reference to the trigger element, or null if none found
      */
-    attached: function() {
-      requestAnimationFrame(() => {
-        this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
-        this._updateSelection();
-      });
-    },
-    /**
-     * Any time that `items` changes, this method will convert any
-     * simple strings in the array to an object with key/val.
-     */
-    _itemsChanged: function(items) {
-      if(items === undefined) return;
-      var newComputedItems = [];
-      if(items !== null) {
-        items.forEach(function(item, idx) {
-          if(typeof item === 'string') {
-            newComputedItems[idx] = {"key":idx, "val":item};
-          }
-          else {
-            newComputedItems[idx] = item;
-          }
-        }.bind(this));
+    _getSlottedOpenTrigger: function() {
+      let elems;
+      if (Polymer.Element) {
+        const nodes = Polymer.FlattenedNodesObserver.getFlattenedNodes(this.$.triggerSlot);
+        elems = nodes.filter(n => n.nodeType === Node.ELEMENT_NODE)
+      } else {
+        elems = this.getContentChildren('#triggerSlot');
       }
-      this._computedItems = newComputedItems;
-      if(this.clearSelectionsOnChange) {
-        this.set('selected', null);
-        this.set('selectedValues', []);
+      if (elems.length > 1) {
+        console.warn('Only expected 1 element as a child of the "trigger" slot.')
       }
-      this._updateSelection();
-      this._notifyResize();
+      const [trigger] = elems;
+      return (trigger instanceof HTMLElement) ? trigger : null;
     },
-    /**
-     * Iterates over the `items` array and adds items with the
-     * `selected` property to the `selectedValues` array (for multi) or
-     * updates `selected` (for single). Note: if you specify more than
-     * one item as `selected` but `multi` is not enabled, only the *first*
-     * selected item will be chosen. Does NOT remove items if their selected
-     * property gets changed to false or removed - use `clearSelectionsOnChange`
-     * or mutate the `selected` / `selectedValues` properties instead.
-     */
-    _updateSelection: function() {
-      if(this.items && this.items.length > 0) {
-        if(this.multi) {
-          var length = this.items.length,
-              selected = this.selectedValues,
-              i;
-          for(i=0; i<length; i++) {
-            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
-              if(selected && selected.indexOf(this.items[i][this.selectBy]) === -1) {
-                selected.push(this.items[i][this.selectBy]);
-              }
-            }
-          }
-          this.set('selectedValues', []);
-          this.set('selectedValues', selected);
-        }
-        else {
-          var length = this.items.length,
-              selected = this.selected,
-              i;
-          for(i=0; i<length; i++) {
-            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
-              if(selected !== this.items[i][this.selectBy]) {
-                this.set('selected', this.items[i][this.selectBy]);
-                break;
-              }
-            }
-          }
-        }
-      }
-    },
-    /**
-      * Event fired when any non-disabled element is clicked in the dropdown.
-      * If disableSelect is set on the entire dropdown or individual item,
-      * the event is still fired and the dropdown is closed, but the item
-      * is not selected. Useful for menu dropdowns, as opposed to selection dropdowns.
-      *
-      * @event px-dropdown-click
-      */
-    /**
-      * Event fired when any given element is selected or deselected in the list.
-      * `evt.detail` contains:
-      * ```
-      * { val: "text of the changed element",
-      *   key: "key of the changed element",
-      *   selected: true/false }
-      * ```
-      * @event px-dropdown-selection-changed
-      */
-    /**
-      * Event fired when any given element is selected or deselected in the list.
-      * `evt.detail` contains:
-      * ```
-      * { val: "text of the changed element",
-      *   key: "key of the changed element",
-      *   selected: true/false }
-      * ```
-      * @event px-dropdown-selection-changed
-      */
     /**
      * Resizes the dropdown when the search term is changed.
      */
     _notifyResize: function() {
-      this.$.content._notifyResize();
-    },
-    /**
-    * When horizontalAlign is `right`, the dropdown trigger should also align itself
-    * to the right side of the container.
-    */
-    _changeHorizontal: function() {
-      if(this.horizontalAlign === 'right') {
-        this.style.flexDirection = 'row-reverse';
-      }
-      else {
-        this.style.flexDirection = 'row';
-      }
+      // Debounce to try to stop notify resize from spamming with events, which
+      // slows things down in Polymer 2.x + IE
+      this.debounce('on-notify-resize', function() {
+        this.$.content._notifyResize();
+      }, 1);
     }
   });
 </script>

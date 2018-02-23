@@ -61,7 +61,7 @@
           selected-values="{{selectedValues}}"
           selected-items="{{selectedItems}}"
           attr-for-selected="{{selectBy}}">
-          <template is="dom-repeat" id="dropdownItems" items="{{items}}" strip-whitespace>
+          <template is="dom-repeat" id="dropdownItems" items="{{_computedItems}}" strip-whitespace>
             <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled$="{{item.disabled}}" disable-select="{{item.disableSelect}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
               <template is="dom-if" if="{{_showCheckmark(multi,mobile)}}">
                 <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
@@ -98,30 +98,27 @@
     ],
 
     properties: {
-
       /**
        * Bind to a `<px-dropdown-trigger>` element. A tap on the trigger
        * will open the dropdown.
        */
        openTrigger: {
-        type: HTMLElement
+        type: HTMLElement,
+        observer: '_openTriggerChanged'
       },
-
       /**
        * A flag which reflects if the dropdown trigger has been clicked or not.
        */
       opened: {
         type: Boolean,
-        notify: true,
-        value: false
+        notify: true
       },
       /**
        * A flag which reflects whether the dropdown is being hovered over.
        */
       hover: {
         type: Boolean,
-        notify: true,
-        value: false
+        notify: true
       },
       /**
        * A CSS selector which specifies the bounding target the dropdown will be
@@ -135,8 +132,7 @@
        * outside of it. Set to true to prevent dropdown from closing.
        */
       preventCloseOnOutsideClick: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * If set to true, users are unable to clear out the dropdown
@@ -147,8 +143,7 @@
        * which requires a user to select at least one option).
        */
       disableClear: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * If set to true, users can still open the dropdown and click on items,
@@ -156,8 +151,7 @@
        * the dropdown is used as a menu instead of a form input.
        */
       disableSelect: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * The text that is displayed in the label of the dropdown.
@@ -183,10 +177,7 @@
        */
       items: {
         type: Array,
-        notify: true,
-        value: function () {
-          return [];
-        }
+        notify: true
       },
       /**
        * If set to true, multiple values can be selected in the dropdown.
@@ -194,8 +185,7 @@
        * If set to false, a single selected value is reflected in `selected`.
        */
       multi: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * Which property of each dropdown item will be used to get/set
@@ -203,7 +193,7 @@
        */
       selectBy: {
         type: String,
-        value: 'key'
+        observer: '_updateSelection'
       },
       /**
        * Gets or sets the selected item when `multi` is false.
@@ -211,7 +201,6 @@
        */
       selected: {
         type: String,
-        value: null,
         notify: true
       },
       /**
@@ -220,9 +209,6 @@
        */
       selectedValues: {
         type: Array,
-        value: function() {
-          return [];
-        },
         notify: true
       },
       /**
@@ -230,9 +216,6 @@
        */
       selectedItems: {
         type: Array,
-        value: function() {
-          return [];
-        },
         readOnly: true
       },
       /**
@@ -241,23 +224,20 @@
        * the page while the dropdown is open.
        */
       allowOutsideScroll: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * Whether the dropdown should be disabled and non-interactive.
        */
       disabled: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * If true, the dropdown will include a search box, whereby the
        * dropdown items can be filtered with a search term.
        */
       searchMode: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * The value of the search box, used for filtering the dropdown
@@ -265,7 +245,6 @@
        */
       searchTerm: {
         type: String,
-        value: '',
         observer: '_computeFilter'
       },
       /**
@@ -281,8 +260,7 @@
       * for the dropdown. Set this value if you use the `trigger` slot.
       */
       triggerHeight: {
-        type: Number,
-        value: 30
+        type: Number
       },
       /**
       * By default, the dropdown menu will be flush against the trigger.
@@ -290,8 +268,7 @@
       * in iconic menus and used by the application/product switcher.
       */
       showCaret: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
       * By default the dropdown will attempt to automatically align itself
@@ -299,8 +276,7 @@
       * to turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.
       */
       disableDynamicAlign: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
       * Vertical alignment of the dropdown relative to the trigger.
@@ -309,8 +285,7 @@
       * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
       */
       verticalAlign: {
-        type: String,
-        value: 'top'
+        type: String
       },
       /**
       * Horizontal alignment of the dropdown relative to the trigger.
@@ -319,8 +294,7 @@
       * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
       */
       horizontalAlign: {
-        type: String,
-        value: 'left'
+        type: String
       },
       /**
       * Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.
@@ -334,16 +308,14 @@
       * The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.
       */
       mobileAt: {
-        type: Number,
-        value: 400
+        type: Number
       },
       /**
       * By default, the mobile dropdown will show Apply/Clear buttons.
       * Set this property to hide them.
       */
       hideMobileButtons: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * A valid IETF language tag as a string that `app-localize-behavior` will
@@ -395,6 +367,16 @@
       _keyboardBeingUsed: {
         type: Boolean,
         value: false
+      },
+      /**
+       * Internal representation of the items array, in case simple strings are
+       * passed in, so that appropriate key/val pairs can be generated.
+       */
+       _computedItems: {
+        type: Array,
+        value: function () {
+          return [];
+        }
       }
     },
     listeners: {
@@ -403,9 +385,19 @@
       'iron-deselect' : '_handleDeselection'
     },
     observers: [
-      '_initSort(sortMode, items)'
+      '_itemsChanged(items, items.*)',
+      '_initSort(sortMode, _computedItems)'
     ],
-
+    created: function() {
+      this._handleOpenTriggerTappedBound = this.toggle.bind(this);
+      this._handleClearTappedBound = this._handleClearTapped.bind(this);
+      this._closeBound = this.close.bind(this);
+    },
+    attached: function() {
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        this._updateSelection();
+      });
+    },
     toggle: function() {
       this.$.dropdown.toggle();
     },
@@ -414,6 +406,19 @@
     },
     open: function() {
       this.$.dropdown.open();
+    },
+    /**
+     * Bind to open trigger, open/close on trigger tap.
+     */
+    _openTriggerChanged(newTrigger, oldTrigger) {
+      if (oldTrigger && oldTrigger instanceof HTMLElement) {
+        oldTrigger.removeEventListener('click', this._handleOpenTriggerTappedBound);
+        oldTrigger.removeEventListener('clear-tapped', this._handleClearTappedBound);
+      }
+      if (newTrigger && newTrigger instanceof HTMLElement) {
+        newTrigger.addEventListener('click', this._handleOpenTriggerTappedBound, false);
+        newTrigger.addEventListener('clear-tapped', this._handleClearTappedBound, false);
+      }
     },
     _handleClearTapped: function() {
       this.set('selected', null);
@@ -424,6 +429,68 @@
         });
       }
       if(!this.mobile) this.$.dropdown.close();
+    },
+    /**
+     * Iterates over the `items` array and adds items with the
+     * `selected` property to the `selectedValues` array (for multi) or
+     * updates `selected` (for single). Note: if you specify more than
+     * one item as `selected` but `multi` is not enabled, only the *first*
+     * selected item will be chosen. Does NOT remove items if their selected
+     * property gets changed to false or removed - use `clearSelectionsOnChange`
+     * or mutate the `selected` / `selectedValues` properties instead.
+     */
+    _updateSelection: function() {
+      if(Array.isArray(this.items) && this.items.length > 0) {
+        if(this.multi) {
+          let length = this.items.length;
+          let selected = Array.isArray(this.selectedValues) ? this.selectedValues.slice(0) : [];
+          for(let i=0; i<length; i++) {
+            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
+              if(selected && selected.indexOf(this.items[i][this.selectBy]) === -1) {
+                selected.push(this.items[i][this.selectBy]);
+              }
+            }
+          }
+          this.selectedValues = selected;
+        }
+        else {
+          let length = this.items.length;
+          let selected = this.selected;
+          for(let i=0; i<length; i++) {
+            if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
+              if(selected !== this.items[i][this.selectBy]) {
+                this.set('selected', this.items[i][this.selectBy]);
+                break;
+              }
+            }
+          }
+        }
+      }
+    },
+    /**
+     * Any time that `items` changes, this method will convert any
+     * simple strings in the array to an object with key/val.
+     */
+    _itemsChanged: function(items) {
+      if(items === undefined) return;
+      var newComputedItems = [];
+      if(items !== null) {
+        items.forEach(function(item, idx) {
+          if(typeof item === 'string') {
+            newComputedItems[idx] = {"key":idx, "val":item};
+          }
+          else {
+            newComputedItems[idx] = item;
+          }
+        }.bind(this));
+      }
+      this._computedItems = newComputedItems;
+      if(this.clearSelectionsOnChange) {
+        this.set('selected', null);
+        this.set('selectedValues', []);
+      }
+      this._updateSelection();
+      this._notifyResize();
     },
     /**
      * Searches the DOM for the `boundTarget` element.
