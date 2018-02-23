@@ -9,40 +9,33 @@
   <template>
     <style include="px-dropdown-styles"></style>
     <div class="trigger">
-      <slot name="trigger">
-        <div id="trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
-          <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">
-            <div id="label" title="{{displayValueSelected}}" class="dropdown-label">{{displayValueSelected}}</div>
-          </template>
-          <template is="dom-if" if="{{_isEqual(buttonStyle,'icon')}}">
-            <px-icon class="custom-icon" icon="{{icon}}"></px-icon>
-          </template>
-          <template is="dom-if" if="{{_showClearButton(disableClear,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
-            <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="clear"></px-icon>
-          </template>
-          <template is="dom-if" if="{{_showChevron(disableClear,hideChevron,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
-            <px-icon class="dropdown-icon" icon="px-utl:chevron"></px-icon>
-          </template>
-        </div>
-      </slot>
+      <div id="trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
+        <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">
+          <div id="label" title="{{displayValueSelected}}" class="dropdown-label">{{displayValueSelected}}</div>
+        </template>
+        <template is="dom-if" if="{{_isEqual(buttonStyle,'icon')}}">
+          <px-icon class="custom-icon" icon="{{icon}}"></px-icon>
+        </template>
+        <template is="dom-if" if="{{_showClearButton(disableClear,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
+          <px-icon class="dropdown-icon" icon="px-nav:close" on-tap="clear"></px-icon>
+        </template>
+        <template is="dom-if" if="{{_showChevron(disableClear,hideChevron,buttonStyle,opened,selected,selectedValues,selectedValues.*)}}">
+          <px-icon class="dropdown-icon" icon="px-utl:chevron"></px-icon>
+        </template>
+      </div>
     </div>
   </template>
 </dom-module>
 <script>
   Polymer({
-
     is: 'px-dropdown-trigger',
-
     behaviors: [
       Polymer.AppLocalizeBehavior
     ],
-
     listeners: {
       'tap' : '_handleTapped'
     },
-
     properties: {
-
       /**
        * A flag which reflects if the dropdown trigger has been clicked or not.
        */
@@ -51,7 +44,6 @@
         notify: true,
         value: false
       },
-
       /**
        * Read-only reference to the trigger element. Data-bind this property
        * into the px-context-browser `openTrigger` or `favoritedTrigger`
@@ -63,7 +55,6 @@
         notify: true,
         value: null
       },
-
       /**
        * Whether or not to hide the chevron icon from the dropdown.
        */
@@ -119,15 +110,12 @@
         value: ''
       }
     },
-
     attached() {
       this._setTrigger(this);
     },
-
     detached() {
       this._setTrigger(null);
     },
-
     /**
      * Fires an event to the main px-dropdown component to toggle the open state.
      */

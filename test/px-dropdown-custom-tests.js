@@ -1,3 +1,11 @@
+function flushAndRender(cb) {
+  flush(() => {
+    requestAnimationFrame(() => {
+      cb();
+    });
+  });
+}
+
 describe('Custom Automation Tests for px-dropdown', function (done) {
   let px_dropdown;
   let px_dropdown_content;
@@ -75,16 +83,11 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('Checks if dropdown opens on container click',
     function (done) {
-      var clickHandle = function () {
-          setTimeout(function() {
-            assert.isTrue(px_dropdown_content.style.display !== 'none');
-            done();
-          }.bind(this),50);
-        }.bind(this);
-
-      px_dropdown_button.addEventListener('click', clickHandle);
-      px_dropdown_button.click();
-      px_dropdown_button.removeEventListener('click', clickHandle);
+      px_dropdown.$.trigger.click();
+      flushAndRender(() => {
+        assert.isTrue(px_dropdown_content.style.display !== 'none');
+        done();
+      });
     }
   );
 
@@ -129,49 +132,43 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('check if dropdown closes on outside click',
     function (done) {
-      px_dropdown_button.click();
-      flush(()=>{
+      px_dropdown.$.trigger.click();
+
+      flushAndRender(() => {
         assert.isTrue(px_dropdown.opened);
-        async.whilst(
-          function() {
-            return px_dropdown.opened;
-          },
-          function(callback) {
-            px_dropdown.parentElement.click();
-            setTimeout(callback, 1000);
-          },
-          function (err, n) {
-            assert.isFalse(px_dropdown.opened);
-            done();
-          }
-        )
+        px_dropdown.parentElement.click();
+        flushAndRender(() => {
+          assert.isFalse(px_dropdown.opened);
+          done();
+        });
       });
     }
   );
 
   it('check if dropdown does not close on outside click when preventCloseOnOutsideClick is set',
     function (done) {
-      let title = Polymer.dom(document).querySelector('#title');
-
+      const title = Polymer.dom(document).querySelector('#title');
       px_dropdown.preventCloseOnOutsideClick = true;
 
-      clickHandle = function () {
-        setTimeout(function() {
-          assert.isTrue(px_dropdown.opened);
-        },50);
-        done();
-      };
+      px_dropdown.$.trigger.click();
 
-      //open dropdown
-      px_dropdown_button.click();
-      title.addEventListener('click', clickHandle);
-      title.click();
-      title.removeEventListener('click', clickHandle);
+      flushAndRender(() => {
+        // click outside the dropdown
+        title.click();
+
+        flushAndRender(() => {
+          assert.isTrue(px_dropdown.opened);
+          done();
+        });
+      });
     }
   );
 });
 
 describe('Custom Automation Tests for search feature px-dropdown', function (done) {
+  let px_dropdown;
+  let px_dropdown_content;
+  let px_dropdown_button;
 
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-search-fixture');
@@ -191,10 +188,12 @@ describe('Custom Automation Tests for search feature px-dropdown', function (don
       });
     }
   );
-
 });
 
 describe('Custom Automation Tests for sort feature px-dropdown', function (done) {
+  let px_dropdown;
+  let px_dropdown_content;
+  let px_dropdown_button;
 
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-sort-fixture');
@@ -264,6 +263,7 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
 describe('Multi select tests for px-dropdown', function (done) {
   let px_dropdown;
+  let px_dropdown_button;
 
   beforeEach(function(done){
     px_dropdown = fixture('dropdown-multi-element-fixture');
@@ -278,10 +278,10 @@ describe('Multi select tests for px-dropdown', function (done) {
       let selector = px_dropdown.$.content.$.selector,
       divs = Polymer.dom(selector.root).querySelectorAll('div');
 
-      assert.isFalse(divs[0].classList.contains('iron-selected'));
-      assert.isTrue(divs[1].classList.contains('iron-selected'));
-      assert.isFalse(divs[2].classList.contains('iron-selected'));
-      assert.isFalse(divs[3].classList.contains('iron-selected'));
+      assert.isFalse(divs[0].classList.contains('iron-selected'), 'first item should NOT be selected');
+      assert.isTrue(divs[1].classList.contains('iron-selected'), 'second item should be selected');
+      assert.isFalse(divs[2].classList.contains('iron-selected'), 'third item should NOT be selected');
+      assert.isFalse(divs[3].classList.contains('iron-selected'), 'fourth item should NOT be selected');
 
       var clickHandle = function () {
         flush(()=>{
@@ -290,7 +290,8 @@ describe('Multi select tests for px-dropdown', function (done) {
           done();
         });
       };
-      px_dropdown_button.click();
+
+      px_dropdown.$.trigger.click();
       divs[0].addEventListener('click', clickHandle);
       divs[0].click();
     }
