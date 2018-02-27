@@ -69,7 +69,7 @@
               <template is="dom-if" if="{{item.icon}}">
                 <px-icon icon="{{item.icon}}" class="item-icon u-mr-" style$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
               </template>
-              <span class="dropdown-option__item truncate">{{item.val}}</span>
+              <span class$="dropdown-option__item {{_getTruncateClass(disableTruncate)}}">{{item.val}}</span>
             </div>
           </template>
         </iron-selector>
@@ -135,7 +135,7 @@
         type: Boolean
       },
       /**
-       * If set to true, users are unable to clear out the dropdown
+       * If set, users are unable to clear out the dropdown
        * once a selection has been made. Useful for required single-select
        * dropdowns where an empty state would be undesirable. Not recommended
        * for multi-select dropdowns, as it means the user will simply lose the ability
@@ -146,11 +146,19 @@
         type: Boolean
       },
       /**
-       * If set to true, users can still open the dropdown and click on items,
+       * If set, users can still open the dropdown and click on items,
        * but they will not be selected. Use this property in use cases where
        * the dropdown is used as a menu instead of a form input.
        */
       disableSelect: {
+        type: Boolean
+      },
+      /**
+       * By default, dropdown items longer than the max-width of the dropdown
+       * will be truncated, with the full string available on hover tooltip.
+       * If this property is set, items will not be truncated, but will wrap instead.
+       */
+      disableTruncate: {
         type: Boolean
       },
       /**
@@ -796,6 +804,12 @@
     */
     _getCaretClass: function(showCaret, mobile, verticalAlign, horizontalAlign) {
       return (showCaret && !mobile) ? verticalAlign + ' ' + horizontalAlign : '';
+    },
+    /**
+    * Calculates class for the dropdown items based on whether truncation is disabled.
+    */
+    _getTruncateClass: function(disableTruncate) {
+      return disableTruncate ? '' : 'truncate';
     },
     /**
     * Calculates offset for the dropdown based on whether caret is shown.

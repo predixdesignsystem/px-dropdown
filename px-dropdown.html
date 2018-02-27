@@ -149,7 +149,8 @@ Custom property | Description
         sort-mode="[[sortMode]]"
         hide-selected="[[hideSelected]]"
         allow-outside-scroll="[[allowOutsideScroll]]"
-        display-value-selected="{{_displayValueSelected}}">
+        display-value-selected="{{_displayValueSelected}}"
+        disable-truncate="[[disableTruncate]]">
       </px-dropdown-content>
     </px-overlay-content>
   </template>
@@ -219,6 +220,15 @@ Custom property | Description
        * the dropdown is used as a menu instead of a form input.
        */
       disableSelect: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * By default, dropdown items longer than the max-width of the dropdown
+       * will be truncated, with the full string available on hover tooltip.
+       * If this property is set, items will not be truncated, but will wrap instead.
+       */
+      disableTruncate: {
         type: Boolean,
         value: false
       },

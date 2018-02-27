@@ -1,3 +1,7 @@
+v4.7.0
+==================
+* add disable-truncate property for content items
+
 v4.6.0
 ==================
 * Adding px-overlay-content to optionally hoist content.
