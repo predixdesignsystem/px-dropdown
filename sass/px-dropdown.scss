@@ -26,6 +26,7 @@ $inuit-enable-btn--disabled: true;
 $inuit-enable-btn--bare: true;
 $inuit-enable-btn--bare--primary: true;
 $inuit-enable-btn--icon: true;
+$inuit-enable-btn--primary: true;
 @import "px-buttons-design/_objects.buttons.scss";
 @import "px-shadows-design/_objects.shadows.scss";
 
@@ -37,6 +38,7 @@ $inuit-enable-btn--icon: true;
     cursor: not-allowed;
   }
   color: var(--px-dropdown-text-color, inherit);
+  --px-btn-min-width: 0;
 }
 :host.validation-error .dropdown-trigger {
   border-color: var(--px-validation-error-text-color, red);
@@ -51,9 +53,10 @@ $inuit-enable-btn--icon: true;
   color: inherit;
 }
 
-px-icon {
+.dropdown-icon {
   --iron-icon-width: calculateRem(16px);
   --iron-icon-height: calculateRem(16px);
+  margin-left: $inuit-base-spacing-unit--tiny;
 }
 .dropdown{
   font-size: var(--px-dropdown-content-font-size, inherit);
@@ -72,6 +75,7 @@ px-icon {
   outline: none;
   max-width: var(--px-dropdown-max-width, 400px);
   font-weight: var(--px-dropdown-font-weight, normal);
+  height: auto;
 }
 .dropdown-label {
   overflow: hidden;
@@ -79,26 +83,38 @@ px-icon {
   text-overflow: ellipsis;
   text-align: left;
 }
-.dropdown-icon {
+.custom-icon {
   --iron-icon-width: var(--px-dropdown-icon-size, calculateRem(16px));
-  margin-left: $inuit-base-spacing-unit--tiny;
+  --iron-icon-height: var(--px-dropdown-icon-size, calculateRem(16px));
 }
 .dropdown-content {
   background-color: var(--px-dropdown-bg-color, white);
   border: 1px solid var(--px-dropdown-border-color, gray);
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
+  min-width: var(--px-dropdown-min-width);
+  min-height: var(--px-dropdown-min-height);
+  display: flex;
+  flex-direction: column;
 }
 :host([mobile]) .dropdown-content {
   max-width: 90vw;
   max-height: 80vh;
   width: 90vw;
+  min-width: 0;
+  min-height: 0;
   margin-left: 5vw;
 }
+.selector {
+  flex-grow: 1;
+  overflow-y: auto;
+}
 .dropdown-option {
-  padding-left: $inuit-base-spacing-unit--small;
-  padding-right: $inuit-base-spacing-unit--small;
-  height: $inuit-base-spacing-unit--huge;
+  padding-left: var(--px-dropdown-item-padding, $inuit-base-spacing-unit--small);
+  padding-right: var(--px-dropdown-item-padding, $inuit-base-spacing-unit--small);
+  padding-top: var(--px-dropdown-item-padding);
+  padding-bottom: var(--px-dropdown-item-padding);
+  height: var(--px-dropdown-item-height, $inuit-base-spacing-unit--huge);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -119,7 +135,7 @@ px-icon {
   }
   &[disabled] {
     color: var(--px-dropdown-text-color--disabled, gray);
-    background-color: var(--px-dropdown-bg-color--didabled, transparent);
+    background-color: var(--px-dropdown-bg-color--disabled, transparent);
     cursor: not-allowed;
     .select-icon {
       stroke: var(--px-dropdown-text-color--disabled, gray);
@@ -138,6 +154,10 @@ px-icon {
 }
 .dropdown-option__item {
   pointer-events: none;
+}
+.item-icon {
+  --iron-icon-width:  var(--px-dropdown-item-icon-size, calculateRem(16px));
+  --iron-icon-height: var(--px-dropdown-item-icon-size, calculateRem(16px));
 }
 .checkbox {
   margin-right: $inuit-base-spacing-unit--tiny;
@@ -164,9 +184,66 @@ px-icon {
 .search__box {
   padding-right: 1.5rem;
 }
+.fixed {
+  flex-shrink: 0;
+}
+
+// Following styles all have to do with showCaret
+
+.dropdown.left:after, .dropdown.left:before {
+  left: var(--px-dropdown-caret-left, 1rem);
+}
+.dropdown.right:after, .dropdown.right:before {
+  right: var(--px-dropdown-caret-right, 0.6rem);
+}
+
+.dropdown.top:after, .dropdown.top:before {
+  bottom: calc(100% - 1px);
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.dropdown.top:after {
+  border-color: rgba(136,183,213,0);
+  border-bottom-color: var(--px-dropdown-bg-color, black);
+  border-width: 5px;
+  margin-left: -5px;
+}
+.dropdown.top:before {
+  border-color: rgba(194,225,245,0);
+  border-bottom-color: var(--px-dropdown-border-color, gray);
+  border-width: 6px;
+  margin-left: -6px;
+}
+
+.dropdown.bottom:after, .dropdown.bottom:before {
+  top: calc(100% - 1px);
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.dropdown.bottom:after {
+  border-color: rgba(136,183,213,0);
+  border-top-color: var(--px-dropdown-bg-color, black);
+  border-width: 5px;
+  margin-left: -5px;
+}
+.dropdown.bottom:before {
+  border-color: rgba(194,225,245,0);
+  border-top-color: var(--px-dropdown-border-color, gray);
+  border-width: 6px;
+  margin-left: -6px;
+}
 
 // Trumps
 $inuit-enable-paddings--small : true;
 $inuit-enable-paddings--tiny : true;
 $inuit-enable-paddings--none : true;
+$inuit-enable-margins--small : true;
 @import "px-spacing-design/_trumps.spacing.scss";
