@@ -1,3 +1,7 @@
+v4.7.1
+==================
+* fix mobile responsiveness
+
 v4.7.0
 ==================
 * add disable-truncate property for content items

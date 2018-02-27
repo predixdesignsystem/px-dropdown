@@ -89,6 +89,12 @@ px-icon {
   max-height: var(--px-dropdown-max-height, 300px);
   max-width: var(--px-dropdown-max-width, 400px);
 }
+:host([mobile]) .dropdown-content {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: 90vw;
+  margin-left: 5vw;
+}
 .dropdown-option {
   padding-left: $inuit-base-spacing-unit--small;
   padding-right: $inuit-base-spacing-unit--small;
@@ -119,6 +125,15 @@ px-icon {
       stroke: var(--px-dropdown-text-color--disabled, gray);
       color: var(--px-dropdown-text-color--disabled, gray);
     }
+  }
+}
+:host([mobile]) .dropdown-option {
+  padding: var(--px-dropdown-item-padding, $inuit-base-spacing-unit);
+  height: var(--px-dropdown-item-height, 4rem);
+  &.iron-selected {
+    background-color: var(--px-dropdown-bg-color--selected--mobile, #EEE);
+    color: var(--px-dropdown-text-color, black);
+    border-left: 5px solid var(--px-dropdown-bg-color--selected, blue);
   }
 }
 .dropdown-option__item {

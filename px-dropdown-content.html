@@ -4,7 +4,6 @@
 <link rel="import" href="../iron-dropdown/iron-dropdown.html"/>
 <link rel="import" href="../iron-selector/iron-selector.html"/>
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html"/>
-<link rel="import" href="../iron-media-query/iron-media-query.html"/>
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html"/>
 <link rel="import" href="css/px-dropdown-styles.html"/>
 
@@ -12,7 +11,6 @@
 <dom-module id="px-dropdown-content">
   <template>
     <style include="px-dropdown-styles"></style>
-    <iron-media-query query$="(max-width: {{mobileAt}}px)" query-matches="{{mobile}}"></iron-media-query>
     <iron-a11y-keys
       id="keys"
       keys="up down space enter tab esc"
@@ -420,11 +418,11 @@
      */
     _openTriggerChanged(newTrigger, oldTrigger) {
       if (oldTrigger && oldTrigger instanceof HTMLElement) {
-        oldTrigger.removeEventListener('click', this._handleOpenTriggerTappedBound);
+        oldTrigger.removeEventListener('tap', this._handleOpenTriggerTappedBound);
         oldTrigger.removeEventListener('clear-tapped', this._handleClearTappedBound);
       }
       if (newTrigger && newTrigger instanceof HTMLElement) {
-        newTrigger.addEventListener('click', this._handleOpenTriggerTappedBound, false);
+        newTrigger.addEventListener('tap', this._handleOpenTriggerTappedBound, false);
         newTrigger.addEventListener('clear-tapped', this._handleClearTappedBound, false);
       }
     },
