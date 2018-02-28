@@ -201,7 +201,8 @@ Custom property | Description
       displayValue: {
         type: String,
         notify: true,
-        value: 'Select'
+        value: 'Select',
+        observer: '_resetMinWidth'
       },
       /**
        * If set to true, users are unable to clear out the dropdown
@@ -537,6 +538,9 @@ Custom property | Description
     },
     detached: function() {
       this.$.triggerSlot.removeEventListener('slotchange', this._initOpenTrigger);
+    },
+    _resetMinWidth: function() {
+      this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
     },
     /**
      * Toggles visibility of the dropdown: opens dropdown if it is closed, and

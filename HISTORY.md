@@ -1,3 +1,7 @@
+v4.7.4
+==================
+* fix width inheritance of content
+
 v4.7.3
 ==================
 * fix width inheritance
