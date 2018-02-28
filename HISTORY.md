@@ -1,3 +1,7 @@
+v4.7.3
+==================
+* fix width inheritance
+
 v4.7.2
 ==================
 * revert all accidental sass changes from 4.7.0
