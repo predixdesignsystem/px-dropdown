@@ -388,7 +388,8 @@
     listeners: {
       'iron-activate' : '_handleActivate',
       'iron-select' : '_handleSelection',
-      'iron-deselect' : '_handleDeselection'
+      'iron-deselect' : '_handleDeselection',
+      'iron-overlay-canceled' : '_handleCancel'
     },
     observers: [
       '_itemsChanged(items, items.*)',
@@ -406,6 +407,13 @@
     },
     toggle: function() {
       this.$.dropdown.toggle();
+    },
+    _handleCancel: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if(Polymer.dom(e.detail).path.indexOf(this.openTrigger) === -1) {
+        this.$.dropdown.close();
+      }
     },
     close: function() {
       this.$.dropdown.close();

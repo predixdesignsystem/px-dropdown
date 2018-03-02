@@ -5,6 +5,7 @@
 <link rel="import" href="px-dropdown-content.html"/>
 <link rel="import" href="../px-overlay/px-overlay-content.html"/>
 <link rel="import" href="../px-overlay/px-overlay-behavior.html"/>
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html"/>
 <link rel="import" href="../iron-media-query/iron-media-query.html"/>
 
 <!--
@@ -160,8 +161,12 @@ Custom property | Description
   Polymer({
     is: 'px-dropdown',
     behaviors: [
-      PxOverlayBehavior.sharedProperties
+      PxOverlayBehavior.sharedProperties,
+      Polymer.IronResizableBehavior
     ],
+    listeners: {
+      'iron-resize' : '_resetMinWidth'
+    },
     properties: {
       /**
        * A flag which reflects if the dropdown trigger has been clicked or not.

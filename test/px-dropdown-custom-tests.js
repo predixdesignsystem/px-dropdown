@@ -148,11 +148,27 @@ describe('Custom Automation Tests for px-dropdown', function (done) {
 
   it('check if dropdown closes on outside click',
     function (done) {
+      const title = Polymer.dom(document).querySelector('#title');
       px_dropdown.$.trigger.click();
 
       flushAndRender(() => {
         assert.isTrue(px_dropdown.opened);
-        px_dropdown.parentElement.click();
+        title.click();
+        flushAndRender(() => {
+          assert.isFalse(px_dropdown.opened);
+          done();
+        });
+      });
+    }
+  );
+
+  it('check if dropdown closes on trigger click',
+    function (done) {
+      px_dropdown.$.trigger.click();
+
+      flushAndRender(() => {
+        assert.isTrue(px_dropdown.opened);
+        px_dropdown.$.trigger.click();
         flushAndRender(() => {
           assert.isFalse(px_dropdown.opened);
           done();

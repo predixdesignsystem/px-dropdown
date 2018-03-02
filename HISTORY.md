@@ -1,3 +1,8 @@
+v4.7.5
+==================
+* fix width inheritance of content on resize
+* close dropdown when trigger tapped again
+
 v4.7.4
 ==================
 * fix width inheritance of content
