@@ -589,5 +589,17 @@ Custom property | Description
         this.$.content._notifyResize();
       }, 1);
     }
+
+    /**
+    * @event px-dropdown-selection-changed
+    *
+    * Event fired when any given element is selected or deselected in the dropdown.
+    * `evt.detail` contains:
+    * ```
+    * { val: "text of the changed element",
+    *   key: "key of the changed element",
+    *   selected: true/false }
+    * ```
+    */
   });
 </script>

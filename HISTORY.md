@@ -1,3 +1,7 @@
+v4.7.6
+==================
+* fix event documentation
+
 v4.7.5
 ==================
 * fix width inheritance of content on resize
