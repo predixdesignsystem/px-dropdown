@@ -541,21 +541,21 @@ Custom property | Description
        * Called when the element is first attached and whenever the `slotchange`
        * event is fired.
        */
-      this._initOpenTrigger = () => {
-        const trigger = this._getSlottedOpenTrigger();
+      this._initOpenTrigger = function() {
+        var trigger = this._getSlottedOpenTrigger();
         if (trigger) {
           this.$.content.openTrigger = trigger;
         }
-      };
+      }.bind(this);
     },
     attached: function() {
       this.$.triggerSlot.addEventListener('slotchange', this._initOpenTrigger, false);
       this._initOpenTrigger();
 
-      Polymer.RenderStatus.afterNextRender(this, () => {
+      Polymer.RenderStatus.afterNextRender(this, function() {
         // Forces the width of the dropdown to be at least as wide as the trigger
         this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
-      });
+      }.bind(this));
     },
     detached: function() {
       this.$.triggerSlot.removeEventListener('slotchange', this._initOpenTrigger);
@@ -569,9 +569,9 @@ Custom property | Description
      */
     toggle: function() {
       this.$.content.toggle();
-      Polymer.RenderStatus.afterNextRender(this, () => {
+      Polymer.RenderStatus.afterNextRender(this, function() {
         this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
-      });
+      }.bind(this));
     },
     /**
      * Finds the element in the the trigger slot. If the developer passed an
@@ -582,17 +582,19 @@ Custom property | Description
      * @return {HTMLElement|null} - Reference to the trigger element, or null if none found
      */
     _getSlottedOpenTrigger: function() {
-      let elems;
+      var elems;
       if (Polymer.Element) {
-        const nodes = Polymer.FlattenedNodesObserver.getFlattenedNodes(this.$.triggerSlot);
-        elems = nodes.filter(n => n.nodeType === Node.ELEMENT_NODE)
+        var nodes = Polymer.FlattenedNodesObserver.getFlattenedNodes(this.$.triggerSlot);
+        elems = nodes.filter(function(n) {
+          return n.nodeType === Node.ELEMENT_NODE;
+        });
       } else {
         elems = this.getContentChildren('#triggerSlot');
       }
       if (elems.length > 1) {
         console.warn('Only expected 1 element as a child of the "trigger" slot.')
       }
-      const [trigger] = elems;
+      var [trigger] = elems;
       return (trigger instanceof HTMLElement) ? trigger : null;
     },
     /**
