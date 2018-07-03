@@ -417,9 +417,9 @@ limitations under the License.
       this._closeBound = this.close.bind(this);
     },
     attached: function() {
-      Polymer.RenderStatus.afterNextRender(this, () => {
+      Polymer.RenderStatus.afterNextRender(this, function() {
         this._updateSelection();
-      });
+      }.bind(this));
     },
     toggle: function() {
       this.$.dropdown.toggle();
@@ -440,7 +440,7 @@ limitations under the License.
     /**
      * Bind to open trigger, open/close on trigger tap.
      */
-    _openTriggerChanged(newTrigger, oldTrigger) {
+    _openTriggerChanged: function(newTrigger, oldTrigger) {
       if (oldTrigger && oldTrigger instanceof HTMLElement) {
         oldTrigger.removeEventListener('tap', this._handleOpenTriggerTappedBound);
         oldTrigger.removeEventListener('clear-tapped', this._handleClearTappedBound);
@@ -471,10 +471,12 @@ limitations under the License.
      */
     _updateSelection: function() {
       if(Array.isArray(this.items) && this.items.length > 0) {
+        var length, selected, i;
+
         if(this.multi) {
-          let length = this.items.length;
-          let selected = Array.isArray(this.selectedValues) ? this.selectedValues.slice(0) : [];
-          for(let i=0; i<length; i++) {
+          length = this.items.length;
+          selected = Array.isArray(this.selectedValues) ? this.selectedValues.slice(0) : [];
+          for(i=0; i<length; i++) {
             if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
               if(selected && selected.indexOf(this.items[i][this.selectBy]) === -1) {
                 selected.push(this.items[i][this.selectBy]);
@@ -484,9 +486,9 @@ limitations under the License.
           this.selectedValues = selected;
         }
         else {
-          let length = this.items.length;
-          let selected = this.selected;
-          for(let i=0; i<length; i++) {
+          length = this.items.length;
+          selected = this.selected;
+          for(i=0; i<length; i++) {
             if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
               if(selected !== this.items[i][this.selectBy]) {
                 this.set('selected', this.items[i][this.selectBy]);
@@ -647,7 +649,7 @@ limitations under the License.
     /**
      * Determines whether to display the clear button inside the dropdown in mobile mode.
      */
-    _showMobileClearButton(mobile, disableClear, selected, selectedValues) {
+    _showMobileClearButton: function(mobile, disableClear, selected, selectedValues) {
       if(mobile && (typeof selected === 'string' || typeof selected === 'number' || selectedValues.length > 0)) {
         return '';
       }
@@ -839,16 +841,16 @@ limitations under the License.
     _getOffset: function(showCaret, triggerHeight, mobile) {
       return mobile ? 0 : showCaret ? triggerHeight + 5 : triggerHeight;
     },
-    _getVertical(verticalAlign, mobile) {
+    _getVertical: function(verticalAlign, mobile) {
       return mobile ? 'middle' : verticalAlign;
     },
-    _getHorizontal(horizontalAlign, mobile) {
+    _getHorizontal: function(horizontalAlign, mobile) {
       return mobile ? 'left' : horizontalAlign;
     },
-    _showCheckmark(multi, mobile) {
+    _showCheckmark: function(multi, mobile) {
       return multi && !mobile;
     },
-    _showButtons(mobile,hideMobileButtons) {
+    _showButtons: function(mobile,hideMobileButtons) {
       return mobile && !hideMobileButtons;
     }
   });

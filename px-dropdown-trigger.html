@@ -126,10 +126,10 @@ limitations under the License.
         value: ''
       }
     },
-    attached() {
+    attached: function() {
       this._setTrigger(this);
     },
-    detached() {
+    detached: function() {
       this._setTrigger(null);
     },
     /**
