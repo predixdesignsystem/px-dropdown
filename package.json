@@ -4,6 +4,11 @@
   "description": "A Predix UI Dropdown component",
   "version": "4.7.7",
   "extName": null,
+  "scripts": {
+    "clean": "gulp clean",
+    "sass": "gulp sass",
+    "start": "gulp serve"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/predixdev/px-dropdown.git"
