@@ -81,7 +81,7 @@ $inuit-enable-btn--primary: true;
   padding-right: $inuit-base-spacing-unit--small;
   outline: none;
   font-weight: var(--px-dropdown-font-weight, normal);
-  height: auto;
+  height: 100%;
 }
 .dropdown-label {
   overflow: hidden;
