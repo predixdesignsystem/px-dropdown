@@ -231,7 +231,7 @@ describe('Custom Automation Tests for search feature px-dropdown', function (don
   it('Check that search box appears when in search mode',
     function (done) {
       flush(()=>{
-        let input = Polymer.dom(px_dropdown.$.content.root).querySelector('#searchbox');
+        let input = Polymer.dom(px_dropdown.$.content.root).querySelector('.search__box');
         assert.isTrue(input.classList.contains('text-input'));
         done();
       });

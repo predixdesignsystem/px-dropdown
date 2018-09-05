@@ -55,7 +55,6 @@ limitations under the License.
           <div class="u-p- fixed">
             <div class="search__form">
               <input
-                id="searchbox"
                 class="text-input search__box"
                 disabled$="[[disabled]]"
                 placeholder="{{placeholder}}"
@@ -728,7 +727,7 @@ limitations under the License.
                     && !node.hasAttribute('disabled') && !node.classList.contains('hidden'));
           }),
           focused = options.indexOf(this._focusedOption),
-          searchFocused = this.searchMode && Polymer.dom(this.$.dropdown).querySelector(':focus') === Polymer.dom(this.$.dropdown).querySelector('#searchbox');
+          searchFocused = this.searchMode && Polymer.dom(this.$.dropdown).querySelector(':focus') === Polymer.dom(this.$.dropdown).querySelector('.search__box');
       switch (keyPressed) {
         case 'space':
         case 'enter':
@@ -768,11 +767,11 @@ limitations under the License.
           }
           // If nothing is focused and search-mode is true, move to the search box
           else if (focused === -1 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
+            Polymer.dom(this.$.dropdown).querySelector('.search__box').focus();
           }
           // If searchbox is focused, move to the first option
           else if (searchFocused) {
-            Polymer.dom(this.$.dropdown).querySelector('#searchbox').blur();
+            Polymer.dom(this.$.dropdown).querySelector('.search__box').blur();
             this.$.trigger.focus();
             this._setFocusedOption(options[0]);
           }
@@ -794,7 +793,7 @@ limitations under the License.
           }
           // If the first item is focused and search-mode is true, move to the search box
           else if (focused === 0 && this.searchMode && !searchFocused) {
-            Polymer.dom(this.$.dropdown).querySelector('#searchbox').focus();
+            Polymer.dom(this.$.dropdown).querySelector('.search__box').focus();
             this._setFocusedOption(null, options[0]);
           }
           // Else focus the last item in the list
