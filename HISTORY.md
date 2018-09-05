@@ -1,3 +1,8 @@
+v4.7.8
+==================
+* Removed id #searchbox from px-dropdown and used the class variable .search__box.
+* This ensures no duplicate 'non-unique id' error that chrome console checks for.
+
 v4.7.6
 ==================
 * fix event documentation
