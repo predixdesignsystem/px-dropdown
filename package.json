@@ -30,8 +30,5 @@
     "stream-combiner2": "^1.1.1",
     "yargs": "^6.0.0"
   },
-  "license": "Apache-2.0",
-  "dependencies": {
-    "web-component-tester": "^6.8.0"
-  }
+  "license": "Apache-2.0"
 }
