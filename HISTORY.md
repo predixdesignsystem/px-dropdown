@@ -1,3 +1,7 @@
+v4.7.9
+==================
+* fix max-width of dropdown-trigger
+
 v4.7.8
 ==================
 * Removed id #searchbox from px-dropdown and used the class variable .search__box.
