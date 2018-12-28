@@ -23,7 +23,7 @@
 
 // Base
 @import "px-flexbox-design/_base.flexbox.scss";
-$inuit-enable-input--search : true;
+$inuit-enable-input--search: true;
 @import "px-forms-design/_base.forms.scss";
 
 // Objects
@@ -60,21 +60,22 @@ $inuit-enable-btn--primary: true;
 }
 
 .dropdown-icon {
-  --iron-icon-width: calculateRem(16px);
-  --iron-icon-height: calculateRem(16px);
+  --iron-icon-width: 1.06667rem;
+  --iron-icon-height: 1.06667rem;
   margin-left: $inuit-base-spacing-unit--tiny;
 }
-.dropdown{
+.dropdown {
   font-size: var(--px-dropdown-content-font-size, inherit);
   color: var(--px-dropdown-text-color, inherit);
   min-width: inherit;
 }
-.trigger, #trigger, #target {
+.trigger,
+#target {
   width: inherit;
 }
 .dropdown-trigger {
-  max-width: inherit;
   width: inherit;
+  max-width: var(--px-dropdown-max-width, 400px);
   display: flex;
   align-items: center;
   padding-left: $inuit-base-spacing-unit--small;
@@ -116,8 +117,14 @@ $inuit-enable-btn--primary: true;
   overflow-y: auto;
 }
 .dropdown-option {
-  padding-left: var(--px-dropdown-item-padding, $inuit-base-spacing-unit--small);
-  padding-right: var(--px-dropdown-item-padding, $inuit-base-spacing-unit--small);
+  padding-left: var(
+    --px-dropdown-item-padding,
+    $inuit-base-spacing-unit--small
+  );
+  padding-right: var(
+    --px-dropdown-item-padding,
+    $inuit-base-spacing-unit--small
+  );
   padding-top: var(--px-dropdown-item-padding);
   padding-bottom: var(--px-dropdown-item-padding);
   height: var(--px-dropdown-item-height, $inuit-base-spacing-unit--huge);
@@ -153,7 +160,7 @@ $inuit-enable-btn--primary: true;
   padding: var(--px-dropdown-item-padding, $inuit-base-spacing-unit);
   height: var(--px-dropdown-item-height, 4rem);
   &.iron-selected {
-    background-color: var(--px-dropdown-bg-color--selected--mobile, #EEE);
+    background-color: var(--px-dropdown-bg-color--selected--mobile, #eee);
     color: var(--px-dropdown-text-color, black);
     border-left: 5px solid var(--px-dropdown-bg-color--selected, blue);
   }
@@ -162,7 +169,7 @@ $inuit-enable-btn--primary: true;
   pointer-events: none;
 }
 .item-icon {
-  --iron-icon-width:  var(--px-dropdown-item-icon-size, calculateRem(16px));
+  --iron-icon-width: var(--px-dropdown-item-icon-size, calculateRem(16px));
   --iron-icon-height: var(--px-dropdown-item-icon-size, calculateRem(16px));
 }
 .checkbox {
@@ -196,14 +203,17 @@ $inuit-enable-btn--primary: true;
 
 // Following styles all have to do with showCaret
 
-.dropdown.left:after, .dropdown.left:before {
+.dropdown.left:after,
+.dropdown.left:before {
   left: var(--px-dropdown-caret-left, 1rem);
 }
-.dropdown.right:after, .dropdown.right:before {
+.dropdown.right:after,
+.dropdown.right:before {
   right: var(--px-dropdown-caret-right, 0.6rem);
 }
 
-.dropdown.top:after, .dropdown.top:before {
+.dropdown.top:after,
+.dropdown.top:before {
   bottom: calc(100% - 1px);
   border: solid transparent;
   content: " ";
@@ -213,19 +223,20 @@ $inuit-enable-btn--primary: true;
   pointer-events: none;
 }
 .dropdown.top:after {
-  border-color: rgba(136,183,213,0);
+  border-color: rgba(136, 183, 213, 0);
   border-bottom-color: var(--px-dropdown-bg-color, black);
   border-width: 5px;
   margin-left: -5px;
 }
 .dropdown.top:before {
-  border-color: rgba(194,225,245,0);
+  border-color: rgba(194, 225, 245, 0);
   border-bottom-color: var(--px-dropdown-border-color, gray);
   border-width: 6px;
   margin-left: -6px;
 }
 
-.dropdown.bottom:after, .dropdown.bottom:before {
+.dropdown.bottom:after,
+.dropdown.bottom:before {
   top: calc(100% - 1px);
   border: solid transparent;
   content: " ";
@@ -235,21 +246,21 @@ $inuit-enable-btn--primary: true;
   pointer-events: none;
 }
 .dropdown.bottom:after {
-  border-color: rgba(136,183,213,0);
+  border-color: rgba(136, 183, 213, 0);
   border-top-color: var(--px-dropdown-bg-color, black);
   border-width: 5px;
   margin-left: -5px;
 }
 .dropdown.bottom:before {
-  border-color: rgba(194,225,245,0);
+  border-color: rgba(194, 225, 245, 0);
   border-top-color: var(--px-dropdown-border-color, gray);
   border-width: 6px;
   margin-left: -6px;
 }
 
 // Trumps
-$inuit-enable-paddings--small : true;
-$inuit-enable-paddings--tiny : true;
-$inuit-enable-paddings--none : true;
-$inuit-enable-margins--small : true;
+$inuit-enable-paddings--small: true;
+$inuit-enable-paddings--tiny: true;
+$inuit-enable-paddings--none: true;
+$inuit-enable-margins--small: true;
 @import "px-spacing-design/_trumps.spacing.scss";
