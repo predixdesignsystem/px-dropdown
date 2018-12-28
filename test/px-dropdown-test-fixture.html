@@ -38,7 +38,7 @@ limitations under the License.
     <p id="title">1. Default:</p>
     <test-fixture id="dropdown-fixture">
       <template>
-        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]'>
+        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"A very long value to test that the trigger and content widths can be constrained"}]'>
         </px-dropdown>
       </template>
     </test-fixture>
@@ -78,5 +78,12 @@ limitations under the License.
         </px-dropdown>
       </template>
     </test-fixture>
+
+    <test-fixture id="dropdown-long-values">
+        <template>
+          <px-dropdown items='[{"key":"1","val":"One very long value to test that the trigger and content widths can be constrained"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' sort-mode="val">
+          </px-dropdown>
+        </template>
+      </test-fixture>
   </body>
 </html>
