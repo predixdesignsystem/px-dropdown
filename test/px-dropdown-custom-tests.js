@@ -291,7 +291,7 @@ describe("Custom Automation Tests for sort feature px-dropdown", function(done) 
     });
   });
 
-  it("Sort mode: items can be sorted by values or keys", function(done) {
+  it("Sort mode: items can be sorted by keys", function(done) {
     let selector = px_dropdown.$.content.$.selector,
       divs = Polymer.dom(selector.root).querySelectorAll("div");
 
@@ -302,14 +302,14 @@ describe("Custom Automation Tests for sort feature px-dropdown", function(done) 
     done();
   });
 
-  it("Sort mode: items can be sorted by values or keys", function(done) {
+  it("Sort mode: items can be sorted by values", function(done) {
     let selector = px_dropdown.$.content.$.selector,
       divs = Polymer.dom(selector.root).querySelectorAll("div");
 
     assert.equal(divs[0].textContent.trim(), "Four");
-    px_dropdown.sortMode = "key";
+    px_dropdown.sortMode = "val";
     divs = Polymer.dom(selector.root).querySelectorAll("div");
-    assert.equal(divs[0].textContent.trim(), "One");
+    assert.equal(divs[0].textContent.trim(), "Four");
     done();
   });
 });
@@ -409,6 +409,37 @@ describe("Disabled element tests for px-dropdown", function(done) {
     dropdown_option.disabled = true;
     var item_click = function(e) {
       assert.fail(null, null, "should not be called");
+      done();
+    };
+    px_dropdown_button.click();
+    px_dropdown.addEventListener("px-dropdown-selection-changed", item_click);
+    dropdown_option.click();
+    px_dropdown.removeEventListener(
+      "px-dropdown-selection-changed",
+      item_click
+    );
+    done();
+  });
+});
+describe("Read Only item tests for px-dropdown", function(done) {
+  let px_dropdown;
+
+  beforeEach(function(done) {
+    px_dropdown = fixture("dropdown-readonly-element-fixture");
+    flush(() => {
+      done();
+    });
+  });
+
+  it("When menu items set to read only the items can not be selected", function(done) {
+    (px_dropdown_content = px_dropdown.$.content.$.dropdown),
+      (px_dropdown_button = px_dropdown.$.trigger.$.trigger),
+      (dropdown_option = Polymer.dom(
+        px_dropdown.$.content.root
+      ).querySelectorAll(".dropdown-option")[1]);
+
+    var item_click = function(e) {
+      assert.fail(null, null, "should not be able to select read only items");
       done();
     };
     px_dropdown_button.click();

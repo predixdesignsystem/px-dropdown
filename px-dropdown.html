@@ -150,6 +150,7 @@ Custom property | Description
         bound-target="[[boundTarget]]"
         prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]"
         disable-select="[[disableSelect]]"
+        read-only="[[readOnly]]"
         select-by="[[selectBy]]"
         selected="{{selected}}"
         selected-values="{{selectedValues}}"
@@ -234,6 +235,13 @@ Custom property | Description
        * which requires a user to select at least one option).
        */
       disableClear: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * If set to true, users can still open the dropdown but can not click on items
+       */
+      readOnly: {
         type: Boolean,
         value: false
       },

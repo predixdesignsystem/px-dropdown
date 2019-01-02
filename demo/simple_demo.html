@@ -51,8 +51,19 @@ limitations under the License.
       items='[{"key":"1","val":"test test test test test test test test test test test test test test test test iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"I am a menu item so I cannot be selected","disableSelect":true},{"key":"5","val":"Flip Phone","disabled":true}]'>
     </px-dropdown>
     </br>
+    <p>Disabled Dropdown</p>
+    <px-dropdown
+        display-value="Disabled"
+        hoist
+        disabled
+        container-type="disDropdown"
+        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
+        multi>
+    </px-dropdown>
+    </br>
     <p>Multi Select</p>
     <px-dropdown
+      id="multiSelect"
       hoist
       container-type="bar"
       items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
@@ -61,9 +72,18 @@ limitations under the License.
     </br>
     <p>Disable Select (Like a Menu)</p>
     <px-dropdown
+      id="disableSelect"
       container-type="baz"
       items='[{"key":"1","val":"Do something"},{"key":"2","val":"Do something else"},{"key":"3","val":"Do one"}]'
       disable-select>
+    </px-dropdown>
+    </br>
+    <p>Set Items to Read Only</p>
+    <px-dropdown 
+      id="readOnly"
+      display-value="Read Only Items"
+      container-type="readOnly"
+      read-only items='[{"key":"1","val":"One Read Only"},{"key":"2","val":"Two Read Only"},{"key":"3","val":"Three Read Only"},{"key":"4","val":"Four Read Only"}]'>
     </px-dropdown>
     </br>
     <p>Search Mode</p>

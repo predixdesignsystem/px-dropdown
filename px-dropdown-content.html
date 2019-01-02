@@ -167,6 +167,14 @@ limitations under the License.
         type: Boolean
       },
       /**
+       * If set, the items list will be in read only mode, the list is not disabled
+       * but the user can not click the items. Though like the disNo events are fired.
+       */
+       readOnly: {
+        type: Boolean,
+        observer: '_setReadOnly'
+      },
+      /**
        * By default, dropdown items longer than the max-width of the dropdown
        * will be truncated, with the full string available on hover tooltip.
        * If this property is set, items will not be truncated, but will wrap instead.
@@ -548,8 +556,8 @@ limitations under the License.
     *
     * @event px-dropdown-click
     */
-    _handleActivate: function(evt) {
-      if(evt.detail.item.hasAttribute('disabled')) {
+    _handleActivate: function(evt) { 
+      if(evt.detail.item.hasAttribute('disabled') || this.readOnly) {
         evt.preventDefault();
       }
       else if (this.disableSelect || evt.detail.item.disableSelect) {
@@ -702,6 +710,16 @@ limitations under the License.
       }
 
       return sortValue;
+    },
+    /**
+     * Adds the class that sets pointer-events = none to disable user interactions.
+     */
+    _setReadOnly: function() {
+      if(this.readOnly) {
+        this.toggleClass('dropdown-option__item',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      } else {
+        this.toggleClass('dropdown-option__item',false,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      }
     },
     /**
      * Adds or removes the focused class for keyboard navigation.
