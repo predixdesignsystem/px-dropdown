@@ -563,13 +563,16 @@ limitations under the License.
     },
     /**
      * Handles the selection event from iron-selector to update
-     * the label displayed inside the dropdown.
+     * the label displayed inside the dropdown. Use the displayValueCount property to define how many values
+     * are displayed in the trigger value of multiple select lists
      */
     _handleSelection: function(evt) {
-      if(this.multi && this.selectedValues.length === 1 && !this.hideSelected) {
-        this.displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
+      if(this.multi && this.$.selector.selectedItems.length > 0 && this.selectedValues.length <= this.displayValueCount && !this.hideSelected) {
+        this.displayValueSelected = this.$.selector.selectedItems.map(function(item) {
+          return item.val.trim();
+        }).join(', ');
       }
-      else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
+      else if(this.multi && this.selectedValues.length > this.displayValueCount && !this.hideSelected) {
         this.displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
       }
       else if(!this.hideSelected) {
@@ -598,10 +601,12 @@ limitations under the License.
      * the label displayed inside the dropdown.
      */
     _handleDeselection: function(evt) {
-      if(this.multi && this.$.selector.selectedItems.length === 1 && !this.hideSelected) {
-        this.displayValueSelected = this.$.selector.selectedItems[0].innerText.trim();
+      if(this.multi && this.$.selector.selectedItems.length > 0 && this.$.selector.selectedItems.length <= this.displayValueCount && !this.hideSelected) {
+        this.displayValueSelected = this.$.selector.selectedItems.map(function(item) {
+          return item.val.trim();
+        }).join(', ');      
       }
-      else if(this.multi && this.selectedValues.length > 1 && !this.hideSelected) {
+      else if(this.multi && this.selectedValues.length > this.displayValueCount && !this.hideSelected) {
         this.displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
       }
       else {

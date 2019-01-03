@@ -55,6 +55,9 @@ limitations under the License.
     <px-dropdown
       hoist
       container-type="bar"
+      display-value-count="3"
+      select-by="key"
+      selected-values='["1","2","3"]'
       items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
       multi>
     </px-dropdown>
@@ -87,17 +90,5 @@ limitations under the License.
     </px-dropdown>
   </div>
 </body>
-
-<script>
-  const foo = document.getElementById('foo');
-
-  foo.addEventListener("px-dropdown-click", evt => {
-    debugger
-    console.log("foo")
-  });
-  window.addEventListener("px-dropdown-click", evt => {
-    console.log("doc")
-  });
-</script>
 
 </html>

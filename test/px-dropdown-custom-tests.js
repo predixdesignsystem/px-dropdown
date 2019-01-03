@@ -314,7 +314,46 @@ describe("Custom Automation Tests for sort feature px-dropdown", function(done) 
   });
 });
 
-describe("Custom Automation Tests for px-dropdown", function(done) {
+describe("Custom Automation Tests for multiple display values feature px-dropdown", function(done) {
+  let px_dropdown;
+  let px_dropdown_button;
+
+  beforeEach(function(done) {
+    px_dropdown = fixture("dropdown-multi-select-values-fixture");
+    flush(() => {
+      px_dropdown_button = px_dropdown.$.trigger.$.trigger;
+      done();
+    });
+  });
+
+  it("Trigger label is 'One, Two, Three' as section count is <= display-value-count", function(done) {
+    assert.equal(px_dropdown._displayValueSelected, "One, Two, Three");
+    done();
+  });
+
+  it("Trigger label is '4 selected' as section count is > display-value-count", function(done) {
+    (px_dropdown_content = px_dropdown.$.content.$.dropdown),
+      (px_dropdown_button = px_dropdown.$.trigger.$.trigger),
+      (dropdown_option = Polymer.dom(
+        px_dropdown.$.content.root
+      ).querySelectorAll(".dropdown-option")[3]);
+
+    dropdown_option.disabled = true;
+    var item_click = function(e) {
+      assert.equal(px_dropdown._displayValueSelected, "4 selected");
+      done();
+    };
+    px_dropdown_button.click();
+    px_dropdown.addEventListener("px-dropdown-selection-changed", item_click);
+    dropdown_option.click();
+    px_dropdown.removeEventListener(
+      "px-dropdown-selection-changed",
+      item_click
+    );
+  });
+});
+
+describe("Close with esc key tests for px-dropdown", function(done) {
   let px_dropdown;
   let px_dropdown_content;
   let px_dropdown_button;

@@ -143,6 +143,7 @@ Custom property | Description
         opened="{{opened}}"
         key-bindings-target="[[_keyBindingsTarget]]"
         display-value="[[displayValue]]"
+        display-value-count="[[displayValueCount]]"
         language="[[language]]"
         resources="[[resources]]"
         use-key-if-missing="[[useKeyIfMissing]]"
@@ -223,6 +224,15 @@ Custom property | Description
         type: String,
         notify: true,
         value: 'Select',
+        observer: '_resetMinWidth'
+      },
+      /**
+       * The number of values to display as a comma separated string on multi select lists. 
+       * Selections greater then this number will display as "N Selected"
+       */
+      displayValueCount: {
+        type: Number,
+        value: 1,
         observer: '_resetMinWidth'
       },
       /**
