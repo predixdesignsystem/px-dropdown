@@ -83,6 +83,10 @@ $inuit-enable-btn--primary: true;
   outline: none;
   font-weight: var(--px-dropdown-font-weight, normal);
   height: auto;
+  &.btn--disabled {
+    cursor: not-allowed;
+    pointer-events: unset;
+  }
 }
 .dropdown-label {
   overflow: hidden;
@@ -115,6 +119,47 @@ $inuit-enable-btn--primary: true;
 .selector {
   flex-grow: 1;
   overflow-y: auto;
+}
+.dropdown--disabled-viewable {
+  --px-btn-color: var(--px-btn-disabled-color);
+  --px-btn-border-color: var(--px-btn-disabled-border-color);
+  --px-btn-background: var(--px-btn-disabled-background);
+  --px-btn-border-color--hover: var(--px-btn-disabled-border-color);
+  --px-btn-border-color--pressed: var(--px-btn-disabled-border-color);
+  --px-btn-background--hover: transparent;
+  --px-btn-background--pressed: transparent;
+  --px-dropdown-text-color: var(--px-dropdown-text-color--disabled) !important;
+  --px-dropdown-text-color--selected: var(
+    --px-dropdown-text-color--disabled
+  ) !important;
+  --px-dropdown-bg-color: var(--px-dropdown-bg-color--disabled) !important;
+  --px-dropdown-bg-color--hover: transparent !important;
+  --px-dropdown-bg-color--selected: transparent !important;
+  .dropdown-option {
+    color: var(--px-dropdown-text-color--selected, #fff);
+    pointer-events: none;
+  }
+}
+
+.dropdown--read-only-multi {
+  --px-dropdown-font-weight: 400;
+  --px-dropdown-text-color: var(--px-base-text-color);
+  --px-dropdown-text-color--selected: var(--px-base-text-color);
+  --px-dropdown-bg-color: var(--px-dropdown-bg-color--disabled);
+  --px-dropdown-bg-color--hover: transparent;
+  --px-dropdown-bg-color--selected: transparent;
+  .dropdown-option {
+    pointer-events: none;
+  }
+}
+.dropdown--read-only {
+  --px-dropdown-text-color: var(--px-base-text-color);
+  --px-dropdown-text-color--selected: var(--px-base-text-color);
+  --px-dropdown-bg-color--hover: #ebeff2;
+  --px-dropdown-bg-color--selected: #ebeff2;
+  .dropdown-option {
+    pointer-events: none;
+  }
 }
 .dropdown-option {
   padding-left: var(

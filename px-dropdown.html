@@ -121,6 +121,8 @@ Custom property | Description
           resources="[[resources]]"
           use-key-if-missing="[[useKeyIfMissing]]"
           disabled="[[disabled]]"
+          disabled-viewable="[[disabledViewable]]"
+          read-only="[[readOnly]]"
           hide-chevron="[[hideChevron]]"
           display-value="[[displayValue]]"
           disable-clear="[[disableClear]]"
@@ -147,6 +149,7 @@ Custom property | Description
         resources="[[resources]]"
         use-key-if-missing="[[useKeyIfMissing]]"
         disabled="[[disabled]]"
+        disabled-viewable="[[disabledViewable]]"
         bound-target="[[boundTarget]]"
         prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]"
         disable-select="[[disableSelect]]"
@@ -267,7 +270,7 @@ Custom property | Description
        * The text that is displayed in the label of the dropdown.
        * Updated when the selections change.
        */
-       _displayValueSelected: {
+      _displayValueSelected: {
         type: String
       },
       /**
@@ -356,6 +359,13 @@ Custom property | Description
        * Whether the dropdown should be disabled and non-interactive.
        */
       disabled: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * Whether the dropdown should be disabled and interactive.
+       */
+      disabledViewable: {
         type: Boolean,
         value: false
       },

@@ -53,12 +53,24 @@ limitations under the License.
     </br>
     <p>Disabled Dropdown</p>
     <px-dropdown
-        display-value="Disabled"
-        hoist
-        disabled
-        container-type="disDropdown"
-        items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
-        multi>
+      display-value="Disabled"
+      hoist
+      disabled
+      container-type="disDropdown"
+      items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
+      multi>
+    </px-dropdown>
+    </br>
+    <p>Disabled Viewable Dropdown</p>
+    <px-dropdown
+      display-value="Disabled Viewable"
+      hoist
+      disabled-viewable
+      container-type="disDropdown"
+      select-by="key"
+      selected-values='["1","3"]'
+      items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
+      multi>
     </px-dropdown>
     </br>
     <p>Multi Select</p>
@@ -66,24 +78,37 @@ limitations under the License.
       id="multiSelect"
       hoist
       container-type="bar"
+      selected-values='["2","3","5"]'
       items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
       multi>
+    </px-dropdown>
+    </br>
+    <p>Multi Select and Read Only</p>
+    <px-dropdown
+      id="multiSelect"
+      hoist
+      read-only
+      container-type="bar"
+      selected-values='["2","5"]'
+      items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
+      multi>
+    </px-dropdown>
+    </br>
+    <p>Single Select Read Only</p>
+    <px-dropdown 
+      id="readOnly"
+      display-value="Read Only Items"
+      container-type="readOnly"
+      read-only items='[{"key":"1","val":"One Read Only"},{"key":"2","val":"Two Read Only"},{"key":"3","val":"Three Read Only","selected":"true"},{"key":"4","val":"Four Read Only","disabled":"true"}]'>
     </px-dropdown>
     </br>
     <p>Disable Select (Like a Menu)</p>
     <px-dropdown
       id="disableSelect"
+      display-value="My Menu"
       container-type="baz"
       items='[{"key":"1","val":"Do something"},{"key":"2","val":"Do something else"},{"key":"3","val":"Do one"}]'
       disable-select>
-    </px-dropdown>
-    </br>
-    <p>Set Items to Read Only</p>
-    <px-dropdown 
-      id="readOnly"
-      display-value="Read Only Items"
-      container-type="readOnly"
-      read-only items='[{"key":"1","val":"One Read Only"},{"key":"2","val":"Two Read Only"},{"key":"3","val":"Three Read Only"},{"key":"4","val":"Four Read Only"}]'>
     </px-dropdown>
     </br>
     <p>Search Mode</p>

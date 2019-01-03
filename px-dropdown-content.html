@@ -115,7 +115,7 @@ limitations under the License.
        * Bind to a `<px-dropdown-trigger>` element. A tap on the trigger
        * will open the dropdown.
        */
-       openTrigger: {
+      openTrigger: {
         type: HTMLElement,
         observer: '_openTriggerChanged'
       },
@@ -168,11 +168,19 @@ limitations under the License.
       },
       /**
        * If set, the items list will be in read only mode, the list is not disabled
-       * but the user can not click the items. Though like the disNo events are fired.
+       * but the user can not click the items. No events are fired.
        */
-       readOnly: {
+      readOnly: {
         type: Boolean,
         observer: '_setReadOnly'
+      },
+      /**
+       * If set, the items list will be in read only mode, the list is disabled
+       * and the user can not click the items. No events are fired.
+       */
+      disabledViewable: {
+        type: Boolean,
+        observer: '_setDisabledViewableClass'
       },
       /**
        * By default, dropdown items longer than the max-width of the dropdown
@@ -353,7 +361,7 @@ limitations under the License.
        * See https://github.com/PolymerElements/app-localize-behavior for API
        * documentation and more information.
        */
-       language: {
+      language: {
         type: String,
         value: 'en'
       },
@@ -557,7 +565,7 @@ limitations under the License.
     * @event px-dropdown-click
     */
     _handleActivate: function(evt) { 
-      if(evt.detail.item.hasAttribute('disabled') || this.readOnly) {
+      if(evt.detail.item.hasAttribute('disabled') || this.readOnly || this.disabledViewable) {
         evt.preventDefault();
       }
       else if (this.disableSelect || evt.detail.item.disableSelect) {
@@ -714,11 +722,23 @@ limitations under the License.
     /**
      * Adds the class that sets pointer-events = none to disable user interactions.
      */
-    _setReadOnly: function() {
-      if(this.readOnly) {
-        this.toggleClass('dropdown-option__item',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+    _setReadOnly: function() {      
+      if (this.multi && this.readOnly){
+        this.toggleClass('dropdown--read-only-multi',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      } else if (this.readOnly) {
+        this.toggleClass('dropdown--read-only',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
       } else {
-        this.toggleClass('dropdown-option__item',false,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+        this.toggleClass('dropdown--read-only',false,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      }
+    },
+    /**
+     * Calculates the class for a disabled viewable dropdown.
+     */
+    _setDisabledViewableClass: function() {
+      if(this.disabledViewable) {
+        this.toggleClass('dropdown--disabled-viewable',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      } else {
+        this.toggleClass('dropdown--disabled-viewable',false,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
       }
     },
     /**
