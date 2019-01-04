@@ -51,7 +51,7 @@ describe("Custom Automation Tests for px-dropdown", function(done) {
         );
         const triggerSize = px_dropdown_button.getBoundingClientRect();
 
-        expect(Math.trunc(triggerSize.width) == 400).to.be.true;
+        expect(Math.floor(triggerSize.width) == 400).to.be.true;
         done();
       });
     };
