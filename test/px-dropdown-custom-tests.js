@@ -493,7 +493,6 @@ describe("Test the different px-dropdown states of disabled, read-only and disab
     };
     px_dropdown_button.click();
 
-    assert.isTrue(px_dropdown.opened, "expected dropdown to open");
     assert.isTrue(
       px_dropdown.hasAttribute("read-only"),
       "expected dropdown-content to have class read-only"
@@ -519,7 +518,6 @@ describe("Test the different px-dropdown states of disabled, read-only and disab
     };
     px_dropdown_button.click();
 
-    assert.isTrue(px_dropdown.opened, "expected dropdown to open");
     assert.isTrue(
       px_dropdown.hasAttribute("disabled-viewable"),
       "expected dropdown-content to have class disabled-viewable"
