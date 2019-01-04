@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -91,7 +91,9 @@ limitations under the License.
       hoist
       read-only
       container-type="bar"
-      selected-values='["2","5"]'
+      display-value-count="3"
+      select-by="key"
+      selected-values='["1","2","3"]'
       items='[{"key":"1","val":"iPhone"},{"key":"2","val":"Android"},{"key":"3","val":"Blackberry"},{"key":"4","val":"Windows Windows Windows Windows Windows Windows Windows Phone"},{"key":"5","val":"Flip Phone","disabled":true}]'
       multi>
     </px-dropdown>
@@ -134,17 +136,5 @@ limitations under the License.
     </px-dropdown>
   </div>
 </body>
-
-<script>
-  const foo = document.getElementById('foo');
-
-  foo.addEventListener("px-dropdown-click", evt => {
-    debugger
-    console.log("foo")
-  });
-  window.addEventListener("px-dropdown-click", evt => {
-    console.log("doc")
-  });
-</script>
 
 </html>

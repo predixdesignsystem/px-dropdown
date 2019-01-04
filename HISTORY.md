@@ -1,3 +1,8 @@
+# v4.8.0
+
+- Added a new property to make the number of selected values used in the trigger label variable.
+- The new property is `display-value-count` and its default value is `1`, which is the current default behaviour.
+
 # v4.7.10
 
 - Added read-only and disabled-viewable properties to px-dropdown.
