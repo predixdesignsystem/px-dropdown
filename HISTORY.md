@@ -1,6 +1,8 @@
 # v4.7.10
 
-- added read-only property to item list. user can see the items (not disabled) but can not click them.
+- Added read-only and disabled-viewable properties to px-dropdown.
+- read-only allows user to open px-dropdown in an active state but they can not select items
+- disabled-viewable allows user to open px-dropdown even though its in a disabled state but they can not select items
 
 # v4.7.9
 
