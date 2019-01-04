@@ -50,7 +50,8 @@ describe("Custom Automation Tests for px-dropdown", function(done) {
           "A very long value to test that the trigger and content widths can be constrained"
         );
         const triggerSize = px_dropdown_button.getBoundingClientRect();
-        expect(triggerSize.width == 400).to.be.true;
+
+        expect(Math.trunc(triggerSize.width) == 400).to.be.true;
         done();
       });
     };
@@ -317,6 +318,7 @@ describe("Custom Automation Tests for sort feature px-dropdown", function(done) 
 describe("Custom Automation Tests for multiple display values feature px-dropdown", function(done) {
   let px_dropdown;
   let px_dropdown_button;
+  let dropdown_option;
 
   beforeEach(function(done) {
     px_dropdown = fixture("dropdown-multi-select-values-fixture");
@@ -336,11 +338,11 @@ describe("Custom Automation Tests for multiple display values feature px-dropdow
   });
 
   it("Trigger label is '4 selected' as section count is > display-value-count", function(done) {
-    (px_dropdown_content = px_dropdown.$.content.$.dropdown),
-      (px_dropdown_button = px_dropdown.$.trigger.$.trigger),
-      (dropdown_option = Polymer.dom(
-        px_dropdown.$.content.root
-      ).querySelectorAll(".dropdown-option")[3]);
+    px_dropdown_content = px_dropdown.$.content.$.dropdown;
+    px_dropdown_button = px_dropdown.$.trigger.$.trigger;
+    dropdown_option = Polymer.dom(px_dropdown.$.content.root).querySelectorAll(
+      ".dropdown-option"
+    )[3];
 
     var item_click = function(e) {
       assert.equal(
