@@ -350,7 +350,6 @@ describe("Custom Automation Tests for multiple display values feature px-dropdow
       );
       done();
     };
-
     px_dropdown_button.click();
     px_dropdown.addEventListener("px-dropdown-selection-changed", item_click);
     dropdown_option.click();
