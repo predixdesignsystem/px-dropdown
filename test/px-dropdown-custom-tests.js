@@ -421,28 +421,110 @@ describe("Disabled element tests for px-dropdown", function(done) {
     done();
   });
 });
-describe("Read Only item tests for px-dropdown", function(done) {
+
+describe("Test the different px-dropdown states of disabled, read-only and disabled-viewable", function(done) {
   let px_dropdown;
+  let px_dropdown_content;
+  let px_dropdown_button;
+  let dropdown_option;
 
   beforeEach(function(done) {
-    px_dropdown = fixture("dropdown-readonly-element-fixture");
+    px_dropdown = fixture("dropdown-fixture");
     flush(() => {
+      px_dropdown_content = px_dropdown.$.content.$.dropdown.querySelector(
+        ".dropdown-content"
+      );
+      px_dropdown_button = px_dropdown.$.trigger.$.trigger;
+      dropdown_option = Polymer.dom(
+        px_dropdown.$.content.root
+      ).querySelectorAll(".dropdown-option")[1];
       done();
     });
   });
 
-  it("When menu items set to read only the items can not be selected", function(done) {
-    (px_dropdown_content = px_dropdown.$.content.$.dropdown),
-      (px_dropdown_button = px_dropdown.$.trigger.$.trigger),
-      (dropdown_option = Polymer.dom(
-        px_dropdown.$.content.root
-      ).querySelectorAll(".dropdown-option")[1]);
+  it("When dropdown is set to disabled, read-only and disabled-viewable the dropdown can not be opened as disabled takes priority", function(done) {
+    px_dropdown.setAttribute("disabled", "");
+    px_dropdown.setAttribute("disabled-visible", "");
+    px_dropdown.setAttribute("read-only", "");
+
+    var item_click = function(evt) {
+      assert.fail(null, null, "should not be able to open dropdown");
+      done();
+    };
+    px_dropdown.addEventListener("trigger-tapped", item_click);
+    px_dropdown_button.click();
+
+    assert.isTrue(
+      px_dropdown.hasAttribute("disabled"),
+      "expected dropdown-content to have class disabled"
+    );
+    px_dropdown.removeEventListener("trigger-tapped", item_click);
+    done();
+  });
+
+  it("When dropdown is set to disabled the dropdown can not be opened", function(done) {
+    px_dropdown.setAttribute("disabled", "");
+    px_dropdown.removeAttribute("disabled-visible");
+    px_dropdown.removeAttribute("read-only");
+
+    var item_click = function(evt) {
+      assert.fail(null, null, "should not be able to open dropdown");
+      done();
+    };
+    px_dropdown.addEventListener("trigger-tapped", item_click);
+    px_dropdown_button.click();
+
+    assert.isTrue(
+      px_dropdown.hasAttribute("disabled"),
+      "expected dropdown-content to have class disabled"
+    );
+    px_dropdown.removeEventListener("trigger-tapped", item_click);
+    done();
+  });
+
+  it("When dropdown is set to read only the items can not be selected", function(done) {
+    px_dropdown.setAttribute("read-only", "");
+    px_dropdown.removeAttribute("disabled-visible");
+    px_dropdown.removeAttribute("disabled");
 
     var item_click = function(e) {
       assert.fail(null, null, "should not be able to select read only items");
       done();
     };
     px_dropdown_button.click();
+
+    assert.isTrue(px_dropdown.opened, "expected dropdown to open");
+    assert.isTrue(
+      px_dropdown.hasAttribute("read-only"),
+      "expected dropdown-content to have class read-only"
+    );
+
+    px_dropdown.addEventListener("px-dropdown-selection-changed", item_click);
+    dropdown_option.click();
+    px_dropdown.removeEventListener(
+      "px-dropdown-selection-changed",
+      item_click
+    );
+    done();
+  });
+
+  it("When dropdown is set to disabled-viewable the items can viewed but not selected", function(done) {
+    px_dropdown.setAttribute("disabled-viewable", "");
+    px_dropdown.removeAttribute("disabled");
+    px_dropdown.removeAttribute("read-only");
+
+    var item_click = function(evt) {
+      assert.fail(null, null, "should not be able to select read only items");
+      done();
+    };
+    px_dropdown_button.click();
+
+    assert.isTrue(px_dropdown.opened, "expected dropdown to open");
+    assert.isTrue(
+      px_dropdown.hasAttribute("disabled-viewable"),
+      "expected dropdown-content to have class disabled-viewable"
+    );
+
     px_dropdown.addEventListener("px-dropdown-selection-changed", item_click);
     dropdown_option.click();
     px_dropdown.removeEventListener(

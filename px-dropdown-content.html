@@ -441,9 +441,13 @@ limitations under the License.
     },
     _handleCancel: function(e) {
       e.preventDefault();
-      e.stopPropagation();
-      if(Polymer.dom(e.detail).path.indexOf(this.openTrigger) === -1) {
-        this.$.dropdown.close();
+      var dropdownPath = Polymer.dom(e.detail).path;
+      if (dropdownPath){
+        if(dropdownPath.indexOf(this.openTrigger) === -1) {
+          this.$.dropdown.close();
+        }
+      } else {
+        this.$.dropdown.allowOutsideScroll = true;
       }
     },
     close: function() {
