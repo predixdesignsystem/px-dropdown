@@ -25,9 +25,9 @@ limitations under the License.
   <template>
     <style include="px-dropdown-styles"></style>
     <div class="trigger">
-      <div id="trigger" class$="dropdown-trigger btn {{_getDisabledClass(disabled)}} {{_getClass(buttonStyle)}}" tabindex="0">
+      <div id="trigger" class$="dropdown-trigger btn {{_getClass(buttonStyle)}}" tabindex="0">
         <template is="dom-if" if="{{!_isEqual(buttonStyle,'icon')}}">
-          <div id="label" title="{{displayValueSelected}}" class="dropdown-label">{{displayValueSelected}}</div>
+          <div id="label" class="dropdown-label">{{displayValueSelected}}</div>
         </template>
         <template is="dom-if" if="{{_isEqual(buttonStyle,'icon')}}">
           <px-icon class="custom-icon" icon="{{icon}}"></px-icon>
@@ -55,7 +55,7 @@ limitations under the License.
       /**
        * A flag which reflects if the dropdown trigger has been clicked or not.
        */
-       opened: {
+      opened: {
         type: Boolean,
         notify: true,
         value: false
@@ -124,6 +124,30 @@ limitations under the License.
       icon: {
         type: String,
         value: ''
+      },
+      /**
+       * If set, the items list will be in read only mode, the list is disabled
+       * and the user can not click the items. No events are fired.
+       */
+      disabledViewable: {
+        type: Boolean,
+        observer: '_setDisabledViewableClass'
+      },
+      /**
+       * If set, the items list will be in read only mode, the list is disabled
+       * and the user can not click the items. No events are fired.
+       */
+      readOnly: {
+        type: Boolean,
+        observer: '_setReadOnlyClass'
+      },
+      /**
+       * If set, the items list will be in read only mode, the list is disabled
+       * and the user can not click the items. No events are fired.
+       */
+      disabled: {
+        type: Boolean,
+        observer: '_setDisabledClass'
       }
     },
     attached: function() {
@@ -156,8 +180,32 @@ limitations under the License.
     /**
      * Calculates the class for a disabled dropdown.
      */
-    _getDisabledClass: function() {
-      return this.disabled ? 'btn--disabled' : '';
+    _setDisabledClass: function() {
+      if(this.disabled) {
+        this.toggleClass('btn--disabled',true,Polymer.dom(this.$.trigger));
+      } else {
+        this.toggleClass('btn--disabled',false,Polymer.dom(this.$.trigger));
+      }
+    },
+    /**
+     * Calculates the class for a disabled viewable dropdown.
+     */
+    _setDisabledViewableClass: function() { 
+      if(this.disabledViewable) {
+        this.toggleClass('dropdown--disabled-viewable',true,Polymer.dom(this.$.trigger));
+      } else {
+        this.toggleClass('dropdown--disabled-viewable',false,Polymer.dom(this.$.trigger));
+      }
+    },
+    /**
+     * Calculates the class for a disabled viewable dropdown.
+     */
+    _setReadOnlyClass: function() { 
+      if(this.readOnly) {
+        this.toggleClass('dropdown--read-only',true,Polymer.dom(this.$.trigger));
+      } else {
+        this.toggleClass('dropdown--read-only',false,Polymer.dom(this.$.trigger));
+      }
     },
     /**
      * Calculates the class for a bare dropdown.
@@ -180,7 +228,7 @@ limitations under the License.
      */
     _showClearButton: function(disableClear, buttonStyle, opened, selected, selectedValues) {
       // Always hide it if the configuration is present or the 'icon' button style is used.
-      if(disableClear || buttonStyle === 'icon') {
+      if(this.readOnly || this.disabledViewable || disableClear || buttonStyle === 'icon') {
         return false;
       }
       // Show it if the dropdown is opened and something is selected.
@@ -201,7 +249,7 @@ limitations under the License.
         return false;
       }
       // Show it if the clear button is disabled, or if nothing is selected, otherwise it looks too empty.
-      else if(!opened || disableClear || (opened && !selected && selectedValues.length === 0)) {
+      else if(this.readOnly || this.disabledViewable || !opened || disableClear || (opened && !selected && selectedValues.length === 0)) {
         return true;
       }
       // Otherwise hide it.

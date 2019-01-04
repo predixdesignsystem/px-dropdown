@@ -121,6 +121,8 @@ Custom property | Description
           resources="[[resources]]"
           use-key-if-missing="[[useKeyIfMissing]]"
           disabled="[[disabled]]"
+          disabled-viewable="[[disabledViewable]]"
+          read-only="[[readOnly]]"
           hide-chevron="[[hideChevron]]"
           display-value="[[displayValue]]"
           disable-clear="[[disableClear]]"
@@ -148,9 +150,11 @@ Custom property | Description
         resources="[[resources]]"
         use-key-if-missing="[[useKeyIfMissing]]"
         disabled="[[disabled]]"
+        disabled-viewable="[[disabledViewable]]"
         bound-target="[[boundTarget]]"
         prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]"
         disable-select="[[disableSelect]]"
+        read-only="[[readOnly]]"
         select-by="[[selectBy]]"
         selected="{{selected}}"
         selected-values="{{selectedValues}}"
@@ -248,6 +252,13 @@ Custom property | Description
         value: false
       },
       /**
+       * If set to true, users can still open the dropdown but can not click on items
+       */
+      readOnly: {
+        type: Boolean,
+        value: false
+      },
+      /**
        * If set to true, users can still open the dropdown and click on items,
        * but they will not be selected. Use this property in use cases where
        * the dropdown is used as a menu instead of a form input.
@@ -269,7 +280,7 @@ Custom property | Description
        * The text that is displayed in the label of the dropdown.
        * Updated when the selections change.
        */
-       _displayValueSelected: {
+      _displayValueSelected: {
         type: String
       },
       /**
@@ -358,6 +369,13 @@ Custom property | Description
        * Whether the dropdown should be disabled and non-interactive.
        */
       disabled: {
+        type: Boolean,
+        value: false
+      },
+      /**
+       * Whether the dropdown should be disabled and interactive.
+       */
+      disabledViewable: {
         type: Boolean,
         value: false
       },

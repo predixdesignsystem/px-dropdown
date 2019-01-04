@@ -115,7 +115,7 @@ limitations under the License.
        * Bind to a `<px-dropdown-trigger>` element. A tap on the trigger
        * will open the dropdown.
        */
-       openTrigger: {
+      openTrigger: {
         type: HTMLElement,
         observer: '_openTriggerChanged'
       },
@@ -165,6 +165,22 @@ limitations under the License.
        */
       disableSelect: {
         type: Boolean
+      },
+      /**
+       * If set, the items list will be in read only mode, the list is not disabled
+       * but the user can not click the items. No events are fired.
+       */
+      readOnly: {
+        type: Boolean,
+        observer: '_setReadOnly'
+      },
+      /**
+       * If set, the items list will be in read only mode, the list is disabled
+       * and the user can not click the items. No events are fired.
+       */
+      disabledViewable: {
+        type: Boolean,
+        observer: '_setDisabledViewableClass'
       },
       /**
        * By default, dropdown items longer than the max-width of the dropdown
@@ -345,7 +361,7 @@ limitations under the License.
        * See https://github.com/PolymerElements/app-localize-behavior for API
        * documentation and more information.
        */
-       language: {
+      language: {
         type: String,
         value: 'en'
       },
@@ -425,9 +441,13 @@ limitations under the License.
     },
     _handleCancel: function(e) {
       e.preventDefault();
-      e.stopPropagation();
-      if(Polymer.dom(e.detail).path.indexOf(this.openTrigger) === -1) {
-        this.$.dropdown.close();
+      var dropdownPath = Polymer.dom(e.detail).path;
+      if (dropdownPath){
+        if(dropdownPath.indexOf(this.openTrigger) === -1) {
+          this.$.dropdown.close();
+        }
+      } else {
+        this.$.dropdown.allowOutsideScroll = true;
       }
     },
     close: function() {
@@ -548,8 +568,8 @@ limitations under the License.
     *
     * @event px-dropdown-click
     */
-    _handleActivate: function(evt) {
-      if(evt.detail.item.hasAttribute('disabled')) {
+    _handleActivate: function(evt) { 
+      if(evt.detail.item.hasAttribute('disabled') || this.readOnly || this.disabledViewable) {
         evt.preventDefault();
       }
       else if (this.disableSelect || evt.detail.item.disableSelect) {
@@ -707,6 +727,28 @@ limitations under the License.
       }
 
       return sortValue;
+    },
+    /**
+     * Adds the class that sets pointer-events = none to disable user interactions.
+     */
+    _setReadOnly: function() {      
+      if (this.multi && this.readOnly){
+        this.toggleClass('dropdown--read-only-multi',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      } else if (this.readOnly) {
+        this.toggleClass('dropdown--read-only',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      } else {
+        this.toggleClass('dropdown--read-only',false,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      }
+    },
+    /**
+     * Calculates the class for a disabled viewable dropdown.
+     */
+    _setDisabledViewableClass: function() {
+      if(this.disabledViewable) {
+        this.toggleClass('dropdown--disabled-viewable',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      } else {
+        this.toggleClass('dropdown--disabled-viewable',false,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
+      }
     },
     /**
      * Adds or removes the focused class for keyboard navigation.
