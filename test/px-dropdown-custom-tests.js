@@ -327,7 +327,11 @@ describe("Custom Automation Tests for multiple display values feature px-dropdow
   });
 
   it("Trigger label is 'One, Two, Three' as section count is <= display-value-count", function(done) {
-    assert.equal(px_dropdown._displayValueSelected, "One, Two, Three");
+    assert.equal(
+      px_dropdown._displayValueSelected,
+      "One, Two, Three",
+      "expected trigger value to be 'One, Two, Three'"
+    );
     done();
   });
 
@@ -338,11 +342,15 @@ describe("Custom Automation Tests for multiple display values feature px-dropdow
         px_dropdown.$.content.root
       ).querySelectorAll(".dropdown-option")[3]);
 
-    dropdown_option.disabled = true;
     var item_click = function(e) {
-      assert.equal(px_dropdown._displayValueSelected, "4 selected");
+      assert.equal(
+        px_dropdown._displayValueSelected,
+        "4 selected",
+        "expected trigger value to be '4 selected'"
+      );
       done();
     };
+
     px_dropdown_button.click();
     px_dropdown.addEventListener("px-dropdown-selection-changed", item_click);
     dropdown_option.click();
