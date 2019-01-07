@@ -7,33 +7,12 @@
       "path": "px-dropdown-trigger.html",
       "properties": [
         {
-          "name": "__localizationCache",
-          "type": "Object",
-          "description": "Internal singleton cache. This is the private implementation of the\nbehaviour; don't interact with it directly.",
-          "privacy": "private",
-          "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
-            "start": {
-              "line": 140,
-              "column": 2
-            },
-            "end": {
-              "line": 144,
-              "column": 3
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "inheritedFrom": "Polymer.AppLocalizeBehavior"
-        },
-        {
           "name": "language",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The language used for translation.",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 162,
               "column": 4
@@ -44,17 +23,19 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "resources",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "The dictionary of localized messages, for each of the languages that\nare going to be used. See http://formatjs.io/guides/message-syntax/ for\nmore information on the message syntax.\n\nFor example, a valid dictionary would be:\nthis.resources = {\n 'en': { 'greeting': 'Hello!' }, 'fr' : { 'greeting': 'Bonjour!' }\n}",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 176,
               "column": 4
@@ -65,17 +46,19 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "formats",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 189,
               "column": 4
@@ -86,18 +69,20 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "defaultValue": "{}",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "useKeyIfMissing",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If true, will use the provided key when\nthe translation does not exist for that key.",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 198,
               "column": 4
@@ -108,18 +93,20 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "localize",
-          "type": "Function",
+          "type": "Function | null | undefined",
           "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 208,
               "column": 4
@@ -131,18 +118,19 @@
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Function"
             }
           },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "bubbleEvent",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If true, will bubble up the event to the parents",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 216,
               "column": 4
@@ -153,14 +141,39 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
+          "name": "__localizationCache",
+          "type": "Object",
+          "description": "Internal singleton cache. This is the private implementation of the\nbehaviour; don't interact with it directly.\n   ",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "../app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 140,
+              "column": 2
+            },
+            "end": {
+              "line": 144,
+              "column": 3
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": false
+            }
+          },
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
           "name": "opened",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
           "privacy": "public",
           "sourceRange": {
@@ -175,14 +188,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Boolean"
             }
           },
           "defaultValue": "false"
         },
         {
           "name": "trigger",
-          "type": "HTMLElement",
+          "type": "HTMLElement | null | undefined",
           "description": "Read-only reference to the trigger element. Data-bind this property\ninto the px-context-browser `openTrigger` or `favoritedTrigger`\nproperty to open the context browser when this icon is tapped.",
           "privacy": "public",
           "sourceRange": {
@@ -198,14 +212,15 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "HTMLElement"
             }
           },
           "defaultValue": "null"
         },
         {
           "name": "hideChevron",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether or not to hide the chevron icon from the dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -219,13 +234,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "displayValue",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The placeholder text to display in the dropdown. If the\nselected value(s) are cleared out, the displayValue will be\nreplaced in the dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -241,14 +258,15 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_displayValueChanged\""
+              "observer": "\"_displayValueChanged\"",
+              "attributeType": "String"
             }
           },
           "defaultValue": "\"Select\""
         },
         {
           "name": "displayValueSelected",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The text that is displayed in the label of the dropdown.\nUpdated when the selections change.",
           "privacy": "public",
           "sourceRange": {
@@ -263,13 +281,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "buttonStyle",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Style for the button that invokes the dropdown.\nOne of 'default','bare','bare--primary', 'tertiary', or 'icon'.",
           "privacy": "public",
           "sourceRange": {
@@ -283,13 +302,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"default\""
         },
         {
           "name": "hideSelected",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set to true, the display-value will always show up in the\ninvoking button of the dropdown. Useful in cases like the\npx-data-table, where \"Show/Hide Columns\" should always appear.",
           "privacy": "public",
           "sourceRange": {
@@ -303,13 +324,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "icon",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "If buttonStyle is set to 'icon' this property will dictate\nwhich icon will be displayed inside of the dropdown button.\nThe `displayValue`, selected values, and chevron will not be displayed.\nPerfect for icon-invoked menus. The value of this property should\nbe a valid px-icon name, e.g. 'px-utl:app-settings'",
           "privacy": "public",
           "sourceRange": {
@@ -323,13 +346,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"\""
         },
         {
           "name": "disabledViewable",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set, the items list will be in read only mode, the list is disabled\nand the user can not click the items. No events are fired.",
           "privacy": "public",
           "sourceRange": {
@@ -344,13 +369,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_setDisabledViewableClass\""
+              "observer": "\"_setDisabledViewableClass\"",
+              "attributeType": "Boolean"
             }
           }
         },
         {
           "name": "readOnly",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set, the items list will be in read only mode, the list is disabled\nand the user can not click the items. No events are fired.",
           "privacy": "public",
           "sourceRange": {
@@ -365,13 +391,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_setReadOnlyClass\""
+              "observer": "\"_setReadOnlyClass\"",
+              "attributeType": "Boolean"
             }
           }
         },
         {
           "name": "disabled",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set, the items list will be in read only mode, the list is disabled\nand the user can not click the items. No events are fired.",
           "privacy": "public",
           "sourceRange": {
@@ -386,7 +413,8 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_setDisabledClass\""
+              "observer": "\"_setDisabledClass\"",
+              "attributeType": "Boolean"
             }
           }
         }
@@ -397,7 +425,7 @@
           "description": "",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 222,
               "column": 2
@@ -419,6 +447,9 @@
               "name": "merge"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -426,7 +457,7 @@
           "description": "Returns a computed `localize` method, based on the current `language`.",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 260,
               "column": 2
@@ -455,7 +486,7 @@
           "description": "",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 302,
               "column": 2
@@ -477,6 +508,9 @@
               "name": "merge"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -484,7 +518,7 @@
           "description": "",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 332,
               "column": 2
@@ -500,6 +534,9 @@
               "name": "event"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -507,7 +544,7 @@
           "description": "",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 336,
               "column": 2
@@ -523,6 +560,9 @@
               "name": "proto"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -540,7 +580,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "detached",
@@ -557,7 +600,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_handleTapped",
@@ -578,7 +624,10 @@
             {
               "name": "evt"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "clear",
@@ -595,7 +644,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_isEqual",
@@ -636,7 +688,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_setDisabledViewableClass",
@@ -653,7 +708,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_setReadOnlyClass",
@@ -670,7 +728,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_getClass",
@@ -704,7 +765,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_showClearButton",
@@ -796,7 +860,7 @@
           "name": "language",
           "description": "The language used for translation.",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 162,
               "column": 4
@@ -807,14 +871,14 @@
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "string | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "resources",
           "description": "The dictionary of localized messages, for each of the languages that\nare going to be used. See http://formatjs.io/guides/message-syntax/ for\nmore information on the message syntax.\n\nFor example, a valid dictionary would be:\nthis.resources = {\n 'en': { 'greeting': 'Hello!' }, 'fr' : { 'greeting': 'Bonjour!' }\n}",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 176,
               "column": 4
@@ -825,14 +889,14 @@
             }
           },
           "metadata": {},
-          "type": "Object",
+          "type": "Object | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "formats",
           "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 189,
               "column": 4
@@ -843,14 +907,14 @@
             }
           },
           "metadata": {},
-          "type": "Object",
+          "type": "Object | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "use-key-if-missing",
           "description": "If true, will use the provided key when\nthe translation does not exist for that key.",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 198,
               "column": 4
@@ -861,14 +925,14 @@
             }
           },
           "metadata": {},
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "localize",
           "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 208,
               "column": 4
@@ -879,14 +943,14 @@
             }
           },
           "metadata": {},
-          "type": "Function",
+          "type": "Function | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "bubble-event",
           "description": "If true, will bubble up the event to the parents",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 216,
               "column": 4
@@ -897,7 +961,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -914,7 +978,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "trigger",
@@ -930,7 +994,7 @@
             }
           },
           "metadata": {},
-          "type": "HTMLElement"
+          "type": "HTMLElement | null | undefined"
         },
         {
           "name": "hide-chevron",
@@ -946,7 +1010,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "display-value",
@@ -962,7 +1026,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "display-value-selected",
@@ -978,7 +1042,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "button-style",
@@ -994,7 +1058,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "hide-selected",
@@ -1010,7 +1074,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "icon",
@@ -1026,7 +1090,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "disabled-viewable",
@@ -1042,7 +1106,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "read-only",
@@ -1058,7 +1122,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disabled",
@@ -1074,21 +1138,21 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         }
       ],
       "events": [
         {
           "type": "CustomEvent",
           "name": "app-localize-resources-error",
-          "description": "app-localize-resources-error",
+          "description": "Fired when the resources cannot be loaded due to an error.",
           "metadata": {},
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "type": "CustomEvent",
           "name": "app-localize-resources-loaded",
-          "description": "app-localize-resources-loaded",
+          "description": "Fired after the resources have been loaded.",
           "metadata": {},
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
@@ -1130,29 +1194,8 @@
       "path": "px-dropdown-content.html",
       "properties": [
         {
-          "name": "__localizationCache",
-          "type": "Object",
-          "description": "Internal singleton cache. This is the private implementation of the\nbehaviour; don't interact with it directly.",
-          "privacy": "private",
-          "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
-            "start": {
-              "line": 140,
-              "column": 2
-            },
-            "end": {
-              "line": 144,
-              "column": 3
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "inheritedFrom": "Polymer.AppLocalizeBehavior"
-        },
-        {
           "name": "language",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "A valid IETF language tag as a string that `app-localize-behavior` will\nuse to localize this component.\n\nSee https://github.com/PolymerElements/app-localize-behavior for API\ndocumentation and more information.",
           "privacy": "public",
           "sourceRange": {
@@ -1166,13 +1209,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"en\""
         },
         {
           "name": "resources",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "A dictionary of strings used within the component for AppLocalizeBehavior\nto use, based on the selected `language` property.",
           "privacy": "public",
           "sourceRange": {
@@ -1186,17 +1231,19 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "defaultValue": "{\"en\":{\"Clear\":\"Clear\",\"Apply\":\"Apply\"}}"
         },
         {
           "name": "formats",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 189,
               "column": 4
@@ -1207,14 +1254,16 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "defaultValue": "{}",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "useKeyIfMissing",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "",
           "privacy": "public",
           "sourceRange": {
@@ -1228,17 +1277,19 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "true"
         },
         {
           "name": "localize",
-          "type": "Function",
+          "type": "Function | null | undefined",
           "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 208,
               "column": 4
@@ -1250,18 +1301,19 @@
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Function"
             }
           },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "bubbleEvent",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If true, will bubble up the event to the parents",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 216,
               "column": 4
@@ -1272,14 +1324,39 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
+          "name": "__localizationCache",
+          "type": "Object",
+          "description": "Internal singleton cache. This is the private implementation of the\nbehaviour; don't interact with it directly.\n   ",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "../app-localize-behavior/app-localize-behavior.html",
+            "start": {
+              "line": 140,
+              "column": 2
+            },
+            "end": {
+              "line": 144,
+              "column": 3
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": false
+            }
+          },
+          "inheritedFrom": "Polymer.AppLocalizeBehavior"
+        },
+        {
           "name": "openTrigger",
-          "type": "HTMLElement",
+          "type": "HTMLElement | null | undefined",
           "description": "Bind to a `<px-dropdown-trigger>` element. A tap on the trigger\nwill open the dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -1294,13 +1371,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_openTriggerChanged\""
+              "observer": "\"_openTriggerChanged\"",
+              "attributeType": "HTMLElement"
             }
           }
         },
         {
           "name": "opened",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
           "privacy": "public",
           "sourceRange": {
@@ -1315,13 +1393,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Boolean"
             }
           }
         },
         {
           "name": "hover",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "A flag which reflects whether the dropdown is being hovered over.",
           "privacy": "public",
           "sourceRange": {
@@ -1336,13 +1415,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Boolean"
             }
           }
         },
         {
           "name": "boundTarget",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "A CSS selector which specifies the bounding target the dropdown will be\ndisplayed within. Defaults to `window`.",
           "privacy": "public",
           "sourceRange": {
@@ -1356,12 +1436,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "preventCloseOnOutsideClick",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether the dropdown will close when a user clicks\noutside of it. Set to true to prevent dropdown from closing.",
           "privacy": "public",
           "sourceRange": {
@@ -1375,12 +1457,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "disableClear",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set, users are unable to clear out the dropdown\nonce a selection has been made. Useful for required single-select\ndropdowns where an empty state would be undesirable. Not recommended\nfor multi-select dropdowns, as it means the user will simply lose the ability\nto quickly deselect all checked options (there is currently no mechanism\nwhich requires a user to select at least one option).",
           "privacy": "public",
           "sourceRange": {
@@ -1394,12 +1478,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "disableSelect",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set, users can still open the dropdown and click on items,\nbut they will not be selected. Use this property in use cases where\nthe dropdown is used as a menu instead of a form input.",
           "privacy": "public",
           "sourceRange": {
@@ -1413,12 +1499,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "readOnly",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set, the items list will be in read only mode, the list is not disabled\nbut the user can not click the items. No events are fired.",
           "privacy": "public",
           "sourceRange": {
@@ -1433,13 +1521,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_setReadOnly\""
+              "observer": "\"_setReadOnly\"",
+              "attributeType": "Boolean"
             }
           }
         },
         {
           "name": "disabledViewable",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set, the items list will be in read only mode, the list is disabled\nand the user can not click the items. No events are fired.",
           "privacy": "public",
           "sourceRange": {
@@ -1454,13 +1543,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_setDisabledViewableClass\""
+              "observer": "\"_setDisabledViewableClass\"",
+              "attributeType": "Boolean"
             }
           }
         },
         {
           "name": "disableTruncate",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, dropdown items longer than the max-width of the dropdown\nwill be truncated, with the full string available on hover tooltip.\nIf this property is set, items will not be truncated, but will wrap instead.",
           "privacy": "public",
           "sourceRange": {
@@ -1474,12 +1564,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "displayValueSelected",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The text that is displayed in the label of the dropdown.\nUpdated when the selections change.",
           "privacy": "public",
           "sourceRange": {
@@ -1494,13 +1586,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "items",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "An array that contains the list of items which show up in the dropdown.\nEach item can either be a simple string, or an object consisting of:\n* 'key' - a unique identifier (number or string)\n* 'val' - the actual text that is displayed\n* 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)\n* 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)\n* 'selected' - whether the item should be selected at instantiation (optional)\n* 'icon' - an icon name from the px-icon-set to display next to the item (optional)\n* 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)\n\nNote: if you specify more than one item as `selected`, but `multi` is not enabled,\nonly the *first* selected item will be chosen. See also `clearSelectionsOnChange`.",
           "privacy": "public",
           "sourceRange": {
@@ -1515,13 +1608,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Array"
             }
           }
         },
         {
           "name": "multi",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set to true, multiple values can be selected in the dropdown.\nSelected values are reflected in the `selectedValues` property.\nIf set to false, a single selected value is reflected in `selected`.",
           "privacy": "public",
           "sourceRange": {
@@ -1535,12 +1629,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "selectBy",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Which property of each dropdown item will be used to get/set\nthe selected items - should be one of \"key\" or \"val\".",
           "privacy": "public",
           "sourceRange": {
@@ -1555,13 +1651,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_updateSelection\""
+              "observer": "\"_updateSelection\"",
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "selected",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Gets or sets the selected item when `multi` is false.\nWill either be a single key or value based on `selectBy`.",
           "privacy": "public",
           "sourceRange": {
@@ -1576,13 +1673,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "selectedValues",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "Gets or sets the selected items when `multi` is true.\nWill either be an array of keys or values based on `selectBy`.",
           "privacy": "public",
           "sourceRange": {
@@ -1597,13 +1695,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Array"
             }
           }
         },
         {
           "name": "selectedItems",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "A read-only array of the selected `<div>` elements in the dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -1618,13 +1717,14 @@
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Array"
             }
           }
         },
         {
           "name": "allowOutsideScroll",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, the dropdown will constrain scrolling on the page to\nitself when opened. Set to true in order to allow scrolling of\nthe page while the dropdown is open.",
           "privacy": "public",
           "sourceRange": {
@@ -1638,12 +1738,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "disabled",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether the dropdown should be disabled and non-interactive.",
           "privacy": "public",
           "sourceRange": {
@@ -1657,12 +1759,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "searchMode",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If true, the dropdown will include a search box, whereby the\ndropdown items can be filtered with a search term.",
           "privacy": "public",
           "sourceRange": {
@@ -1676,12 +1780,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "searchTerm",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The value of the search box, used for filtering the dropdown\nitems when searchMode is true.",
           "privacy": "public",
           "sourceRange": {
@@ -1696,13 +1802,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_computeFilter\""
+              "observer": "\"_computeFilter\"",
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "sortMode",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "What to sort the dropdown items by - one of \"key\" or \"val\".\nBy default, the items will be displayed in the order they are\npassed into the component.",
           "privacy": "public",
           "sourceRange": {
@@ -1716,12 +1823,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "triggerHeight",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The height of the trigger element, used for calculating offset distance\nfor the dropdown. Set this value if you use the `trigger` slot.",
           "privacy": "public",
           "sourceRange": {
@@ -1735,12 +1844,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           }
         },
         {
           "name": "showCaret",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, the dropdown menu will be flush against the trigger.\nEnable this property to show a caret between the two. Useful\nin iconic menus and used by the application/product switcher.",
           "privacy": "public",
           "sourceRange": {
@@ -1754,12 +1865,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "disableDynamicAlign",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default the dropdown will attempt to automatically align itself\nvertically and horizontally based on the available space. Set this flag\nto turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.",
           "privacy": "public",
           "sourceRange": {
@@ -1773,12 +1886,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "verticalAlign",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Vertical alignment of the dropdown relative to the trigger.\nShould be one of `top` or `bottom` where `top` means that the dropdown\nand trigger are aligned at the top, so the dropdown will extend _below_ the trigger.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
           "privacy": "public",
           "sourceRange": {
@@ -1792,12 +1907,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "horizontalAlign",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Horizontal alignment of the dropdown relative to the trigger.\nShould be one of `left` or `right` where `left` means that the dropdown\nand trigger are aligned on their left side, so the dropdown will extend _to the right_.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
           "privacy": "public",
           "sourceRange": {
@@ -1811,12 +1928,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "mobile",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.\nAutomatically detected based on the breakpoint specified in `mobileAt`.",
           "privacy": "public",
           "sourceRange": {
@@ -1830,12 +1949,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "mobileAt",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -1849,12 +1970,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           }
         },
         {
           "name": "hideMobileButtons",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, the mobile dropdown will show Apply/Clear buttons.\nSet this property to hide them.",
           "privacy": "public",
           "sourceRange": {
@@ -1868,12 +1991,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "keyBindingsTarget",
-          "type": "HTMLElement",
+          "type": "HTMLElement | null | undefined",
           "description": "Binding target for iron-a11y-keys",
           "privacy": "public",
           "sourceRange": {
@@ -1887,12 +2012,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "HTMLElement"
+            }
           }
         },
         {
           "name": "_focusedOption",
-          "type": "HTMLElement",
+          "type": "HTMLElement | null | undefined",
           "description": "The currently \"focused\" option in the dropdown list.\nUsed for handling of keyboard events.",
           "privacy": "protected",
           "sourceRange": {
@@ -1906,12 +2033,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "HTMLElement"
+            }
           }
         },
         {
           "name": "_keyboardBeingUsed",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Used to capture if the user is using the keyboard to interact with the dropdown.\nUsed to disable all mouse events.",
           "privacy": "protected",
           "sourceRange": {
@@ -1925,13 +2054,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "_computedItems",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "Internal representation of the items array, in case simple strings are\npassed in, so that appropriate key/val pairs can be generated.",
           "privacy": "protected",
           "sourceRange": {
@@ -1945,7 +2076,9 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Array"
+            }
           },
           "defaultValue": "[]"
         }
@@ -1956,7 +2089,7 @@
           "description": "",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 222,
               "column": 2
@@ -1978,6 +2111,9 @@
               "name": "merge"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -1985,7 +2121,7 @@
           "description": "Returns a computed `localize` method, based on the current `language`.",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 260,
               "column": 2
@@ -2014,7 +2150,7 @@
           "description": "",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 302,
               "column": 2
@@ -2036,6 +2172,9 @@
               "name": "merge"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -2043,7 +2182,7 @@
           "description": "",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 332,
               "column": 2
@@ -2059,6 +2198,9 @@
               "name": "event"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -2066,7 +2208,7 @@
           "description": "",
           "privacy": "private",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 336,
               "column": 2
@@ -2082,6 +2224,9 @@
               "name": "proto"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -2099,7 +2244,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "attached",
@@ -2116,7 +2264,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "toggle",
@@ -2133,7 +2284,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_handleCancel",
@@ -2154,7 +2308,10 @@
             {
               "name": "e"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "close",
@@ -2171,7 +2328,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "open",
@@ -2188,7 +2348,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_openTriggerChanged",
@@ -2212,7 +2375,10 @@
             {
               "name": "oldTrigger"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_handleClearTapped",
@@ -2229,7 +2395,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_updateSelection",
@@ -2246,7 +2415,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_itemsChanged",
@@ -2267,7 +2439,10 @@
             {
               "name": "items"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_getFitElement",
@@ -2333,7 +2508,10 @@
             {
               "name": "evt"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_handleSelection",
@@ -2354,7 +2532,10 @@
             {
               "name": "evt"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_handleDeselection",
@@ -2375,7 +2556,10 @@
             {
               "name": "evt"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_notifyResize",
@@ -2392,7 +2576,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_computeFilter",
@@ -2409,7 +2596,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_showMobileClearButton",
@@ -2463,7 +2653,10 @@
             {
               "name": "items"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_bindMouse",
@@ -2480,7 +2673,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_computeSort",
@@ -2521,7 +2717,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_setDisabledViewableClass",
@@ -2538,7 +2737,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_setFocusedOption",
@@ -2562,7 +2764,10 @@
             {
               "name": "oldOption"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_handleKeyPress",
@@ -2583,7 +2788,10 @@
             {
               "name": "event"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_hoverOn",
@@ -2604,7 +2812,10 @@
             {
               "name": "event"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_hoverOff",
@@ -2625,7 +2836,10 @@
             {
               "name": "event"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_getCaretClass",
@@ -2832,7 +3046,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "resources",
@@ -2848,13 +3062,13 @@
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "formats",
           "description": "Optional dictionary of user defined formats, as explained here:\nhttp://formatjs.io/guides/message-syntax/#custom-formats\n\nFor example, a valid dictionary of formats would be:\nthis.formats = {\n   number: { USD: { style: 'currency', currency: 'USD' } }\n}",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 189,
               "column": 4
@@ -2865,7 +3079,7 @@
             }
           },
           "metadata": {},
-          "type": "Object",
+          "type": "Object | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -2882,13 +3096,13 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "localize",
           "description": "Translates a string to the current `language`. Any parameters to the\nstring should be passed in order, as follows:\n`localize(stringKey, param1Name, param1Value, param2Name, param2Value)`",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 208,
               "column": 4
@@ -2899,14 +3113,14 @@
             }
           },
           "metadata": {},
-          "type": "Function",
+          "type": "Function | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "name": "bubble-event",
           "description": "If true, will bubble up the event to the parents",
           "sourceRange": {
-            "file": "bower_components/app-localize-behavior/app-localize-behavior.html",
+            "file": "../app-localize-behavior/app-localize-behavior.html",
             "start": {
               "line": 216,
               "column": 4
@@ -2917,7 +3131,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
@@ -2934,7 +3148,7 @@
             }
           },
           "metadata": {},
-          "type": "HTMLElement"
+          "type": "HTMLElement | null | undefined"
         },
         {
           "name": "opened",
@@ -2950,7 +3164,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "hover",
@@ -2966,7 +3180,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "bound-target",
@@ -2982,7 +3196,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "prevent-close-on-outside-click",
@@ -2998,7 +3212,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disable-clear",
@@ -3014,7 +3228,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disable-select",
@@ -3030,7 +3244,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "read-only",
@@ -3046,7 +3260,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disabled-viewable",
@@ -3062,7 +3276,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disable-truncate",
@@ -3078,7 +3292,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "display-value-selected",
@@ -3094,7 +3308,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "items",
@@ -3110,7 +3324,7 @@
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         },
         {
           "name": "multi",
@@ -3126,7 +3340,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "select-by",
@@ -3142,7 +3356,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "selected",
@@ -3158,7 +3372,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "selected-values",
@@ -3174,7 +3388,7 @@
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         },
         {
           "name": "selected-items",
@@ -3190,7 +3404,7 @@
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         },
         {
           "name": "allow-outside-scroll",
@@ -3206,7 +3420,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disabled",
@@ -3222,7 +3436,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "search-mode",
@@ -3238,7 +3452,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "search-term",
@@ -3254,7 +3468,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "sort-mode",
@@ -3270,7 +3484,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "trigger-height",
@@ -3286,7 +3500,7 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "show-caret",
@@ -3302,7 +3516,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disable-dynamic-align",
@@ -3318,7 +3532,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "vertical-align",
@@ -3334,7 +3548,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "horizontal-align",
@@ -3350,7 +3564,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "mobile",
@@ -3366,7 +3580,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "mobile-at",
@@ -3382,7 +3596,7 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "hide-mobile-buttons",
@@ -3398,7 +3612,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "key-bindings-target",
@@ -3414,34 +3628,34 @@
             }
           },
           "metadata": {},
-          "type": "HTMLElement"
+          "type": "HTMLElement | null | undefined"
         }
       ],
       "events": [
         {
           "type": "CustomEvent",
           "name": "app-localize-resources-error",
-          "description": "app-localize-resources-error",
+          "description": "Fired when the resources cannot be loaded due to an error.",
           "metadata": {},
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "type": "CustomEvent",
           "name": "app-localize-resources-loaded",
-          "description": "app-localize-resources-loaded",
+          "description": "Fired after the resources have been loaded.",
           "metadata": {},
           "inheritedFrom": "Polymer.AppLocalizeBehavior"
         },
         {
           "type": "CustomEvent",
           "name": "px-dropdown-click",
-          "description": "px-dropdown-click",
+          "description": "Event fired when any non-disabled element is clicked in the dropdown.\nIf disableSelect is set on the entire dropdown or individual item,\nthe event is still fired and the dropdown is closed, but the item\nis not selected. Useful for menu dropdowns, as opposed to selection dropdowns.",
           "metadata": {}
         },
         {
           "type": "CustomEvent",
           "name": "px-dropdown-selection-changed",
-          "description": "px-dropdown-selection-changed",
+          "description": "Event fired when any given element is selected or deselected in the list.\n`evt.detail` contains:\n```\n{ val: \"text of the changed element\",\n  key: \"key of the changed element\",\n  selected: true/false }\n```",
           "metadata": {}
         },
         {
@@ -3490,7 +3704,6 @@
           "description": "",
           "name": "header",
           "range": {
-            "file": "px-dropdown-content.html",
             "start": {
               "line": 52,
               "column": 8
@@ -3505,7 +3718,6 @@
           "description": "",
           "name": "footer",
           "range": {
-            "file": "px-dropdown-content.html",
             "start": {
               "line": 98,
               "column": 8
@@ -3526,11 +3738,11 @@
       "properties": [
         {
           "name": "containerType",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "An optional type set on the px-overlay-container and px-overlay-content to associate specific overlay-contents with their container",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/px-overlay/px-overlay-behavior.html",
+            "file": "../px-overlay/px-overlay-behavior.html",
             "start": {
               "line": 39,
               "column": 4
@@ -3541,17 +3753,19 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "inheritedFrom": "PxOverlayBehavior.sharedProperties"
         },
         {
           "name": "_parentResizable",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "The closest ancestor element that implements `IronResizableBehavior`.",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 41,
               "column": 6
@@ -3563,18 +3777,19 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_parentResizableChanged\""
+              "observer": "\"_parentResizableChanged\"",
+              "attributeType": "Object"
             }
           },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
           "name": "_notifyingDescendant",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "True if this element is currently notifying its descendant elements of\nresize.",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 47,
               "column": 6
@@ -3585,14 +3800,16 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false",
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
           "name": "opened",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "A flag which reflects if the dropdown trigger has been clicked or not.",
           "privacy": "public",
           "sourceRange": {
@@ -3607,14 +3824,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Boolean"
             }
           },
           "defaultValue": "false"
         },
         {
           "name": "hideChevron",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether or not to hide the chevron icon from the dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -3628,13 +3846,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "boundTarget",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "A CSS selector which specifies the bounding target the dropdown will be\ndisplayed within. Defaults to `window`.",
           "privacy": "public",
           "sourceRange": {
@@ -3648,12 +3868,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "preventCloseOnOutsideClick",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether the dropdown will close when a user clicks\noutside of it. Set to true to prevent dropdown from closing.",
           "privacy": "public",
           "sourceRange": {
@@ -3667,13 +3889,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "displayValue",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The placeholder text to display in the dropdown. If the\nselected value(s) are cleared out, the displayValue will be\nreplaced in the dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -3689,15 +3913,16 @@
           "metadata": {
             "polymer": {
               "notify": true,
-              "observer": "\"_resetMinWidth\""
+              "observer": "\"_resetMinWidth\"",
+              "attributeType": "String"
             }
           },
           "defaultValue": "\"Select\""
         },
         {
           "name": "displayValueCount",
-          "type": "number",
-          "description": "The number of values to display as a comma separated string on multi select lists. \nSelections greater then this number will display as \"N Selected\"",
+          "type": "number | null | undefined",
+          "description": "The number of values to display as a comma separated string on multi select lists.\nSelections greater then this number will display as \"N Selected\"",
           "privacy": "public",
           "sourceRange": {
             "start": {
@@ -3711,14 +3936,15 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_resetMinWidth\""
+              "observer": "\"_resetMinWidth\"",
+              "attributeType": "Number"
             }
           },
           "defaultValue": "1"
         },
         {
           "name": "disableClear",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set to true, users are unable to clear out the dropdown\nonce a selection has been made. Useful for required single-select\ndropdowns where an empty state would be undesirable. Not recommended\nfor multi-select dropdowns, as it means the user will simply lose the ability\nto quickly deselect all checked options (there is currently no mechanism\nwhich requires a user to select at least one option).",
           "privacy": "public",
           "sourceRange": {
@@ -3732,13 +3958,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "readOnly",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set to true, users can still open the dropdown but can not click on items",
           "privacy": "public",
           "sourceRange": {
@@ -3752,13 +3980,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "disableSelect",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set to true, users can still open the dropdown and click on items,\nbut they will not be selected. Use this property in use cases where\nthe dropdown is used as a menu instead of a form input.",
           "privacy": "public",
           "sourceRange": {
@@ -3772,13 +4002,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "disableTruncate",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, dropdown items longer than the max-width of the dropdown\nwill be truncated, with the full string available on hover tooltip.\nIf this property is set, items will not be truncated, but will wrap instead.",
           "privacy": "public",
           "sourceRange": {
@@ -3792,13 +4024,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "_displayValueSelected",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The text that is displayed in the label of the dropdown.\nUpdated when the selections change.",
           "privacy": "protected",
           "sourceRange": {
@@ -3812,12 +4046,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "items",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "An array that contains the list of items which show up in the dropdown.\nEach item can either be a simple string, or an object consisting of:\n* 'key' - a unique identifier (number or string)\n* 'val' - the actual text that is displayed\n* 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)\n* 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)\n* 'selected' - whether the item should be selected at instantiation (optional)\n* 'icon' - an icon name from the px-icon-set to display next to the item (optional)\n* 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)\n\nNote: if you specify more than one item as `selected`, but `multi` is not enabled,\nonly the *first* selected item will be chosen. See also `clearSelectionsOnChange`.",
           "privacy": "public",
           "sourceRange": {
@@ -3832,14 +4068,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Array"
             }
           },
           "defaultValue": "[]"
         },
         {
           "name": "multi",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set to true, multiple values can be selected in the dropdown.\nSelected values are reflected in the `selectedValues` property.\nIf set to false, a single selected value is reflected in `selected`.",
           "privacy": "public",
           "sourceRange": {
@@ -3853,13 +4090,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "selectBy",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Which property of each dropdown item will be used to get/set\nthe selected items - should be one of \"key\" or \"val\".",
           "privacy": "public",
           "sourceRange": {
@@ -3873,13 +4112,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"key\""
         },
         {
           "name": "selected",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Gets or sets the selected item when `multi` is false.\nWill either be a single key or value based on `selectBy`.",
           "privacy": "public",
           "sourceRange": {
@@ -3894,14 +4135,15 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "String"
             }
           },
           "defaultValue": "null"
         },
         {
           "name": "selectedValues",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "Gets or sets the selected items when `multi` is true.\nWill either be an array of keys or values based on `selectBy`.",
           "privacy": "public",
           "sourceRange": {
@@ -3916,13 +4158,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Array"
             }
           }
         },
         {
           "name": "selectedItems",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "A read-only array of the selected `<div>` elements in the dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -3937,14 +4180,15 @@
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Array"
             }
           },
           "defaultValue": "[]"
         },
         {
           "name": "allowOutsideScroll",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, the dropdown will constrain scrolling on the page to\nitself when opened. Set to true in order to allow scrolling of\nthe page while the dropdown is open.",
           "privacy": "public",
           "sourceRange": {
@@ -3958,13 +4202,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "buttonStyle",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Style for the button that invokes the dropdown.\nOne of 'default','bare','bare--primary', 'tertiary', or 'icon'.",
           "privacy": "public",
           "sourceRange": {
@@ -3978,13 +4224,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"default\""
         },
         {
           "name": "disabled",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether the dropdown should be disabled and non-interactive.",
           "privacy": "public",
           "sourceRange": {
@@ -3998,13 +4246,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "disabledViewable",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether the dropdown should be disabled and interactive.",
           "privacy": "public",
           "sourceRange": {
@@ -4018,13 +4268,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "searchMode",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If true, the dropdown will include a search box, whereby the\ndropdown items can be filtered with a search term.",
           "privacy": "public",
           "sourceRange": {
@@ -4038,13 +4290,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "searchTerm",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The value of the search box, used for filtering the dropdown\nitems when searchMode is true.",
           "privacy": "public",
           "sourceRange": {
@@ -4058,13 +4312,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"\""
         },
         {
           "name": "sortMode",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "What to sort the dropdown items by - one of \"key\" or \"val\".\nBy default, the items will be displayed in the order they are\npassed into the component.",
           "privacy": "public",
           "sourceRange": {
@@ -4078,12 +4334,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "hideSelected",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "If set to true, the display-value will always show up in the\ninvoking button of the dropdown. Useful in cases like the\npx-data-table, where \"Show/Hide Columns\" should always appear.",
           "privacy": "public",
           "sourceRange": {
@@ -4097,13 +4355,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "icon",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "If buttonStyle is set to 'icon' this property will dictate\nwhich icon will be displayed inside of the dropdown button.\nThe `displayValue`, selected values, and chevron will not be displayed.\nPerfect for icon-invoked menus. The value of this property should\nbe a valid px-icon name, e.g. 'px-utl:app-settings'",
           "privacy": "public",
           "sourceRange": {
@@ -4117,13 +4377,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"\""
         },
         {
           "name": "clearSelectionsOnChange",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Set this property if you would like the `selected` and `selectedValues`\nproperties to be cleared whenever mutations are made to the `items` array.",
           "privacy": "public",
           "sourceRange": {
@@ -4137,13 +4399,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "triggerHeight",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The height of the trigger element, used for calculating offset distance\nfor the dropdown. Set this value if you use the `trigger` slot.",
           "privacy": "public",
           "sourceRange": {
@@ -4157,13 +4421,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           },
           "defaultValue": "30"
         },
         {
           "name": "showCaret",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, the dropdown menu will be flush against the trigger.\nEnable this property to show a caret between the two. Useful\nin iconic menus and used by the application/product switcher.",
           "privacy": "public",
           "sourceRange": {
@@ -4177,13 +4443,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "disableDynamicAlign",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default the dropdown will attempt to automatically align itself\nvertically and horizontally based on the available space. Set this flag\nto turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.",
           "privacy": "public",
           "sourceRange": {
@@ -4197,13 +4465,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "verticalAlign",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Vertical alignment of the dropdown relative to the trigger.\nShould be one of `top` or `bottom` where `top` means that the dropdown\nand trigger are aligned at the top, so the dropdown will extend _below_ the trigger.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
           "privacy": "public",
           "sourceRange": {
@@ -4217,13 +4487,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"top\""
         },
         {
           "name": "horizontalAlign",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Horizontal alignment of the dropdown relative to the trigger.\nShould be one of `left` or `right` where `left` means that the dropdown\nand trigger are aligned on their left side, so the dropdown will extend _to the right_.\nOverridden by dynamic alignment, unless `disableDynamicAlign` is true.",
           "privacy": "public",
           "sourceRange": {
@@ -4237,13 +4509,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"left\""
         },
         {
           "name": "mobile",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.\nAutomatically detected based on the breakpoint specified in `mobileAt`.",
           "privacy": "public",
           "sourceRange": {
@@ -4257,12 +4531,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           }
         },
         {
           "name": "mobileAt",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.",
           "privacy": "public",
           "sourceRange": {
@@ -4276,13 +4552,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           },
           "defaultValue": "400"
         },
         {
           "name": "hideMobileButtons",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "By default, the mobile dropdown will show Apply/Clear buttons.\nSet this property to hide them.",
           "privacy": "public",
           "sourceRange": {
@@ -4296,13 +4574,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "language",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "A valid IETF language tag as a string that `app-localize-behavior` will\nuse to localize this component.\n\nSee https://github.com/PolymerElements/app-localize-behavior for API\ndocumentation and more information.",
           "privacy": "public",
           "sourceRange": {
@@ -4316,13 +4596,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"en\""
         },
         {
           "name": "useKeyIfMissing",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "",
           "privacy": "public",
           "sourceRange": {
@@ -4336,13 +4618,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "true"
         },
         {
           "name": "resources",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "A dictionary of strings used within the component for AppLocalizeBehavior\nto use, based on the selected `language` property.",
           "privacy": "public",
           "sourceRange": {
@@ -4356,13 +4640,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "defaultValue": "{\"en\":{\"selected\":\"selected\",\"Clear\":\"Clear\",\"Apply\":\"Apply\"}}"
         },
         {
           "name": "_keyBindingsTarget",
-          "type": "HTMLElement",
+          "type": "HTMLElement | null | undefined",
           "description": "Binding target for iron-a11y-keys",
           "privacy": "protected",
           "sourceRange": {
@@ -4376,12 +4662,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "HTMLElement"
+            }
           }
         },
         {
           "name": "_focusedOption",
-          "type": "HTMLElement",
+          "type": "HTMLElement | null | undefined",
           "description": "The currently \"focused\" option in the dropdown list.\nUsed for handling of keyboard events.",
           "privacy": "protected",
           "sourceRange": {
@@ -4395,12 +4683,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "HTMLElement"
+            }
           }
         },
         {
           "name": "_keyboardBeingUsed",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Used to capture if the user is using the keyboard to interact with the dropdown.\nUsed to disable all mouse events.",
           "privacy": "protected",
           "sourceRange": {
@@ -4414,13 +4704,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "hoist",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Specifies if the dropdown content should get hoisted to a container in order to escape its current stacking context",
           "privacy": "public",
           "sourceRange": {
@@ -4434,7 +4726,9 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         }
@@ -4455,7 +4749,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "attached",
@@ -4472,7 +4769,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "detached",
@@ -4489,14 +4789,17 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "notifyResize",
           "description": "Can be called to manually notify a resizable and its descendant\nresizables of a resize change.",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 80,
               "column": 4
@@ -4508,6 +4811,9 @@
           },
           "metadata": {},
           "params": [],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4515,7 +4821,7 @@
           "description": "Used to assign the closest resizable ancestor to this resizable\nif the ancestor detects a request for notifications.",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 98,
               "column": 4
@@ -4531,6 +4837,9 @@
               "name": "parentResizable"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4538,7 +4847,7 @@
           "description": "Used to remove a resizable descendant from the list of descendants\nthat should be notified of a resize change.",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 116,
               "column": 4
@@ -4554,6 +4863,9 @@
               "name": "target"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4561,7 +4873,7 @@
           "description": "This method can be overridden to filter nested elements that should or\nshould not be notified by the current element. Return true if an element\nshould be notified, or false if it should not be notified.",
           "privacy": "public",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 134,
               "column": 4
@@ -4590,7 +4902,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 138,
               "column": 4
@@ -4606,6 +4918,9 @@
               "name": "event"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4613,7 +4928,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 152,
               "column": 4
@@ -4625,6 +4940,9 @@
           },
           "metadata": {},
           "params": [],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4632,7 +4950,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 156,
               "column": 4
@@ -4648,6 +4966,9 @@
               "name": "event"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4655,7 +4976,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 168,
               "column": 4
@@ -4671,6 +4992,9 @@
               "name": "parentResizable"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4678,7 +5002,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 174,
               "column": 4
@@ -4694,6 +5018,9 @@
               "name": "descendant"
             }
           ],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4701,7 +5028,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 187,
               "column": 4
@@ -4713,6 +5040,9 @@
           },
           "metadata": {},
           "params": [],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4720,7 +5050,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "bower_components/iron-resizable-behavior/iron-resizable-behavior.html",
+            "file": "../iron-resizable-behavior/iron-resizable-behavior.html",
             "start": {
               "line": 234,
               "column": 4
@@ -4732,6 +5062,9 @@
           },
           "metadata": {},
           "params": [],
+          "return": {
+            "type": "void"
+          },
           "inheritedFrom": "Polymer.IronResizableBehavior"
         },
         {
@@ -4749,7 +5082,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "toggle",
@@ -4766,7 +5102,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_getSlottedOpenTrigger",
@@ -4804,7 +5143,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -4832,7 +5174,7 @@
           "name": "container-type",
           "description": "An optional type set on the px-overlay-container and px-overlay-content to associate specific overlay-contents with their container",
           "sourceRange": {
-            "file": "bower_components/px-overlay/px-overlay-behavior.html",
+            "file": "../px-overlay/px-overlay-behavior.html",
             "start": {
               "line": 39,
               "column": 4
@@ -4843,7 +5185,7 @@
             }
           },
           "metadata": {},
-          "type": "string",
+          "type": "string | null | undefined",
           "inheritedFrom": "PxOverlayBehavior.sharedProperties"
         },
         {
@@ -4860,7 +5202,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "hide-chevron",
@@ -4876,7 +5218,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "bound-target",
@@ -4892,7 +5234,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "prevent-close-on-outside-click",
@@ -4908,7 +5250,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "display-value",
@@ -4924,11 +5266,11 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "display-value-count",
-          "description": "The number of values to display as a comma separated string on multi select lists. \nSelections greater then this number will display as \"N Selected\"",
+          "description": "The number of values to display as a comma separated string on multi select lists.\nSelections greater then this number will display as \"N Selected\"",
           "sourceRange": {
             "start": {
               "line": 236,
@@ -4940,7 +5282,7 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "disable-clear",
@@ -4956,7 +5298,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "read-only",
@@ -4972,7 +5314,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disable-select",
@@ -4988,7 +5330,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disable-truncate",
@@ -5004,7 +5346,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "items",
@@ -5020,7 +5362,7 @@
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         },
         {
           "name": "multi",
@@ -5036,7 +5378,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "select-by",
@@ -5052,7 +5394,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "selected",
@@ -5068,7 +5410,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "selected-values",
@@ -5084,7 +5426,7 @@
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         },
         {
           "name": "selected-items",
@@ -5100,7 +5442,7 @@
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         },
         {
           "name": "allow-outside-scroll",
@@ -5116,7 +5458,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "button-style",
@@ -5132,7 +5474,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "disabled",
@@ -5148,7 +5490,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disabled-viewable",
@@ -5164,7 +5506,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "search-mode",
@@ -5180,7 +5522,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "search-term",
@@ -5196,7 +5538,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "sort-mode",
@@ -5212,7 +5554,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "hide-selected",
@@ -5228,7 +5570,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "icon",
@@ -5244,7 +5586,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "clear-selections-on-change",
@@ -5260,7 +5602,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "trigger-height",
@@ -5276,7 +5618,7 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "show-caret",
@@ -5292,7 +5634,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "disable-dynamic-align",
@@ -5308,7 +5650,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "vertical-align",
@@ -5324,7 +5666,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "horizontal-align",
@@ -5340,7 +5682,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "mobile",
@@ -5356,7 +5698,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "mobile-at",
@@ -5372,7 +5714,7 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         },
         {
           "name": "hide-mobile-buttons",
@@ -5388,7 +5730,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "language",
@@ -5404,7 +5746,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "use-key-if-missing",
@@ -5420,7 +5762,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "resources",
@@ -5436,7 +5778,7 @@
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "hoist",
@@ -5452,7 +5794,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         }
       ],
       "events": [
@@ -5502,7 +5844,6 @@
           "description": "",
           "name": "trigger",
           "range": {
-            "file": "px-dropdown.html",
             "start": {
               "line": 115,
               "column": 6
