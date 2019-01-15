@@ -72,7 +72,7 @@ $inuit-enable-btn--primary: true;
 .trigger,
 #target {
   width: inherit;
-  flex-grow: var(--px-dropdown-flex-grow, 1);
+  flex-grow: var(--px-dropdown-flex-grow, 0);
 }
 .dropdown-trigger {
   width: inherit;
