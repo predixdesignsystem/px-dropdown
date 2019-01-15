@@ -1,3 +1,11 @@
+# v4.9.0
+
+- Added `--px-icon-flex-grow` CSS variable for optionally allowing the dropdown to fill its container
+
+# v4.8.1
+
+- Fixed regression in px-icon sizes
+
 # v4.8.0
 
 - Added a new property to make the number of selected values used in the trigger label variable.
