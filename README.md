@@ -1,4 +1,4 @@
-# px-dropdown [![Build Status](https://travis-ci.org/PredixDev/px-dropdown.svg?branch=master)](https://travis-ci.org/PredixDev/px-dropdown)
+# px-dropdown [![Build Status](https://travis-ci.org/predixdesignsystem/px-dropdown.svg?branch=master)](https://travis-ci.org/predixdesignsystem/px-dropdown)
 
 ## Overview
 
@@ -43,7 +43,7 @@ Finally, use the component in your application:
 
 ## Documentation
 
-Read the full API and view the demo [here](https://predixdev.github.io/px-dropdown).
+Read the full API and view the demo [here](https://www.predix-ui.com/#/elements/px-dropdown).
 
 Also, make sure to look at the `demo-angular.html` page for an example of using Polymer with Angular.
 
@@ -82,4 +82,4 @@ By default gulp serve is configured to enable LiveReload and will be watching fo
 
 ## Known Issues
 
-Please use [Github Issues](https://github.com/PredixDev/px-dropdown/issues) to submit any bugs you might find.
+Please use [Github Issues](https://github.com/predixdesignsystem/px-dropdown/issues) to submit any bugs you might find.
