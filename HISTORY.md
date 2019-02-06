@@ -1,3 +1,7 @@
+v4.7.9
+==================
+* Fixed Dropdown icon spacing issue when the rendering direction is "rtl" Right-To-Left.
+
 v4.7.6
 ==================
 * fix event documentation
