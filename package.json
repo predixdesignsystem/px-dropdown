@@ -2,8 +2,13 @@
   "name": "px-dropdown",
   "author": "General Electric",
   "description": "A Predix UI Dropdown component",
-  "version": "4.9.0",
+  "version": "4.9.1",
   "extName": null,
+  "scripts": {
+    "clean": "gulp clean",
+    "sass": "gulp sass",
+    "start": "gulp serve"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/predixdev/px-dropdown.git"

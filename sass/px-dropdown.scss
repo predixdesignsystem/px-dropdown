@@ -58,11 +58,17 @@ $inuit-enable-btn--primary: true;
   border-color: var(--px-validation-success-text-color, green);
   color: inherit;
 }
-
 .dropdown-icon {
   --iron-icon-width: 1.06667rem;
   --iron-icon-height: 1.06667rem;
   margin-left: $inuit-base-spacing-unit--tiny;
+  /*
+    These margins are for pages that are rendered from "Right-To-Left" or "Left-To-Right"
+    If the writing direction is left-to-right, this value overrides margin-left.
+    If the writing direction is right-to-left, this value overrides margin-right.
+  */
+  -webkit-margin-start: $inuit-base-spacing-unit--tiny;
+  -moz-margin-start: $inuit-base-spacing-unit--tiny;
 }
 .dropdown {
   font-size: var(--px-dropdown-content-font-size, inherit);
@@ -84,7 +90,7 @@ $inuit-enable-btn--primary: true;
   padding-right: $inuit-base-spacing-unit--small;
   outline: none;
   font-weight: var(--px-dropdown-font-weight, normal);
-  height: auto;
+  height: 100%;
   &.btn--disabled {
     cursor: not-allowed;
     pointer-events: unset;
@@ -304,10 +310,3 @@ $inuit-enable-btn--primary: true;
   border-width: 6px;
   margin-left: -6px;
 }
-
-// Trumps
-$inuit-enable-paddings--small: true;
-$inuit-enable-paddings--tiny: true;
-$inuit-enable-paddings--none: true;
-$inuit-enable-margins--small: true;
-@import "px-spacing-design/_trumps.spacing.scss";
