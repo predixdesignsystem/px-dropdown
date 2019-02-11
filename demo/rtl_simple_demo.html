@@ -28,7 +28,7 @@ limitations under the License.
 
 </head>
 
-<body>
+<body dir="rtl">
   <custom-style>
     <style include="px-theme-styles" is="custom-style"></style>
   </custom-style>
@@ -37,12 +37,15 @@ limitations under the License.
     body {
       height: 200vh;
     }
+    .rtl {
+      direction: rtl;
+    }
   </style>
   <px-overlay-container container-type="foo"></px-overlay-container>
   <px-overlay-container container-type="bar"></px-overlay-container>
   <px-overlay-container container-type="baz"></px-overlay-container>
 
-  <div style="width:250px">
+  <div style="width:250px" class="rtl">
     <p>Single Select</p>
     <px-dropdown
       id="foo"

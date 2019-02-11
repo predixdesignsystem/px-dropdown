@@ -1,3 +1,6 @@
+# v4.9.1
+- Fixed Dropdown icon spacing issue when the rendering direction is "rtl" Right-To-Left.
+
 # v4.9.0
 
 - Added `--px-icon-flex-grow` CSS variable for optionally allowing the dropdown to fill its container
