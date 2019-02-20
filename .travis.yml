@@ -26,6 +26,8 @@ after_success:
 - cd $TRAVIS_BUILD_DIR/scripts
 - chmod 755 ghp.sh
 - "./ghp.sh"
+after_failure:
+- cat /tmp/wct*/sc.log 
 env:
   global:
   - secure: mRD9Ta0lhMd7vDR4RblTl44VYk6TEK7iUuVHp4U3FncTvOckPgln/+un8zZNciujBbb6Pwa/iZyYmNioWk4uqHM6CzSN4NQeRJGIYA9jCseU9BfoZp2HLgd465leSkIBUUe7N5hMP84PJwgWfKcwLsvOt+VMC2AKDyOYDXa6qxszlYVg86BfYHDUi1TmkX64p5iDPqdWDO6fS83GRaqzupNaiprqFYC3nttYuWv0x7v7+q2aYVrPwe/fsxKRBCKNW4WRZobRWQsJxFWvHswXUIgPsvqB3YVDxi6IYAxxuQaa5iYyj9K66BfnLbruZGNClCQd+8Q0ITKOHMtOpplyXzqRlJ9knYwSag4/cki5cpsD1rJW8tqd+TONMHhiawKeYSbg3Vq6ZjQ+qPJkENVty+r3lSBb8X6xf3Q0zCprSEw+Fm6+UugfyqjyMtiZ2CICh4M1yxwprcLHn2se0KpvAUrA42J4kldoAR0BcpOFG4Dfzsx0gAep2Bur3pivCWhgGLplBuaReYrJFJnKeum/ZYvdtzESjqHarwcncsfVMahcm/7fEVhSOPVWZMV+G1X/2BeFk0sQo2TTh03UrqaLtL/Amctl8rQHJfiBgIy4G95OolSIPEvF+WYkFe3ydBVvDgkWuO18xJJwx1mpiSXH7SEURlVpyplZa0ycWv2633Y=
