@@ -1,3 +1,6 @@
+# v4.9.2
+- Fixed Dropdown item icon spacing issue.
+
 # v4.9.1
 - Fixed Dropdown icon spacing issue when the rendering direction is "rtl" Right-To-Left.
 

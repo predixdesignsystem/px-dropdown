@@ -80,7 +80,7 @@ limitations under the License.
                 <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
               </template>
               <template is="dom-if" if="{{item.icon}}">
-                <px-icon icon="{{item.icon}}" class="item-icon u-mr-" style$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
+                <px-icon icon="{{item.icon}}" class="item-icon" style$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
               </template>
               <span class$="dropdown-option__item {{_getTruncateClass(disableTruncate)}}">{{item.val}}</span>
             </div>

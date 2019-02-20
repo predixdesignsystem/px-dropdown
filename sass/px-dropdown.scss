@@ -224,6 +224,9 @@ $inuit-enable-btn--primary: true;
 .item-icon {
   --iron-icon-width: var(--px-dropdown-item-icon-size, calculateRem(16px));
   --iron-icon-height: var(--px-dropdown-item-icon-size, calculateRem(16px));
+  
+  -webkit-margin-end: $inuit-base-spacing-unit--small;
+  -moz-margin-end: $inuit-base-spacing-unit--small;
 }
 .checkbox {
   margin-right: $inuit-base-spacing-unit--tiny;
