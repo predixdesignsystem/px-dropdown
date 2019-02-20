@@ -1,13 +1,18 @@
+# v4.9.2
+
+- Resolved regression in iconic menu trigger size.
+
 # v4.9.1
+
 - Fixed Dropdown icon spacing issue when the rendering direction is "rtl" Right-To-Left.
 
 # v4.9.0
 
-- Added `--px-icon-flex-grow` CSS variable for optionally allowing the dropdown to fill its container
+- Added `--px-icon-flex-grow` CSS variable for optionally allowing the dropdown to fill its container.
 
 # v4.8.1
 
-- Fixed regression in px-icon sizes
+- Fixed regression in px-icon sizes.
 
 # v4.8.0
 
