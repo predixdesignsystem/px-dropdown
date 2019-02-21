@@ -82,7 +82,6 @@ $inuit-enable-btn--primary: true;
 }
 .dropdown-trigger {
   width: inherit;
-  min-width: var(--px-dropdown-min-width, inherit);
   max-width: var(--px-dropdown-max-width, 400px);
   display: flex;
   align-items: center;
