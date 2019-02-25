@@ -6,9 +6,10 @@ daysUntilClose: 7
 
 staleLabel: wontfix
 markComment: >
-  This issue has been automatically marked as stale because there has been
-  no activity in over a year. It will be automatically closed in 1 week if no
-  further activity occurs. Thanks for your contributions!
+  This issue or PR has been automatically marked as stale because there has been
+  no activity in over a year. It will be closed in 1 week if no further activity occurs.
+  Thanks for your contribution, and please don't hesitate to comment if this issue/PR
+  is still relevant.
 exemptLabels:
   - pinned
   - security
