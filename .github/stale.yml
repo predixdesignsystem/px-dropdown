@@ -1,0 +1,14 @@
+# Issues/PRs with no activity for a year will be marked as stale
+daysUntilStale: 365
+
+# If no one has replied inside a week after an issue is marked stale, close it.
+daysUntilClose: 7
+
+staleLabel: wontfix
+markComment: >
+  This issue has been automatically marked as stale because there has been
+  no activity in over a year. It will be automatically closed in 1 week if no
+  further activity occurs. Thanks for your contributions!
+exemptLabels:
+  - pinned
+  - security
