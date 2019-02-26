@@ -1,3 +1,7 @@
+# v4.9.3
+
+- Use margin right and left to avoid browser specif prefix fix for rtl space issue
+
 # v4.9.2
 
 - Resolved regression in iconic menu trigger size.
