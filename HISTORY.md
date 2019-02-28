@@ -1,3 +1,7 @@
+# v4.9.3
+
+- Re-add the padding styles that was removed that caused regression.
+
 # v4.9.2
 
 - Resolved regression in iconic menu trigger size.
