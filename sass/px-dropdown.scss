@@ -305,3 +305,9 @@ $inuit-enable-btn--primary: true;
   border-width: 6px;
   margin-left: -6px;
 }
+
+$inuit-enable-paddings--small: true;
+$inuit-enable-paddings--tiny: true;
+$inuit-enable-paddings--none: true;
+$inuit-enable-margins--small: true;
+@import "px-spacing-design/_trumps.spacing.scss";
