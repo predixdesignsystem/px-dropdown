@@ -214,6 +214,9 @@ $inuit-enable-btn--primary: true;
 .dropdown-option__item {
   pointer-events: none;
 }
+:host-context([dir='rtl']) .item-icon { 
+  transform: scaleX(-1);
+}
 .item-icon {
   --iron-icon-width: var(--px-dropdown-item-icon-size, calculateRem(16px));
   --iron-icon-height: var(--px-dropdown-item-icon-size, calculateRem(16px));
