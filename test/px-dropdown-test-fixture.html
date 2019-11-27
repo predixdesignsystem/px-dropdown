@@ -21,83 +21,155 @@ limitations under the License.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Component Test : Fixture for px-dropdown</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-    <link rel="import" href="../px-dropdown.html" />
-    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../../wct-browser-legacy/browser.js"></script>
+    <script type="module" src="../px-dropdown.js"></script>
+    <script src="../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
 
-    <link rel="import" href="../../px-theme/px-theme-styles.html">
-    <custom-style>
+    <script type="module" src="../../px-theme/px-theme-styles.js"></script>
+    <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
       <style include="px-theme-styles" is="custom-style"></style>
-    </custom-style>
+    </custom-style>`;
 
-    <script src="px-dropdown-custom-tests.js"></script>
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script src="./px-dropdown-custom-tests.js"></script>
   </head>
 
   <body>
-    <p id="title">1. Default:</p>
-    <test-fixture id="dropdown-fixture">
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+$_documentContainer.innerHTML = `<p id="title">1. Default:</p>`;
+document.body.appendChild($_documentContainer.content);
+</script>
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-fixture">
       <template>
-        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"A very long value to test that the trigger and content widths can be constrained"}]'>
+        <px-dropdown items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;A very long value to test that the trigger and content widths can be constrained&quot;}]">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-disabled-element-fixture">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-disabled-element-fixture">
       <template>
-        <px-dropdown items='[{"key":"1","val":"One","selected":true},{"key":"2","val":"Two","disabled":"true"},{"key":"3","val":"Three","selected":"true"},{"key":"4","val":"Four","selected":"false"}]' multi>
+        <px-dropdown items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One&quot;,&quot;selected&quot;:true},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;,&quot;disabled&quot;:&quot;true&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;,&quot;selected&quot;:&quot;true&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four&quot;,&quot;selected&quot;:&quot;false&quot;}]" multi="">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-readonly-element-fixture">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-readonly-element-fixture">
       <template>
-        <px-dropdown read-only items='[{"key":"1","val":"One Read Only"},{"key":"2","val":"Two Read Only"},{"key":"3","val":"Three Read Only"},{"key":"4","val":"Four Read Only"}]'>
+        <px-dropdown read-only="" items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One Read Only&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two Read Only&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three Read Only&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four Read Only&quot;}]">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-multi-element-fixture">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-multi-element-fixture">
       <template>
-        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two","selected":"true"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' multi>
+        <px-dropdown items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;,&quot;selected&quot;:&quot;true&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four&quot;}]" multi="">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-multi-select-values-fixture">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-multi-select-values-fixture">
       <template>
-        <px-dropdown select-by="key" selected-values='["1","2","3"]' display-value-count="3" items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' multi>
+        <px-dropdown select-by="key" selected-values="[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]" display-value-count="3" items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four&quot;}]" multi="">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-search-fixture">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-search-fixture">
       <template>
-        <px-dropdown search-mode allow-outside-scroll multi items='[{"key":"0","val":"Zerozerozerozerozerozerozerozerozerozerozerozerozerozerozerozero"},{"key":"1","val":"Oneoneoneoneoneoneone oneoneoneoneone"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"},{"key":"5","val":"One"},{"key":"6","val":"Two"},{"key":"7","val":"Three"},{"key":"8","val":"Four"},{"key":"9","val":"One"},{"key":"10","val":"Zero"},{"key":"11","val":"One"},{"key":"12","val":"Two"},{"key":"13","val":"Three"},{"key":"14","val":"Four"},{"key":"15","val":"One"},{"key":"16","val":"Two"},{"key":"17","val":"Three"},{"key":"18","val":"Four"},{"key":"19","val":"One"},{"key":"20","val":"Zero"},{"key":"21","val":"One"},{"key":"22","val":"Two"},{"key":"23","val":"Three"},{"key":"24","val":"Four"},{"key":"25","val":"One"},{"key":"26","val":"Two"},{"key":"27","val":"Three"},{"key":"28","val":"Four"},{"key":"29","val":"One"},{"key":"30","val":"Zero"},{"key":"31","val":"One"},{"key":"32","val":"Two"},{"key":"33","val":"Three"},{"key":"34","val":"Four"},{"key":"35","val":"One"},{"key":"36","val":"Two"},{"key":"37","val":"Three"},{"key":"38","val":"Four"},{"key":"39","val":"One"},{"key":"40","val":"Zero"},{"key":"41","val":"One"},{"key":"42","val":"Two"},{"key":"43","val":"Three"},{"key":"44","val":"Four"},{"key":"45","val":"One"},{"key":"46","val":"Two"},{"key":"47","val":"Three"},{"key":"48","val":"Four"},{"key":"49","val":"One"},{"key":"50","val":"Zero"},{"key":"51","val":"One"},{"key":"52","val":"Two"},{"key":"53","val":"Three"},{"key":"54","val":"Four"},{"key":"55","val":"One"},{"key":"56","val":"Two"},{"key":"57","val":"Three"},{"key":"58","val":"Four"},{"key":"59","val":"One"},{"key":"60","val":"Zero"},{"key":"61","val":"One"},{"key":"62","val":"Two"},{"key":"63","val":"Three"},{"key":"64","val":"Four"},{"key":"65","val":"One"},{"key":"66","val":"Two"},{"key":"67","val":"Three"},{"key":"68","val":"Four"},{"key":"69","val":"One"},{"key":"70","val":"Zero"},{"key":"71","val":"One"},{"key":"72","val":"Two"},{"key":"73","val":"Three"},{"key":"74","val":"Four"},{"key":"75","val":"One"},{"key":"76","val":"Two"},{"key":"77","val":"Three"},{"key":"78","val":"Four"},{"key":"79","val":"One"},{"key":"80","val":"Zero"},{"key":"81","val":"One"},{"key":"82","val":"Two"},{"key":"83","val":"Three"},{"key":"84","val":"Four"},{"key":"85","val":"One"},{"key":"86","val":"Two"},{"key":"87","val":"Three"},{"key":"88","val":"Four"},{"key":"89","val":"One"},{"key":"90","val":"Zero"},{"key":"91","val":"One"},{"key":"92","val":"Two"},{"key":"93","val":"Three"},{"key":"94","val":"Four"},{"key":"95","val":"One"},{"key":"96","val":"Two"},{"key":"97","val":"Three"},{"key":"98","val":"Four"},{"key":"99","val":"One"},{"key":"100","val":"Zero"}]'>
+        <px-dropdown search-mode="" allow-outside-scroll="" multi="" items="[{&quot;key&quot;:&quot;0&quot;,&quot;val&quot;:&quot;Zerozerozerozerozerozerozerozerozerozerozerozerozerozerozerozero&quot;},{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;Oneoneoneoneoneoneone oneoneoneoneone&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;5&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;6&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;7&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;8&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;9&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;10&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;11&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;12&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;13&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;14&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;15&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;16&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;17&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;18&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;19&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;20&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;21&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;22&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;23&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;24&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;25&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;26&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;27&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;28&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;29&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;30&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;31&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;32&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;33&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;34&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;35&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;36&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;37&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;38&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;39&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;40&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;41&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;42&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;43&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;44&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;45&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;46&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;47&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;48&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;49&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;50&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;51&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;52&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;53&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;54&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;55&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;56&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;57&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;58&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;59&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;60&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;61&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;62&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;63&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;64&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;65&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;66&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;67&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;68&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;69&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;70&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;71&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;72&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;73&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;74&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;75&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;76&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;77&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;78&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;79&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;80&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;81&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;82&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;83&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;84&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;85&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;86&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;87&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;88&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;89&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;90&quot;,&quot;val&quot;:&quot;Zero&quot;},{&quot;key&quot;:&quot;91&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;92&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;93&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;94&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;95&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;96&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;97&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;98&quot;,&quot;val&quot;:&quot;Four&quot;},{&quot;key&quot;:&quot;99&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;100&quot;,&quot;val&quot;:&quot;Zero&quot;}]">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-sort-fixture">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-sort-fixture">
       <template>
-        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' sort-mode="val">
+        <px-dropdown items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four&quot;}]" sort-mode="val">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-custom-trigger-fixture">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-custom-trigger-fixture">
       <template>
-        <px-dropdown items='[{"key":"1","val":"One"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' sort-mode="val">
+        <px-dropdown items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four&quot;}]" sort-mode="val">
           <button slot="trigger" id="custom-trigger">Custom trigger button</button>
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
 
-    <test-fixture id="dropdown-long-values">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<test-fixture id="dropdown-long-values">
       <template>
-        <px-dropdown items='[{"key":"1","val":"One very long value to test that the trigger and content widths can be constrained"},{"key":"2","val":"Two"},{"key":"3","val":"Three"},{"key":"4","val":"Four"}]' sort-mode="val">
+        <px-dropdown items="[{&quot;key&quot;:&quot;1&quot;,&quot;val&quot;:&quot;One very long value to test that the trigger and content widths can be constrained&quot;},{&quot;key&quot;:&quot;2&quot;,&quot;val&quot;:&quot;Two&quot;},{&quot;key&quot;:&quot;3&quot;,&quot;val&quot;:&quot;Three&quot;},{&quot;key&quot;:&quot;4&quot;,&quot;val&quot;:&quot;Four&quot;}]" sort-mode="val">
         </px-dropdown>
       </template>
-    </test-fixture>
+    </test-fixture>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
   </body>
 </html>

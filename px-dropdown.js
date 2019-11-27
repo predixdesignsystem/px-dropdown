@@ -1,0 +1,612 @@
+/*
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/**
+A dropdown from which users can select one or more values. Acts like a native
+browser "select" element with more fine-tuned interaction behaviors and a
+configurable UI.
+
+Dropdown can be used in conjunction with px-validation to apply validation states.
+Add the `validation-error`, `validation-warning`, or `validation-success` classes
+to alter the border color of the component.
+
+### Usage
+
+#### Simple
+
+```
+<px-dropdown items='["One","Two"]'></px-dropdown>
+<px-dropdown items='[{"key":"one", "val": "One"}, {"key":"two", "val": "Two"}]'></px-dropdown>
+```
+
+#### Complex
+
+```
+<px-dropdown
+    items='[{"key":"one", "val": "One", "selected": "true"}]'
+    display-value="Click me"
+    prevent-close-on-outside-click="true"
+    allow-outside-scroll="true"
+    multi="true"
+    select-by="key"
+    selected-values='["1","3"]'
+    bound-target=".parentDiv"
+    search-mode="true"
+    sort-mode="val">
+</px-dropdown>
+```
+
+#### Custom trigger
+
+By default, the `displayValue` or `icon` properties can be used to customize
+the information shown in the dropdown trigger button. Additional properties
+are available to further customize the trigger. To create a custom trigger which
+does not match any of the available configurations, pass an element into the
+`trigger` slot. This element can be anything — a button, a div, some text, etc. The
+dropdown will attach a tap event listener to the element to listen for user
+interactions which should open the dropdown. You should also give the element a
+`tabindex=0` and `id=trigger` to maintain keyboard accessibility.
+
+```
+<px-dropdown items='[{"key":"one", "val": "One", "selected": "true"}]'>
+  <button slot="trigger" id="trigger" tabindex="0">Unstyled dropdown trigger</button>
+</px-dropdown>
+```
+
+### Styling
+
+The following custom properties are available for styling of the dropdown content.
+See the documentation for px-buttons-design for variables related to the styling of the invoking button.
+
+Custom property | Description
+:----------------|:-------------
+`--px-dropdown-min-height` | Min height for the dropdown menu container
+`--px-dropdown-min-width` | Min width for the dropdown menu container
+`--px-dropdown-max-height` | Max height for the dropdown menu container
+`--px-dropdown-max-width` | Max width for the dropdown menu container
+`--px-dropdown-border-color` | Border color for the dropdown menu container
+`--px-dropdown-bg-color` | Background color for the dropdown menu container
+`--px-dropdown-bg-color--hover` | Background color of a hovered menu item
+`--px-dropdown-bg-color--selected` | Background color of a selected menu item
+`--px-dropdown-text-color` | Text color of a regular dropdown menu item
+`--px-dropdown-text-color--disabled` | Text color of a disabled dropdown menu item
+`--px-dropdown-text-color--selected` | Text color of a selected dropdown menu item
+`--px-dropdown-icon-size` | Size for the icon in the dropdown trigger
+`--px-dropdown-font-weight` | Font weight for the dropdown trigger button
+`--px-dropdown-item-icon-size` | Size of the optional icon in each dropdown item
+`--px-dropdown-item-padding` | Padding of each dropdown item
+`--px-dropdown-item-height` | Height of each dropdown item
+`--px-dropdown-content-font-size` | Font size in the dropdown menu container
+`--px-dropdown-caret-left` | Horizontal offset of the caret when dropdown aligned left
+`--px-dropdown-caret-right` | Horizontal offset of the caret when dropdown aligned right
+
+@element px-dropdown
+@blurb Element providing a dropdown solution.
+@homepage index.html
+@demo index.html
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
+
+import './css/px-dropdown-styles.js';
+import './px-dropdown-trigger.js';
+import './px-dropdown-content.js';
+import 'px-overlay/px-overlay-content.js';
+import 'px-overlay/px-overlay-behavior.js';
+import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import '@polymer/iron-media-query/iron-media-query.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { FlattenedNodesObserver } from '@polymer/polymer/lib/utils/flattened-nodes-observer.js';
+Polymer({
+  _template: html`
+    <style include="px-dropdown-styles"></style>
+    <iron-media-query query\$="(max-width: {{mobileAt}}px)" query-matches="{{mobile}}"></iron-media-query>
+    <div id="target">
+      <slot name="trigger" id="triggerSlot">
+        <px-dropdown-trigger id="trigger" opened="[[opened]]" language="[[language]]" resources="[[resources]]" use-key-if-missing="[[useKeyIfMissing]]" disabled="[[disabled]]" disabled-viewable="[[disabledViewable]]" read-only="[[readOnly]]" hide-chevron="[[hideChevron]]" display-value="[[displayValue]]" disable-clear="[[disableClear]]" selected="[[selected]]" selected-values="[[selectedValues]]" button-style="[[buttonStyle]]" icon="[[icon]]" display-value-selected="[[_displayValueSelected]]">
+        </px-dropdown-trigger>
+      </slot>
+    </div>
+    <px-overlay-content hoist="[[hoist]]" container-type="[[containerType]]" event-names="[&quot;px-dropdown-click&quot;,&quot;px-dropdown-selection-changed&quot;]">
+      <px-dropdown-content id="content" items="[[items]]" multi="[[multi]]" opened="{{opened}}" key-bindings-target="[[_keyBindingsTarget]]" display-value="[[displayValue]]" display-value-count="[[displayValueCount]]" language="[[language]]" resources="[[resources]]" use-key-if-missing="[[useKeyIfMissing]]" disabled="[[disabled]]" disabled-viewable="[[disabledViewable]]" bound-target="[[boundTarget]]" prevent-close-on-outside-click="[[preventCloseOnOutsideClick]]" disable-select="[[disableSelect]]" read-only="[[readOnly]]" select-by="[[selectBy]]" selected="{{selected}}" selected-values="{{selectedValues}}" selected-items="{{selectedItems}}" trigger-height="[[triggerHeight]]" show-caret="[[showCaret]]" disable-dynamic-align="[[disableDynamicAlign]]" vertical-align="[[verticalAlign]]" horizontal-align="[[horizontalAlign]]" mobile="{{mobile}}" mobile-at="[[mobileAt]]" hide-mobile-buttons="[[hideMobileButtons]]" search-mode="[[searchMode]]" search-term="[[searchTerm]]" sort-mode="[[sortMode]]" hide-selected="[[hideSelected]]" allow-outside-scroll="[[allowOutsideScroll]]" display-value-selected="{{_displayValueSelected}}" disable-truncate="[[disableTruncate]]">
+      </px-dropdown-content>
+    </px-overlay-content>
+`,
+
+  is: 'px-dropdown',
+
+  behaviors: [
+    PxOverlayBehavior.sharedProperties,
+    IronResizableBehavior
+  ],
+
+  listeners: {
+    'iron-resize' : '_resetMinWidth'
+  },
+
+  properties: {
+    /**
+     * A flag which reflects if the dropdown trigger has been clicked or not.
+     */
+    opened: {
+      type: Boolean,
+      notify: true,
+      value: false
+    },
+    /**
+     * Whether or not to hide the chevron icon from the dropdown.
+     */
+    hideChevron: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * A CSS selector which specifies the bounding target the dropdown will be
+     * displayed within. Defaults to `window`.
+     */
+    boundTarget: {
+      type: String
+    },
+    /**
+     * Whether the dropdown will close when a user clicks
+     * outside of it. Set to true to prevent dropdown from closing.
+     */
+    preventCloseOnOutsideClick: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * The placeholder text to display in the dropdown. If the
+     * selected value(s) are cleared out, the displayValue will be
+     * replaced in the dropdown.
+     */
+    displayValue: {
+      type: String,
+      notify: true,
+      value: 'Select',
+      observer: '_resetMinWidth'
+    },
+    /**
+     * The number of values to display as a comma separated string on multi select lists. 
+     * Selections greater then this number will display as "N Selected"
+     */
+    displayValueCount: {
+      type: Number,
+      value: 1,
+      observer: '_resetMinWidth'
+    },
+    /**
+     * If set to true, users are unable to clear out the dropdown
+     * once a selection has been made. Useful for required single-select
+     * dropdowns where an empty state would be undesirable. Not recommended
+     * for multi-select dropdowns, as it means the user will simply lose the ability
+     * to quickly deselect all checked options (there is currently no mechanism
+     * which requires a user to select at least one option).
+     */
+    disableClear: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * If set to true, users can still open the dropdown but can not click on items
+     */
+    readOnly: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * If set to true, users can still open the dropdown and click on items,
+     * but they will not be selected. Use this property in use cases where
+     * the dropdown is used as a menu instead of a form input.
+     */
+    disableSelect: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * By default, dropdown items longer than the max-width of the dropdown
+     * will be truncated, with the full string available on hover tooltip.
+     * If this property is set, items will not be truncated, but will wrap instead.
+     */
+    disableTruncate: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * The text that is displayed in the label of the dropdown.
+     * Updated when the selections change.
+     */
+    _displayValueSelected: {
+      type: String
+    },
+    /**
+     * An array that contains the list of items which show up in the dropdown.
+     * Each item can either be a simple string, or an object consisting of:
+     * * 'key' - a unique identifier (number or string)
+     * * 'val' - the actual text that is displayed
+     * * 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)
+     * * 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)
+     * * 'selected' - whether the item should be selected at instantiation (optional)
+     * * 'icon' - an icon name from the px-icon-set to display next to the item (optional)
+     * * 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)
+     *
+     * Note: if you specify more than one item as `selected`, but `multi` is not enabled,
+     * only the *first* selected item will be chosen. See also `clearSelectionsOnChange`.
+     */
+    items: {
+      type: Array,
+      notify: true,
+      value: function () {
+        return [];
+      }
+    },
+    /**
+     * If set to true, multiple values can be selected in the dropdown.
+     * Selected values are reflected in the `selectedValues` property.
+     * If set to false, a single selected value is reflected in `selected`.
+     */
+    multi: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * Which property of each dropdown item will be used to get/set
+     * the selected items - should be one of "key" or "val".
+     */
+    selectBy: {
+      type: String,
+      value: 'key'
+    },
+    /**
+     * Gets or sets the selected item when `multi` is false.
+     * Will either be a single key or value based on `selectBy`.
+     */
+    selected: {
+      type: String,
+      value: null,
+      notify: true
+    },
+    /**
+     * Gets or sets the selected items when `multi` is true.
+     * Will either be an array of keys or values based on `selectBy`.
+     */
+    selectedValues: {
+      type: Array,
+      notify: true
+    },
+    /**
+     * A read-only array of the selected `<div>` elements in the dropdown.
+     */
+    selectedItems: {
+      type: Array,
+      value: function() {
+        return [];
+      },
+      readOnly: true
+    },
+    /**
+     * By default, the dropdown will constrain scrolling on the page to
+     * itself when opened. Set to true in order to allow scrolling of
+     * the page while the dropdown is open.
+     */
+    allowOutsideScroll: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * Style for the button that invokes the dropdown.
+     * One of 'default','bare','bare--primary', 'tertiary', or 'icon'.
+     */
+    buttonStyle: {
+      type: String,
+      value: 'default'
+    },
+    /**
+     * Whether the dropdown should be disabled and non-interactive.
+     */
+    disabled: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * Whether the dropdown should be disabled and interactive.
+     */
+    disabledViewable: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * If true, the dropdown will include a search box, whereby the
+     * dropdown items can be filtered with a search term.
+     */
+    searchMode: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * The value of the search box, used for filtering the dropdown
+     * items when searchMode is true.
+     */
+    searchTerm: {
+      type: String,
+      value: ''
+    },
+    /**
+     * What to sort the dropdown items by - one of "key" or "val".
+     * By default, the items will be displayed in the order they are
+     * passed into the component.
+     */
+    sortMode: {
+      type: String
+    },
+    /**
+     * If set to true, the display-value will always show up in the
+     * invoking button of the dropdown. Useful in cases like the
+     * px-data-table, where "Show/Hide Columns" should always appear.
+     */
+    hideSelected: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * If buttonStyle is set to 'icon' this property will dictate
+     * which icon will be displayed inside of the dropdown button.
+     * The `displayValue`, selected values, and chevron will not be displayed.
+     * Perfect for icon-invoked menus. The value of this property should
+     * be a valid px-icon name, e.g. 'px-utl:app-settings'
+     */
+    icon: {
+      type: String,
+      value: ''
+    },
+    /**
+    * Set this property if you would like the `selected` and `selectedValues`
+    * properties to be cleared whenever mutations are made to the `items` array.
+    */
+    clearSelectionsOnChange: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * The height of the trigger element, used for calculating offset distance
+     * for the dropdown. Set this value if you use the `trigger` slot.
+     */
+    triggerHeight: {
+      type: Number,
+      value: 30
+    },
+    /**
+     * By default, the dropdown menu will be flush against the trigger.
+     * Enable this property to show a caret between the two. Useful
+     * in iconic menus and used by the application/product switcher.
+     */
+    showCaret: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * By default the dropdown will attempt to automatically align itself
+     * vertically and horizontally based on the available space. Set this flag
+     * to turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.
+     */
+    disableDynamicAlign: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * Vertical alignment of the dropdown relative to the trigger.
+     * Should be one of `top` or `bottom` where `top` means that the dropdown
+     * and trigger are aligned at the top, so the dropdown will extend _below_ the trigger.
+     * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+     */
+    verticalAlign: {
+      type: String,
+      value: 'top'
+    },
+    /**
+     * Horizontal alignment of the dropdown relative to the trigger.
+     * Should be one of `left` or `right` where `left` means that the dropdown
+     * and trigger are aligned on their left side, so the dropdown will extend _to the right_.
+     * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+     */
+    horizontalAlign: {
+      type: String,
+      value: 'left'
+    },
+    /**
+     * Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.
+     * Automatically detected based on the breakpoint specified in `mobileAt`.
+     */
+    mobile: {
+      type: Boolean,
+      reflectToAttribute: true
+    },
+    /**
+     * The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.
+     */
+    mobileAt: {
+      type: Number,
+      value: 400
+    },
+    /**
+     * By default, the mobile dropdown will show Apply/Clear buttons.
+     * Set this property to hide them.
+     */
+    hideMobileButtons: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * A valid IETF language tag as a string that `app-localize-behavior` will
+     * use to localize this component.
+     *
+     * See https://github.com/PolymerElements/app-localize-behavior for API
+     * documentation and more information.
+     */
+    language: {
+      type: String,
+      value: 'en'
+    },
+    useKeyIfMissing: {
+      type: Boolean,
+      value: true
+    },
+    /**
+     * A dictionary of strings used within the component for AppLocalizeBehavior
+     * to use, based on the selected `language` property.
+     */
+    resources: {
+      type: Object,
+      value: function() {
+        return {
+          'en': {
+            "selected": "selected",
+            "Clear": "Clear",
+            "Apply": "Apply"
+          }
+        }
+      }
+    },
+    /**
+     * Binding target for iron-a11y-keys
+     */
+    _keyBindingsTarget: {
+      type: HTMLElement,
+      value: function () {
+        return this;
+      }
+    },
+    /**
+     * The currently "focused" option in the dropdown list.
+     * Used for handling of keyboard events.
+     */
+    _focusedOption: {
+      type: HTMLElement
+    },
+    /**
+     * Used to capture if the user is using the keyboard to interact with the dropdown.
+     * Used to disable all mouse events.
+     */
+    _keyboardBeingUsed: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * Specifies if the dropdown content should get hoisted to a container in order to escape its current stacking context
+     */
+    hoist: {
+      type: Boolean,
+      value: false
+    }
+  },
+
+  created: function() {
+    /**
+     * Finds the trigger element and assigns it to the `openTrigger` property.
+     * Called when the element is first attached and whenever the `slotchange`
+     * event is fired.
+     */
+    this._initOpenTrigger = function() {
+      var trigger = this._getSlottedOpenTrigger();
+      if (trigger) {
+        this.$.content.openTrigger = trigger;
+      }
+    }.bind(this);
+  },
+
+  attached: function() {
+    this.$.triggerSlot.addEventListener('slotchange', this._initOpenTrigger, false);
+    this._initOpenTrigger();
+
+    afterNextRender(this, function() {
+      // Forces the width of the dropdown to be at least as wide as the trigger
+      this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+    }.bind(this));
+  },
+
+  detached: function() {
+    this.$.triggerSlot.removeEventListener('slotchange', this._initOpenTrigger);
+  },
+
+  _resetMinWidth: function() {
+    this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+  },
+
+  /**
+   * Toggles visibility of the dropdown: opens dropdown if it is closed, and
+   * closes dropdown if it is open.
+   */
+  toggle: function() {
+    this.$.content.toggle();
+    afterNextRender(this, function() {
+      this.$.content.style.minWidth = window.getComputedStyle(this.$.trigger).width;
+    }.bind(this));
+  },
+
+  /**
+   * Finds the element in the the trigger slot. If the developer passed an
+   * element into the `slot="trigger"` slot, returns that element. Otherwise
+   * returns the default trigger in the Shadow DOM. Works for Polymer 1.x and
+   * Polymer 2.x, which have different APIs for accomplishing this.
+   *
+   * @return {HTMLElement|null} - Reference to the trigger element, or null if none found
+   */
+  _getSlottedOpenTrigger: function() {
+    var elems;
+    if (PolymerElement) {
+      var nodes = FlattenedNodesObserver.getFlattenedNodes(this.$.triggerSlot);
+      elems = nodes.filter(function(n) {
+        return n.nodeType === Node.ELEMENT_NODE;
+      });
+    } else {
+      elems = this.getContentChildren('#triggerSlot');
+    }
+    if (elems.length > 1) {
+      console.warn('Only expected 1 element as a child of the "trigger" slot.')
+    }
+    var [trigger] = elems;
+    return (trigger instanceof HTMLElement) ? trigger : null;
+  },
+
+  /**
+   * Resizes the dropdown when the search term is changed.
+   */
+  _notifyResize: function() {
+    // Debounce to try to stop notify resize from spamming with events, which
+    // slows things down in Polymer 2.x + IE
+    this.debounce('on-notify-resize', function() {
+      this.$.content._notifyResize();
+    }, 1);
+  }
+
+  /**
+  * @event px-dropdown-selection-changed
+  *
+  * Event fired when any given element is selected or deselected in the dropdown.
+  * `evt.detail` contains:
+  * ```
+  * { val: "text of the changed element",
+  *   key: "key of the changed element",
+  *   selected: true/false }
+  * ```
+  */
+});

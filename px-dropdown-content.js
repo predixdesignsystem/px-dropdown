@@ -1,0 +1,910 @@
+/*
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
+
+import 'px-icon-set/px-icon-set.js';
+import 'px-icon-set/px-icon.js';
+import '@polymer/iron-dropdown/iron-dropdown.js';
+import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/iron-a11y-keys/iron-a11y-keys.js';
+import { AppLocalizeBehavior } from '@polymer/app-localize-behavior/app-localize-behavior.js';
+import './css/px-dropdown-styles.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+Polymer({
+  _template: html`
+    <style include="px-dropdown-styles"></style>
+    <iron-a11y-keys id="keys" keys="up down space enter tab esc" target="[[keyBindingsTarget]]" on-keys-pressed="_handleKeyPress">
+    </iron-a11y-keys>
+    <iron-dropdown id="dropdown" class\$="dropdown {{_getCaretClass(showCaret,mobile,verticalAlign,horizontalAlign)}}" auto-fit-on-attach="" fit-into="{{_getFitElement(boundTarget)}}" position-target="{{_getPositionElement(mobile,openTrigger)}}" dynamic-align="{{!disableDynamicAlign}}" vertical-offset="{{_getOffset(showCaret,triggerHeight,mobile)}}" vertical-align="{{_getVertical(verticalAlign,mobile)}}" horizontal-align="{{_getHorizontal(horizontalAlign,mobile)}}" opened="{{opened}}" hover="{{hover}}" no-cancel-on-outside-click="{{preventCloseOnOutsideClick}}" allow-outside-scroll="{{allowOutsideScroll}}" disabled\$="{{disabled}}" with-backdrop="{{mobile}}">
+      <div slot="dropdown-content" class="dropdown-content shadow-temporary">
+        <slot name="header"></slot>
+        <template is="dom-if" if="{{searchMode}}" value="{{searchTerm::input}}">
+          <div class="u-p- fixed">
+            <div class="search__form">
+              <input class="text-input search__box" disabled\$="[[disabled]]" placeholder="{{placeholder}}" value="{{searchTerm::input}}" on-input="_notifyResize" autocomplete="off">
+              
+              <px-icon class="search__icon" icon="px-utl:search"></px-icon>
+            </div>
+          </div>
+        </template>
+        <iron-selector id="selector" class="selector" multi="{{multi}}" selected="{{selected}}" selected-values="{{selectedValues}}" selected-items="{{selectedItems}}" attr-for-selected="{{selectBy}}">
+          <template is="dom-repeat" id="dropdownItems" items="{{_computedItems}}" strip-whitespace="">
+            <div class="dropdown-option" key="{{item.key}}" val="{{item.val}}" disabled\$="{{item.disabled}}" disable-select="{{item.disableSelect}}" on-mouseover="_hoverOn" on-mouseout="_hoverOff" title="{{item.val}}">
+              <template is="dom-if" if="{{_showCheckmark(multi,mobile)}}">
+                <px-icon icon="px-utl:check" class="select-icon u-pr--"></px-icon>
+              </template>
+              <template is="dom-if" if="{{item.icon}}">
+                <px-icon icon="{{item.icon}}" class="item-icon u-mr-" style\$="color:{{item.color}};stroke:{{item.color}}"></px-icon>
+              </template>
+              <span class\$="dropdown-option__item {{_getTruncateClass(disableTruncate)}}">{{item.val}}</span>
+            </div>
+          </template>
+        </iron-selector>
+        <template is="dom-if" if="{{_showButtons(mobile,hideMobileButtons)}}">
+          <div class="flex flex--middle flex--right u-m- fixed">
+            <template is="dom-if" if="{{!disableClear}}">
+              <button class\$="btn {{_showMobileClearButton(mobile,disableClear,selected,selectedValues,selectedValues.*)}}" on-tap="_handleClearTapped">[[localize('Clear')]]</button>
+            </template>
+            <template is="dom-if" if="{{multi}}">
+              <button class="btn btn--primary u-ml-" on-tap="toggle">[[localize('Apply')]]</button>
+            </template>
+          </div>
+        </template>
+        <slot name="footer"></slot>
+      </div>
+    </iron-dropdown>
+`,
+
+  is: 'px-dropdown-content',
+
+  behaviors: [
+    AppLocalizeBehavior
+  ],
+
+  properties: {
+    /**
+     * Bind to a `<px-dropdown-trigger>` element. A tap on the trigger
+     * will open the dropdown.
+     */
+    openTrigger: {
+      type: HTMLElement,
+      observer: '_openTriggerChanged'
+    },
+    /**
+     * A flag which reflects if the dropdown trigger has been clicked or not.
+     */
+    opened: {
+      type: Boolean,
+      notify: true
+    },
+    /**
+     * A flag which reflects whether the dropdown is being hovered over.
+     */
+    hover: {
+      type: Boolean,
+      notify: true
+    },
+    /**
+     * A CSS selector which specifies the bounding target the dropdown will be
+     * displayed within. Defaults to `window`.
+     */
+    boundTarget: {
+      type: String
+    },
+    /**
+     * Whether the dropdown will close when a user clicks
+     * outside of it. Set to true to prevent dropdown from closing.
+     */
+    preventCloseOnOutsideClick: {
+      type: Boolean
+    },
+    /**
+     * If set, users are unable to clear out the dropdown
+     * once a selection has been made. Useful for required single-select
+     * dropdowns where an empty state would be undesirable. Not recommended
+     * for multi-select dropdowns, as it means the user will simply lose the ability
+     * to quickly deselect all checked options (there is currently no mechanism
+     * which requires a user to select at least one option).
+     */
+    disableClear: {
+      type: Boolean
+    },
+    /**
+     * If set, users can still open the dropdown and click on items,
+     * but they will not be selected. Use this property in use cases where
+     * the dropdown is used as a menu instead of a form input.
+     */
+    disableSelect: {
+      type: Boolean
+    },
+    /**
+     * If set, the items list will be in read only mode, the list is not disabled
+     * but the user can not click the items. No events are fired.
+     */
+    readOnly: {
+      type: Boolean,
+      observer: '_setReadOnly'
+    },
+    /**
+     * If set, the items list will be in read only mode, the list is disabled
+     * and the user can not click the items. No events are fired.
+     */
+    disabledViewable: {
+      type: Boolean,
+      observer: '_setDisabledViewableClass'
+    },
+    /**
+     * By default, dropdown items longer than the max-width of the dropdown
+     * will be truncated, with the full string available on hover tooltip.
+     * If this property is set, items will not be truncated, but will wrap instead.
+     */
+    disableTruncate: {
+      type: Boolean
+    },
+    /**
+     * The text that is displayed in the label of the dropdown.
+     * Updated when the selections change.
+     */
+    displayValueSelected: {
+      type: String,
+      notify: true
+    },
+    /**
+     * An array that contains the list of items which show up in the dropdown.
+     * Each item can either be a simple string, or an object consisting of:
+     * * 'key' - a unique identifier (number or string)
+     * * 'val' - the actual text that is displayed
+     * * 'disabled' - whether the item should be disabled completely - can't be selected nor used as a menu option (optional)
+     * * 'disableSelect` - whether the item should be disabled for selection, but can still be used as a menu option (optional)
+     * * 'selected' - whether the item should be selected at instantiation (optional)
+     * * 'icon' - an icon name from the px-icon-set to display next to the item (optional)
+     * * 'color' - the color to use for the icon - if not specified, the default text colors will be used (optional)
+     *
+     * Note: if you specify more than one item as `selected`, but `multi` is not enabled,
+     * only the *first* selected item will be chosen. See also `clearSelectionsOnChange`.
+     */
+    items: {
+      type: Array,
+      notify: true
+    },
+    /**
+     * If set to true, multiple values can be selected in the dropdown.
+     * Selected values are reflected in the `selectedValues` property.
+     * If set to false, a single selected value is reflected in `selected`.
+     */
+    multi: {
+      type: Boolean
+    },
+    /**
+     * Which property of each dropdown item will be used to get/set
+     * the selected items - should be one of "key" or "val".
+     */
+    selectBy: {
+      type: String,
+      observer: '_updateSelection'
+    },
+    /**
+     * Gets or sets the selected item when `multi` is false.
+     * Will either be a single key or value based on `selectBy`.
+     */
+    selected: {
+      type: String,
+      notify: true
+    },
+    /**
+     * Gets or sets the selected items when `multi` is true.
+     * Will either be an array of keys or values based on `selectBy`.
+     */
+    selectedValues: {
+      type: Array,
+      notify: true
+    },
+    /**
+     * A read-only array of the selected `<div>` elements in the dropdown.
+     */
+    selectedItems: {
+      type: Array,
+      readOnly: true
+    },
+    /**
+     * By default, the dropdown will constrain scrolling on the page to
+     * itself when opened. Set to true in order to allow scrolling of
+     * the page while the dropdown is open.
+     */
+    allowOutsideScroll: {
+      type: Boolean
+    },
+    /**
+     * Whether the dropdown should be disabled and non-interactive.
+     */
+    disabled: {
+      type: Boolean
+    },
+    /**
+     * If true, the dropdown will include a search box, whereby the
+     * dropdown items can be filtered with a search term.
+     */
+    searchMode: {
+      type: Boolean
+    },
+    /**
+     * The value of the search box, used for filtering the dropdown
+     * items when searchMode is true.
+     */
+    searchTerm: {
+      type: String,
+      observer: '_computeFilter'
+    },
+    /**
+     * What to sort the dropdown items by - one of "key" or "val".
+     * By default, the items will be displayed in the order they are
+     * passed into the component.
+     */
+    sortMode: {
+      type: String
+    },
+    /**
+    * The height of the trigger element, used for calculating offset distance
+    * for the dropdown. Set this value if you use the `trigger` slot.
+    */
+    triggerHeight: {
+      type: Number
+    },
+    /**
+    * By default, the dropdown menu will be flush against the trigger.
+    * Enable this property to show a caret between the two. Useful
+    * in iconic menus and used by the application/product switcher.
+    */
+    showCaret: {
+      type: Boolean
+    },
+    /**
+    * By default the dropdown will attempt to automatically align itself
+    * vertically and horizontally based on the available space. Set this flag
+    * to turn off that automatic behavior and force a certain `verticalAlign` / `horizontalAlign`.
+    */
+    disableDynamicAlign: {
+      type: Boolean
+    },
+    /**
+    * Vertical alignment of the dropdown relative to the trigger.
+    * Should be one of `top` or `bottom` where `top` means that the dropdown
+    * and trigger are aligned at the top, so the dropdown will extend _below_ the trigger.
+    * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+    */
+    verticalAlign: {
+      type: String
+    },
+    /**
+    * Horizontal alignment of the dropdown relative to the trigger.
+    * Should be one of `left` or `right` where `left` means that the dropdown
+    * and trigger are aligned on their left side, so the dropdown will extend _to the right_.
+    * Overridden by dynamic alignment, unless `disableDynamicAlign` is true.
+    */
+    horizontalAlign: {
+      type: String
+    },
+    /**
+    * Whether to display the mobile version of the dropdown, which appears as a fullscreen modal.
+    * Automatically detected based on the breakpoint specified in `mobileAt`.
+    */
+    mobile: {
+      type: Boolean,
+      reflectToAttribute: true
+    },
+    /**
+    * The breakpoint (in # of pixels) at which to display the mobile version of px-dropdown.
+    */
+    mobileAt: {
+      type: Number
+    },
+    /**
+    * By default, the mobile dropdown will show Apply/Clear buttons.
+    * Set this property to hide them.
+    */
+    hideMobileButtons: {
+      type: Boolean
+    },
+    /**
+     * A valid IETF language tag as a string that `app-localize-behavior` will
+     * use to localize this component.
+     *
+     * See https://github.com/PolymerElements/app-localize-behavior for API
+     * documentation and more information.
+     */
+    language: {
+      type: String,
+      value: 'en'
+    },
+    useKeyIfMissing: {
+      type: Boolean,
+      value: true
+    },
+    /**
+    * A dictionary of strings used within the component for AppLocalizeBehavior
+    * to use, based on the selected `language` property.
+    */
+    resources: {
+      type: Object,
+      value: function() {
+        return {
+          'en': {
+            "Clear": "Clear",
+            "Apply": "Apply"
+          }
+        }
+      }
+    },
+    /**
+     * Binding target for iron-a11y-keys
+     */
+    keyBindingsTarget: {
+      type: HTMLElement
+    },
+    /**
+     * The currently "focused" option in the dropdown list.
+     * Used for handling of keyboard events.
+     */
+    _focusedOption: {
+      type: HTMLElement
+    },
+    /**
+     * Used to capture if the user is using the keyboard to interact with the dropdown.
+     * Used to disable all mouse events.
+     */
+    _keyboardBeingUsed: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * Internal representation of the items array, in case simple strings are
+     * passed in, so that appropriate key/val pairs can be generated.
+     */
+     _computedItems: {
+      type: Array,
+      value: function () {
+        return [];
+      }
+    }
+  },
+
+  listeners: {
+    'iron-activate' : '_handleActivate',
+    'iron-select' : '_handleSelection',
+    'iron-deselect' : '_handleDeselection',
+    'iron-overlay-canceled' : '_handleCancel'
+  },
+
+  observers: [
+    '_itemsChanged(items, items.*)',
+    '_initSort(sortMode, _computedItems)'
+  ],
+
+  created: function() {
+    this._handleOpenTriggerTappedBound = this.toggle.bind(this);
+    this._handleClearTappedBound = this._handleClearTapped.bind(this);
+    this._closeBound = this.close.bind(this);
+  },
+
+  attached: function() {
+    afterNextRender(this, function() {
+      this._updateSelection();
+    }.bind(this));
+  },
+
+  toggle: function() {
+    this.$.dropdown.toggle();
+  },
+
+  _handleCancel: function(e) {
+    e.preventDefault();
+    var dropdownPath = dom(e.detail).path;
+    if (dropdownPath){
+      if(dropdownPath.indexOf(this.openTrigger) === -1) {
+        this.$.dropdown.close();
+      }
+    } else {
+      this.$.dropdown.allowOutsideScroll = true;
+    }
+  },
+
+  close: function() {
+    this.$.dropdown.close();
+  },
+
+  open: function() {
+    this.$.dropdown.open();
+  },
+
+  /**
+   * Bind to open trigger, open/close on trigger tap.
+   */
+  _openTriggerChanged: function(newTrigger, oldTrigger) {
+    if (oldTrigger && oldTrigger instanceof HTMLElement) {
+      oldTrigger.removeEventListener('tap', this._handleOpenTriggerTappedBound);
+      oldTrigger.removeEventListener('clear-tapped', this._handleClearTappedBound);
+    }
+    if (newTrigger && newTrigger instanceof HTMLElement) {
+      newTrigger.addEventListener('tap', this._handleOpenTriggerTappedBound, false);
+      newTrigger.addEventListener('clear-tapped', this._handleClearTappedBound, false);
+    }
+  },
+
+  _handleClearTapped: function() {
+    this.set('selected', null);
+    this.set('selectedValues', []);
+    if(this.multi) {
+      dom(this.$.dropdown).querySelectorAll('input#option:checked').forEach(function(item) {
+        item.checked = false;
+      });
+    }
+    if(!this.mobile) this.$.dropdown.close();
+  },
+
+  /**
+   * Iterates over the `items` array and adds items with the
+   * `selected` property to the `selectedValues` array (for multi) or
+   * updates `selected` (for single). Note: if you specify more than
+   * one item as `selected` but `multi` is not enabled, only the *first*
+   * selected item will be chosen. Does NOT remove items if their selected
+   * property gets changed to false or removed - use `clearSelectionsOnChange`
+   * or mutate the `selected` / `selectedValues` properties instead.
+   */
+  _updateSelection: function() {
+    if(Array.isArray(this.items) && this.items.length > 0) {
+      var length, selected, i;
+
+      if(this.multi) {
+        length = this.items.length;
+        selected = Array.isArray(this.selectedValues) ? this.selectedValues.slice(0) : [];
+        for(i=0; i<length; i++) {
+          if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
+            if(selected && selected.indexOf(this.items[i][this.selectBy]) === -1) {
+              selected.push(this.items[i][this.selectBy]);
+            }
+          }
+        }
+        this.selectedValues = selected;
+      }
+      else {
+        length = this.items.length;
+        selected = this.selected;
+        for(i=0; i<length; i++) {
+          if(this.items[i].selected !== undefined && this.items[i].selected.toString() === 'true') {
+            if(selected !== this.items[i][this.selectBy]) {
+              this.set('selected', this.items[i][this.selectBy]);
+              break;
+            }
+          }
+        }
+      }
+    }
+  },
+
+  /**
+   * Any time that `items` changes, this method will convert any
+   * simple strings in the array to an object with key/val.
+   */
+  _itemsChanged: function(items) {
+    if(items === undefined) return;
+    var newComputedItems = [];
+    if(items !== null) {
+      items.forEach(function(item, idx) {
+        if(typeof item === 'string') {
+          newComputedItems[idx] = {"key":idx, "val":item};
+        }
+        else {
+          newComputedItems[idx] = item;
+        }
+      }.bind(this));
+    }
+    this._computedItems = newComputedItems;
+    if(this.clearSelectionsOnChange) {
+      this.set('selected', null);
+      this.set('selectedValues', []);
+    }
+    this._updateSelection();
+    this._notifyResize();
+  },
+
+  /**
+   * Searches the DOM for the `boundTarget` element.
+   */
+  _getFitElement: function(target) {
+    return dom(document).querySelector(target);
+  },
+
+  /**
+   * Determines the position target element based on `mobile`.
+   */
+  _getPositionElement: function(mobile, openTrigger) {
+    return mobile ? window : openTrigger;
+  },
+
+  /**
+   * When iron-activate is fired, this method checks whether the item is disabled
+   * or if selection is disabled in the dropdown overall (for use in menus).
+   * If so, it cancels the event so that iron-select is not called.
+   */
+  /**
+  * Event fired when any non-disabled element is clicked in the dropdown.
+  * If disableSelect is set on the entire dropdown or individual item,
+  * the event is still fired and the dropdown is closed, but the item
+  * is not selected. Useful for menu dropdowns, as opposed to selection dropdowns.
+  *
+  * @event px-dropdown-click
+  */
+  _handleActivate: function(evt) { 
+    if(evt.detail.item.hasAttribute('disabled') || this.readOnly || this.disabledViewable) {
+      evt.preventDefault();
+    }
+    else if (this.disableSelect || evt.detail.item.disableSelect) {
+      evt.preventDefault();
+      this.fire('px-dropdown-click', evt);
+      this.$.dropdown.close();
+    }
+    else {
+      this.fire('px-dropdown-click', evt);
+    }
+  },
+
+  /**
+   * Handles the selection event from iron-selector to update
+   * the label displayed inside the dropdown. Use the displayValueCount property to define how many values
+   * are displayed in the trigger value of multiple select lists
+   */
+  _handleSelection: function(evt) {
+    if(this.multi && this.$.selector.selectedItems.length > 0 && this.selectedValues.length <= this.displayValueCount && !this.hideSelected) {
+      this.displayValueSelected = this.$.selector.selectedItems.map(function(item) {
+        return item.val.trim();
+      }).join(', ');
+    }
+    else if(this.multi && this.selectedValues.length > this.displayValueCount && !this.hideSelected) {
+      this.displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
+    }
+    else if(!this.hideSelected) {
+      this.displayValueSelected = this.$.selector.selectedItem ? this.$.selector.selectedItem.val : this.displayValue;
+      this.$.dropdown.close();
+    }
+    this.$.dropdown.notifyResize();
+    /**
+     * Event fired when any given element is selected or deselected in the list.
+     * `evt.detail` contains:
+     * ```
+     * { val: "text of the changed element",
+     *   key: "key of the changed element",
+     *   selected: true/false }
+     * ```
+     * @event px-dropdown-selection-changed
+     */
+    this.fire('px-dropdown-selection-changed', {
+      val: evt.detail.item.val,
+      key: evt.detail.item.key,
+      selected: true
+    });
+  },
+
+  /**
+   * Handles the de-selection event from iron-selector to update
+   * the label displayed inside the dropdown.
+   */
+  _handleDeselection: function(evt) {
+    if(this.multi && this.$.selector.selectedItems.length > 0 && this.$.selector.selectedItems.length <= this.displayValueCount && !this.hideSelected) {
+      this.displayValueSelected = this.$.selector.selectedItems.map(function(item) {
+        return item.val.trim();
+      }).join(', ');      
+    }
+    else if(this.multi && this.selectedValues.length > this.displayValueCount && !this.hideSelected) {
+      this.displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
+    }
+    else {
+      this.displayValueSelected = this.displayValue;
+    }
+    this.$.dropdown.notifyResize();
+    /**
+     * Event fired when any given element is selected or deselected in the list.
+     * `evt.detail` contains:
+     * ```
+     * { val: "text of the changed element",
+     *   key: "key of the changed element",
+     *   selected: true/false }
+     * ```
+     * @event px-dropdown-selection-changed
+     */
+    this.fire('px-dropdown-selection-changed', {
+      val: evt.detail.item.val,
+      key: evt.detail.item.key,
+      selected: false
+    });
+  },
+
+  /**
+   * Resizes the dropdown when the search term is changed.
+   */
+  _notifyResize: function() {
+    this.$.dropdown.notifyResize();
+  },
+
+  /**
+   * Filter function used by the dom-repeat inside the iron-selector,
+   * based on the searchTerm entered in the search box.
+   */
+  _computeFilter: function () {
+    if (this.searchMode) {
+      var term = this.searchTerm.toLowerCase(),
+          items = this.$.dropdown.querySelectorAll('.dropdown-option'),
+          length = items.length,
+          i;
+      for(i=0; i<length; i++) {
+        this.toggleClass('hidden', items[i].val.toString().toLowerCase().indexOf(term) === -1 && items[i].key.toString().toLowerCase().indexOf(term) === -1, items[i]);
+      }
+    }
+  },
+
+  /**
+   * Determines whether to display the clear button inside the dropdown in mobile mode.
+   */
+  _showMobileClearButton: function(mobile, disableClear, selected, selectedValues) {
+    if(mobile && (typeof selected === 'string' || typeof selected === 'number' || selectedValues.length > 0)) {
+      return '';
+    }
+    else {
+      return 'btn--disabled';
+    }
+  },
+
+  /**
+   * Initializes the sort function for the dom-repeat inside of iron-selector.
+   */
+  _initSort: function (sortMode, items) {
+    if(sortMode !== undefined && items !== undefined) {
+      this.$.dropdownItems.sort = '_computeSort';
+      this.$.dropdownItems.render();
+    }
+  },
+
+  /**
+   * Event handler for mouse move event. We enable mouse events when user moves the mouse.
+   * Mouse events are disabled when user uses the keyboard to interact with the dropdown.
+   * @private
+   */
+  _bindMouse: function () {
+    this._keyboardBeingUsed = false;
+    this.removeEventListener('mousemove', this._bindMouse);
+  },
+
+  /**
+   * The sort function used by the dom-repeat inside of iron-selector to
+   * sort the items by either 'key' or 'val' based on `sortMode`.
+   */
+  _computeSort: function (a, b) {
+    var sortValue = 0;
+    if (!this.sortMode) {
+      return -1;
+    }
+
+    if (this.sortMode && sortValue === 0) {
+      if (this.sortMode === 'key') {
+        sortValue = a.key - b.key;
+      }
+      if (this.sortMode === 'val') {
+        var nameA = a.val.toUpperCase(),
+          nameB = b.val.toUpperCase();
+
+        if (nameA < nameB) {
+          sortValue--;
+        }
+        if (nameA > nameB) {
+          sortValue++;
+        }
+      }
+    }
+
+    return sortValue;
+  },
+
+  /**
+   * Adds the class that sets pointer-events = none to disable user interactions.
+   */
+  _setReadOnly: function() {      
+    if (this.multi && this.readOnly){
+      this.toggleClass('dropdown--read-only-multi',true,dom(this.$.dropdown).querySelector('.dropdown-content'));
+    } else if (this.readOnly) {
+      this.toggleClass('dropdown--read-only',true,dom(this.$.dropdown).querySelector('.dropdown-content'));
+    } else {
+      this.toggleClass('dropdown--read-only',false,dom(this.$.dropdown).querySelector('.dropdown-content'));
+    }
+  },
+
+  /**
+   * Calculates the class for a disabled viewable dropdown.
+   */
+  _setDisabledViewableClass: function() {
+    if(this.disabledViewable) {
+      this.toggleClass('dropdown--disabled-viewable',true,dom(this.$.dropdown).querySelector('.dropdown-content'));
+    } else {
+      this.toggleClass('dropdown--disabled-viewable',false,dom(this.$.dropdown).querySelector('.dropdown-content'));
+    }
+  },
+
+  /**
+   * Adds or removes the focused class for keyboard navigation.
+   */
+  _setFocusedOption: function(newOption, oldOption) {
+    this._focusedOption = newOption;
+    if(newOption) {
+      this.toggleClass('focused',true,newOption);
+    }
+    if(oldOption) {
+      this.toggleClass('focused',false,oldOption);
+    }
+  },
+
+  /**
+   * Keypress event handler for iron-a11y-keys.
+   */
+  _handleKeyPress: function (event) {
+    this._keyboardBeingUsed = true;
+    this.addEventListener('mousemove', this._bindMouse.bind(this));
+    var keyPressed = event.detail.combo,
+        options = this.$.selector.getEffectiveChildren().filter(function(node) {
+          return (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'DIV'
+                  && !node.hasAttribute('disabled') && !node.classList.contains('hidden'));
+        }),
+        focused = options.indexOf(this._focusedOption),
+        searchFocused = this.searchMode && dom(this.$.dropdown).querySelector(':focus') === dom(this.$.dropdown).querySelector('.search__box');
+    switch (keyPressed) {
+      case 'space':
+      case 'enter':
+        if(searchFocused) break;
+        // If closed, open it
+        if(!this.opened) {
+          this.toggle();
+        }
+        // If opened, select currently focused item
+        else if(focused !== -1) {
+          options[focused].click();
+        }
+        event.detail.keyboardEvent.preventDefault();
+        break;
+      case 'esc':
+        this.$.dropdown.close();
+        break;
+      case 'tab':
+        // Close dropdown and (default behavior) move to next item
+        if(this.opened) {
+          this.$.dropdown.close();
+        }
+        break;
+      case 'down':
+        // If closed, open it
+        if(!this.opened) {
+          this.toggle();
+        }
+        // If something is focused, move to the next sibling
+        if(focused > -1 && focused < options.length - 1) {
+          this._setFocusedOption(options[focused + 1], options[focused]);
+          this.$.dropdown.querySelector('.dropdown-content').scrollTop += options[focused+1].offsetHeight;
+        }
+        // If last element is focused, do nothing
+        else if (focused === options.length - 1) {
+          break;
+        }
+        // If nothing is focused and search-mode is true, move to the search box
+        else if (focused === -1 && this.searchMode && !searchFocused) {
+          dom(this.$.dropdown).querySelector('.search__box').focus();
+        }
+        // If searchbox is focused, move to the first option
+        else if (searchFocused) {
+          dom(this.$.dropdown).querySelector('.search__box').blur();
+          this.$.trigger.focus();
+          this._setFocusedOption(options[0]);
+        }
+        // Else focus the first item in the list
+        else {
+          this._setFocusedOption(options[0]);
+        }
+        event.detail.keyboardEvent.preventDefault();
+        break;
+      case 'up':
+        // If closed, open it
+        if(!this.opened) {
+          this.toggle();
+        }
+        // If something is focused, move to the previous sibling
+        if(focused > 0) {
+          this._setFocusedOption(options[focused - 1], options[focused]);
+          dom(this.$.dropdown).querySelector('.dropdown-content').scrollTop -= options[focused].offsetHeight;
+        }
+        // If the first item is focused and search-mode is true, move to the search box
+        else if (focused === 0 && this.searchMode && !searchFocused) {
+          dom(this.$.dropdown).querySelector('.search__box').focus();
+          this._setFocusedOption(null, options[0]);
+        }
+        // Else focus the last item in the list
+        else if (focused === -1 && !searchFocused) {
+          this._setFocusedOption(options[options.length - 1]);
+        }
+        event.detail.keyboardEvent.preventDefault();
+        break;
+    }
+  },
+
+  /**
+   * Event handler when the mouse hovers over a dropdown list item.
+   */
+  _hoverOn: function (event) {
+    if (!this._keyboardBeingUsed && !this.mobile) {
+      var currHighlightedItem = this.querySelector('.dropdown-option.focused');
+      if (currHighlightedItem) {
+        this.toggleClass('focused',false,currHighlightedItem);
+      }
+      this.toggleClass('focused',true,dom(event).localTarget);
+    }
+  },
+
+  /**
+   * Event handler when the mouse hovers out of a dropdown list item.
+   */
+  _hoverOff: function (event) {
+    this.toggleClass('focused',false,dom(event).localTarget);
+  },
+
+  /**
+  * Calculates classes for the caret based on the horizontal and vertical alignment.
+  */
+  _getCaretClass: function(showCaret, mobile, verticalAlign, horizontalAlign) {
+    return (showCaret && !mobile) ? verticalAlign + ' ' + horizontalAlign : '';
+  },
+
+  /**
+  * Calculates class for the dropdown items based on whether truncation is disabled.
+  */
+  _getTruncateClass: function(disableTruncate) {
+    return disableTruncate ? '' : 'truncate';
+  },
+
+  /**
+  * Calculates offset for the dropdown based on whether caret is shown.
+  */
+  _getOffset: function(showCaret, triggerHeight, mobile) {
+    return mobile ? 0 : showCaret ? triggerHeight + 5 : triggerHeight;
+  },
+
+  _getVertical: function(verticalAlign, mobile) {
+    return mobile ? 'middle' : verticalAlign;
+  },
+
+  _getHorizontal: function(horizontalAlign, mobile) {
+    return mobile ? 'left' : horizontalAlign;
+  },
+
+  _showCheckmark: function(multi, mobile) {
+    return multi && !mobile;
+  },
+
+  _showButtons: function(mobile,hideMobileButtons) {
+    return mobile && !hideMobileButtons;
+  }
+});

@@ -2,27 +2,25 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-- 9
+  - 9
 branches:
   except:
-  - gh-pages
+    - gh-pages
 addons:
   firefox: latest
   apt:
     sources:
-    - google-chrome
+      - google-chrome
     packages:
-    - google-chrome-stable
-before_script:
-- yarn add polymer-cli
-- polymer install --variants
+      - google-chrome-stable
+before_script: yarn add polymer-cli
 script:
-- xvfb-run wct --skip-plugin sauce
-- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --plugin sauce --skip-plugin
-  local; fi
+  - xvfb-run wct --module-resolution=node --npm --skip-plugin sauce
+  - 'if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --module-resolution=node --npm --plugin sauce --skip-plugin local; fi'
 after_failure:
-- cat /tmp/wct*/sc.log
+  - cat /tmp/wct*/sc.log
 env:
   global:
-  - secure: uNQenwW2KRVZhRsC/0zeGO1TGleZL6RHTeZ5H2wRPNOCDabi4Rr13VI0ZKUw02kvrS7B2wDZi7W0NI0LeRTKrlFD5cUnx9QyFEsL98sfFj3Jrsdpn6PS58JBf9GgwtJJJgjgty+eSyy0kJ/jVfUAFwhpcBUrpttw20OsgWi9bF1re9Y1mswTvLWl4+7owH/gRTv/9/tUOM2O0M+aTunlbknQLsc9KkB1MrYrAvkZeCTp2PQ3Mhdtz+3fD5HH5e5kAM9mFfQ+vRv9IRfeZ9S+Z1C0zuO2W0ffG9sLrSVFsiOmEPonai/dmFXxvjNXeP/DB+LdGw+2J08H8gZtOKbJLIeIn3WpaniGsLpAUzLXXYw/K5NjCvxsDcRn4SEkkpYfCW21afnWi4k7dAwsmRGf61iA3+klDoNDzIkEE/3kW2SYQteNMYRSPOsi9K5iZreUGlJwvinmyZnypCq0RkcwAwHqt4pC0wOsjcbS/Vz/dyWMt2gNwtrmXwwSFB7fU+I4c0JWHJLKNe8FMTO0wCZ0m15KMqP+qbnuIYnMwW1/F15QBB5sgm2DZ3JgnFmY+oMnE1Utwf4MHRUGK+dVjvtD7WuP9dxaf/CuN6fzRFIBHVlKbNsB745yiQjoqxBJmmV0kaRZHtwfFwbTeqdPaN9DmTtvy9wLBeOSF0bjlW9pEaQ=
-  - secure: B2ByQ74GpB9cPSKuyIwqTtVZ+yqAyk+IsDTpxcVweI61Sg6HYQIQGzepRie+i8ZC+oZw8aBVE8nHGaPdT5Mhfct/pwiFzqEl+zz4zWf7SpqrfDCHdAnGDWaBlj+ysOiEzpnPfPUS7taUG3U01TPdIpcgNDzKXCC7d0fCpJt7CZOiP4krgOp3b4h2jx4DS3YYn0K/C/FFown5wNuEtZsbPxnoMmYkY7Is/UK9dvlR3ovgNbPm8EQSXxaeceg2QyOMmj4qNcqK/1gByjylej0CIeRxGQgYm2ATlwqRN3F00JZ2VAd9RKY0plvxqfc7IYsVbiqry/drF5rgUOy4xK4RrU1oNKD7Bh8L7oNDKDtg1TP/zCMCNm5HGp+Xi4eb8um8xBMJmPFWeCSaPDyZU6zVfJms76hYnlXMw78ppWhHCxtmEYQysa5CLr9tp2+iqSDqM6gQaEVDnPUHDaZ8oYqH48WbTuzzk29/t2YVkFHwj5SKwsdSL1YMbIaUmD8nHzhWWCzmRVppf2jxGiPRNf9Qeecr/nCSog9JeLFMS3hTNeYnXWNsLG757npYBCLebySH0B/XrfpHbWBQ0TDRaDJhwhKgz1Ma94lyIJDGkhqfkzU0nHpZJLkntnjjSWDC+iIiX108C9aeAGd9gZ6v9Ln/nhjZCHTHWcHuGPW5sJlpmeU=
+    - secure: uNQenwW2KRVZhRsC/0zeGO1TGleZL6RHTeZ5H2wRPNOCDabi4Rr13VI0ZKUw02kvrS7B2wDZi7W0NI0LeRTKrlFD5cUnx9QyFEsL98sfFj3Jrsdpn6PS58JBf9GgwtJJJgjgty+eSyy0kJ/jVfUAFwhpcBUrpttw20OsgWi9bF1re9Y1mswTvLWl4+7owH/gRTv/9/tUOM2O0M+aTunlbknQLsc9KkB1MrYrAvkZeCTp2PQ3Mhdtz+3fD5HH5e5kAM9mFfQ+vRv9IRfeZ9S+Z1C0zuO2W0ffG9sLrSVFsiOmEPonai/dmFXxvjNXeP/DB+LdGw+2J08H8gZtOKbJLIeIn3WpaniGsLpAUzLXXYw/K5NjCvxsDcRn4SEkkpYfCW21afnWi4k7dAwsmRGf61iA3+klDoNDzIkEE/3kW2SYQteNMYRSPOsi9K5iZreUGlJwvinmyZnypCq0RkcwAwHqt4pC0wOsjcbS/Vz/dyWMt2gNwtrmXwwSFB7fU+I4c0JWHJLKNe8FMTO0wCZ0m15KMqP+qbnuIYnMwW1/F15QBB5sgm2DZ3JgnFmY+oMnE1Utwf4MHRUGK+dVjvtD7WuP9dxaf/CuN6fzRFIBHVlKbNsB745yiQjoqxBJmmV0kaRZHtwfFwbTeqdPaN9DmTtvy9wLBeOSF0bjlW9pEaQ=
+    - secure: B2ByQ74GpB9cPSKuyIwqTtVZ+yqAyk+IsDTpxcVweI61Sg6HYQIQGzepRie+i8ZC+oZw8aBVE8nHGaPdT5Mhfct/pwiFzqEl+zz4zWf7SpqrfDCHdAnGDWaBlj+ysOiEzpnPfPUS7taUG3U01TPdIpcgNDzKXCC7d0fCpJt7CZOiP4krgOp3b4h2jx4DS3YYn0K/C/FFown5wNuEtZsbPxnoMmYkY7Is/UK9dvlR3ovgNbPm8EQSXxaeceg2QyOMmj4qNcqK/1gByjylej0CIeRxGQgYm2ATlwqRN3F00JZ2VAd9RKY0plvxqfc7IYsVbiqry/drF5rgUOy4xK4RrU1oNKD7Bh8L7oNDKDtg1TP/zCMCNm5HGp+Xi4eb8um8xBMJmPFWeCSaPDyZU6zVfJms76hYnlXMw78ppWhHCxtmEYQysa5CLr9tp2+iqSDqM6gQaEVDnPUHDaZ8oYqH48WbTuzzk29/t2YVkFHwj5SKwsdSL1YMbIaUmD8nHzhWWCzmRVppf2jxGiPRNf9Qeecr/nCSog9JeLFMS3hTNeYnXWNsLG757npYBCLebySH0B/XrfpHbWBQ0TDRaDJhwhKgz1Ma94lyIJDGkhqfkzU0nHpZJLkntnjjSWDC+iIiX108C9aeAGd9gZ6v9Ln/nhjZCHTHWcHuGPW5sJlpmeU=
+
