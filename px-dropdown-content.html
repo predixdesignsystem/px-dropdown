@@ -535,7 +535,11 @@ limitations under the License.
           }
         }.bind(this));
       }
+      var shouldRenderSynchronously = newComputedItems.length === this._computedItems.length;
       this._computedItems = newComputedItems;
+      if (shouldRenderSynchronously) {
+        this.$.dropdownItems.render();
+      }
       if(this.clearSelectionsOnChange) {
         this.set('selected', null);
         this.set('selectedValues', []);
