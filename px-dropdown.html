@@ -173,7 +173,8 @@ Custom property | Description
         hide-selected="[[hideSelected]]"
         allow-outside-scroll="[[allowOutsideScroll]]"
         display-value-selected="{{_displayValueSelected}}"
-        disable-truncate="[[disableTruncate]]">
+        disable-truncate="[[disableTruncate]]"
+        clear-selections-on-change="[[clearSelectionsOnChange]]">
       </px-dropdown-content>
     </px-overlay-content>
   </template>
@@ -231,7 +232,7 @@ Custom property | Description
         observer: '_resetMinWidth'
       },
       /**
-       * The number of values to display as a comma separated string on multi select lists. 
+       * The number of values to display as a comma separated string on multi select lists.
        * Selections greater then this number will display as "N Selected"
        */
       displayValueCount: {

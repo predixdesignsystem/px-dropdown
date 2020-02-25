@@ -535,7 +535,11 @@ limitations under the License.
           }
         }.bind(this));
       }
+      var shouldRenderSynchronously = newComputedItems.length === this._computedItems.length;
       this._computedItems = newComputedItems;
+      if (shouldRenderSynchronously) {
+        this.$.dropdownItems.render();
+      }
       if(this.clearSelectionsOnChange) {
         this.set('selected', null);
         this.set('selectedValues', []);
@@ -568,7 +572,7 @@ limitations under the License.
     *
     * @event px-dropdown-click
     */
-    _handleActivate: function(evt) { 
+    _handleActivate: function(evt) {
       if(evt.detail.item.hasAttribute('disabled') || this.readOnly || this.disabledViewable) {
         evt.preventDefault();
       }
@@ -624,7 +628,7 @@ limitations under the License.
       if(this.multi && this.$.selector.selectedItems.length > 0 && this.$.selector.selectedItems.length <= this.displayValueCount && !this.hideSelected) {
         this.displayValueSelected = this.$.selector.selectedItems.map(function(item) {
           return item.val.trim();
-        }).join(', ');      
+        }).join(', ');
       }
       else if(this.multi && this.selectedValues.length > this.displayValueCount && !this.hideSelected) {
         this.displayValueSelected = this.selectedValues.length + ' ' + this.localize('selected');
@@ -731,7 +735,7 @@ limitations under the License.
     /**
      * Adds the class that sets pointer-events = none to disable user interactions.
      */
-    _setReadOnly: function() {      
+    _setReadOnly: function() {
       if (this.multi && this.readOnly){
         this.toggleClass('dropdown--read-only-multi',true,Polymer.dom(this.$.dropdown).querySelector('.dropdown-content'));
       } else if (this.readOnly) {
