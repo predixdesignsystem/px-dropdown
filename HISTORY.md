@@ -1,3 +1,7 @@
+# v4.10.1
+
+- Fix selection is incorrect when items changed but items count remained issue.
+
 # v4.9.3
 
 - Use margin right and left to avoid browser specific prefix fix for rtl space issue.
