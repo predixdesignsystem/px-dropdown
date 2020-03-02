@@ -1,18 +1,20 @@
 sudo: required
-dist: trusty
+dist: xenial
 language: node_js
 node_js:
-- 9
+- 10.0.0
 branches:
   except:
   - gh-pages
 addons:
-  firefox: latest
   apt:
-    sources:
-    - google-chrome
     packages:
-    - google-chrome-stable
+      # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+      - libgconf-2-4
+  chrome: beta
+  firefox: latest
+before_install:
+  - google-chrome-beta --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 before_script:
 - yarn add polymer-cli
 - polymer install --variants
